@@ -6,7 +6,7 @@ body {
 }
 
 h1.title {
-    font-family: 'Judge Italic';
+    font-family: 'Judge Italic', sans-serif;
     font-size: 3.5rem;
     color: #A6B2C0;
     padding: 0 20px;
@@ -32,7 +32,23 @@ h1.title {
     height: 48px;
 }
 
-.connectFrame{
+.selectConnectionRegister *{
+    cursor: pointer;
+}
+
+.selectConnectionRegister:not(.active) .connectFrame {
+    visibility: visible;
+}
+
+.selectConnectionRegister.active .connectFrame {
+    visibility: hidden;
+}
+
+.selectConnectionRegister:not(.active) .registerFrame {
+    visibility: visible;
+}
+
+.selectConnectionRegister.active .registerFrame {
     visibility: hidden;
 }
 
@@ -52,16 +68,99 @@ h1.title {
     margin: 0;
     z-index: 1;
     color: white;
-    font-family: 'Judge Italic';
+    font-family: 'Judge Italic', sans-serif;
     font-size: 2rem;
+    pointer-events: none;
 }
 
-.formConnection{
+.formConnectionRegister{
     position: absolute;
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
-    gap: 60px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.forgotLink {
+    display: block;
+    margin: 10px auto 0 auto;
+    width: fit-content; 
+    text-align: center;
+    color: #A6B2C0;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.forgotLink:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.passwordContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.connectForm{
+    margin-top: 40px;
+    gap: 50px;
+}
+
+.registerForm{
+    margin-top: 40px;
+    gap: 40px;
+}
+
+.hidden {
+    display: none;
+}
+
+.registerForm {
+    display: none;
+}
+
+.registerForm.active {
+    display: flex;
+}
+
+.connectForm {
+    display: none;
+}
+
+.connectForm.active {
+    display: flex;
+}
+
+.formButton {
+    width: 262px;
+    height: 42px;
+    background-color: #12273B;
+    color: white;
+    font-family: 'Judge Italic', sans-serif;
+    font-size: 1.2rem;
+    border: 2px solid #152F49;
+    cursor: pointer;
+    clip-path: polygon(
+            10px 0%,            
+            252px 0%,            
+            261px 13px,          
+            261px 29px,          
+            252px 100%,          
+            10px 100%,    
+            1px 29px,  
+            1px 13px       
+    );
+    transition: background 0.3s;
+}
+
+.formButton:hover {
+    background-color: #1c3a53;
 }

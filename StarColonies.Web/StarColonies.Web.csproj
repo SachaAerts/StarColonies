@@ -10,4 +10,8 @@
       <Folder Include="wwwroot\fonts\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Include="wwwroot\models\ConnectionRegisterModel.cs" />
+    </ItemGroup>
+
 </Project>
