@@ -1,10 +1,17 @@
+using Microsoft.EntityFrameworkCore;
 using StarColonies.Web.Middlewares;
+using StarColonies.Infrastructures.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<ReverseProxyLinksMiddleware>();
+builder.Services.AddDbContext<StarColoniesContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString
+        ("StarColoniesContext"));
+});
 
 var app = builder.Build();
 
