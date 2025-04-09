@@ -11,7 +11,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Include="wwwroot\models\ConnectionRegisterModel.cs" />
+      <Compile Include="wwwroot\models\ColonRegister.cs" />
+      <Compile Include="wwwroot\models\ConnectionModel.cs" />
+      <Compile Include="wwwroot\models\RegisterModel.cs" />
     </ItemGroup>
 
 </Project>

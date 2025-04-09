@@ -6,7 +6,9 @@ namespace StarColonies.Web.Pages.connection;
 
 public class Connection : PageModel
 {
-    [BindProperty] public ConnectionRegisterModel ConnectionRegister { get; set; } = new();
+    [BindProperty] public ConnectionModel ConnectionUser { get; set; } = new();
+    
+    [BindProperty] public RegisterModel RegisterUser { get; set; } = new();
     
     public void OnGet()
     {
@@ -14,15 +16,16 @@ public class Connection : PageModel
     
     public IActionResult OnPostLogin()
     {
-        Console.WriteLine($"[DEBUG] Username: {ConnectionRegister.EmailOrUsernameConnection}, Password: {ConnectionRegister.PasswordConnection}");
+        Console.WriteLine($"[DEBUG] Username: {ConnectionUser.EmailOrUsernameConnection}, Password: {ConnectionUser.PasswordConnection}");
         
         return Page();
     }
 
     public IActionResult OnPostRegister()
     {
-        Console.WriteLine($"[DEBUG] Email: {ConnectionRegister.EmailRegister}, Password: {ConnectionRegister.PasswordRegister}, PasswordConfirmation: {ConnectionRegister.ConfirmPasswordRegister}");
-        
-        return Page();
+        TempData["Email"] = RegisterUser.EmailRegister;
+        TempData["Password"] = RegisterUser.PasswordRegister;
+
+        return RedirectToPage("/connection/CreateColon");
     }
 }
