@@ -1,4 +1,4 @@
-﻿namespace StarColonies.Domains.Model;
+﻿namespace StarColonies.Domains.Models;
 
 public enum Type
 {
