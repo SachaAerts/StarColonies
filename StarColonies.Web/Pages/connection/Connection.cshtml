@@ -2,7 +2,8 @@
 @model StarColonies.Web.Pages.connection.Connection
 
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Connection";
+    Layout = "Shared/_LayoutConnection";
 }
 
 <div class="mainFrame">
@@ -50,7 +51,7 @@
             <button class="formButton" type="submit">Register</button>
         </form>
 
-        <div class="backgroundMainFrame">
+        <div>
             <svg width="380" height="432" viewBox="0 0 380 432" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1.5 15L10 1.5H347H378.373V33.5L371 46L378.373 60.9318V410.984L359.005 431H10.3718L1 421.315L1.5 15Z" fill="#161C2B" stroke="#152F49" stroke-width="2"/>
             </svg>
@@ -58,8 +59,7 @@
     </div>
 </div>
 
-<script src="~/js/components/input.js"></script>
-<script src="~/js/components/astronaute.js"></script>
+<script src="~/js/components/inputs/input.js"></script>
 
 <script>
     document.querySelector("form").addEventListener("submit", () => {

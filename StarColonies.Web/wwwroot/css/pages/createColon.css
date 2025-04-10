@@ -1,0 +1,11 @@
+.containFrame {
+    display: flex;
+    position: absolute;
+    gap: 50px;
+}
+
+.columnLeft{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}

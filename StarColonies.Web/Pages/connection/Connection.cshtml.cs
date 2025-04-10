@@ -6,9 +6,11 @@ namespace StarColonies.Web.Pages.connection;
 
 public class Connection : PageModel
 {
-    [BindProperty] public ConnectionModel ConnectionUser { get; set; } = new();
+    [BindProperty] 
+    public ConnectionModel ConnectionUser { get; set; } = new();
     
-    [BindProperty] public RegisterModel RegisterUser { get; set; } = new();
+    [BindProperty] 
+    public RegisterModel RegisterUser { get; set; } = new();
     
     public void OnGet()
     {
