@@ -8,6 +8,8 @@
 
     <ItemGroup>
       <Folder Include="wwwroot\fonts\" />
+      <Folder Include="wwwroot\img\components\" />
+      <Folder Include="wwwroot\img\icons\" />
     </ItemGroup>
 
     <ItemGroup>
