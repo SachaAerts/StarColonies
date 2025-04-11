@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Web.wwwroot.models;
 
-namespace StarColonies.Web.Pages.connection;
+namespace StarColonies.Web.Pages;
 
 public class Connection : PageModel
 {
@@ -28,6 +28,6 @@ public class Connection : PageModel
         TempData["Email"] = RegisterUser.EmailRegister;
         TempData["Password"] = RegisterUser.PasswordRegister;
 
-        return RedirectToPage("/connection/CreateColon");
+        return RedirectToPage("CreateColon");
     }
 }

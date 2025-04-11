@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Web.wwwroot.models;
 
-namespace StarColonies.Web.Pages.connection;
+namespace StarColonies.Web.Pages;
 
 public class CreateColon : PageModel
 {

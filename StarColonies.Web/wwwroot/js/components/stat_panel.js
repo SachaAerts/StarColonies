@@ -48,11 +48,11 @@ class StatPanel extends HTMLElement {
             </style>
             <section class="stats-panel">
                 <div class="stats-container">
-                    ${this.renderStat('force', 'img/icons/force.png')}
-                    ${this.renderStat('stamina', 'img/icons/stamina.png')}
+                    ${this.renderStat('force', '/img/icons/force.png')}
+                    ${this.renderStat('stamina', '/img/icons/stamina.png')}
                 </div>
                 <div class="stat-max">
-                    <img src="img/icons/lvl.png" alt="">
+                    <img src="/img/icons/lvl.png" alt="">
                     <p>${this.max - this.getTotalAllocated()}</p>
                 </div>
             </section>
@@ -72,9 +72,9 @@ class StatPanel extends HTMLElement {
                     <p>${name.charAt(0).toUpperCase() + name.slice(1)}</p>
                 </div>
                 <div class="modifier">
-                    <img src="img/icons/modifier.png" class="minus" alt="" draggable="false">
+                    <img src="/img/components/modifier.png" class="minus" alt="" draggable="false">
                     <p>${this.stats[name]}</p>
-                    <img src="img/icons/modifier.png" class="more" alt="" draggable="false">
+                    <img src="/img/components/modifier.png" class="more" alt="" draggable="false">
                 </div>
             </div>
         `;
