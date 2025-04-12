@@ -6,11 +6,13 @@
 }
 
 <div class="mainFrame">
-    <div>
-        <div class="containFrame">
+    <form class="containerCreateColon">
+        <h1>Create colon</h1>
+        
+        <div class="containColumn">
             <div class="columnLeft">
-                <space-input label="Settler's name" label-position="30" required></space-input>
-                <space-date label="Birthday" label-position="30" required></space-date>
+                <space-input label="Settler's name" label-position="50" required></space-input>
+                <space-date label="Birthday" label-position="50" required></space-date>
                 <space-select label="Choose profession" options='["Among us", "Among us", "Among us", "Among us", "Gay"]' required></space-select>
                 <stat-panel force="0" stamina="0" max="7"></stat-panel>
             </div>
@@ -33,12 +35,8 @@
             </div>
         </div>
 
-        <div >
-            <svg width="588" height="462" viewBox="0 0 588 462" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 26L26 1H561.5C561.5 18.5 566.5 26 586.5 26V460.5H26L1 435.5V26Z" fill="#161C2B" stroke="#152F49" stroke-width="1.5"/>
-            </svg>
-        </div>
-    </div>
+        <button class="formButton" type="submit">Create colon</button>
+    </form>
 </div>
 
 <script type="module" src="~/js/components/inputs/import.js"></script>

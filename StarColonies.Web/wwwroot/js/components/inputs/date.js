@@ -132,6 +132,7 @@ class DateInput extends HTMLElement {
             <style>
                 section {
                     position: relative;
+                    height:40px; width:270px;
                 }
                 .label {
                     position: absolute;
@@ -144,6 +145,7 @@ class DateInput extends HTMLElement {
                     top: 0%;
                     padding: 0 10px;
                     font-size: 1.5rem;
+                    font-family: 'Judge', sans-serif;
                     transform: translate(-50%,-50%);
                     white-space: nowrap;
                 }

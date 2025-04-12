@@ -43,6 +43,7 @@ class SelectInput extends HTMLElement {
             <style>
                 section {
                     position: relative;
+                    height:40px; width:270px;
                 }
                 .label {
                     position: absolute;
@@ -54,7 +55,7 @@ class SelectInput extends HTMLElement {
                     align-items: center;
                     justify-content: center;
                     
-                    left: 45%; top: 0%;
+                    left: 50%; top: 0%;
                     padding: 0 5px;
 
                     white-space: nowrap;
@@ -62,6 +63,7 @@ class SelectInput extends HTMLElement {
                     max-width: 100%; 
                     
                     font-size: 1.5rem;
+                    font-family: 'Judge', sans-serif;
                     
                     transform: translate(-50%,-50%);
                 }

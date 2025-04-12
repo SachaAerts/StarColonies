@@ -1,11 +1,32 @@
-.containFrame {
+.containerCreateColon {
+    background-color: #161C2B;
+    border: 2px solid #152F49;
+    border-radius: 5px;
+    padding: 30px;
     display: flex;
-    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.containerCreateColon h1 {
+    text-align: center;
+    font-family: 'Judge Italic', sans-serif;
+    font-size: 3.5rem;
+    color: #A6B2C0;
+    padding: 0;
+    margin: 0 0 30px 0;
+}
+
+.containColumn {
+    display: flex;
     gap: 50px;
 }
 
 .columnLeft{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 55px;
+    justify-content: center;
+    align-items: center;
 }

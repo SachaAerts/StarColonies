@@ -36,6 +36,7 @@ class Input extends HTMLElement {
             <style>
                 section {
                     position: relative;
+                    height:40px; width:270px;
                 }
                 .label {
                     position: absolute;
@@ -55,6 +56,7 @@ class Input extends HTMLElement {
                     max-width: 100%; 
                     
                     font-size: 1.5rem;
+                    font-family: 'Judge', sans-serif;
                     
                     transform: translate(-50%,-50%);
                 }
