@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<ReverseProxyLinksMiddleware>();
-builder.Services.AddDbContext<StarColoniesContext>(options =>
+builder.Services.AddDbContext<StarColoniesDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString
         ("StarColoniesContext"));
