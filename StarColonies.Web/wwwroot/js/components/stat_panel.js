@@ -40,6 +40,10 @@ class StatPanel extends HTMLElement {
         this.render();
         this.updateButtons();
     }
+    
+    get value(){
+        return this.stats.force + "-" + this.stats.stamina;
+    }
 
     render() {
         this.shadowRoot.innerHTML = `

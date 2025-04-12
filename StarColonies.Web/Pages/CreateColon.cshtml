@@ -6,7 +6,7 @@
 }
 
 <div class="mainFrame">
-    <form class="containerCreateColon">
+    <form method="post" class="containerCreateColon">
         <h1>Create colon</h1>
         
         <div class="containColumn">
@@ -15,6 +15,11 @@
                 <space-date label="Birthday" label-position="50" required></space-date>
                 <space-select label="Choose profession" options='["Among us", "Among us", "Among us", "Among us", "Gay"]' required></space-select>
                 <stat-panel force="0" stamina="0" max="7"></stat-panel>
+                
+                <input id="settler-name-hidden" asp-for="NewUser.SettlerName" type="hidden"/>
+                <input id="birthdate-hidden" asp-for="NewUser.BirthdayEntry" type="hidden"/>
+                <input id="profession-hidden" asp-for="NewUser.Profession" type="hidden"/>
+                <input id="stats-hidden" asp-for="NewUser.Statistics" type="hidden"/>
             </div>
 
             <div class="columnRight">
@@ -32,6 +37,8 @@
                     <character-item image="/img/character/11.png"></character-item>
                     <character-item image="/img/character/12.png"></character-item>
                 </character-panel>
+                
+                <input id="character-hidden" asp-for="NewUser.ProfilePicture" type="hidden"></input>
             </div>
         </div>
 
@@ -42,3 +49,31 @@
 <script type="module" src="~/js/components/inputs/import.js"></script>
 <script type="module" src="~/js/components/stat_panel.js"></script>
 <script src="~/js/components/character_panel.js"></script>
+
+<script>
+    document.querySelector("form").addEventListener("submit", () => {
+        const settlerNameComponent = document.querySelector("space-input")
+        const dateComponent = document.querySelector("space-date")
+        const professionComponent = document.querySelector("space-select")
+        const statsComponent = document.querySelector("stat-panel")
+        const panel = document.querySelector('character-panel');
+        
+        const settlerNameHidden = document.getElementById("settler-name-hidden");
+        const dateHidden = document.getElementById("birthdate-hidden")
+        const professionHidden = document.getElementById("profession-hidden")
+        const statHidden = document.getElementById("stats-hidden")
+        const characterHidden = document.getElementById("character-hidden")
+        
+        settlerNameHidden.value = settlerNameComponent.value
+        dateHidden.value = dateComponent.value
+        professionHidden.value = professionComponent.value
+        statHidden.value = statsComponent.value
+        const { selectedCharacter, uploadedCharacter } = panel.getSelectedImageDetails();
+
+        if (selectedCharacter) {
+            characterHidden.value = selectedCharacter;
+        }else if (uploadedCharacter) {
+            characterHidden.value = uploadedCharacter;
+        }
+    });
+</script>

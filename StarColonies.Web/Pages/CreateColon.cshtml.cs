@@ -13,12 +13,11 @@ public class CreateColon : PageModel
     public required string Password { get; set; } = "";
     
     [BindProperty]
-    public RegisterModel RegisterUser { get; set; } = new();
+    public NewUser NewUser { get; set; } = new();
     
     public void OnGet()
     {
-        RegisterUser.EmailRegister = Email;
-        RegisterUser.PasswordRegister = Password;
-        RegisterUser.ConfirmPasswordRegister = Password;
+        NewUser.Email = Email;
+        NewUser.Password = Password;
     }
 }

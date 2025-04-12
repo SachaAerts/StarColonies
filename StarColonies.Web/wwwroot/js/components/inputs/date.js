@@ -127,6 +127,11 @@ class DateInput extends HTMLElement {
         input.addEventListener("input", (e) => this.onTyping(e));
     }
 
+    get value() {
+        const input = this.shadowRoot.querySelector("input");
+        return input ? input.value : "";
+    }
+
     render() {
         this.shadowRoot.innerHTML = `
             <style>

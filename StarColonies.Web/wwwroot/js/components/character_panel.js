@@ -6,6 +6,7 @@ class CharacterItem extends HTMLElement {
 
     connectedCallback() {
         const imageSrc = this.getAttribute('image') || '';
+        const noInteraction = this.hasAttribute('no-interaction');
 
         this.shadowRoot.innerHTML = `
             <style>
@@ -21,13 +22,15 @@ class CharacterItem extends HTMLElement {
                     top: 50%; left: 50%;
                     transform: translate(-50%, -50%);
                     height: 70px;
+                    ${noInteraction ? '' : `
                     transition: 0.2s ease-in-out;
-                    cursor: pointer;
+                    cursor: pointer;`}
                 }
 
+                ${!noInteraction ? `
                 .character:hover {
                     height: 80px;
-                }
+                }` : ''}
 
                 svg.case {
                     width: 80px;
@@ -50,7 +53,6 @@ class CharacterItem extends HTMLElement {
 
         this.characterEl = this.shadowRoot.querySelector('.character');
         this.caseEl = this.shadowRoot.querySelector('.case');
-
         this.characterEl.addEventListener('click', () => {
             const isFocused = this.caseEl.classList.contains('focused');
 
@@ -60,6 +62,19 @@ class CharacterItem extends HTMLElement {
 
             if (!isFocused) {
                 this.caseEl.classList.add('focused');
+                this.dispatchEvent(new CustomEvent('characterSelected', {
+                    bubbles: true,
+                    detail: {
+                        image: this.getAttribute('image')
+                    }
+                }));
+            } else {
+                this.dispatchEvent(new CustomEvent('characterSelected', {
+                    bubbles: true,
+                    detail: {
+                        image: null
+                    }
+                }));
             }
         });
     }
@@ -121,7 +136,10 @@ class CharacterPanel extends HTMLElement {
                     position: absolute;
                     z-index: 5;
                 }
-
+                
+                .label {
+                    cursor:pointer;
+                }
             </style>
 
             <div class="panel">
@@ -133,13 +151,59 @@ class CharacterPanel extends HTMLElement {
                     <slot></slot>
                 </div>
                 <div class="create-button">
-                    <span class="label">IMPORT</span>
+                    <label for="file-input" class="label">Import</label>
+                    <input name="characterPanel" type="file" style="display:none" id="file-input">
                     <svg width="142" height="25" viewBox="0 0 142 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 16.4657V8.11111C1 7.88481 1.07676 7.66519 1.21774 7.48816L6.08436 1.37705C6.27409 1.13879 6.56205 1 6.86661 1H133.821C134.107 1 134.379 1.12196 134.568 1.33516L140.063 7.50834C140.226 7.69146 140.316 7.92805 140.316 8.17319V16.4036C140.316 16.6487 140.226 16.8853 140.063 17.0685L134.568 23.2416C134.379 23.4548 134.107 23.5768 133.821 23.5768H6.86662C6.56205 23.5768 6.27409 23.438 6.08436 23.1998L1.21774 17.0886C1.07676 16.9116 1 16.692 1 16.4657Z" fill="#12273B" stroke="#152F49" stroke-width="2"/>
                     </svg>
                 </div>
             </div>
         `;
+
+        const fileInput = this.shadowRoot.querySelector('#file-input');
+        const previewDiv = this.shadowRoot.querySelector('#preview');
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    this.uploadedCharacter = reader.result;
+                    this.selectedCharacter = null;
+                    this.renderPreview(previewDiv);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        this.addEventListener('characterSelected', (event) => {
+            this.selectedCharacter = event.detail.image;
+            this.uploadedCharacter = null;
+            this.renderPreview(previewDiv);
+        });
+    }
+
+    renderPreview(container) {
+        container.innerHTML = '';
+        if (this.selectedCharacter) {
+            const img = document.createElement('img');
+            img.src = this.selectedCharacter;
+            img.alt = 'Avatar sélectionné';
+            container.appendChild(img);
+        }
+        if (this.uploadedCharacter) {
+            const img = document.createElement('img');
+            img.src = this.uploadedCharacter;
+            img.alt = 'Avatar importé';
+            container.appendChild(img);
+        }
+    }
+
+    getSelectedImageDetails() {
+        return {
+            selectedCharacter: this.selectedCharacter,
+            uploadedCharacter: this.uploadedCharacter
+        };
     }
 }
 

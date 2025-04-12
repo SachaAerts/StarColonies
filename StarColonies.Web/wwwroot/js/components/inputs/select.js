@@ -6,24 +6,6 @@ class SelectInput extends HTMLElement {
 
     connectedCallback() {
         this.render();
-        this.addEventListeners();
-    }
-
-    addEventListeners() {
-        const select = this.shadowRoot.querySelector("select");
-        select.addEventListener("change", () => this.validateSelect());
-    }
-    validateSelect() {
-        const select = this.shadowRoot.querySelector("select");
-        const errorIcon = this.shadowRoot.querySelector(".error-icon");
-
-        if (this.hasAttribute("required") && select.value === "default") {
-            select.classList.add("error");
-            errorIcon.style.display = "block";
-        } else {
-            select.classList.remove("error");
-            errorIcon.style.display = "none";
-        }
     }
 
     getOptions() {
@@ -32,6 +14,11 @@ class SelectInput extends HTMLElement {
         } catch {
             return [];
         }
+    }
+
+    get value() {
+        const select = this.shadowRoot.querySelector("select")
+        return select ? select.value : null
     }
 
     render() {
@@ -90,14 +77,6 @@ class SelectInput extends HTMLElement {
                 }
                 select.error {
                     border-bottom: 1.5px solid #43366D;
-                }
-                .error-icon {
-                    position: absolute;
-                    left: 99%;
-                    top: 50%;
-                    height: 15px;
-                    transform: translate(-50%, -50%);
-                    display: none;
                 }
             </style>
             <section class="select">

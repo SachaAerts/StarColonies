@@ -30,6 +30,11 @@ class Input extends HTMLElement {
     getLabelPosition() {
         return this.getAttribute("label-position") + "%" || "30%";
     }
+    
+    get value(){
+        const input = this.shadowRoot.querySelector("input");
+        return input ? input.value : "";
+    }
 
     render() {
         this.shadowRoot.innerHTML = `
