@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Judge';
+    src: url('../../fonts/judge-font/Judge-2OaRe.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Judge Italic';
+    src: url('../../fonts/judge-font/JudgeItalic-2v1Mw.otf') format('opentype');
+    font-style: italic;
+}
