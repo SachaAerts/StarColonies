@@ -11,11 +11,14 @@
         
         <div class="containColumn">
             <div class="columnLeft">
-                <space-input label="Settler's name" label-position="50" required></space-input>
-                <space-date label="Birthday" label-position="50" required></space-date>
-                <space-select label="Choose profession" options='["Among us", "Among us", "Among us", "Among us", "Gay"]' required></space-select>
-                <stat-panel force="0" stamina="0" max="7"></stat-panel>
+                <div class="inputLeft">
+                    <space-input label="Settler's name" label-position="50" required></space-input>
+                    <space-date  label="Birthday" label-position="50" required></space-date>
+                    <space-select label="Choose profession" options='["Among us", "Among us", "Among us", "Among us", "Gay"]' required></space-select>
+                </div>
                 
+                <stat-panel force="0" stamina="0" max="7"></stat-panel>
+
                 <input id="settler-name-hidden" asp-for="NewUser.SettlerName" type="hidden"/>
                 <input id="birthdate-hidden" asp-for="NewUser.BirthdayEntry" type="hidden"/>
                 <input id="profession-hidden" asp-for="NewUser.Profession" type="hidden"/>

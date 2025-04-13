@@ -27,4 +27,8 @@
       <Compile Include="wwwroot\models\RegisterModel.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="StarColonies.Web.csproj.DotSettings.user" />
+    </ItemGroup>
+
 </Project>
