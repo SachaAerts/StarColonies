@@ -2,18 +2,33 @@
 @model StarColonies.Web.Pages.Map
 
 @{
+    ViewData["Title"] = "Map";
     Layout = null;
 }
-
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <title></title>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/components/font.css">
+    <link rel="stylesheet" href="~/css/pages/map.css">
 </head>
 <body>
-<div>
-    
-</div>
+
+<section id="viewport">
+    <div id="map">
+        <planet-item data-name="Abyssion"  data-image="abyssion.png" data-x="300" data-y="570" data-id="1">
+            <quest title="Exploration de ruines" description="Trouver des artefacts anciens"       reward="1 ressource"/>
+            <quest title="Survie nocturne"       description="Tenir 3 tours contre les prédateurs" reward="3 ressources"/>
+        </planet-item>
+        <planet-item data-name="Gaia Nova" data-image="gaia-nova.png" data-x="200"  data-y="200"  data-id="2"></planet-item>
+        <planet-item data-name="Glacius"   data-image="glacius.png"   data-x="1500" data-y="300"  data-id="3"></planet-item>
+        <planet-item data-name="Infernis"  data-image="infernis.png"  data-x="1780" data-y="1300" data-id="4"></planet-item>
+    </div>
+</section>
+
+<!-- Import js file -->
+<script src="~/js/components/planet.js"></script>
+<script src="~/js/map.js"></script>
+
 </body>
 </html>
