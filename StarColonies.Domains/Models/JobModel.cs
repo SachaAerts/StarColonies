@@ -1,6 +1,6 @@
 ﻿namespace StarColonies.Domains.Models;
 
-public enum Job
+public enum JobModel
 {
     Engineer,
     Doctor,

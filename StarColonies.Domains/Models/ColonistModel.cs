@@ -1,6 +1,6 @@
 ﻿namespace StarColonies.Domains.Models;
 
-public class Colonist
+public class ColonistModel
 {
     public required int Id { get; set; }
     public required string UserName { get; set; }

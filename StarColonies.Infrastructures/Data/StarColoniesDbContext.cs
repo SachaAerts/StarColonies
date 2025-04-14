@@ -1,14 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using StarColonies.Infrastructures.Data.dataclass;
 
 namespace StarColonies.Infrastructures.Data;
 
-// Changer DbContext par IdentityContext une fois setup
-public class StarColoniesDbContext : DbContext
+public class StarColoniesDbContext(DbContextOptions options) : IdentityDbContext<Colonist>(options)
 {
-    public StarColoniesDbContext(DbContextOptions options) : base(options)
-    {
-    }
+    public DbSet<Colonist> Colonists { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -20,6 +19,10 @@ public class StarColoniesDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         
-        // Ajout des Configurations
+        // Conversion de l'enum Job en texte dans la base de données
+        modelBuilder
+            .Entity<Colonist>()
+            .Property(c => c.JobModel)
+            .HasConversion<string>();
     }
 }
