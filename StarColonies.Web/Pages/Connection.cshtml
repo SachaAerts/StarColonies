@@ -30,12 +30,17 @@
 
             <div class="inputGroup">
                 <space-input id="email-connection-input" label="Email or username" label-position="50" required></space-input>
+                <span asp-validation-for="ConnectionUser.EmailOrUsernameConnection" class="text-danger"></span>
+                
                 <div class="passwordContainer">
                     <space-input id="password-connection-input" label="Password" label-position="50" required></space-input>
+                    <span asp-validation-for="ConnectionUser.PasswordConnection" class="text-danger"></span>
+                    
                     <a class="forgotLink" href="#">Forget password?</a>
                 </div>
             </div>
 
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <button class="formButton" type="submit">Connect</button>
         </form>
 
@@ -44,9 +49,20 @@
             <input asp-for="RegisterUser.PasswordRegister" type="hidden" id="password-register-hidden" />
             <input asp-for="RegisterUser.ConfirmPasswordRegister" type="hidden" id="confirm-password-register-hidden" />
 
-            <space-input id="email-register-input" label="Email" label-position="50" required></space-input>
-            <space-input id="password-register-input" label="Password" label-position="50" required></space-input>
-            <space-input id="confirm-password-register-input" label="Confirm password" label-position="50" required></space-input>
+            <div class="field-container">
+                <space-input class="spaceInputRegister" id="email-register-input" label="Email" label-position="50" required></space-input>
+                <span asp-validation-for="RegisterUser.EmailRegister" class="text-danger"></span>
+            </div>
+
+            <div class="field-container">
+                <space-input class="spaceInputRegister" id="password-register-input" label="Password" label-position="50" required></space-input>
+                <span asp-validation-for="RegisterUser.PasswordRegister" class="text-danger"></span>
+            </div>
+
+            <div class="field-container">
+                <space-input class="spaceInputRegister" id="confirm-password-register-input" label="Confirm password" label-position="50" required></space-input>
+                <span asp-validation-for="RegisterUser.ConfirmPasswordRegister" class="text-danger"></span>
+            </div>
 
             <button class="formButton" type="submit">Register</button>
         </form>

@@ -145,7 +145,3 @@
     );
     transition: background 0.3s;
 }
-
-.formButton:hover {
-    background-color: #1c3a53;
-}
