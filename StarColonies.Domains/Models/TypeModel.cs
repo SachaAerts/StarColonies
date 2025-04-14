@@ -1,6 +1,6 @@
 ﻿namespace StarColonies.Domains.Models;
 
-public enum Type
+public enum TypeModel
 {
     Robot,
     Natural,

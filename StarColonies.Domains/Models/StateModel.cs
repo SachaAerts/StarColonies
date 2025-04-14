@@ -1,6 +1,6 @@
 ﻿namespace StarColonies.Domains.Models;
 
-public enum State
+public enum StateModel
 {
     Available,
     Unavailable

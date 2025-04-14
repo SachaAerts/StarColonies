@@ -1,6 +1,6 @@
 ﻿namespace StarColonies.Domains.Models;
 
-public enum Role
+public enum RoleModel
 {
     Admin,
     User,

@@ -1,9 +1,11 @@
 ﻿namespace StarColonies.Domains.Models;
 
-public class Planet
+public class EnemyModel
 {
     public required int Id { get; set; }
     public required string Name { get; set; }
-    public required string Description { get; set; }
+    public required Type EnemyType { get; set; }
+    public required int Strength { get; set; }
+    public required int Stamina { get; set; }
     public required string ImagePath { get; set; }
 }

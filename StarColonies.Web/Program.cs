@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using StarColonies.Web.Middlewares;
 using StarColonies.Infrastructures.Data;
+using StarColonies.Infrastructures.Data.dataclass;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddDbContext<StarColoniesDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString
         ("StarColoniesContext"));
 });
+builder.Services.AddDefaultIdentity<Colonist>()
+    .AddEntityFrameworkStores<StarColoniesDbContext>();
 
 var app = builder.Build();
 
@@ -30,7 +33,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
