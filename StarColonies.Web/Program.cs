@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using StarColonies.Domains.Models;
 using StarColonies.Web.Middlewares;
 using StarColonies.Infrastructures.Data;
 using StarColonies.Infrastructures.Data.dataclass;
@@ -14,6 +16,7 @@ builder.Services.AddDbContext<StarColoniesDbContext>(options =>
         ("StarColoniesContext"));
 });
 builder.Services.AddDefaultIdentity<Colonist>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StarColoniesDbContext>();
 
 var app = builder.Build();
@@ -38,4 +41,58 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
+await SeedRolesAndAdminAsync(app);
+
 app.Run();
+return;
+
+static async Task SeedRolesAndAdminAsync(WebApplication app)
+{
+    using var scope = app.Services.CreateScope();
+
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Colonist>>();
+
+    string[] roles = ["Admin", "Player"];
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+
+    // ⚙️ Données du compte admin par défaut
+    const string adminUsername = "admin";
+    const string adminEmail = "admin@starcolonies.com";
+    const string adminPassword = "Password123_";
+    Colonist? adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+    if (adminUser == null)
+    {
+        var newAdmin = new Colonist
+        {
+            UserName = adminUsername,
+            Email = adminEmail,
+            DateOfBirth = new DateTime(2002, 09, 28),
+            Level = 1000,
+            Strength = 1003,
+            Endurance = 1003,
+            Musty = 100000,
+            JobModel = JobModel.Engineer
+        };
+
+        var result = await userManager.CreateAsync(newAdmin, adminPassword);
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(newAdmin, "Admin");
+        }
+        else
+        {
+            foreach (var error in result.Errors)
+            {
+                Console.WriteLine($"Error creating admin: {error.Description}");
+            }
+        }
+    }
+}
