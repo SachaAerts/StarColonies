@@ -56,7 +56,7 @@ class PlanetItem extends HTMLElement {
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center;
-                    background-image: url('/img/planet/${this.dataset.image}');
+                    background-image: url("/img/planet/${this.dataset.image}");
                     border-radius: 50%;
                     cursor: pointer;
                     z-index: 5000;
@@ -92,7 +92,7 @@ class PlanetItem extends HTMLElement {
                     padding : 10px 0;
                     width: 244px;
                     height: 330px;
-                    background-color: rgba(217, 217, 217, 0.06); /* équivalent fill-opacity="0.06" */
+                    background-color: rgba(217, 217, 217, 0.06);
                     border: 2px solid #152F49;
                     border-radius: 6px;
                     z-index: 9999;
@@ -112,6 +112,7 @@ class PlanetItem extends HTMLElement {
                         opacity: 1;
                     }
                 }
+                
                 @keyframes panel-shrink {
                     0% {
                         transform: scaleY(1);
