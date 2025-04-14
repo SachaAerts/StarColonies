@@ -1,6 +1,6 @@
 ﻿namespace StarColonies.Domains.Models;
 
-public class Planet
+public class PlanetModel
 {
     public required int Id { get; set; }
     public required string Name { get; set; }

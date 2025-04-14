@@ -8,15 +8,12 @@
 <div class="mainFrame">
     <form method="post" class="containerCreateColon">
         <h1>Create colon</h1>
-        
+
         <div class="containColumn">
             <div class="columnLeft">
-                <div class="inputLeft">
-                    <space-input label="Settler's name" label-position="50" required></space-input>
-                    <space-date  label="Birthday" label-position="50" required></space-date>
-                    <space-select label="Choose profession" options='["Among us", "Among us", "Among us", "Among us", "Gay"]' required></space-select>
-                </div>
-                
+                <space-input label="Settler's name" label-position="50" required></space-input>
+                <space-date label="Birthday" label-position="50" required></space-date>
+                <space-select label="Choose profession" options='["Among us", "Among us", "Among us", "Among us", "Gay"]' required></space-select>
                 <stat-panel force="0" stamina="0" max="7"></stat-panel>
 
                 <input id="settler-name-hidden" asp-for="NewUser.SettlerName" type="hidden"/>
@@ -40,7 +37,7 @@
                     <character-item image="/img/character/11.png"></character-item>
                     <character-item image="/img/character/12.png"></character-item>
                 </character-panel>
-                
+
                 <input id="character-hidden" asp-for="NewUser.ProfilePicture" type="hidden"></input>
             </div>
         </div>
@@ -60,13 +57,13 @@
         const professionComponent = document.querySelector("space-select")
         const statsComponent = document.querySelector("stat-panel")
         const panel = document.querySelector('character-panel');
-        
+
         const settlerNameHidden = document.getElementById("settler-name-hidden");
         const dateHidden = document.getElementById("birthdate-hidden")
         const professionHidden = document.getElementById("profession-hidden")
         const statHidden = document.getElementById("stats-hidden")
         const characterHidden = document.getElementById("character-hidden")
-        
+
         settlerNameHidden.value = settlerNameComponent.value
         dateHidden.value = dateComponent.value
         professionHidden.value = professionComponent.value

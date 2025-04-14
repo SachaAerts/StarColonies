@@ -76,7 +76,7 @@
 .forgotLink {
     display: block;
     margin: 10px auto 0 auto;
-    width: fit-content; 
+    width: fit-content;
     text-align: center;
     color: #A6B2C0;
     font-size: 0.9rem;
@@ -134,14 +134,14 @@
     border: 2px solid #152F49;
     cursor: pointer;
     clip-path: polygon(
-            10px 0%,            
-            252px 0%,            
-            261px 13px,          
-            261px 29px,          
-            252px 100%,          
-            10px 100%,    
-            1px 29px,  
-            1px 13px       
+            10px 0%,
+            252px 0%,
+            261px 13px,
+            261px 29px,
+            252px 100%,
+            10px 100%,
+            1px 29px,
+            1px 13px
     );
     transition: background 0.3s;
 }
