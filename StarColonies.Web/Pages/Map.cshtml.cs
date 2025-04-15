@@ -8,12 +8,13 @@ namespace StarColonies.Web.Pages;
 public class Map(StarColoniesDbContext context) : PageModel
 {
     
-    public List<PlanetEntity> Planets { get; set; } = new();
+    public IList<PlanetEntity> Planets { get; set; } = new List<PlanetEntity>();
     
-    public async void OnGet()
+    public async Task OnGetAsync()
     {
         Planets = await context.Planets
             .Include(p => p.Missions)
             .ToListAsync();
     }
+    
 }

@@ -14,19 +14,27 @@
 </head>
 <body>
 
-@foreach(var planet in Model.Planets)
-{
-    Console.WriteLine($"Planet: {planet.Name}");
-}
 <section id="viewport">
     <div id="map">
-        <planet-item data-name="Abyssion"  data-image="abyssion.png" data-x="300" data-y="570" data-id="1">
-            <quest title="Exploration de ruines" description="Trouver des artefacts anciens"       reward="1 ressource"/>
-            <quest title="Survie nocturne"       description="Tenir 3 tours contre les prédateurs" reward="3 ressources"/>
+        @foreach (var planet in Model.Planets)
+        {
+            Console.WriteLine($"Planet: {planet.Name}, X: {planet.X}, Y: {planet.Y}");
+            <planet-item
+                data-name="@planet.Name"
+                data-image="@{@planet.Name.ToLower()}.png"
+                data-x="@planet.X"
+                data-y="@planet.Y"
+                data-id="@planet.Id">
+
+            @foreach (var mission in planet.Missions)
+            {
+                <quest
+                    title="@mission.Name"
+                    description="Difficulté : @mission.Difficulty"
+                    reward="@($"{mission.CoinsReward} ressources")" />
+            }
         </planet-item>
-        <planet-item data-name="Gaia Nova" data-image="gaia-nova.png" data-x="200"  data-y="200"  data-id="2"></planet-item>
-        <planet-item data-name="Glacius"   data-image="glacius.png"   data-x="1500" data-y="300"  data-id="3"></planet-item>
-        <planet-item data-name="Infernis"  data-image="infernis.png"  data-x="1780" data-y="1300" data-id="4"></planet-item>
+        }
     </div>
 </section>
 
