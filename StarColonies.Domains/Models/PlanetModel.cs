@@ -6,5 +6,5 @@ public class PlanetModel
     public required string Name { get; set; }
 
     public required string ImagePath { get; set; }
-    public required ICollection<Mission> Missions { get; set; } = new List<Mission>();
+    public required ICollection<MissionModel> Missions { get; set; } = new List<MissionModel>();
 }

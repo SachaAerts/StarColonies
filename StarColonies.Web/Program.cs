@@ -62,10 +62,11 @@ static async Task SeedRolesAndAdminAsync(WebApplication app)
         }
     }
 
-    // ⚙️ Données du compte admin par défaut
+    // Données du compte admin par défaut
     const string adminUsername = "admin";
     const string adminEmail = "admin@starcolonies.com";
     const string adminPassword = "Password123_";
+    
     Colonist? adminUser = await userManager.FindByEmailAsync(adminEmail);
 
     if (adminUser == null)
