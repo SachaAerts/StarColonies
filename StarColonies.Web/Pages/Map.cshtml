@@ -14,6 +14,10 @@
 </head>
 <body>
 
+@foreach(var planet in Model.Planets)
+{
+    Console.WriteLine($"Planet: {planet.Name}");
+}
 <section id="viewport">
     <div id="map">
         <planet-item data-name="Abyssion"  data-image="abyssion.png" data-x="300" data-y="570" data-id="1">
