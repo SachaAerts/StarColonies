@@ -8,14 +8,21 @@ public class PlanetConfiguration : IEntityTypeConfiguration<PlanetModel>
 {
     public void Configure(EntityTypeBuilder<PlanetModel> builder)
     {
-        builder.HasKey(p => p.Id);
-        builder.Property(p => p.Name).IsRequired().HasMaxLength(100);
-        builder.Property(p => p.ImagePath).IsRequired();
-        builder.Property(p => p.Missions).IsRequired();
-        builder.Property(p => p.).HasMaxLength(500);
+        builder.HasKey(m => m.Id);
         
-        builder.HasMany(p => p.Missions)
-            .WithOne(m => m.Planet)
-            .HasForeignKey(m => m.PlanetId);
+        builder.Property(m => m.Name)
+               .IsRequired()
+               .HasMaxLength(100);
+        
+        builder.HasIndex(m => m.Name)
+               .IsUnique();
+        
+        builder.Property(m => m.ImagePath)
+               .IsRequired();
+
+        builder.HasMany(m => m.Missions)
+               .WithOne(p => p.Planet)
+               .HasForeignKey(m => m.PlanetId)
+               .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using StarColonies.Domains.Models;
+using StarColonies.Domains.Models.Items;
 using StarColonies.Infrastructures.Data.dataclass;
 
 namespace StarColonies.Infrastructures.Data;
@@ -11,7 +12,7 @@ public class StarColoniesDbContext(DbContextOptions options) : IdentityDbContext
     public DbSet<Colonist> Colonists { get; set; }
     public DbSet<MissionModel> Missions { get; set; }
     public DbSet<PlanetModel> Planets { get; set; }
-    public DbSet<ItemsModel> Items { get; set; }
+    public DbSet<ItemModel> Items { get; set; }
     public DbSet<EnemyModel> Enemies { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
