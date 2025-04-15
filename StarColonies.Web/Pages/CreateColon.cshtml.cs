@@ -1,10 +1,15 @@
+using System.Globalization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using StarColonies.Domains.Models;
+using StarColonies.Infrastructures.Data.dataclass;
 using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
 
-public class CreateColon : PageModel
+public class CreateColon(UserManager<Colonist> userManager, SignInManager<Colonist> signInManager)
+    :PageModel
 {
     [TempData]
     public required string Email { get; set; } = "";
@@ -19,5 +24,56 @@ public class CreateColon : PageModel
     {
         NewUser.Email = Email;
         NewUser.Password = Password;
+    }
+
+    public async Task<IActionResult> OnPost()
+    {
+        if (!ModelState.IsValid)
+            return Page();
+
+        var colonist = new Colonist
+        {
+            UserName = NewUser.Email,
+            Email = NewUser.Email,
+            DateOfBirth = DateTime.ParseExact(NewUser.BirthdayEntry, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+            JobModel = Enum.Parse<JobModel>(NewUser.Profession),
+            Level = 1,
+            Strength = GetStrengh(NewUser.Statistics),
+            Endurance = GetStamina(NewUser.Statistics),
+            Musty = 0
+        };
+
+        var result = await userManager.CreateAsync(colonist, NewUser.Password);
+
+        if (!result.Succeeded)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return Page();
+        }
+
+        await userManager.AddToRoleAsync(colonist, "Player");
+        
+        await signInManager.SignInAsync(colonist, isPersistent: false);
+
+        return RedirectToPage("/Index");
+    }
+    
+    private int GetStrengh(string stats)
+    {
+        if (string.IsNullOrWhiteSpace(stats)) return -1;
+
+        var parts = stats.Split('-');
+        return (parts.Length == 2 && int.TryParse(parts[0], out int left)) ? left : -1;
+    }
+    
+    private int GetStamina(string stats)
+    {
+        if (string.IsNullOrWhiteSpace(stats)) return -1;
+
+        var parts = stats.Split('-');
+        return (parts.Length == 2 && int.TryParse(parts[1], out int right)) ? right : -1;
     }
 }

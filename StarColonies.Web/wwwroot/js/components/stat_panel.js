@@ -42,7 +42,7 @@ class StatPanel extends HTMLElement {
     }
     
     get value(){
-        return this.stats.force + "-" + this.stats.stamina;
+        return this.stats.force + "-" + this.stats.stamina
     }
 
     render() {

@@ -20,9 +20,7 @@ public class Connection(SignInManager<Colonist> signInManager, UserManager<Colon
     public async Task<IActionResult> OnPost()
     {
         if (!ModelState.IsValid)
-        {
             return Page();
-        }
 
         var user = await userManager.FindByEmailAsync(ConnectionUser.EmailOrUsernameConnection)
                    ?? await userManager.FindByNameAsync(ConnectionUser.EmailOrUsernameConnection);

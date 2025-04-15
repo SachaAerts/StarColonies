@@ -11,18 +11,36 @@
 
         <div class="containColumn">
             <div class="columnLeft">
-                <space-input label="Settler's name" label-position="50" required></space-input>
-                <space-date label="Birthday" label-position="50" required></space-date>
-                <space-select label="Choose profession" options='["Among us", "Among us", "Among us", "Among us", "Gay"]' required></space-select>
-                <stat-panel force="0" stamina="0" max="7"></stat-panel>
+                <div>
+                    <space-input label="Settler's name" label-position="50" required></space-input>
+                    <span asp-validation-for="NewUser.SettlerName" class="text-danger"></span>
+                </div>
+                
+                <div>
+                    <space-date label="Birthday" label-position="50" required></space-date>
+                    <span asp-validation-for="NewUser.BirthdayEntry" class="text-danger"></span>
+                </div>
+                
+                <div>
+                    <space-select label="Choose profession" options='["Engineer", "Doctor", "Scientist", "Soldier"]' required></space-select>
+                    <span asp-validation-for="NewUser.Profession" class="text-danger"></span>
+                </div>
+                
+                <div>
+                    <stat-panel force="0" stamina="0" max="7"></stat-panel>
+                    <span asp-validation-for="NewUser.Statistics" class="text-danger"></span>
+                </div>
 
                 <input id="settler-name-hidden" asp-for="NewUser.SettlerName" type="hidden"/>
                 <input id="birthdate-hidden" asp-for="NewUser.BirthdayEntry" type="hidden"/>
                 <input id="profession-hidden" asp-for="NewUser.Profession" type="hidden"/>
                 <input id="stats-hidden" asp-for="NewUser.Statistics" type="hidden"/>
+                <input id="email-hidden" asp-for="NewUser.Email" type="hidden"/>
+                <input id="password-hidden" asp-for="NewUser.Password" type="hidden"/>
             </div>
 
             <div class="columnRight">
+                <input id="character-hidden" asp-for="NewUser.ProfilePicture" type="hidden"></input>
                 <character-panel>
                     <character-item image="/img/character/1.png"></character-item>
                     <character-item image="/img/character/2.png"></character-item>
@@ -37,8 +55,7 @@
                     <character-item image="/img/character/11.png"></character-item>
                     <character-item image="/img/character/12.png"></character-item>
                 </character-panel>
-
-                <input id="character-hidden" asp-for="NewUser.ProfilePicture" type="hidden"></input>
+                <span asp-validation-for="NewUser.ProfilePicture" class="text-danger"></span>
             </div>
         </div>
 

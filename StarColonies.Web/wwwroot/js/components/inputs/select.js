@@ -18,12 +18,12 @@ class SelectInput extends HTMLElement {
 
     get value() {
         const select = this.shadowRoot.querySelector("select")
-        return select ? select.value : null
+        return select ? select.value : ""
     }
 
     render() {
         const options = this.getOptions()
-            .map(option => `<option value="${option.toLowerCase()}">${option}</option>`)
+            .map(option => `<option value="${option}">${option}</option>`)
             .join("");
 
         this.shadowRoot.innerHTML = `
@@ -82,7 +82,7 @@ class SelectInput extends HTMLElement {
             <section class="select">
                 <div class="label">${this.getAttribute("label") || "Select an option"}</div>
                 <select>
-                    <option value="default" disabled selected>Choose...</option>
+                    <option value="" disabled selected>Choose...</option>
                     ${options}
                 </select>
                 <svg width="270" height="40" viewBox="0 0 270 40" fill="none" xmlns="http://www.w3.org/2000/svg">
