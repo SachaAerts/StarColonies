@@ -6,73 +6,27 @@
     Layout = "Shared/_LayoutConnection";
 }
 
-<div class="mainFrame">
-    <div>
-        <div class="selectRow">
-            <div class="selectConnectionRegister active">
-                <h2 class="selectTitle">Connection</h2>
-                <svg class="selectFrame connectFrame" width="198" height="48" viewBox="0 0 198 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.64178 15.1194L10.4218 1H196.057V33.0896L187.904 46.5672H1.64178V15.1194Z" fill="#2E4073" stroke="#152F49" stroke-width="2"/>
-                </svg>
-            </div>
-
-            <div class="selectConnectionRegister register">
-                <h2 class="selectTitle">Register</h2>
-                <svg class="selectFrame registerFrame" width="198" height="48" viewBox="0 0 198 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.64178 15.1194L10.4218 1H196.057V33.0896L187.904 46.5672H1.64178V15.1194Z" fill="#2E4073" stroke="#152F49" stroke-width="2"/>
-                </svg>
-            </div>
+<div class="mainFrameConnection">
+    <form method="post" asp-page-handler="Login" class="connectForm">
+        <input asp-for="ConnectionUser.EmailOrUsernameConnection" type="hidden" id="email-connection-hidden" />
+        <input asp-for="ConnectionUser.PasswordConnection" type="hidden" id="password-connection-hidden" />
+        
+        <div class="inputConnection">
+            <space-input id="email-connection-input" label="Email or username" label-position="50" required></space-input>
+            <span asp-validation-for="ConnectionUser.EmailOrUsernameConnection"></span>
+        </div>
+        
+        <div class="inputConnection">
+            <space-input id="password-connection-input" label="Password" label-position="50" required></space-input>
+            <span asp-validation-for="ConnectionUser.PasswordConnection"></span>
         </div>
 
-        <form method="post" class="formConnectionRegister connectForm active" asp-page-handler="Login">
-            <input asp-for="ConnectionUser.EmailOrUsernameConnection" type="hidden" id="email-connection-hidden" />
-            <input asp-for="ConnectionUser.PasswordConnection" type="hidden" id="password-connection-hidden" />
+        <a href="#">Forget password?</a>
+        <a href="/CreateColon">Create account</a>
 
-            <div class="inputGroup">
-                <space-input id="email-connection-input" label="Email or username" label-position="50" required></space-input>
-                <span asp-validation-for="ConnectionUser.EmailOrUsernameConnection" class="text-danger"></span>
-                
-                <div class="passwordContainer">
-                    <space-input id="password-connection-input" label="Password" label-position="50" required></space-input>
-                    <span asp-validation-for="ConnectionUser.PasswordConnection" class="text-danger"></span>
-                    
-                    <a class="forgotLink" href="#">Forget password?</a>
-                </div>
-            </div>
-
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <button class="formButton" type="submit">Connect</button>
-        </form>
-
-        <form method="post" class="formConnectionRegister registerForm" asp-page-handler="Register">
-            <input asp-for="RegisterUser.EmailRegister" type="hidden" id="email-register-hidden" />
-            <input asp-for="RegisterUser.PasswordRegister" type="hidden" id="password-register-hidden" />
-            <input asp-for="RegisterUser.ConfirmPasswordRegister" type="hidden" id="confirm-password-register-hidden" />
-
-            <div class="field-container">
-                <space-input class="spaceInputRegister" id="email-register-input" label="Email" label-position="50" required></space-input>
-                <span asp-validation-for="RegisterUser.EmailRegister" class="text-danger"></span>
-            </div>
-
-            <div class="field-container">
-                <space-input class="spaceInputRegister" id="password-register-input" label="Password" label-position="50" required></space-input>
-                <span asp-validation-for="RegisterUser.PasswordRegister" class="text-danger"></span>
-            </div>
-
-            <div class="field-container">
-                <space-input class="spaceInputRegister" id="confirm-password-register-input" label="Confirm password" label-position="50" required></space-input>
-                <span asp-validation-for="RegisterUser.ConfirmPasswordRegister" class="text-danger"></span>
-            </div>
-
-            <button class="formButton" type="submit">Register</button>
-        </form>
-
-        <div>
-            <svg width="380" height="432" viewBox="0 0 380 432" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1.5 15L10 1.5H347H378.373V33.5L371 46L378.373 60.9318V410.984L359.005 431H10.3718L1 421.315L1.5 15Z" fill="#161C2B" stroke="#152F49" stroke-width="2"/>
-            </svg>
-        </div>
-    </div>
+        <button class="formButton" type="submit">Connect</button>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </form>
 </div>
 
 <script src="~/js/components/inputs/input.js"></script>
@@ -81,62 +35,11 @@
     document.querySelector("form").addEventListener("submit", () => {
         const emailUsernameConnectionComponent = document.querySelector("#email-connection-input");
         const passwordConnectionComponent = document.querySelector("#password-connection-input");
-        const emailRegisterComponent = document.querySelector("#email-register-hidden")
-        const passwordRegisterComponent = document.querySelector("#password-register-hidden")
-        const confirmPasswordRegisterComponent = document.querySelector("#confirm-password-register-hidden")
-
-        const emailUsernameConnectionValue = emailUsernameConnectionComponent.shadowRoot.querySelector("input").value
-        const passwordConnectionValue = passwordConnectionComponent.shadowRoot.querySelector("input").value
-        const emailRegisterValue = emailRegisterComponent.shadowRoot.querySelector("input").value
-        const passwordRegisterValue = passwordRegisterComponent.shadowRoot.querySelector("input").value
-        const confirmPasswordRegisterValue = confirmPasswordRegisterComponent.shadowRoot.querySelector("input").value
-        
-        document.querySelector("#email-connection-hidden").value = emailUsernameConnectionValue
-        document.querySelector("#password-connection-hidden").value = passwordConnectionValue
-        document.querySelector("#email-register-hidden").value = emailRegisterValue
-        document.querySelector("#password-register-hidden").value = passwordRegisterValue
-        document.querySelector("#confirm-password-register-hidden").value = confirmPasswordRegisterValue
-    });
-
-    const connectForm = document.querySelector(".connectForm");
-    const registerForm = document.querySelector(".registerForm");
-
-    connectForm.addEventListener("submit", () => {
-        const emailUsernameConnectionComponent = document.querySelector("#email-connection-input");
-        const passwordConnectionComponent = document.querySelector("#password-connection-input");
 
         const emailUsernameConnectionValue = emailUsernameConnectionComponent.shadowRoot.querySelector("input").value;
         const passwordConnectionValue = passwordConnectionComponent.shadowRoot.querySelector("input").value;
 
         document.querySelector("#email-connection-hidden").value = emailUsernameConnectionValue;
         document.querySelector("#password-connection-hidden").value = passwordConnectionValue;
-    });
-
-    registerForm.addEventListener("submit", () => {
-        const emailRegisterComponent = document.querySelector("#email-register-input");
-        const passwordRegisterComponent = document.querySelector("#password-register-input");
-        const confirmPasswordRegisterComponent = document.querySelector("#confirm-password-register-input");
-
-        const emailRegisterValue = emailRegisterComponent.shadowRoot.querySelector("input").value;
-        const passwordRegisterValue = passwordRegisterComponent.shadowRoot.querySelector("input").value;
-        const confirmPasswordRegisterValue = confirmPasswordRegisterComponent.shadowRoot.querySelector("input").value;
-
-        document.querySelector("#email-register-hidden").value = emailRegisterValue;
-        document.querySelector("#password-register-hidden").value = passwordRegisterValue;
-        document.querySelector("#confirm-password-register-hidden").value = confirmPasswordRegisterValue;
-    });
-
-    document.querySelectorAll(".selectConnectionRegister").forEach(div => {
-        div.addEventListener("click", () => {
-            document.querySelectorAll(".selectConnectionRegister").forEach(d =>
-                d.classList.remove("active")
-            );
-            div.classList.add("active");
-
-            const isRegister = div.classList.contains("register");
-
-            connectForm.classList.toggle("active", !isRegister);
-            registerForm.classList.toggle("active", isRegister);
-        });
-    });
+    })
 </script>
