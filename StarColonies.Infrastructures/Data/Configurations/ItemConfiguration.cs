@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StarColonies.Domains.Models.Items;
+using StarColonies.Infrastructures.Data.Entities.Items;
 
 namespace StarColonies.Infrastructures.Data.Configurations.Items;
 
-public class ItemConfiguration : IEntityTypeConfiguration<ItemModel>
+public class ItemConfiguration : IEntityTypeConfiguration<ItemEntity>
 {
-    public void Configure(EntityTypeBuilder<ItemModel> builder)
+    public void Configure(EntityTypeBuilder<ItemEntity> builder)
     {
         builder.HasKey(m => m.Id);
         

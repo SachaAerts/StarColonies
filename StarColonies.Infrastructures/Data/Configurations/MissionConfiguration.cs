@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StarColonies.Domains.Models;
+using StarColonies.Infrastructures.Data.Entities;
+using StarColonies.Infrastructures.Data.Entities.Missions;
 
 namespace StarColonies.Infrastructures.Data.Configurations;
 
-public class MissionConfiguration : IEntityTypeConfiguration<MissionModel>
+public class MissionConfiguration : IEntityTypeConfiguration<MissionEntity>
 {
-    public void Configure(EntityTypeBuilder<MissionModel> builder)
+    public void Configure(EntityTypeBuilder<MissionEntity> builder)
     {
         builder.HasKey(m => m.Id);
         
@@ -24,10 +26,11 @@ public class MissionConfiguration : IEntityTypeConfiguration<MissionModel>
         builder.HasOne(m => m.Planet)
                .WithMany(p => p.Missions)
                .HasForeignKey(m => m.PlanetId)
-               .OnDelete(DeleteBehavior.Cascade); //Cascade delete if the planet is deleted
+               .OnDelete(DeleteBehavior.Cascade);
         
-        builder.HasMany(m => m.ItemsToWin)
-               .WithMany(i => i.Missions);
+        builder.HasMany(m => m.Rewards)
+               .WithOne(r => r.Mission)
+               .HasForeignKey(r => r.MissionId);
         
         builder.HasMany(m => m.Enemies)
                .WithMany(e => e.Missions);

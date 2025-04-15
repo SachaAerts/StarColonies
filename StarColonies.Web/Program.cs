@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using StarColonies.Domains.Models;
 using StarColonies.Web.Middlewares;
 using StarColonies.Infrastructures.Data;
+using StarColonies.Infrastructures.Data.Configurations.Seeder.Map;
 using StarColonies.Infrastructures.Data.dataclass;
+using StarColonies.Web.Pages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +27,8 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    // The default HSTS value is 30 days.
+    // You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -41,10 +44,25 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-await SeedRolesAndAdminAsync(app);
+await SeedRolesAndAdminAsync(app); // TODO : DO A SEEDER FOR THE DATABASE AND CALL IN SeedDataAsync
+
+await SeedDataAsync(app);
 
 app.Run();
 return;
+
+static async Task SeedDataAsync(WebApplication app)
+{
+    using var scope = app.Services.CreateScope();
+    
+    var context = scope.ServiceProvider.GetRequiredService<StarColoniesDbContext>();
+    
+    // Check if the database exists and create it if it doesn't
+    await context.Database.MigrateAsync();
+    
+    // Seed the database with initial data
+    MapSeeder.Seed(context);
+}
 
 static async Task SeedRolesAndAdminAsync(WebApplication app)
 {
@@ -61,6 +79,10 @@ static async Task SeedRolesAndAdminAsync(WebApplication app)
             await roleManager.CreateAsync(new IdentityRole(role));
         }
     }
+    
+    // Start by seeding the database
+    StarColoniesDbContext context = scope.ServiceProvider.GetRequiredService<StarColoniesDbContext>();
+    MapSeeder.Seed(context);
 
     // Données du compte admin par défaut
     const string adminUsername = "admin";

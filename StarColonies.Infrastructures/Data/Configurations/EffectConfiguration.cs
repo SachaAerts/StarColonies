@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StarColonies.Domains.Models.Items;
+using StarColonies.Infrastructures.Data.Entities.Items;
 
 namespace StarColonies.Infrastructures.Data.Configurations.Items;
 
-public class EffectConfiguration : IEntityTypeConfiguration<EffectModel>
+public class EffectConfiguration : IEntityTypeConfiguration<EffectEntity>
 {
-    public void Configure(EntityTypeBuilder<EffectModel> builder)
+    public void Configure(EntityTypeBuilder<EffectEntity> builder)
     {
         builder.HasKey(e => e.Id);
 

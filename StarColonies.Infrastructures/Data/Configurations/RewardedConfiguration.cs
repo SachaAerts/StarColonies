@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StarColonies.Domains.Models.Items;
+using StarColonies.Infrastructures.Data.Entities.Items;
+using RewardedEntity = StarColonies.Infrastructures.Data.Entities.Items.RewardedEntity;
 
 namespace StarColonies.Infrastructures.Data.Configurations.Items;
 
-public class RewardedConfiguration : IEntityTypeConfiguration<RewardedModel>
+public class RewardedConfiguration : IEntityTypeConfiguration<RewardedEntity>
 {
-    public void Configure(EntityTypeBuilder<RewardedModel> builder)
+    public void Configure(EntityTypeBuilder<RewardedEntity> builder)
     {
         builder.HasKey(r => new { r.MissionId, r.ItemId });
 

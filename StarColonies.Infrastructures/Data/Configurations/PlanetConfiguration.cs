@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StarColonies.Domains.Models;
+using StarColonies.Infrastructures.Data.Entities.Missions;
 
-namespace StarColonies.Infrastructures.Data.Configurations;
+namespace StarColonies.Infrastructures.Data.Configurations.Missions;
 
-public class PlanetConfiguration : IEntityTypeConfiguration<PlanetModel>
+public class PlanetConfiguration : IEntityTypeConfiguration<PlanetEntity>
 {
-    public void Configure(EntityTypeBuilder<PlanetModel> builder)
+    public void Configure(EntityTypeBuilder<PlanetEntity> builder)
     {
         builder.HasKey(m => m.Id);
         
