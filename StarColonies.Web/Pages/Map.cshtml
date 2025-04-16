@@ -18,25 +18,46 @@
     <div id="map">
         @foreach (var planet in Model.Planets)
         {
-            Console.WriteLine($"Planet: {planet.Name}, X: {planet.X}, Y: {planet.Y}");
             <planet-item
                 data-name="@planet.Name"
                 data-image="@{@planet.Name.ToLower()}.png"
                 data-x="@planet.X"
                 data-y="@planet.Y"
                 data-id="@planet.Id">
+                
+                @foreach (var mission in planet.Missions)
+                {
+                    <quest
+                        title="@mission.Name"
+                        description="@mission.Description"
+                        difficulty="@mission.Difficulty"
+                        reward="@mission.CoinsReward">
 
-            @foreach (var mission in planet.Missions)
-            {
-                <quest
-                    title="@mission.Name"
-                    description="@mission.Description"
-                    difficulty="Difficulté : @mission.Difficulty"
-                    reward="@($"{mission.CoinsReward}")" />
-            }
-        </planet-item>
+                        <enemies>
+                            @foreach (var enemy in mission.Enemies)
+                            {
+                                <enemy name="@enemy.Name" image="@enemy.ImagePath"></enemy>
+                            }
+                        </enemies>
+
+                        <rewards>
+                            @foreach (var reward in mission.Rewards)
+                            {
+                                <reward name="@reward.Item.Name" quantity="@reward.Quantity" image="@reward.Item.ImagePath"></reward>
+                            }
+                        </rewards>
+                    </quest>
+                }
+            </planet-item>
         }
     </div>
+
+    <section class="overlay hidden" id="overlay">
+        <div class="overlay-content">
+            <h4 style="text-align: center;">Mission</h4>
+            <button id="closeOverlay">Fermer</button>
+        </div>
+    </section>
 </section>
 
 <!-- Import js file -->

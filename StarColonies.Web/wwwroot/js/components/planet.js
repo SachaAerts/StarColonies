@@ -22,13 +22,28 @@ class PlanetItem extends HTMLElement {
         this.image = this.dataset.image   || "";
         this.x = parseInt(this.dataset.x) || 0;
         this.y = parseInt(this.dataset.y) || 0;
+        
+        this.quests = [...this.querySelectorAll('quest')].map(el => {
+            const enemies = [...el.querySelectorAll('enemy')].map(e => ({
+                name: e.getAttribute('name'),
+                image: e.getAttribute('image')
+            }));
 
-        this.quests = [...this.querySelectorAll('quest')].map(el => ({
-            title:       el.getAttribute('title')       || 'Quête inconnue',
-            description: el.getAttribute('description') || 'Description de la quête',
-            difficulty:  el.getAttribute('difficulty')  || '0',
-            reward:      el.getAttribute('reward')      || 'Aucune récompense'
-        }));
+            const rewards = [...el.querySelectorAll('reward')].map(r => ({
+                name: r.getAttribute('name'),
+                image: r.getAttribute('image'),
+                quantity: r.getAttribute('quantity')
+            }));
+
+            return {
+                title: el.getAttribute('title'),
+                description: el.getAttribute('description'),
+                difficulty: el.getAttribute('difficulty'),
+                reward: el.getAttribute('reward'),
+                enemies,
+                rewards
+            };
+        });
 
         this.innerHTML = '';
 
@@ -186,6 +201,12 @@ class PlanetItem extends HTMLElement {
                     border-radius: 6px;
                     
                     padding: 10px;
+                    
+                    transition: all .2s ease-out;
+                }
+                
+                .quest-frame:hover {
+                    transform: scale(0.95);
                 }
                 
                 .quest-frame h3 {
@@ -249,6 +270,11 @@ class PlanetItem extends HTMLElement {
         this.click = true;
     }
 
+    truncateText(text, maxLength) {
+        if (!text) return '';
+        return text.length > maxLength ? text.substring(0, maxLength).trim() + "..." : text;
+    }
+
     showQuestPanel() {
         const panel = document.createElement('div');
         panel.classList.add('quest-panel');
@@ -262,18 +288,78 @@ class PlanetItem extends HTMLElement {
 
         panel.appendChild(scrollContainer);
         this.container.appendChild(panel);
+        this.overlay(panel);
+    }
+
+    overlay(panel) {
+        panel.querySelectorAll('.quest-frame').forEach((el, index) => {
+            el.addEventListener('click', (event) => {
+                event.stopPropagation(); 
+
+                const quest = this.quests[index];
+                const enemiesHTML = quest.enemies.map(e => `
+                    <li style="display: flex; flex-direction: column; align-items: center; justify-content:center; gap: 10px; margin-bottom: 6px;">
+                        <img src="${e.image}" alt="${e.name}" height="24" />
+                        <span style="max-width: 100px; word-wrap: break-word; text-align: center;">${e.name}</span>
+                    </li>
+                `).join('');
+
+                const rewardsHTML = quest.rewards.map(r => `
+                    <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                        <img src="${r.image}" alt="${r.name}" height="24" />
+                        ${r.quantity}× ${r.name}
+                    </li>
+                `).join('');
+
+                const overlay = document.getElementById("overlay");
+                const content = overlay.querySelector('.overlay-content');
+
+                content.innerHTML = `
+                    <h4 style="text-align: center;">${quest.title}</h4>
+                    <p style="padding: 0 10px;">${quest.description}</p>
+                    <p style="padding: 0 10px;"><strong>Difficulté:</strong> ${quest.difficulty}</p>
+                    <p style="padding: 0 10px;display: flex;align-items: center;">
+                        <strong>Récompense:</strong> ${quest.reward}
+                        <img height="20" src="/img/icons/mustysCoin.png" alt="Coins">
+                    </p>
+                
+                    <div class="mobs">
+                        <h5 style="text-align: center;">Mobs à tuer :</h5>
+                        <ul style="display: flex; justify-content: center; align-items:center; gap:10px; padding: 0 10px; list-style: none; margin: 0;">
+                            ${enemiesHTML}
+                        </ul>
+                    </div>
+                
+                    <div class="rewards">
+                        <h5 style="text-align: center;">Objets à gagner :</h5>
+                        <ul style="padding: 0 10px; list-style: none; margin: 0;">${rewardsHTML}</ul>
+                    </div>
+                
+                    <button id="closeOverlay">Fermer</button>
+                `;
+
+                overlay.classList.remove("hidden");
+
+                content.querySelector("#closeOverlay").addEventListener("click", () => {
+                    overlay.classList.add("hidden");
+                });
+            });
+        });
     }
 
     generateQuestFrames() {
-        return this.quests.map(quest => `
-            <div class="quest-frame">
-                <h3>${quest.title}</h3>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <p style="padding: 0; margin: 0;">${quest.difficulty}</p>
-                    <small style="padding: 0; margin: 0;">Rewards : ${quest.reward}<img height="20" src="/img/icons/mustysCoin.png" alt="Coins"></small>
-                </div>
+        return this.quests.map((quest, i) => `
+        <div class="quest-frame" data-index="${i}">
+            <h3>${quest.title}</h3>
+            <p style="font-family: 'Pixelify Sans', sans-serif;font-size: 0.8rem">
+                ${this.truncateText(quest.description, 100)}
+            </p>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <p style="padding: 0; margin: 0;">Difficulty : ${quest.difficulty}</p>
+                <small style="padding: 0; margin: 0;">Rewards : ${quest.reward}<img height="20" src="/img/icons/mustysCoin.png" alt="Coins"></small>
             </div>
-        `).join('');
+        </div>
+    `).join('');
     }
 
 }
