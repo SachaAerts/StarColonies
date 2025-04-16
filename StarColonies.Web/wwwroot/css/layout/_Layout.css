@@ -10,20 +10,16 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
   background: url(../../img/backgroundIndex.png) center/cover fixed;
   color: white;
-  height: 100vh; width: 100vw;
 }
 
 nav {
   position: fixed;
-  top: 40%; left: 90%;
-
+  bottom: 20px; 
+  right: 20px;
+  
   display: flex;
   flex-direction: column-reverse;
   gap: 40px;
-}
-
-.navBar {
-  
 }
 
 .list-nav {
