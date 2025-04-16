@@ -305,6 +305,11 @@ namespace StarColonies.Infrastructures.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<int>("Difficulty")
                         .HasColumnType("int");
 
