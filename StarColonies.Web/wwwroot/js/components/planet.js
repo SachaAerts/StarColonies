@@ -18,15 +18,16 @@ class PlanetItem extends HTMLElement {
     }
 
     connectedCallback() {
-        this.name  = this.dataset.name || "Unknown";
-        this.image = this.dataset.image || "";
+        this.name  = this.dataset.name    || "Unknown";
+        this.image = this.dataset.image   || "";
         this.x = parseInt(this.dataset.x) || 0;
         this.y = parseInt(this.dataset.y) || 0;
 
         this.quests = [...this.querySelectorAll('quest')].map(el => ({
-            title: el.getAttribute('title') || 'Quête inconnue',
-            description: el.getAttribute('description') || '',
-            reward: el.getAttribute('reward') || 'Aucune récompense'
+            title:       el.getAttribute('title')       || 'Quête inconnue',
+            description: el.getAttribute('description') || 'Description de la quête',
+            difficulty:  el.getAttribute('difficulty')  || '0',
+            reward:      el.getAttribute('reward')      || 'Aucune récompense'
         }));
 
         this.innerHTML = '';
@@ -89,12 +90,15 @@ class PlanetItem extends HTMLElement {
 
                 .quest-panel {
                     position: absolute;
-                    padding : 10px 0;
-                    width: 244px;
-                    height: 330px;
+                    padding : 10px 5px;
+                    
+                    width: 244px; height: 330px;
+                    
                     background-color: rgba(217, 217, 217, 0.06);
+                    
                     border: 2px solid #152F49;
                     border-radius: 6px;
+                    
                     z-index: 9999;
 
                     transform-origin: center center;
@@ -170,10 +174,31 @@ class PlanetItem extends HTMLElement {
                     flex-direction: column;
                     gap: 15px;
                 }
-
+                
                 .quest-frame {
+                    color: rgba(255,255,255,0.66);
+                    
+                    font-family: 'Judge', sans-serif;
+                    
                     background: #152F49;
+                    
+                    border: 2px solid rgba(36,77,117,0.63);
+                    border-radius: 6px;
+                    
+                    padding: 10px;
                 }
+                
+                .quest-frame h3 {
+                    font-family: 'Judge Italic', sans-serif;
+                    padding: 0; margin: 0; 
+                }
+                
+                small {
+                    display: flex;
+                    align-items: center;
+                    justify-content: end;
+                }
+
             </style>
         `;
     }
@@ -243,8 +268,10 @@ class PlanetItem extends HTMLElement {
         return this.quests.map(quest => `
             <div class="quest-frame">
                 <h3>${quest.title}</h3>
-                <p>${quest.description}</p>
-                <small>Récompense : ${quest.reward} <img src=""></small>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <p style="padding: 0; margin: 0;">${quest.difficulty}</p>
+                    <small style="padding: 0; margin: 0;">Rewards : ${quest.reward}<img height="20" src="/img/icons/mustysCoin.png" alt="Coins"></small>
+                </div>
             </div>
         `).join('');
     }
