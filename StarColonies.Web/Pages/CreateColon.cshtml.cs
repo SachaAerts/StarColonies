@@ -33,7 +33,7 @@ public class CreateColon(UserManager<Colonist> userManager, SignInManager<Coloni
 
         var colonist = new Colonist
         {
-            UserName = NewUser.Email,
+            UserName = NewUser.SettlerName,
             Email = NewUser.Email,
             DateOfBirth = DateTime.ParseExact(NewUser.BirthdayEntry, "dd/MM/yyyy", CultureInfo.InvariantCulture),
             JobModel = Enum.Parse<JobModel>(NewUser.Profession),
