@@ -1,0 +1,31 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const headImg = document.getElementById("characterHead");
+    const navList = document.querySelector(".list-nav");
+
+    headImg.addEventListener("click", () => {
+        const currentState = headImg.dataset.state;
+        const nextState = currentState === "before" ? "after" : "before";
+        const nextSrc = `img/character/head_${nextState}.png`;
+
+        animateImageSwap(headImg, nextSrc, nextState);
+
+        if (navList.classList.contains("show")) {
+            navList.classList.remove("show");
+            navList.classList.add("hidde");
+
+            setTimeout(() => {
+                navList.classList.remove("hidde");
+            }, 500);
+        } else {
+            navList.classList.add("show");
+        }
+    });
+});
+
+function animateImageSwap(imgElement, newSrc, newState) {
+    setTimeout(() => {
+        imgElement.src = newSrc;
+        imgElement.dataset.state = newState;
+    }, 10);
+}
+  

@@ -1,6 +1,20 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
+
+<h1>StarColonies</h1>
+
+<section class="info">
+    <p>Plongez dans l’univers captivant de StarColonies: The Age of Middleware, un jeu de stratégie et d’exploration galactique signé Laudrikx Games. </p>
+    <p>Aux confins d’une galaxie lointaine, vous incarnez un colon intrépide débarquant sur une planète inconnue. </p>
+    <p>Accompagné de votre équipe de spécialistes – ingénieurs, médecins, scientifiques et soldats. Vous devrez bâtir, survivre, explorer et dominer.</p>
+
+    <div class="btn">
+        <button id="analyseBtn">
+            <span id="buttonText">Découvrez l'univers</span>
+            <div id="loaderBar" class="loader-bar hidden"></div>
+        </button>
+    </div>
+</section>
+
+<script src="~/js/components/loader.js"></script>
 

@@ -1,0 +1,68 @@
+h1 {
+    font-family: 'Judge Italic', sans-serif;
+    font-size: 8rem;
+    color: #A6B2C0;
+    padding: 50px;
+}
+
+.info {
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 1.2rem;
+
+    padding: 0 60% 0 60px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info p {
+    line-height: 1.8rem;
+}
+
+button {
+    background-color: #0E0327;
+    font-family: 'Judge', sans-serif;
+    font-size: 1.5rem;
+    color: #9F512D;
+    border: 1px solid #9F512D;
+    border-radius: 6px;
+    padding: 10px 30px;
+    cursor: pointer;
+
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 200px;
+    min-height: 50px;
+}
+
+#buttonText.hidden {
+    visibility: hidden;
+}
+
+.loader-bar {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 5px 2px;
+    box-sizing: border-box;
+}
+
+.loader-bar .segment {
+    flex: 1;
+    max-width: 20px;
+    height: 100%;
+    opacity: 0;
+    background-color: #9F512D;
+    border-radius: 1px;
+    transition: opacity 0.3s ease;
+    margin: 0 2px;
+}

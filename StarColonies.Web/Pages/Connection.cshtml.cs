@@ -27,7 +27,7 @@ public class Connection(SignInManager<Colonist> signInManager, UserManager<Colon
 
         if (user == null)
         {
-            ModelState.AddModelError(string.Empty, "User not found.");
+            ModelState.AddModelError(string.Empty, "User not found");
             return Page();
         }
 
@@ -38,7 +38,7 @@ public class Connection(SignInManager<Colonist> signInManager, UserManager<Colon
             return RedirectToPage("/Index");
         }
 
-        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+        ModelState.AddModelError(string.Empty, "Wrong password");
         return Page();
     }
 }

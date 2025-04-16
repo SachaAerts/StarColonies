@@ -1,0 +1,85 @@
+﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+* {
+  margin: 0; padding: 0;
+  scroll-behavior: smooth;
+  overflow: hidden;
+}
+
+body {
+  background: url(../../img/backgroundIndex.png) center/cover fixed;
+  color: white;
+  height: 100vh; width: 100vw;
+}
+
+nav {
+  position: fixed;
+  top: 40%; left: 90%;
+
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 40px;
+}
+
+.navBar {
+  
+}
+
+.list-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  justify-content: center;
+  flex-direction: column-reverse;
+  visibility: hidden;
+}
+
+.list-nav.show {
+  visibility: visible;
+}
+
+.list-nav.hidde {
+  visibility: hidden;
+}
+
+.list-nav img {
+  height: 50px; width: 60px;
+}
+
+.list-nav .item-nav {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: .05s ease-in;
+}
+
+.list-nav .item-nav .label {
+  font-family: 'Judge', sans-serif;
+  position: relative;
+  display: none;
+  white-space: nowrap;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.list-nav .item-nav:hover {
+  transform: scale(1.1);
+}
+
+.list-nav.show .item-nav:nth-child(1) { transition-delay: 0s;   }
+.list-nav.show .item-nav:nth-child(2) { transition-delay: 0.1s; }
+.list-nav.show .item-nav:nth-child(3) { transition-delay: 0.2s; }
+.list-nav.show .item-nav:nth-child(4) { transition-delay: 0.3s; }
+.list-nav.show .item-nav:nth-child(5) { transition-delay: 0.4s; }
+
+.list-nav.hidde .item-nav:nth-child(1) { transition-delay: 0.4s; }
+.list-nav.hidde .item-nav:nth-child(2) { transition-delay: 0.3s; }
+.list-nav.hidde .item-nav:nth-child(3) { transition-delay: 0.2s; }
+.list-nav.hidde .item-nav:nth-child(4) { transition-delay: 0.1s; }
+.list-nav.hidde .item-nav:nth-child(5) { transition-delay: 0s;   }

@@ -9,45 +9,36 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - StarColonies.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/StarColonies.Web.styles.css" asp-append-version="true"/>
+    <title>@ViewData["Title"] - StarColonies</title>
+    <link rel="stylesheet" href="~/css/fonts.css"/>
+    <link rel="stylesheet" href="~/css/pages/index.css"/>
+    <link rel="stylesheet" href="~/css/layout/_Layout.css"/>
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" asp-area="" asp-page="/Index">StarColonies.Web</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                    </li>
-                    @if (User.Identity is not { IsAuthenticated: true })
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Connection">Connection</a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <p>Bonjour @User.Identity.Name</p>
-                            <form method="post" asp-page="/Logout" class="form-inline">
-                                <button type="submit" class="btn btn-link nav-link text-dark">Logout</button>
-                            </form>
-                        </li>
-                    }
-                </ul>
-            </div>
+    <nav class="navBar">
+        <div class="btnActive">
+            <img src="img/character/head_before.png" alt="" id="characterHead" data-state="before">
+            <!--             <svg width="191" height="104" viewBox="0 0 191 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.590227 15.0528L15.1527 0.58136C15.5274 0.208996 16.0342 0 16.5625 0H165.295C165.824 0 166.331 0.208997 166.705 0.581361L181.268 15.0528C181.645 15.4282 181.858 15.9388 181.858 16.4714V75.7814C181.858 76 181.894 76.2171 181.964 76.4241L190.344 101.12C190.931 102.848 189.085 104.395 187.485 103.514L166.571 91.9988C166.275 91.8361 165.943 91.7508 165.606 91.7508H16.5625C16.0342 91.7508 15.5274 91.5418 15.1527 91.1695L0.590227 76.698C0.212439 76.3226 0 75.812 0 75.2794V16.4714C0 15.9388 0.212439 15.4282 0.590227 15.0528Z" fill="#D1D1D1"/>
+                        </svg>      -->
+        </div>
+        <div class="list-nav">
+            <a class="item-nav" href="#">
+                <img src="img/icons/nav1.png" alt="">
+            </a>
+            <a class="item-nav" href="#">
+                <img src="img/icons/nav1.png" alt="">
+            </a>
+            <a class="item-nav" href="#">
+                <img src="img/icons/nav1.png" alt="">
+            </a>
+            <a class="item-nav" href="#">
+                <img src="img/icons/nav1.png" alt="">
+            </a>
+            <a class="item-nav" href="#">
+                <img src="img/icons/nav1.png" alt="">
+            </a>
         </div>
     </nav>
 </header>
@@ -57,15 +48,9 @@
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2025 - StarColonies.Web - <a asp-area="" asp-page="/Privacy">Privacy</a>
-    </div>
-</footer>
-
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/components/nav_bar.js"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>
