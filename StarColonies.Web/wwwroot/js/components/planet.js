@@ -1,5 +1,4 @@
-﻿
-/**
+﻿/**
  * balise : <planet-item ...></planet-item>
  * attributs :
  *  - data-name="<NAME>"
@@ -219,7 +218,6 @@ class PlanetItem extends HTMLElement {
                     align-items: center;
                     justify-content: end;
                 }
-
             </style>
         `;
     }
@@ -294,59 +292,36 @@ class PlanetItem extends HTMLElement {
     overlay(panel) {
         panel.querySelectorAll('.quest-frame').forEach((el, index) => {
             el.addEventListener('click', (event) => {
-                event.stopPropagation(); 
+                event.stopPropagation();
 
                 const quest = this.quests[index];
-                const enemiesHTML = quest.enemies.map(e => `
-                    <li style="display: flex; flex-direction: column; align-items: center; justify-content:center; gap: 10px; margin-bottom: 6px;">
-                        <img src="${e.image}" alt="${e.name}" height="24" />
-                        <span style="max-width: 100px; word-wrap: break-word; text-align: center;">${e.name}</span>
-                    </li>
-                `).join('');
 
-                const rewardsHTML = quest.rewards.map(r => `
-                    <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-                        <img src="${r.image}" alt="${r.name}" height="24" />
-                        ${r.quantity}× ${r.name}
-                    </li>
-                `).join('');
+                renderOverlay("missionDetails", quest);
 
-                const overlay = document.getElementById("overlay");
-                const content = overlay.querySelector('.overlay-content');
+                setTimeout(() => {
+                    const launchBtn = document.querySelector("#launchMission");
 
-                content.innerHTML = `
-                    <h4 style="text-align: center;">${quest.title}</h4>
-                    <p style="padding: 0 10px;">${quest.description}</p>
-                    <p style="padding: 0 10px;"><strong>Difficulté:</strong> ${quest.difficulty}</p>
-                    <p style="padding: 0 10px;display: flex;align-items: center;">
-                        <strong>Récompense:</strong> ${quest.reward}
-                        <img height="20" src="/img/icons/mustysCoin.png" alt="Coins">
-                    </p>
-                
-                    <div class="mobs">
-                        <h5 style="text-align: center;">Mobs à tuer :</h5>
-                        <ul style="display: flex; justify-content: center; align-items:center; gap:10px; padding: 0 10px; list-style: none; margin: 0;">
-                            ${enemiesHTML}
-                        </ul>
-                    </div>
-                
-                    <div class="rewards">
-                        <h5 style="text-align: center;">Objets à gagner :</h5>
-                        <ul style="padding: 0 10px; list-style: none; margin: 0;">${rewardsHTML}</ul>
-                    </div>
-                
-                    <button id="closeOverlay">Fermer</button>
-                `;
+                    if (launchBtn) {
+                        launchBtn.addEventListener("click", () => {
+                            const data = {
+                                teams: [
+                                    { id: 1, name: "Équipe Alpha" },
+                                    { id: 2, name: "Équipe Beta" }
+                                ],
+                                items: [
+                                    { id: 1, name: "Kit de soins", image: "/img/items/medkit.png" },
+                                    { id: 2, name: "Amplificateur", image: "/img/items/booster.png" }
+                                ]
+                            };
 
-                overlay.classList.remove("hidden");
-
-                content.querySelector("#closeOverlay").addEventListener("click", () => {
-                    overlay.classList.add("hidden");
-                });
+                            renderOverlay("teamSelection", data);
+                        });
+                    }
+                }, 50);
             });
         });
     }
-
+    
     generateQuestFrames() {
         return this.quests.map((quest, i) => `
         <div class="quest-frame" data-index="${i}">
