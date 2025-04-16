@@ -1,4 +1,4 @@
-﻿namespace StarColonies.Infrastructures.Data.Configuration;
+﻿namespace StarColonies.Infrastructures.Data.Configurations;
 
 public class ColonistConfiguration
 {

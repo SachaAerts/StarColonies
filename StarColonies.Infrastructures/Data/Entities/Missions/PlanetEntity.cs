@@ -1,13 +1,14 @@
-﻿using StarColonies.Domains.Models;
-
-namespace StarColonies.Infrastructures.Data.Entities;
+﻿namespace StarColonies.Infrastructures.Data.Entities.Missions;
 
 public class PlanetEntity
 {
-    public required int Id { get; set; }
+    public int Id { get; set; }
     public required string Name { get; set; }
+
+    public required int X { get; set; }
+    public required int Y { get; set; }
 
     public required string ImagePath { get; set; }
     
-    public required ICollection<MissionEntity> Missions { get; set; } = new List<MissionEntity>();
+    public ICollection<MissionEntity> Missions { get; set; } = new List<MissionEntity>();
 }

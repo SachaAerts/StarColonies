@@ -1,12 +1,15 @@
-﻿namespace StarColonies.Domains.Models.Items;
+﻿using StarColonies.Domains.Models;
+using StarColonies.Infrastructures.Data.Entities.Missions;
+
+namespace StarColonies.Infrastructures.Data.Entities.Items;
 
 public class RewardedEntity
 {
-    public int MissionId { get; set; }
-    public MissionModel Mission { get; set; }
+    public required int MissionId { get; set; }
+    public required MissionEntity Mission { get; set; }
 
-    public int ItemId { get; set; }
-    public ItemEntity Item { get; set; }
+    public required int ItemId { get; set; }
+    public required ItemEntity Item { get; set; }
 
-    public int Quantity { get; set; } = 1;
+    public required int Quantity { get; set; } = 1;
 }

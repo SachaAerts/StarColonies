@@ -13,6 +13,6 @@ public class MissionModel
     
     public required int CoinsReward { get; set; }
     
-    public required ICollection<RewardedModel> Rewards { get; set; } = new List<RewardedModel>();
+    public required ICollection<ItemModel> Rewards { get; set; } = new List<ItemModel>();
     public required ICollection<EnemyModel> Enemies { get; set; } = new List<EnemyModel>();
 }

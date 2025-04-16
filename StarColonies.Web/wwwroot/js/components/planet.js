@@ -244,7 +244,7 @@ class PlanetItem extends HTMLElement {
             <div class="quest-frame">
                 <h3>${quest.title}</h3>
                 <p>${quest.description}</p>
-                <small>Récompense : ${quest.reward}</small>
+                <small>Récompense : ${quest.reward} <img src=""></small>
             </div>
         `).join('');
     }

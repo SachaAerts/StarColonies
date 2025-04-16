@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StarColonies.Infrastructures.Data.Entities.Missions;
 
-namespace StarColonies.Infrastructures.Data.Configurations.Missions;
+namespace StarColonies.Infrastructures.Data.Configurations;
 
 public class PlanetConfiguration : IEntityTypeConfiguration<PlanetEntity>
 {
@@ -16,6 +16,13 @@ public class PlanetConfiguration : IEntityTypeConfiguration<PlanetEntity>
         
         builder.HasIndex(m => m.Name)
                .IsUnique();
+        
+        builder.Property(m => m.X)
+               .IsRequired()
+               .HasDefaultValue(100); 
+        builder.Property(m => m.Y)
+               .IsRequired()
+               .HasDefaultValue(100);
         
         builder.Property(m => m.ImagePath)
                .IsRequired();

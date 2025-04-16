@@ -12,6 +12,4 @@ public class ItemModel
     public required int CoinsValue { get; set; }
     
     public required string ImagePath { get; set; } = "DEFAULT IMAGE PATH";
-    
-    public required ICollection<RewardedModel> Rewards { get; set; } = new List<RewardedModel>();
 }
