@@ -19,6 +19,7 @@ class PlanetItem extends HTMLElement {
     connectedCallback() {
         this.name  = this.dataset.name    || "Unknown";
         this.image = this.dataset.image   || "";
+        console.log(this.image);
         this.x = parseInt(this.dataset.x) || 0;
         this.y = parseInt(this.dataset.y) || 0;
         this.teams = [];
@@ -80,7 +81,7 @@ class PlanetItem extends HTMLElement {
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center;
-                    background-image: url("/img/planet/${this.dataset.image}");
+                    background-image: url("${this.dataset.image}");
                     border-radius: 50%;
                     cursor: pointer;
                     z-index: 5000;
