@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using StarColonies.Infrastructures.Data.dataclass
+@inject SignInManager<Colonist> SignInManager
+@inject UserManager<Colonist> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -25,12 +31,21 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="Connection">Connection</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="Map">Map</a>
-                    </li>
+                    @if (User.Identity is not { IsAuthenticated: true })
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Connection">Connection</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <p>Bonjour @User.Identity.Name</p>
+                            <form method="post" asp-page="/Logout" class="form-inline">
+                                <button type="submit" class="btn btn-link nav-link text-dark">Logout</button>
+                            </form>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>

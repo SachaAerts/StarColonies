@@ -67,12 +67,6 @@
     flex-direction: column;
 }
 
-.inputGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-}
-
 .forgotLink {
     display: block;
     margin: 10px auto 0 auto;

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using StarColonies.Domains.Models;
 using StarColonies.Infrastructures.Data.dataclass;
 using StarColonies.Web.wwwroot.models;
 
@@ -12,18 +13,15 @@ public class Connection(SignInManager<Colonist> signInManager, UserManager<Colon
     [BindProperty] 
     public ConnectionModel ConnectionUser { get; set; } = new();
     
-    [BindProperty] 
-    public RegisterModel RegisterUser { get; set; } = new();
-    
     public void OnGet()
     {
     }
     
-    public async Task<IActionResult> OnPostLoginAsync()
+    public async Task<IActionResult> OnPost()
     {
         if (!ModelState.IsValid)
             return Page();
-        
+
         var user = await userManager.FindByEmailAsync(ConnectionUser.EmailOrUsernameConnection)
                    ?? await userManager.FindByNameAsync(ConnectionUser.EmailOrUsernameConnection);
 
@@ -42,13 +40,5 @@ public class Connection(SignInManager<Colonist> signInManager, UserManager<Colon
 
         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         return Page();
-    }
-
-    public IActionResult OnPostRegister()
-    {
-        TempData["Email"] = RegisterUser.EmailRegister;
-        TempData["Password"] = RegisterUser.PasswordRegister;
-
-        return RedirectToPage("CreateColon");
     }
 }
