@@ -1,4 +1,5 @@
 ﻿@page
+@using System.Text.Encodings.Web
 @model StarColonies.Web.Pages.Map
 
 @{
@@ -14,6 +15,13 @@
 </head>
 <body>
 
+@{
+    var coloniesJson = System.Text.Json.JsonSerializer.Serialize(Model.Colonies.Select(c => new {
+        id = c.Id,
+        name = c.Name
+    }));
+}
+
 <section id="viewport">
     <div id="map">
         @foreach (var planet in Model.Planets)
@@ -24,7 +32,8 @@
                 data-x="@planet.X"
                 data-y="@planet.Y"
                 data-id="@planet.Id">
-                
+                data-teams='@Html.Raw(HtmlEncoder.Default.Encode(coloniesJson))'>
+
                 @foreach (var mission in planet.Missions)
                 {
                     <quest
@@ -64,6 +73,14 @@
 <script src="~/js/components/planet.js"></script>
 <script src="~/js/map.js"></script>
 <script src="~/js/missionLaunch.js"></script>
+
+<script>
+    const userColonies = @Html.Raw(Json.Serialize(Model.Colonies.Select(c => new
+                         {
+                             id = c.Id,
+                             name = c.Name
+                         })));
+</script>
 
 </body>
 </html>

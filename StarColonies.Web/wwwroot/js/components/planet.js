@@ -21,6 +21,15 @@ class PlanetItem extends HTMLElement {
         this.image = this.dataset.image   || "";
         this.x = parseInt(this.dataset.x) || 0;
         this.y = parseInt(this.dataset.y) || 0;
+        this.teams = [];
+
+        try {
+            if (this.dataset.teams) {
+                this.teams = JSON.parse(this.dataset.teams);
+            }
+        } catch (e) {
+            console.warn("Failed to parse teams data", e);
+        }
         
         this.quests = [...this.querySelectorAll('quest')].map(el => {
             const enemies = [...el.querySelectorAll('enemy')].map(e => ({
@@ -304,10 +313,7 @@ class PlanetItem extends HTMLElement {
                     if (launchBtn) {
                         launchBtn.addEventListener("click", () => {
                             const data = {
-                                teams: [
-                                    { id: 1, name: "Équipe Alpha" },
-                                    { id: 2, name: "Équipe Beta" }
-                                ],
+                                teams: this.teams,
                                 items: [
                                     { id: 1, name: "Kit de soins", image: "/img/items/medkit.png" },
                                     { id: 2, name: "Amplificateur", image: "/img/items/booster.png" }

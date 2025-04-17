@@ -75,6 +75,13 @@ function renderMissionDetails(quest) {
 }
 
 function renderTeamSelection({ teams, items }) {
+    if (!teams || teams.length === 0) {
+        return `
+            <h4>Vous n’avez encore aucune colonie pour lancer une mission.</h4>
+            <button id="closeOverlay">Fermer</button>
+        `;
+    }
+
     const teamsHTML = teams.map(team => `
         <option value="${team.id}">${team.name}</option>
     `).join('');
@@ -82,14 +89,14 @@ function renderTeamSelection({ teams, items }) {
     const itemsHTML = items.map(item => `
         <label>
             <input type="checkbox" value="${item.id}"/>
-            <img src="${item.image}" height="20"> ${item.name}
+            <img src="${item.image}" height="20" alt="Image"> ${item.name}
         </label>
     `).join('<br>');
 
     return `
         <h4>Choisissez une colonie et des objets</h4>
 
-        <label>Équipe :
+        <label>Colonie :
             <select id="teamSelect">${teamsHTML}</select>
         </label>
 

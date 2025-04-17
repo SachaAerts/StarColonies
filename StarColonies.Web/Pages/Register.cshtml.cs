@@ -2,16 +2,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models;
-using StarColonies.Infrastructures.Data.dataclass;
+using StarColonies.Infrastructures.Data.Entities;
 using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
 
-public class Register(UserManager<Colonist> userManager)
+public class Register(UserManager<ColonistEntity> userManager)
     :PageModel
 {
     [BindProperty] 
-    public RegisterModel RegisterUser { get; set; }
+    public required RegisterModel RegisterUser { get; set; }
     
     public void OnGet()
     {
@@ -29,7 +29,7 @@ public class Register(UserManager<Colonist> userManager)
             return Page();
         }
 
-        var fakeUser = new Colonist
+        var fakeUser = new ColonistEntity()
         {
             Email = RegisterUser.EmailRegister, 
             UserName = RegisterUser.EmailRegister,

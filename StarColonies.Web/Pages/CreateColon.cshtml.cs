@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models;
-using StarColonies.Infrastructures.Data.dataclass;
+using StarColonies.Infrastructures.Data.Entities;
 using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
 
-public class CreateColon(UserManager<Colonist> userManager, SignInManager<Colonist> signInManager)
+public class CreateColon(UserManager<ColonistEntity> userManager, SignInManager<ColonistEntity> signInManager)
     :PageModel
 {
     [TempData]
@@ -31,7 +31,7 @@ public class CreateColon(UserManager<Colonist> userManager, SignInManager<Coloni
         if (!ModelState.IsValid)
             return Page();
 
-        var colonist = new Colonist
+        var colonist = new ColonistEntity()
         {
             UserName = NewUser.SettlerName,
             Email = NewUser.Email,

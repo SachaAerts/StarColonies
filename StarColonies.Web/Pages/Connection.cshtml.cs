@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models;
-using StarColonies.Infrastructures.Data.dataclass;
+using StarColonies.Infrastructures.Data.Entities;
 using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
 
-public class Connection(SignInManager<Colonist> signInManager, UserManager<Colonist> userManager)
+public class Connection(SignInManager<ColonistEntity> signInManager, UserManager<ColonistEntity> userManager)
     : PageModel
 {
     [BindProperty] 

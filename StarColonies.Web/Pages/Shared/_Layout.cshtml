@@ -1,8 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@using StarColonies.Infrastructures.Data.dataclass
-@inject SignInManager<Colonist> SignInManager
-@inject UserManager<Colonist> UserManager
+@using StarColonies.Infrastructures.Data.Entities
+
+@inject SignInManager<ColonistEntity> SignInManager
+@inject UserManager<ColonistEntity> UserManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,6 +45,9 @@
                             <form method="post" asp-page="/Logout" class="form-inline">
                                 <button type="submit" class="btn btn-link nav-link text-dark">Logout</button>
                             </form>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Map">Carte</a>
                         </li>
                     }
                 </ul>
