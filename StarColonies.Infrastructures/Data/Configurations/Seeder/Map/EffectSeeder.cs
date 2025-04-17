@@ -4,7 +4,6 @@ namespace StarColonies.Infrastructures.Data.Configurations.Seeder.Map;
 
 public class EffectSeeder
 {
-
     public static List<EffectEntity> SeedEffects(StarColoniesDbContext context)
     {
         var effects = new List<EffectEntity>
