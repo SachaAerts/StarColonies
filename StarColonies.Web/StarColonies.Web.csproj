@@ -16,7 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot\img\upload\" />
       <ProjectReference Include="..\StarColonies.Infrastructures\StarColonies.Infrastructures.csproj" />
       <Folder Include="wwwroot\fonts\" />
       <Folder Include="wwwroot\img\components\" />

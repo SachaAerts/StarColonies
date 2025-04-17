@@ -3,17 +3,9 @@
 @model StarColonies.Web.Pages.Map
 
 @{
-    ViewData["Title"] = "Map";
-    Layout = null;
+    ViewData["Title"] = "Missions";
+    Layout = "Shared/_Layout";
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/components/font.css">
-    <link rel="stylesheet" href="~/css/pages/map.css">
-</head>
-<body>
 
 @{
     var coloniesJson = System.Text.Json.JsonSerializer.Serialize(Model.Colonies.Select(c => new {
@@ -29,6 +21,7 @@
             <planet-item
                 data-name="@planet.Name"
                 data-image="@{@planet.Name.ToLower()}.png"
+                @{ Console.WriteLine(@planet.Name);}
                 data-x="@planet.X"
                 data-y="@planet.Y"
                 data-id="@planet.Id"
@@ -73,6 +66,3 @@
 <script src="~/js/components/planet.js"></script>
 <script src="~/js/map.js"></script>
 <script src="~/js/missionLaunch.js"></script>
-
-</body>
-</html>

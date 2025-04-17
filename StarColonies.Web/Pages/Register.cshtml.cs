@@ -38,7 +38,8 @@ public class Register(UserManager<ColonistEntity> userManager)
             Level = 1,
             Strength = 1,
             Endurance = 1,
-            Musty = 0
+            Musty = 0,
+            ProfilPicture = "img/character/1.png"
         };
         var pwdCheck = await userManager.PasswordValidators[0].ValidateAsync(userManager, fakeUser, RegisterUser.PasswordRegister);
 

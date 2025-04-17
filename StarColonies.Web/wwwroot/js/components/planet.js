@@ -80,7 +80,7 @@ class PlanetItem extends HTMLElement {
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center;
-                    background-image: url("/img/planet/${this.dataset.image}");
+                    background-image: url("img/planet/${this.dataset.image}");
                     border-radius: 50%;
                     cursor: pointer;
                     z-index: 5000;

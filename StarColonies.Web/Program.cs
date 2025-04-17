@@ -51,14 +51,13 @@ await SeedDataAsync(app);
 app.Run();
 return;
 
-static async Task SeedDataAsync(WebApplication app)
+static Task SeedDataAsync(WebApplication app)
 {
     using var scope = app.Services.CreateScope();
     
     var context = scope.ServiceProvider.GetRequiredService<StarColoniesDbContext>();
     
-    await context.Database.MigrateAsync();
-    
     MapSeeder.Seed(context);
     ColonieSeeder.Seed(context);
+    return Task.CompletedTask;
 }

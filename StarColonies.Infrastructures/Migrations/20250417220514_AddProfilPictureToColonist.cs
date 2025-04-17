@@ -5,7 +5,7 @@
 namespace StarColonies.Infrastructures.Migrations
 {
     /// <inheritdoc />
-    public partial class EnemiesUpdate : Migration
+    public partial class AddProfilPictureToColonist : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

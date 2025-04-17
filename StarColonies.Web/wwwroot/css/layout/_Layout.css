@@ -6,7 +6,7 @@
 }
 
 body {
-  background: url(../../img/backgroundIndex.png) center/cover fixed;
+  /*background: url(../../img/backgroundIndex.png) center/cover fixed;*/
   color: white;
 }
 
@@ -14,7 +14,7 @@ nav {
     position: fixed;
     bottom: 20px; 
     right: 20px;
-    
+    z-index: 2000;
     display: flex;
     flex-direction: column-reverse;
     gap: 40px;
