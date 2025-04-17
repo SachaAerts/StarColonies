@@ -26,14 +26,14 @@ function renderOverlay(type, data) {
 function renderMissionDetails(quest) {
     const enemies = quest.enemies.map(e => `
         <li style="display: flex; flex-direction: column; align-items: center; justify-content:center; gap: 10px; margin-bottom: 6px;">
-            <img src="${e.image}" alt="${e.name}" height="24" />
+            <img src="${e.image}" alt="${e.name}" height="24"/>
             <span style="max-width: 100px; word-wrap: break-word; text-align: center;">${e.name}</span>
         </li>
     `).join('');
 
     const rewards = quest.rewards.map(r => `
         <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-            <img src="${r.image}" alt="${r.name}" height="24" />
+            <img src="${r.image}" alt="${r.name}" height="24"/>
             ${r.quantity}× ${r.name}
         </li>
     `).join('');
@@ -41,9 +41,9 @@ function renderMissionDetails(quest) {
     return `
         <link rel="stylesheet" href="/css/components/button.css">
         <h4 style="text-align: center;">${quest.title}</h4>
-        <p style="padding: 0 10px;">${quest.description}</p>
-        <p style="padding: 0 10px;"><strong>Difficulté:</strong> ${quest.difficulty}</p>
-        <p style="padding: 0 10px;display: flex;align-items: center;">
+        <p  style="padding: 0 10px;">${quest.description}</p>
+        <p  style="padding: 0 10px;"><strong>Difficulté:</strong> ${quest.difficulty}</p>
+        <p  style="padding: 0 10px;display: flex;align-items: center;">
             <strong>Récompense:</strong> ${quest.reward}
             <img height="20" src="/img/icons/mustysCoin.png" alt="Coins">
         </p>
@@ -110,5 +110,47 @@ function renderTeamSelection({ teams, items }) {
         </div>
 
         <button id="closeOverlay">Annuler</button>
+        
+        <style>
+            .button-container {
+                position: absolute;
+                bottom: 5px; right: 5px;     
+            }
+            #confirmLaunch {
+                background-color: #0E0327;
+                font-family: 'Judge', sans-serif;
+                font-size: 1.5rem;
+                color: #9F512D;
+                border: 1px solid #9F512D;
+                border-radius: 6px;
+                padding: 10px 30px;
+                cursor: pointer;
+            
+                position: relative;
+                overflow: hidden;
+            
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            
+                min-width: 200px;
+                min-height: 50px;
+            }
+            label {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+            select {
+                padding: 3px 4px;
+                color: rgba(255,255,255,0.53);
+                border: 1px solid #284d74;
+                border-radius: 4px;
+                background-color: #192f44;
+            }
+            select:focus-visible {
+                outline: none;
+            }
+        </style>
     `;
 }

@@ -23,12 +23,21 @@ public class Map(StarColoniesDbContext? context, UserManager<ColonistEntity> use
         }
         
         Planets = await context!.Planets
-            .Include(p => p.Missions)
-            .ThenInclude(m => m.Enemies)
-            .Include(p => p.Missions)
-            .ThenInclude(m => m.Rewards)
-            .ThenInclude(r => r.Item)
+                .Include(p => p.Missions)
+                .ThenInclude(m => m.Enemies)
+                .Include(p => p.Missions)
+                .ThenInclude(m => m.Rewards)
+                .ThenInclude(r => r.Item)
+                .ToListAsync();
+        
+        Colonies = await context.Colonies
+            .Where(c => c.Members.Any(m => m.ColonistId == user.Id))
             .ToListAsync();
+
+        foreach (var colony in Colonies)
+        {
+            Console.WriteLine($"Colony: {colony.Name}");
+        }
 
         return Page();
     }
