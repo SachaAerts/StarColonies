@@ -1,0 +1,78 @@
+﻿@page
+@using System.Text.Encodings.Web
+@model StarColonies.Web.Pages.Map
+
+@{
+    ViewData["Title"] = "Map";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/components/font.css">
+    <link rel="stylesheet" href="~/css/pages/map.css">
+</head>
+<body>
+
+@{
+    var coloniesJson = System.Text.Json.JsonSerializer.Serialize(Model.Colonies.Select(c => new {
+        id = c.Id,
+        name = c.Name
+    }));
+}
+
+<section id="viewport">
+    <div id="map">
+        @foreach (var planet in Model.Planets)
+        {
+            <planet-item
+                data-name="@planet.Name"
+                data-image="@{@planet.Name.ToLower()}.png"
+                data-x="@planet.X"
+                data-y="@planet.Y"
+                data-id="@planet.Id"
+                data-teams='@Html.Raw(HtmlEncoder.Default.Encode(coloniesJson))'>
+
+                @foreach (var mission in planet.Missions)
+                {
+                    <quest
+                        title="@mission.Name"
+                        description="@mission.Description"
+                        difficulty="@mission.Difficulty"
+                        reward="@mission.CoinsReward">
+
+                        <enemies>
+                            @foreach (var enemy in mission.Enemies)
+                            {
+                                <enemy name="@enemy.Name" image="@enemy.ImagePath"></enemy>
+                            }
+                        </enemies>
+
+                        <rewards>
+                            @foreach (var reward in mission.Rewards)
+                            {
+                                <reward name="@reward.Item.Name" quantity="@reward.Quantity" image="@reward.Item.ImagePath"></reward>
+                            }
+                        </rewards>
+                    </quest>
+                }
+            </planet-item>
+        }
+    </div>
+
+    <section class="overlay hidden" id="overlay">
+        <div class="overlay-content">
+            <h4 style="text-align: center;">Mission</h4>
+            <button id="closeOverlay">Fermer</button>
+        </div>
+    </section>
+</section>
+
+<!-- Import js file -->
+<script src="~/js/components/planet.js"></script>
+<script src="~/js/map.js"></script>
+<script src="~/js/missionLaunch.js"></script>
+
+</body>
+</html>

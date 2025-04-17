@@ -3,7 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using StarColonies.Domains.Models;
 using StarColonies.Web.Middlewares;
 using StarColonies.Infrastructures.Data;
-using StarColonies.Infrastructures.Data.dataclass;
+using StarColonies.Infrastructures.Data.Configurations.Seeder;
+using StarColonies.Infrastructures.Data.Configurations.Seeder.Map;
+using StarColonies.Infrastructures.Data.Entities;
+using StarColonies.Web.Pages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +18,7 @@ builder.Services.AddDbContext<StarColoniesDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString
         ("StarColoniesContext"));
 });
-builder.Services.AddDefaultIdentity<Colonist>()
+builder.Services.AddDefaultIdentity<ColonistEntity>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StarColoniesDbContext>();
 
@@ -25,7 +28,8 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    // The default HSTS value is 30 days.
+    // You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -41,58 +45,20 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-await SeedRolesAndAdminAsync(app);
+await IdentitySeeder.SeedRolesAndUsersAsync(app.Services);
+await SeedDataAsync(app);
 
 app.Run();
 return;
 
-static async Task SeedRolesAndAdminAsync(WebApplication app)
+static async Task SeedDataAsync(WebApplication app)
 {
     using var scope = app.Services.CreateScope();
-
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Colonist>>();
-
-    string[] roles = ["Admin", "Player"];
-    foreach (var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-        {
-            await roleManager.CreateAsync(new IdentityRole(role));
-        }
-    }
-
-    // ⚙️ Données du compte admin par défaut
-    const string adminUsername = "admin";
-    const string adminEmail = "admin@starcolonies.com";
-    const string adminPassword = "Password123_";
-    Colonist? adminUser = await userManager.FindByEmailAsync(adminEmail);
-
-    if (adminUser == null)
-    {
-        var newAdmin = new Colonist
-        {
-            UserName = adminUsername,
-            Email = adminEmail,
-            DateOfBirth = new DateTime(2002, 09, 28),
-            Level = 1000,
-            Strength = 1003,
-            Endurance = 1003,
-            Musty = 100000,
-            JobModel = JobModel.Engineer
-        };
-
-        var result = await userManager.CreateAsync(newAdmin, adminPassword);
-        if (result.Succeeded)
-        {
-            await userManager.AddToRoleAsync(newAdmin, "Admin");
-        }
-        else
-        {
-            foreach (var error in result.Errors)
-            {
-                Console.WriteLine($"Error creating admin: {error.Description}");
-            }
-        }
-    }
+    
+    var context = scope.ServiceProvider.GetRequiredService<StarColoniesDbContext>();
+    
+    await context.Database.MigrateAsync();
+    
+    MapSeeder.Seed(context);
+    ColonieSeeder.Seed(context);
 }
