@@ -40,19 +40,23 @@
                         <span>Logout</span>
                     </button>
                 </form>
+                
+                <a class="item-nav" href="#">
+                    <img src="img/icons/navbar/mission.png" alt="">
+                    <span>Mission</span>
+                </a>
+                <a class="item-nav" href="#">
+                    <img src="img/icons/navbar/blackmarket.png" alt="">
+                    <span>Black market</span>
+                </a>
             }
-            <a class="item-nav" href="#">
-                <img src="img/icons/navbar/mission.png" alt="">
-                <span>Mission</span>
-            </a>
-            <a class="item-nav" href="#">
-                <img src="img/icons/navbar/blackmarket.png" alt="">
-                <span>Black market</span>
-            </a>
-            <a class="item-nav" href="#">
-                <img src="img/icons/navbar/admin.png" alt="">
-                <span>Admin</span>
-            </a>
+            @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+            {
+                <a class="item-nav" href="#">
+                    <img src="img/icons/navbar/admin.png" alt="">
+                    <span>Admin</span>
+                </a>
+            }
             @if (User.Identity is not { IsAuthenticated: false })
             {
                 <a class="item-nav" href="#">
