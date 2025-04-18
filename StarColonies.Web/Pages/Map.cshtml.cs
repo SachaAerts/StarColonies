@@ -34,11 +34,6 @@ public class Map(StarColoniesDbContext? context, UserManager<ColonistEntity> use
             .Where(c => c.Members.Any(m => m.ColonistId == user.Id))
             .ToListAsync();
 
-        foreach (var colony in Colonies)
-        {
-            Console.WriteLine($"Colony: {colony.Name}");
-        }
-
         return Page();
     }
     

@@ -16,7 +16,7 @@ public class ColonieSeeder
 
         if (colonists.Count < 5)
         {
-            Console.WriteLine("🚫 Not enough colonists to seed colonies.");
+            Console.WriteLine("Not enough colonists to seed colonies.");
             return;
         }
 

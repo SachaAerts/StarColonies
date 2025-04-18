@@ -46,26 +46,45 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-var items = await SeedDataAsync(app);
-await IdentitySeeder.SeedRolesAndUsersAsync(app.Services, items);
+await IdentitySeeder.SeedRolesAndUsersAsync(app.Services);
+await SeedDataAsync(app);
 
 app.Run();
-
 return;
 
-static async Task<List<ItemEntity>> SeedDataAsync(WebApplication app)
+static async Task SeedDataAsync(WebApplication app)
 {
     using var scope = app.Services.CreateScope();
-
+    
     var context = scope.ServiceProvider.GetRequiredService<StarColoniesDbContext>();
-
+    
     await context.Database.MigrateAsync();
-
+    
     MapSeeder.Seed(context);
     ColonieSeeder.Seed(context);
-
-    var effects = context.Effects.ToList();
-
-    var items = ItemSeeder.SeedItems(context, effects);
-    return items;
+    GiveItems(context);
 }
+
+static void GiveItems(StarColoniesDbContext context) 
+{
+    var colonists = context.Colonists
+        .Include(c => c.Inventory)
+        .ToList();
+
+    var items = context.Items.ToList();
+
+    foreach (var colon in colonists)
+    {
+        foreach (var item in from item in items where item.Name != "AK-47" let hasAlreadyItem = colon.Inventory.Any(i => i.ItemId == item.Id) where !hasAlreadyItem select item)
+        {
+            colon.Inventory.Add(new ColonistItemEntity
+            {
+                ItemId = item.Id,
+                ColonistId = colon.Id
+            });
+        }
+    }
+
+    context.SaveChanges();
+}
+
