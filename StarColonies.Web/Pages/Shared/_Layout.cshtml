@@ -63,10 +63,7 @@
             }
             @if (User.Identity is not { IsAuthenticated: false })
             {
-                <a class="item-nav" href="#">
-                    <img src="img/upload/@Model.Colonist.ProfilPicture" alt="">
-                    <span>Profil</span>
-                </a>    
+                @await Component.InvokeAsync("ColonistProfile")   
             }
         </div>
     </nav>

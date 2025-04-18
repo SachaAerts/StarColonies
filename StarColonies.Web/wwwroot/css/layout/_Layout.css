@@ -32,6 +32,8 @@ nav {
 
 .list-nav.show {
   visibility: visible;
+  padding-top: 10px;
+  padding-bottom: 5px;
 }
 
 .list-nav.hidde {
@@ -40,6 +42,14 @@ nav {
 
 .list-nav img {
   height: 50px; width: 60px;
+}
+
+.colonist-avatar {
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  background-color: #464646;
+  padding: 2px;
+  box-sizing: border-box;
 }
 
 .list-nav .item-nav {
