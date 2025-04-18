@@ -1,4 +1,6 @@
-﻿namespace StarColonies.Domains.Models;
+﻿using StarColonies.Domains.Models.Missions;
+
+namespace StarColonies.Domains.Models;
 
 public class PlanetModel
 {

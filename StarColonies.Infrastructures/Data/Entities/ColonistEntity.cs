@@ -16,6 +16,8 @@ public class ColonistEntity : IdentityUser
     public required int Endurance { get; set; }
     
     public required int Musty { get; set; }
+    
+    public string ProfilPicture { get; set; }
 
     public ICollection<ColonieMemberEntity> Colonies { get; set; } = new List<ColonieMemberEntity>();
 }

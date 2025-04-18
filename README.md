@@ -11,12 +11,17 @@ La suite du document sera à compléter par vos soins.
 ## Membres de l'équipe
 
 **TODO :** indiquez les membres de votre équipe (de deux à trois membres).
+- Boukhanouche Ayoub
+- Ciasiolki Alexandre
+- Aerts Sacha
 
-**TODO :** indiquez quel membre est responsable du déploiement. Nous testerons l'application web depuis son URL https://ue19.cg.helmo.be/matricule.
+**TODO :** indiquez quel membre est responsable du déploiement. Nous testerons l'application web depuis son URL.
+- Matricule : [Q230049](https://ue19.cg.helmo.be/q230049)
 
 ## Construction de la solution
 
 **TODO :** expliquez les étapes nécessaires à la récupération de votre solution, à sa construction et à son exécution dans un environnement de développement (tel que l'ordinateur de votre responsable).
+
 
 ## Fonctionnalités implémentées
 
