@@ -6,6 +6,7 @@ using StarColonies.Infrastructures.Data;
 using StarColonies.Infrastructures.Data.Configurations.Seeder;
 using StarColonies.Infrastructures.Data.Configurations.Seeder.Map;
 using StarColonies.Infrastructures.Data.Entities;
+using StarColonies.Infrastructures.Data.Entities.Items;
 using StarColonies.Web.Pages;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,20 +46,26 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-await IdentitySeeder.SeedRolesAndUsersAsync(app.Services);
-await SeedDataAsync(app);
+var items = await SeedDataAsync(app);
+await IdentitySeeder.SeedRolesAndUsersAsync(app.Services, items);
 
 app.Run();
+
 return;
 
-static async Task SeedDataAsync(WebApplication app)
+static async Task<List<ItemEntity>> SeedDataAsync(WebApplication app)
 {
     using var scope = app.Services.CreateScope();
-    
+
     var context = scope.ServiceProvider.GetRequiredService<StarColoniesDbContext>();
-    
+
     await context.Database.MigrateAsync();
-    
+
     MapSeeder.Seed(context);
     ColonieSeeder.Seed(context);
+
+    var effects = context.Effects.ToList();
+
+    var items = ItemSeeder.SeedItems(context, effects);
+    return items;
 }

@@ -322,11 +322,34 @@ class PlanetItem extends HTMLElement {
                             };
 
                             renderOverlay("teamSelection", data);
+                            this.missionLaunch()
+                            
                         });
                     }
                 }, 50);
             });
         });
+    }
+    
+    missionLaunch() {
+        setTimeout(() => {
+            const confirmBtn = document.querySelector("#confirmLaunch");
+
+            if (confirmBtn) {
+                confirmBtn.addEventListener("click", () => {
+                    const selectedTeam = document.getElementById("teamSelect")?.value;
+
+                    const selectedItems = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                        .map(input => parseInt(input.value));
+
+                    renderOverlay("missionLaunch", {
+                        planetImg: this.image,
+                        teamId: selectedTeam,
+                        items: selectedItems
+                    });
+                });
+            }
+        }, 50);
     }
     
     generateQuestFrames() {

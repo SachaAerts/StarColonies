@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using StarColonies.Domains.Models;
+using StarColonies.Infrastructures.Data.Entities.Items;
 
 namespace StarColonies.Infrastructures.Data.Entities;
 
@@ -20,4 +21,5 @@ public class ColonistEntity : IdentityUser
     public string ProfilPicture { get; set; }
 
     public ICollection<ColonieMemberEntity> Colonies { get; set; } = new List<ColonieMemberEntity>();
+    public ICollection<ColonistItemEntity> Inventory { get; set; } = new List<ColonistItemEntity>();
 }

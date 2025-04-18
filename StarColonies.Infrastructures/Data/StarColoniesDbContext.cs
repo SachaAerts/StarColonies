@@ -20,6 +20,7 @@ public class StarColoniesDbContext(DbContextOptions options) : IdentityDbContext
     public DbSet<ColonieEntity> Colonies { get; set; }
     public DbSet<ColonieMemberEntity> ColoniesMembers { get; set; }
     public DbSet<MissionExecutionEntity> MissionExecutions { get; set; }
+    public DbSet<ColonistItemEntity> ColonistItems { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -32,10 +33,12 @@ public class StarColoniesDbContext(DbContextOptions options) : IdentityDbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(StarColoniesDbContext).Assembly);
 
-        // Conversion de l'enum Job en texte dans la base de données
         modelBuilder
             .Entity<ColonistEntity>()
             .Property(c => c.JobModel)
             .HasConversion<string>();
+
+        modelBuilder.Entity<ColonistItemEntity>()
+            .HasKey(ci => new { ci.ColonistId, ci.ItemId });
     }
 }

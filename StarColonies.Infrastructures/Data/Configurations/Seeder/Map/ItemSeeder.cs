@@ -13,11 +13,11 @@ public class ItemSeeder
             new()
             {
                 Name = "Force Module",
-                Description = "Augmente la force",
+                Description = "Augmente la force",  
                 EffectId = effect1.Id,
                 Effect = effect1,
                 CoinsValue = 10,
-                ImagePath = "/Images/Items/force.png",
+                ImagePath = "/img/items/force.png",
             },
             new()
             {
@@ -26,7 +26,7 @@ public class ItemSeeder
                 EffectId = effect2.Id,
                 Effect = effect2,
                 CoinsValue = 8,
-                ImagePath = "/Images/Items/stamina.png",
+                ImagePath = "/img/items/stamina.png",
             }
         };
 

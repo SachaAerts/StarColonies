@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StarColonies.Domains.Models.Items;
 using StarColonies.Infrastructures.Data.Entities.Items;
 
-namespace StarColonies.Infrastructures.Data.Configurations.Items;
+namespace StarColonies.Infrastructures.Data.Configurations;
 
 public class EffectConfiguration : IEntityTypeConfiguration<EffectEntity>
 {
