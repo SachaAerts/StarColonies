@@ -4,9 +4,9 @@ using StarColonies.Infrastructures.Data.Entities;
 
 namespace StarColonies.Infrastructures.Data.Configurations;
 
-public class ColonieConfiguration : IEntityTypeConfiguration<ColonieEntity>
+public class ColonieConfiguration : IEntityTypeConfiguration<ColonyEntity>
 {
-    public void Configure(EntityTypeBuilder<ColonieEntity> builder)
+    public void Configure(EntityTypeBuilder<ColonyEntity> builder)
     {
         builder.HasKey(c => c.Id);
 
@@ -19,6 +19,9 @@ public class ColonieConfiguration : IEntityTypeConfiguration<ColonieEntity>
 
         builder.Property(c => c.OwnerId)
             .IsRequired();
+        
+        builder.Property(c => c.LogoPath)
+            .IsRequired();
 
         builder.HasOne(c => c.Owner)
             .WithMany()
@@ -30,7 +33,7 @@ public class ColonieConfiguration : IEntityTypeConfiguration<ColonieEntity>
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasMany(c => c.MissionExecutions)
-            .WithOne(e => e.Colonie)
+            .WithOne(e => e.Colony)
             .HasForeignKey(e => e.ColonieId)
             .OnDelete(DeleteBehavior.Cascade);
     }

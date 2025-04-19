@@ -1,6 +1,60 @@
-﻿namespace StarColonies.Infrastructures.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using StarColonies.Domains.Models.Colony;
+using StarColonies.Domains.Repositories;
+using StarColonies.Infrastructures.Data;
+using StarColonies.Infrastructures.Data.Entities;
+using StarColonies.Infrastructures.Mapper.DomainToEntity;
+using StarColonies.Infrastructures.Mapper.EntityToDomain;
 
-public class ColonistRepository
+namespace StarColonies.Infrastructures.Repositories;
+
+public class ColonistRepository(StarColoniesDbContext context,
+    IEntityToDomainMapper<ColonistModel, ColonistEntity> colonistMapper,
+    IDomainToEntityMapper<ColonistEntity, ColonistModel> colonistReverseMapper)
+    : IColonistRepository 
 {
-    
+    public async Task<IList<ColonistModel>> GetColonistsAsync()
+    {
+        var colonists = await context.Users.ToListAsync();
+        return colonists.Select(colonistMapper.Map).ToList();
+    }
+
+    public async Task<ColonistModel> GetColonistByIdAsync(string id)
+    {
+        var entity = await context.Users.FindAsync(id);
+        return entity != null ? colonistMapper.Map(entity) : null!;
+    }
+
+    public async Task<ColonistModel> GetColonistByNameAsync(string name)
+    {
+        var entity = await context.Users.FirstOrDefaultAsync(c => c.UserName == name);
+        return entity != null ? colonistMapper.Map(entity) : null!;
+    }
+
+    public async Task AddColonistAsync(ColonistModel colonist)
+    {
+        var entity = colonistReverseMapper.Map(colonist);
+        context.Users.Add(entity);
+        await context.SaveChangesAsync();
+    }
+
+    public async Task UpdateColonistAsync(ColonistModel colonist)
+    {
+        var entity = await context.Users.FindAsync(colonist.Id);
+        if (entity == null) return;
+
+        var updatedEntity = colonistReverseMapper.Map(colonist);
+        context.Entry(entity).CurrentValues.SetValues(updatedEntity);
+
+        await context.SaveChangesAsync();
+    }
+
+    public async Task DeleteColonistAsync(string id)
+    {
+        var entity = await context.Users.FindAsync(id);
+        if (entity == null) return;
+
+        context.Users.Remove(entity);
+        await context.SaveChangesAsync();
+    }
 }

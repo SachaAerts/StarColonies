@@ -3,9 +3,17 @@
 @model StarColonies.Web.Pages.Map
 
 @{
-    ViewData["Title"] = "Missions";
-    Layout = "Shared/_Layout";
+    ViewData["Title"] = "Map";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/components/font.css">
+    <link rel="stylesheet" href="~/css/pages/map.css">
+</head>
+<body>
 
 @{
     var coloniesJson = System.Text.Json.JsonSerializer.Serialize(Model.Colonies.Select(c => new {
@@ -20,8 +28,7 @@
         {
             <planet-item
                 data-name="@planet.Name"
-                data-image="@{@planet.Name.ToLower()}.png"
-                @{ Console.WriteLine(@planet.Name);}
+                data-image="@planet.ImagePath"
                 data-x="@planet.X"
                 data-y="@planet.Y"
                 data-id="@planet.Id"
@@ -43,9 +50,9 @@
                         </enemies>
 
                         <rewards>
-                            @foreach (var reward in mission.Rewards)
+                            @foreach (var reward in mission.Items)
                             {
-                                <reward name="@reward.Item.Name" quantity="@reward.Quantity" image="@reward.Item.ImagePath"></reward>
+                                <reward name="@reward.Name" image="@reward.ImagePath"></reward>
                             }
                         </rewards>
                     </quest>
@@ -66,3 +73,6 @@
 <script src="~/js/components/planet.js"></script>
 <script src="~/js/map.js"></script>
 <script src="~/js/missionLaunch.js"></script>
+
+</body>
+</html>

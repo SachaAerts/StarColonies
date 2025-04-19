@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using StarColonies.Domains.Models;
 using StarColonies.Infrastructures.Data.Entities;
+using StarColonies.Infrastructures.Data.Entities.Items;
 
 namespace StarColonies.Infrastructures.Data.Configurations.Seeder;
 
@@ -35,9 +36,31 @@ public static class IdentitySeeder
         const string username = "admin";
         const string password = "Password123_";
 
-        if (await userManager.FindByEmailAsync(email) != null) return;
+        var admin = await userManager.FindByEmailAsync(email);
 
-        var admin = new ColonistEntity
+        if (admin != null)
+        {
+            bool updated = false;
+
+            if (string.IsNullOrWhiteSpace(admin.ProfilPicture))
+            {
+                admin.ProfilPicture = "1.png";
+                updated = true;
+            }
+
+            if (admin.JobModel != JobModel.Engineer)
+            {
+                admin.JobModel = JobModel.Engineer;
+                updated = true;
+            }
+
+            if (updated)
+                await userManager.UpdateAsync(admin);
+
+            return;
+        }
+
+        admin = new ColonistEntity
         {
             UserName = username,
             Email = email,
@@ -46,10 +69,11 @@ public static class IdentitySeeder
             DateOfBirth = new DateTime(2002, 09, 28),
             Level = 1000,
             Strength = 1003,
-            Endurance = 1003,
+            Stamina = 1003,
             Musty = 100000,
+            ProfilPicture = "1.png",
             JobModel = JobModel.Engineer,
-            EmailConfirmed = true
+            EmailConfirmed = true,
         };
 
         var result = await userManager.CreateAsync(admin, password);
@@ -60,41 +84,84 @@ public static class IdentitySeeder
     }
 
     private static async Task EnsurePlayersExistAsync(UserManager<ColonistEntity> userManager)
+{
+    var players = new[]
     {
-        var players = new[]
+        new { UserName = "alpha", Email = "alpha@starcolonies.com", Job = JobModel.Scientist },
+        new { UserName = "beta",  Email = "beta@starcolonies.com",  Job = JobModel.Soldier   },
+        new { UserName = "gamma", Email = "gamma@starcolonies.com", Job = JobModel.Soldier   },
+        new { UserName = "delta", Email = "delta@starcolonies.com", Job = JobModel.Engineer  },
+        new { UserName = "omega", Email = "omega@starcolonies.com", Job = JobModel.Scientist }
+    };
+
+    foreach (var p in players)
+    {
+        var existing = await userManager.FindByEmailAsync(p.Email);
+
+        if (existing != null)
         {
-            new { UserName = "alpha", Email = "alpha@starcolonies.com", Job = JobModel.Scientist },
-            new { UserName = "beta",  Email = "beta@starcolonies.com",  Job = JobModel.Soldier   },
-            new { UserName = "gamma", Email = "gamma@starcolonies.com", Job = JobModel.Soldier   },
-            new { UserName = "delta", Email = "delta@starcolonies.com", Job = JobModel.Engineer  },
-            new { UserName = "omega", Email = "omega@starcolonies.com", Job = JobModel.Scientist }
+            bool updated = false;
+
+            if (string.IsNullOrWhiteSpace(existing.ProfilPicture))
+            {
+                existing.ProfilPicture = "1.png";
+                updated = true;
+            }
+
+            if (existing.JobModel != p.Job)
+            {
+                existing.JobModel = p.Job;
+                updated = true;
+            }
+
+            if (existing.Level != 1 || existing.Strength != 5 || existing.Stamina != 5 || existing.Musty != 100)
+            {
+                existing.Level = 1;
+                existing.Strength = 5;
+                existing.Stamina = 5;
+                existing.Musty = 100;
+                updated = true;
+            }
+
+            if (!existing.EmailConfirmed)
+            {
+                existing.EmailConfirmed = true;
+                updated = true;
+            }
+
+            if (updated)
+            {
+                var updateResult = await userManager.UpdateAsync(existing);
+                if (!updateResult.Succeeded)
+                    LogErrors(updateResult.Errors, p.UserName);
+            }
+
+            continue;
+        }
+
+        var player = new ColonistEntity
+        {
+            UserName = p.UserName,
+            Email = p.Email,
+            NormalizedEmail = p.Email.ToUpperInvariant(),
+            NormalizedUserName = p.UserName.ToUpperInvariant(),
+            DateOfBirth = new DateTime(2000, 1, 1),
+            JobModel = p.Job,
+            Level = 1,
+            Strength = 5,
+            Stamina = 5,
+            Musty = 100,
+            ProfilPicture = "1.png",
+            EmailConfirmed = true
         };
 
-        foreach (var p in players)
-        {
-            if (await userManager.FindByEmailAsync(p.Email) != null) continue;
-
-            var player = new ColonistEntity
-            {
-                UserName = p.UserName,
-                Email = p.Email,
-                NormalizedEmail = p.Email.ToUpperInvariant(),
-                NormalizedUserName = p.UserName.ToUpperInvariant(),
-                DateOfBirth = new DateTime(2000, 1, 1),
-                JobModel = p.Job,
-                Level = 1,
-                Strength = 5, Endurance = 5,
-                Musty = 100,
-                EmailConfirmed = true
-            };
-
-            var result = await userManager.CreateAsync(player, "Player123_");
-            if (result.Succeeded)
-                await userManager.AddToRoleAsync(player, "Player");
-            else
-                LogErrors(result.Errors, p.UserName);
-        }
+        var result = await userManager.CreateAsync(player, "Player123_");
+        if (result.Succeeded)
+            await userManager.AddToRoleAsync(player, "Player");
+        else
+            LogErrors(result.Errors, p.UserName);
     }
+}
 
     private static void LogErrors(IEnumerable<IdentityError> errors, string user)
     {

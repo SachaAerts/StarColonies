@@ -19,6 +19,7 @@ class PlanetItem extends HTMLElement {
     connectedCallback() {
         this.name  = this.dataset.name    || "Unknown";
         this.image = this.dataset.image   || "";
+        console.log(this.image);
         this.x = parseInt(this.dataset.x) || 0;
         this.y = parseInt(this.dataset.y) || 0;
         this.teams = [];
@@ -80,7 +81,7 @@ class PlanetItem extends HTMLElement {
                     background-size: cover;
                     background-repeat: no-repeat;
                     background-position: center;
-                    background-image: url("img/planet/${this.dataset.image}");
+                    background-image: url("${this.dataset.image}");
                     border-radius: 50%;
                     cursor: pointer;
                     z-index: 5000;
@@ -321,11 +322,34 @@ class PlanetItem extends HTMLElement {
                             };
 
                             renderOverlay("teamSelection", data);
+                            this.missionLaunch()
+                            
                         });
                     }
                 }, 50);
             });
         });
+    }
+    
+    missionLaunch() {
+        setTimeout(() => {
+            const confirmBtn = document.querySelector("#confirmLaunch");
+
+            if (confirmBtn) {
+                confirmBtn.addEventListener("click", () => {
+                    const selectedTeam = document.getElementById("teamSelect")?.value;
+
+                    const selectedItems = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                        .map(input => parseInt(input.value));
+
+                    renderOverlay("missionLaunch", {
+                        planetImg: this.image,
+                        teamId: selectedTeam,
+                        items: selectedItems
+                    });
+                });
+            }
+        }, 50);
     }
     
     generateQuestFrames() {

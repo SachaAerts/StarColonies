@@ -16,11 +16,11 @@ public class ColonieSeeder
 
         if (colonists.Count < 5)
         {
-            Console.WriteLine("🚫 Not enough colonists to seed colonies.");
+            Console.WriteLine("Not enough colonists to seed colonies.");
             return;
         }
 
-        var colony1 = new ColonieEntity
+        var colony1 = new ColonyEntity
         {
             Name = "Nova Prime",
             OwnerId = colonists[0].Id,
@@ -28,7 +28,7 @@ public class ColonieSeeder
             MissionExecutions = new List<MissionExecutionEntity>()
         };
 
-        var colony2 = new ColonieEntity
+        var colony2 = new ColonyEntity
         {
             Name = "Shadow League",
             OwnerId = colonists[1].Id,
@@ -36,7 +36,7 @@ public class ColonieSeeder
             MissionExecutions = new List<MissionExecutionEntity>()
         };
 
-        var colony3 = new ColonieEntity
+        var colony3 = new ColonyEntity
         {
             Name = "Celestial Pact",
             OwnerId = colonists[2].Id,
@@ -49,15 +49,15 @@ public class ColonieSeeder
 
         var members = new List<ColonieMemberEntity>
         {
-            new() { ColonieId = colony1.Id, Colonie = colony1, ColonistId = colonists[0].Id, Colonist = colonists[0] },
-            new() { ColonieId = colony1.Id, Colonie = colony1, ColonistId = colonists[1].Id, Colonist = colonists[1] },
+            new() { ColonieId = colony1.Id, Colony = colony1, ColonistId = colonists[0].Id, Colonist = colonists[0] },
+            new() { ColonieId = colony1.Id, Colony = colony1, ColonistId = colonists[1].Id, Colonist = colonists[1] },
 
-            new() { ColonieId = colony2.Id, Colonie = colony2, ColonistId = colonists[1].Id, Colonist = colonists[1] },
-            new() { ColonieId = colony2.Id, Colonie = colony2, ColonistId = colonists[2].Id, Colonist = colonists[2] },
+            new() { ColonieId = colony2.Id, Colony = colony2, ColonistId = colonists[1].Id, Colonist = colonists[1] },
+            new() { ColonieId = colony2.Id, Colony = colony2, ColonistId = colonists[2].Id, Colonist = colonists[2] },
 
-            new() { ColonieId = colony3.Id, Colonie = colony3, ColonistId = colonists[2].Id, Colonist = colonists[2] },
-            new() { ColonieId = colony3.Id, Colonie = colony3, ColonistId = colonists[3].Id, Colonist = colonists[3] },
-            new() { ColonieId = colony3.Id, Colonie = colony3, ColonistId = colonists[4].Id, Colonist = colonists[4] }
+            new() { ColonieId = colony3.Id, Colony = colony3, ColonistId = colonists[2].Id, Colonist = colonists[2] },
+            new() { ColonieId = colony3.Id, Colony = colony3, ColonistId = colonists[3].Id, Colonist = colonists[3] },
+            new() { ColonieId = colony3.Id, Colony = colony3, ColonistId = colonists[4].Id, Colonist = colonists[4] }
         };
 
         context.ColoniesMembers.AddRange(members);

@@ -11,7 +11,11 @@ function renderOverlay(type, data) {
         case "teamSelection":
             content.innerHTML = renderTeamSelection(data);
             break;
-
+            
+        case "missionLaunch":
+            content.innerHTML = renderMissionLaunch(data.planetImg);
+            break;
+            
         default:
             content.innerHTML = "<p>Contenu non disponible</p>";
             break;
@@ -33,8 +37,8 @@ function renderMissionDetails(quest) {
 
     const rewards = quest.rewards.map(r => `
         <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-            <img src="${r.image}" alt="${r.name}" height="24"/>
-            ${r.quantity}× ${r.name}
+            <img src="${r.image}" alt="${r.name}" height="40"/>
+            ${r.name}
         </li>
     `).join('');
 
@@ -72,6 +76,61 @@ function renderMissionDetails(quest) {
         </div>
         <button id="closeOverlay">Fermer</button>
     `;
+}
+
+function renderMissionLaunch(planetImg) {
+    return `
+        <div class="scene">
+            <img class="planetLoader" src="${planetImg}" height="90" alt="Planet">
+            <div class="spaceship-orbit">
+                <img class="spaceship" src="/img/icons/spaceship.png" height="50" alt="Vaisseau">
+            </div>
+        </div>
+        
+        <style>
+            .overlay-content {background: none;border: none;}
+            .scene {
+                transform: scale(1.5);
+                position: relative;
+                width: 200px;
+                height: 200px;
+                margin: 100px auto;
+            }
+        
+            .planetLoader {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1;
+            }
+        
+            .spaceship-orbit {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                animation: rotateOrbit 5s linear infinite;
+            }
+        
+            .spaceship {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%) rotate(90deg);
+                transform-origin: center center;
+                animation: counterRotate 5s linear infinite;
+            }
+        
+            @keyframes rotateOrbit {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    `
 }
 
 function renderTeamSelection({ teams, items }) {

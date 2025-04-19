@@ -2,14 +2,13 @@
 
 public class ItemModel
 {
-    public required int Id { get; set; }
-    public required string Name { get; set; } = "DEFAULT ITEM";
-    public required string Description { get; set; } = "DEFAULT DESCRIPTION";
-    
-    public required int EffectId { get; set; }
-    public required EffectModel Effect { get; set; } = new EffectModel();
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
     
     public required int CoinsValue { get; set; }
     
-    public required string ImagePath { get; set; } = "DEFAULT IMAGE PATH";
+    public string ImagePath { get; set; } = string.Empty;
+    
+    public required EffectModel Effect { get; set; } = new();
 }
