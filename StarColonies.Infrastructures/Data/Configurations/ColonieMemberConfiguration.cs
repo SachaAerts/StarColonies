@@ -10,7 +10,7 @@ public class ColonieMemberConfiguration : IEntityTypeConfiguration<ColonieMember
     {
         builder.HasKey(cm => new { cm.ColonieId, cm.ColonistId });
 
-        builder.HasOne(cm => cm.Colonie)
+        builder.HasOne(cm => cm.Colony)
             .WithMany(c => c.Members)
             .HasForeignKey(cm => cm.ColonieId);
 

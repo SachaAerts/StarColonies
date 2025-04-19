@@ -1,6 +1,6 @@
 ﻿namespace StarColonies.Infrastructures.Data.Entities.Items;
 
-public class ColonistItemEntity
+public class InventoryEntity
 {
     public string ColonistId { get; set; } 
     public ColonistEntity Colonist { get; set; } 

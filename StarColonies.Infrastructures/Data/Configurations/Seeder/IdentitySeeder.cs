@@ -69,7 +69,7 @@ public static class IdentitySeeder
             DateOfBirth = new DateTime(2002, 09, 28),
             Level = 1000,
             Strength = 1003,
-            Endurance = 1003,
+            Stamina = 1003,
             Musty = 100000,
             ProfilPicture = "1.png",
             JobModel = JobModel.Engineer,
@@ -114,11 +114,11 @@ public static class IdentitySeeder
                 updated = true;
             }
 
-            if (existing.Level != 1 || existing.Strength != 5 || existing.Endurance != 5 || existing.Musty != 100)
+            if (existing.Level != 1 || existing.Strength != 5 || existing.Stamina != 5 || existing.Musty != 100)
             {
                 existing.Level = 1;
                 existing.Strength = 5;
-                existing.Endurance = 5;
+                existing.Stamina = 5;
                 existing.Musty = 100;
                 updated = true;
             }
@@ -149,7 +149,7 @@ public static class IdentitySeeder
             JobModel = p.Job,
             Level = 1,
             Strength = 5,
-            Endurance = 5,
+            Stamina = 5,
             Musty = 100,
             ProfilPicture = "1.png",
             EmailConfirmed = true

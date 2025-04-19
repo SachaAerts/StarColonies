@@ -38,7 +38,7 @@ function renderMissionDetails(quest) {
     const rewards = quest.rewards.map(r => `
         <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
             <img src="${r.image}" alt="${r.name}" height="40"/>
-            ${r.quantity}× ${r.name}
+            ${r.name}
         </li>
     `).join('');
 

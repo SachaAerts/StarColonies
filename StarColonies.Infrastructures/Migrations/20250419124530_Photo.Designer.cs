@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StarColonies.Infrastructures.Data;
 
@@ -11,9 +12,11 @@ using StarColonies.Infrastructures.Data;
 namespace StarColonies.Infrastructures.Migrations
 {
     [DbContext(typeof(StarColoniesDbContext))]
-    partial class StarColoniesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250419124530_Photo")]
+    partial class Photo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -211,6 +214,9 @@ namespace StarColonies.Infrastructures.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Endurance")
+                        .HasColumnType("int");
+
                     b.Property<string>("JobModel")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -250,9 +256,6 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Stamina")
-                        .HasColumnType("int");
 
                     b.Property<int>("Strength")
                         .HasColumnType("int");
@@ -308,6 +311,21 @@ namespace StarColonies.Infrastructures.Migrations
                     b.ToTable("Colonies");
                 });
 
+            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.ColonistItemEntity", b =>
+                {
+                    b.Property<string>("ColonistId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ColonistId", "ItemId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("ColonistItems");
+                });
+
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.EffectEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -330,21 +348,6 @@ namespace StarColonies.Infrastructures.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Effects");
-                });
-
-            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.InventoryEntity", b =>
-                {
-                    b.Property<string>("ColonistId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ColonistId", "ItemId");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("Inventory");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.ItemEntity", b =>
@@ -660,7 +663,7 @@ namespace StarColonies.Infrastructures.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.InventoryEntity", b =>
+            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.ColonistItemEntity", b =>
                 {
                     b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonistEntity", "Colonist")
                         .WithMany("Inventory")

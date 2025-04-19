@@ -4,9 +4,9 @@ using StarColonies.Infrastructures.Data.Entities.Items;
 
 namespace StarColonies.Infrastructures.Data.Configurations;
 
-public class ColonistItemConfiguration : IEntityTypeConfiguration<ColonistItemEntity>
+public class InventoryConfiguration : IEntityTypeConfiguration<InventoryEntity>
 {
-    public void Configure(EntityTypeBuilder<ColonistItemEntity> builder)
+    public void Configure(EntityTypeBuilder<InventoryEntity> builder)
     {
         builder.HasKey(ci => new { ci.ColonistId, ci.ItemId });
 

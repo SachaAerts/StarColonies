@@ -37,7 +37,7 @@ public class ItemSeeder
                 EffectId = effect3.Id,
                 Effect = effect3,
                 CoinsValue = 5,
-                ImagePath = "/img/items/ak.png",
+                ImagePath = "/img/items/ak.png"
             }
         };
 

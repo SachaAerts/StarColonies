@@ -14,12 +14,12 @@ public class ColonistEntity : IdentityUser
     
     public required int Strength { get; set; }
     
-    public required int Endurance { get; set; }
+    public required int Stamina { get; set; }
     
     public required int Musty { get; set; }
     
     public string ProfilPicture { get; set; }
 
     public ICollection<ColonieMemberEntity> Colonies { get; set; } = new List<ColonieMemberEntity>();
-    public ICollection<ColonistItemEntity> Inventory { get; set; } = new List<ColonistItemEntity>();
+    public ICollection<InventoryEntity> Inventory { get; set; } = new List<InventoryEntity>();
 }

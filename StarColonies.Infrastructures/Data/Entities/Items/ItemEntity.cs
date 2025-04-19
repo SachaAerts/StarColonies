@@ -16,5 +16,5 @@ public class ItemEntity
     public required string ImagePath { get; set; } = "DEFAULT IMAGE PATH";
     
     public ICollection<RewardedEntity> Rewards { get; set; } = new List<RewardedEntity>();
-    public ICollection<ColonistItemEntity> Colonists { get; set; } = new List<ColonistItemEntity>();
+    public ICollection<InventoryEntity> Colonists { get; set; } = new List<InventoryEntity>();
 }

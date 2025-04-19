@@ -4,10 +4,11 @@ namespace StarColonies.Domains.Models;
 
 public class PlanetModel
 {
-    public required int Id { get; set; }
-    public required string Name { get; set; }
+    public int Id { get; set; }
+    public string Name { get; set; } = "";
+    public int X { get; set; }
+    public int Y { get; set; }
+    public string ImagePath { get; set; } = "";
 
-    public required string ImagePath { get; set; }
-    
-    public required ICollection<MissionModel> Missions { get; set; } = new List<MissionModel>();
+    public List<MissionModel> Missions { get; set; } = [];
 }

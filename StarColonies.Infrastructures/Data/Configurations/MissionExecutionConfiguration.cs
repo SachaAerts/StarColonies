@@ -19,7 +19,7 @@ public class MissionExecutionConfiguration :IEntityTypeConfiguration<MissionExec
         builder.Property(m => m.RewardedCoins)
                .IsRequired();
 
-        builder.HasOne(e => e.Colonie)
+        builder.HasOne(e => e.Colony)
                .WithMany(c => c.MissionExecutions)
                .HasForeignKey(e => e.ColonieId)
                .OnDelete(DeleteBehavior.Cascade);

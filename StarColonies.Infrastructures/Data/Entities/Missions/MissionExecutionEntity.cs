@@ -5,7 +5,7 @@ public class MissionExecutionEntity
     public int Id { get; set; }
 
     public required int ColonieId { get; set; }
-    public required ColonieEntity Colonie { get; set; }
+    public required ColonyEntity Colony { get; set; }
 
     public required int MissionId { get; set; }
     public required MissionEntity Mission { get; set; }

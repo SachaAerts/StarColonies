@@ -37,7 +37,7 @@ public class Register(UserManager<ColonistEntity> userManager)
             JobModel = JobModel.Engineer,
             Level = 1,
             Strength = 1,
-            Endurance = 1,
+            Stamina = 1,
             Musty = 0
         };
         var pwdCheck = await userManager.PasswordValidators[0].ValidateAsync(userManager, fakeUser, RegisterUser.PasswordRegister);

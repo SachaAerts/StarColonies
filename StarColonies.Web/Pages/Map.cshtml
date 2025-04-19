@@ -50,9 +50,9 @@
                         </enemies>
 
                         <rewards>
-                            @foreach (var reward in mission.Rewards)
+                            @foreach (var reward in mission.Items)
                             {
-                                <reward name="@reward.Item.Name" quantity="@reward.Quantity" image="@reward.Item.ImagePath"></reward>
+                                <reward name="@reward.Name" image="@reward.ImagePath"></reward>
                             }
                         </rewards>
                     </quest>

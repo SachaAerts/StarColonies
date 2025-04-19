@@ -2,8 +2,9 @@
 
 public class EffectModel
 {
+    public int Id { get; set; }
+    
     public int? ForceModifier { get; set; } 
     public int? StaminaModifier { get; set; }
 
-    public ICollection<ItemModel> Items { get; set; } = new List<ItemModel>();
 }

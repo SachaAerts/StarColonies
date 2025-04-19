@@ -39,7 +39,7 @@ public class CreateColon(UserManager<ColonistEntity> userManager, SignInManager<
             JobModel = Enum.Parse<JobModel>(NewUser.Profession),
             Level = 1,
             Strength = GetStrengh(NewUser.Statistics),
-            Endurance = GetStamina(NewUser.Statistics),
+            Stamina = GetStamina(NewUser.Statistics),
             Musty = 0
         };
 

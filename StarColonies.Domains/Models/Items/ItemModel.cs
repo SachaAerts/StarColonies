@@ -2,9 +2,13 @@
 
 public class ItemModel
 {
+    public int Id { get; set; }
     public string Name { get; set; }
-    
-    public required EffectModel Effect { get; set; } = new EffectModel();
+    public string Description { get; set; }
     
     public required int CoinsValue { get; set; }
+    
+    public string ImagePath { get; set; } = string.Empty;
+    
+    public required EffectModel Effect { get; set; } = new();
 }

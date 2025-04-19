@@ -2,13 +2,15 @@
 
 namespace StarColonies.Infrastructures.Data.Entities;
 
-public class ColonieEntity
+public class ColonyEntity
 {
     public int Id { get; set; }
 
     public required string Name { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public string LogoPath { get; set; } = string.Empty;
 
     public required string OwnerId { get; set; }
     public required ColonistEntity Owner { get; set; }

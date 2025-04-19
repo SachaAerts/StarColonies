@@ -17,10 +17,10 @@ public class StarColoniesDbContext(DbContextOptions options) : IdentityDbContext
     public DbSet<EffectEntity> Effects { get; set; }
     public DbSet<RewardedEntity> Rewarded { get; set; }
     public DbSet<TypeEntity> Types { get; set; }
-    public DbSet<ColonieEntity> Colonies { get; set; }
+    public DbSet<ColonyEntity> Colonies { get; set; }
     public DbSet<ColonieMemberEntity> ColoniesMembers { get; set; }
     public DbSet<MissionExecutionEntity> MissionExecutions { get; set; }
-    public DbSet<ColonistItemEntity> ColonistItems { get; set; }
+    public DbSet<InventoryEntity> Inventory { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -38,7 +38,7 @@ public class StarColoniesDbContext(DbContextOptions options) : IdentityDbContext
             .Property(c => c.JobModel)
             .HasConversion<string>();
 
-        modelBuilder.Entity<ColonistItemEntity>()
+        modelBuilder.Entity<InventoryEntity>()
             .HasKey(ci => new { ci.ColonistId, ci.ItemId });
     }
 }
