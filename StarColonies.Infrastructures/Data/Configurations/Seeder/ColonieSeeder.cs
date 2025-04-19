@@ -25,7 +25,8 @@ public class ColonieSeeder
             Name = "Nova Prime",
             OwnerId = colonists[0].Id,
             Owner = colonists[0],
-            MissionExecutions = new List<MissionExecutionEntity>()
+            MissionExecutions = new List<MissionExecutionEntity>(),
+            LogoPath = "default_team_logo.png"
         };
 
         var colony2 = new ColonyEntity
@@ -33,7 +34,8 @@ public class ColonieSeeder
             Name = "Shadow League",
             OwnerId = colonists[1].Id,
             Owner = colonists[1],
-            MissionExecutions = new List<MissionExecutionEntity>()
+            MissionExecutions = new List<MissionExecutionEntity>(),
+            LogoPath = "default_team_logo.png"
         };
 
         var colony3 = new ColonyEntity
@@ -41,10 +43,74 @@ public class ColonieSeeder
             Name = "Celestial Pact",
             OwnerId = colonists[2].Id,
             Owner = colonists[2],
-            MissionExecutions = new List<MissionExecutionEntity>()
+            MissionExecutions = new List<MissionExecutionEntity>(),
+            LogoPath = "default_team_logo.png"
         };
 
-        context.Colonies.AddRange(colony1, colony2, colony3);
+        var colony4 = new ColonyEntity
+        {
+            Name = "Galactic Alliance",
+            OwnerId = colonists[2].Id,
+            Owner = colonists[2],
+            MissionExecutions = new List<MissionExecutionEntity>(),
+            LogoPath = "default_team_logo.png"
+        };
+        
+        var colony5 = new ColonyEntity
+        {
+            Name = "Stellar Federation",
+            OwnerId = colonists[2].Id,
+            Owner = colonists[2],
+            MissionExecutions = new List<MissionExecutionEntity>(),
+            LogoPath = "default_team_logo.png"
+        };
+        
+        var colony6 = new ColonyEntity
+        {
+            Name = "Lunar Syndicate",
+            OwnerId = colonists[2].Id,
+            Owner = colonists[2],
+            MissionExecutions = new List<MissionExecutionEntity>(),
+            LogoPath = "default_team_logo.png"
+        };
+
+        var colony7 = new ColonyEntity
+        {
+            Name = "Solar Dominion",
+            OwnerId = colonists[0].Id,
+            Owner = colonists[0],
+            MissionExecutions = new List<MissionExecutionEntity>(),
+            LogoPath = "default_team_logo.png"
+        };
+
+        var colony8 = new ColonyEntity
+        {
+            Name = "Astral Union",
+            OwnerId = colonists[0].Id,
+            Owner = colonists[0],
+            MissionExecutions = new List<MissionExecutionEntity>(),
+            LogoPath = "default_team_logo.png"
+        };
+
+        var colony9 = new ColonyEntity
+        {
+            Name = "Nebula Coalition",
+            OwnerId = colonists[0].Id,
+            Owner = colonists[0],
+            MissionExecutions = new List<MissionExecutionEntity>(),
+            LogoPath = "default_team_logo.png"
+        };
+
+        var colony10 = new ColonyEntity
+        {
+            Name = "Andromeda Syndicate",
+            OwnerId = colonists[0].Id,
+            Owner = colonists[0],
+            MissionExecutions = new List<MissionExecutionEntity>(),
+            LogoPath = "default_team_logo.png"
+        };
+
+        context.Colonies.AddRange(colony1, colony2, colony3, colony4, colony5, colony6, colony7, colony8, colony9, colony10);
         context.SaveChanges(); 
 
         var members = new List<ColonieMemberEntity>
