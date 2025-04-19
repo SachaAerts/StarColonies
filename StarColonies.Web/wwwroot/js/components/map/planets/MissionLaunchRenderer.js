@@ -1,5 +1,5 @@
 ﻿
-function renderOverlay(type, data) {
+export function renderOverlay(type, data) {
     const overlay = document.getElementById("overlay");
     const content = overlay.querySelector(".overlay-content");
 

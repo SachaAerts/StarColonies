@@ -19,19 +19,13 @@ public class Map(IMapRepository mapRepository, IInventaryRepository inventaryRep
     public async Task<IActionResult> OnGetAsync()
     {
         var user = await userManager.GetUserAsync(User);
+        
         if (user == null)
-        {
             return RedirectToPage("/Connection");
-        }
 
-        Planets = await mapRepository.GetPlanetsWithMissionsAsync();
-        Items = await inventaryRepository.GetItemsForColonistAsync(user.Id);
+        Planets  = await mapRepository.GetPlanetsWithMissionsAsync();
+        Items    = await inventaryRepository.GetItemsForColonistAsync(user.Id);
         Colonies = await mapRepository.GetColoniesForColonistAsync(user.Id);
-
-        foreach (var item in Items)
-        {
-            Console.WriteLine($"Item: {item.Name}, Effect: {item.Effect?.ForceModifier}, {item.Effect?.StaminaModifier}");
-        }
 
         return Page();
     }
