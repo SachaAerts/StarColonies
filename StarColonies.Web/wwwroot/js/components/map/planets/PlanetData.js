@@ -1,33 +1,24 @@
 ﻿export function parsePlanetData(element) {
-    const name = element.dataset.name || "Unknown";
-    const image = element.dataset.image || "";
-    const x = parseInt(element.dataset.x) || 0;
-    const y = parseInt(element.dataset.y) || 0;
-
-    let teams = [];
-    try {
-        if (element.dataset.teams) {
-            teams = JSON.parse(element.dataset.teams);
-        }
-    } catch (e) {
-        console.warn("Failed to parse teams data", e);
-    }
-
-    const quests = [...element.querySelectorAll('quest')].map(el => ({
-        title: el.getAttribute('title'),
-        description: el.getAttribute('description'),
-        difficulty: el.getAttribute('difficulty'),
-        reward: el.getAttribute('reward'),
-        enemies: [...el.querySelectorAll('enemy')].map(e => ({
-            name: e.getAttribute('name'),
-            image: e.getAttribute('image')
+    return {
+        name: element.getAttribute("data-name"),
+        image: element.getAttribute("data-image"),
+        x: parseInt(element.getAttribute("data-x")),
+        y: parseInt(element.getAttribute("data-y")),
+        teams: JSON.parse(element.getAttribute("data-teams")),
+        quests: Array.from(element.querySelectorAll("quest")).map(q => ({
+            title: q.getAttribute("title"),
+            description: q.getAttribute("description"),
+            difficulty: q.getAttribute("difficulty"),
+            reward: q.getAttribute("reward"),
+            enemies: Array.from(q.querySelectorAll("enemy")).map(e => ({
+                name: e.getAttribute("name"),
+                image: e.getAttribute("image")
+            })),
+            rewards: Array.from(q.querySelectorAll("reward")).map(r => ({
+                name: r.getAttribute("name"),
+                image: r.getAttribute("image")
+            }))
         })),
-        rewards: [...el.querySelectorAll('reward')].map(r => ({
-            name: r.getAttribute('name'),
-            image: r.getAttribute('image'),
-            quantity: r.getAttribute('quantity')
-        }))
-    }));
-
-    return { name, image, x, y, teams, quests };
+        items: JSON.parse(element.getAttribute("data-items"))
+    };
 }

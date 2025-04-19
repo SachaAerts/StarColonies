@@ -147,8 +147,10 @@ function renderTeamSelection({ teams, items }) {
 
     const itemsHTML = items.map(item => `
         <label>
-            <input type="checkbox" value="${item.id}"/>
-            <img src="${item.image}" height="20" alt="Image"> ${item.name}
+            ${items.length === 0 || !items ? `<p>Vous n'avez actuellement aucun item</p>` : `
+                <input type="checkbox" value="${item.id}"/>
+                <img src="${item.image}" height="40" alt="Image"> ${item.name}
+            `}
         </label>
     `).join('<br>');
 

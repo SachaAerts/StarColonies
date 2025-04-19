@@ -12,9 +12,10 @@ export class PlanetItem extends HTMLElement {
     }
     
     connectedCallback() {
-        const { name, image, x, y, teams, quests } = parsePlanetData(this);
+        const { name, image, x, y, teams, items, quests } = parsePlanetData(this);
         this.name = name;
         this.image = image;
+        this.items = items;
         
         this.x = x; this.y = y;
         

@@ -1,17 +1,35 @@
 ﻿import { truncateText } from './utils.js';
 import { renderOverlay } from './MissionLaunchRenderer.js';
 
-export function createQuestPanel(planet) {
+export function createQuestPanel(data) {
+    const panel = createQuestPanelContainer(data.x);
+    const scroll = createQuestScroll(data);
+
+    panel.appendChild(scroll);
+    attachQuestListeners(scroll, data);
+
+    return panel;
+}
+
+function createQuestPanelContainer(x) {
     const panel = document.createElement('div');
     panel.classList.add('quest-panel');
-    panel.style.left = planet.x < 1600 ? '110px' : '-260px';
+    panel.style.left = x < 1600 ? '110px' : '-260px';
+    return panel;
+}
 
+function createQuestScroll(data) {
     const scroll = document.createElement('div');
     scroll.classList.add('quest-scroll');
-    scroll.innerHTML = planet.quests.map((quest, i) => `
-        <div class="quest-frame" data-index="${i}">
+    scroll.innerHTML = data.quests.map((quest, i) => renderQuestFrame(quest, i)).join('');
+    return scroll;
+}
+
+function renderQuestFrame(quest, index) {
+    return `
+        <div class="quest-frame" data-index="${index}">
             <h3>${quest.title}</h3>
-            <p style="font-family: 'Pixelify Sans', sans-serif;font-size: 0.8rem">
+            <p style="font-family: 'Pixelify Sans', sans-serif; font-size: 0.8rem;">
                 ${truncateText(quest.description, 100)}
             </p>
             <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -19,49 +37,52 @@ export function createQuestPanel(planet) {
                 <small>Rewards : ${quest.reward} <img height="20" src="/img/icons/mustysCoin.png" alt="Coins"></small>
             </div>
         </div>
-    `).join('');
+    `;
+}
 
-    panel.appendChild(scroll);
+function attachQuestListeners(scroll, data) {
+    const questFrames = scroll.querySelectorAll('.quest-frame');
 
-    scroll.querySelectorAll('.quest-frame').forEach((el, index) => {
-        el.addEventListener('click', (event) => {
+    questFrames.forEach(el => {
+        el.addEventListener('click', event => {
             event.stopPropagation();
 
-            const quest = planet.quests[index];
+            const index = parseInt(el.getAttribute('data-index'));
+            const quest = data.quests[index];
+
             renderOverlay("missionDetails", quest);
-
-            setTimeout(() => {
-                const launchBtn = document.querySelector("#launchMission");
-                if (launchBtn) {
-                    launchBtn.addEventListener("click", () => {
-                        renderOverlay("teamSelection", {
-                            teams: planet.teams,
-                            items: [
-                                { id: 1, name: "Kit de soins", image: "/img/items/medkit.png" },
-                                { id: 2, name: "Amplificateur", image: "/img/items/booster.png" }
-                            ]
-                        });
-
-                        setTimeout(() => {
-                            const confirmBtn = document.querySelector("#confirmLaunch");
-                            if (confirmBtn) {
-                                confirmBtn.addEventListener("click", () => {
-                                    const selectedTeam = document.getElementById("teamSelect")?.value;
-                                    const selectedItems = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(i => parseInt(i.value));
-
-                                    renderOverlay("missionLaunch", {
-                                        planetImg: planet.image,
-                                        teamId: selectedTeam,
-                                        items: selectedItems
-                                    });
-                                });
-                            }
-                        }, 50);
-                    });
-                }
-            }, 50);
+            waitForElement("#launchMission", launchBtn =>
+                launchBtn.addEventListener("click", () => { handleLaunchClick(data); })
+            );
         });
     });
+}
 
-    return panel;
+function handleLaunchClick(data) {
+    renderOverlay("teamSelection", {
+        teams: data.teams ?? [],
+        items: data.items ?? []
+    });
+
+    waitForElement("#confirmLaunch", confirmBtn => {
+        confirmBtn.addEventListener("click", () => {
+            const selectedTeam = document.getElementById("teamSelect")?.value;
+            const selectedItems = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(i => parseInt(i.value));
+
+            renderOverlay("missionLaunch", {
+                planetImg: data.image,
+                teamId: selectedTeam,
+                items: selectedItems
+            });
+        });
+    });
+}
+
+function waitForElement(selector, callback, retry = 5, delay = 50) {
+    const element = document.querySelector(selector);
+    if (element) {
+        callback(element);
+    } else if (retry > 0) {
+        setTimeout(() => waitForElement(selector, callback, retry - 1, delay), delay);
+    }
 }
