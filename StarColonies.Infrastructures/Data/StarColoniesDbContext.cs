@@ -18,7 +18,7 @@ public class StarColoniesDbContext(DbContextOptions options) : IdentityDbContext
     public DbSet<RewardedEntity> Rewarded { get; set; }
     public DbSet<TypeEntity> Types { get; set; }
     public DbSet<ColonyEntity> Colonies { get; set; }
-    public DbSet<ColonieMemberEntity> ColoniesMembers { get; set; }
+    public DbSet<ColonyMemberEntity> ColoniesMembers { get; set; }
     public DbSet<MissionExecutionEntity> MissionExecutions { get; set; }
     public DbSet<InventoryEntity> Inventory { get; set; }
     

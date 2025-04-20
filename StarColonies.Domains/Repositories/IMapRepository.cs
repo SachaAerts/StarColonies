@@ -6,5 +6,4 @@ namespace StarColonies.Domains.Repositories;
 public interface IMapRepository
 {
     Task<IList<PlanetModel>> GetPlanetsWithMissionsAsync();
-    Task<IList<ColonyModel>> GetColoniesForColonistAsync(string colonistId);
 }

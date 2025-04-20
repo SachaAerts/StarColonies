@@ -10,7 +10,11 @@ using StarColonies.Infrastructures.Data.Entities;
 
 namespace StarColonies.Web.Pages;
 
-public class Map(IMapRepository mapRepository, IInventaryRepository inventaryRepository, UserManager<ColonistEntity> userManager) : PageModel
+public class Map(
+    IMapRepository mapRepository, 
+    IInventaryRepository inventaryRepository,
+    IColonyRepository colonyRepository,
+    UserManager<ColonistEntity> userManager) : PageModel
 {
     
     public IList<PlanetModel> Planets { get; private set; } = new List<PlanetModel>();
@@ -28,7 +32,7 @@ public class Map(IMapRepository mapRepository, IInventaryRepository inventaryRep
 
         Planets  = await mapRepository.GetPlanetsWithMissionsAsync();
         Items    = await inventaryRepository.GetItemsForColonistAsync(user.Id);
-        Colonies = await mapRepository.GetColoniesForColonistAsync(user.Id);
+        Colonies = await colonyRepository.GetColoniesForColonistAsync(user.Id);
 
         return Page();
     }

@@ -13,7 +13,7 @@ export function renderOverlay(type, data) {
             break;
             
         case "missionLaunch":
-            content.innerHTML = renderMissionLaunch(data.planetImg);
+            content.innerHTML = renderLaunchLoading(data.planetImg);
             break;
             
         default:
@@ -78,7 +78,7 @@ function renderMissionDetails(quest) {
     `;
 }
 
-function renderMissionLaunch(planetImg) {
+function renderLaunchLoading(planetImg) {
     return `
         <div class="scene">
             <img class="planetLoader" src="${planetImg}" height="90" alt="Planet">
@@ -88,7 +88,7 @@ function renderMissionLaunch(planetImg) {
         </div>
         
         <style>
-            .overlay-content {background: none;border: none;}
+            .overlay-content {background: none; border: none;}
             .scene {
                 transform: scale(1.5);
                 position: relative;

@@ -3,7 +3,7 @@ using StarColonies.Infrastructures.Data.Entities.Missions;
 
 namespace StarColonies.Infrastructures.Data.Configurations.Seeder;
 
-public class ColonieSeeder
+public class ColonySeeder
 {
     public static void Seed(StarColoniesDbContext context)
     {
@@ -113,17 +113,39 @@ public class ColonieSeeder
         context.Colonies.AddRange(colony1, colony2, colony3, colony4, colony5, colony6, colony7, colony8, colony9, colony10);
         context.SaveChanges(); 
 
-        var members = new List<ColonieMemberEntity>
+        var members = new List<ColonyMemberEntity>
         {
-            new() { ColonieId = colony1.Id, Colony = colony1, ColonistId = colonists[0].Id, Colonist = colonists[0] },
-            new() { ColonieId = colony1.Id, Colony = colony1, ColonistId = colonists[1].Id, Colonist = colonists[1] },
+            new() { ColonyId = colony1.Id, Colony = colony1, ColonistId = colonists[0].Id, Colonist = colonists[0] },
+            new() { ColonyId = colony1.Id, Colony = colony1, ColonistId = colonists[1].Id, Colonist = colonists[1] },
 
-            new() { ColonieId = colony2.Id, Colony = colony2, ColonistId = colonists[1].Id, Colonist = colonists[1] },
-            new() { ColonieId = colony2.Id, Colony = colony2, ColonistId = colonists[2].Id, Colonist = colonists[2] },
+            new() { ColonyId = colony2.Id, Colony = colony2, ColonistId = colonists[1].Id, Colonist = colonists[1] },
+            new() { ColonyId = colony2.Id, Colony = colony2, ColonistId = colonists[2].Id, Colonist = colonists[2] },
 
-            new() { ColonieId = colony3.Id, Colony = colony3, ColonistId = colonists[2].Id, Colonist = colonists[2] },
-            new() { ColonieId = colony3.Id, Colony = colony3, ColonistId = colonists[3].Id, Colonist = colonists[3] },
-            new() { ColonieId = colony3.Id, Colony = colony3, ColonistId = colonists[4].Id, Colonist = colonists[4] }
+            new() { ColonyId = colony3.Id, Colony = colony3, ColonistId = colonists[2].Id, Colonist = colonists[2] },
+            new() { ColonyId = colony3.Id, Colony = colony3, ColonistId = colonists[3].Id, Colonist = colonists[3] },
+            new() { ColonyId = colony3.Id, Colony = colony3, ColonistId = colonists[4].Id, Colonist = colonists[4] },
+            
+            new() { ColonyId = colony4.Id, Colony = colony4, ColonistId = colonists[0].Id, Colonist = colonists[0] },
+            new() { ColonyId = colony4.Id, Colony = colony4, ColonistId = colonists[1].Id, Colonist = colonists[1] },
+            
+            new() { ColonyId = colony5.Id, Colony = colony5, ColonistId = colonists[2].Id, Colonist = colonists[2] },
+            new() { ColonyId = colony5.Id, Colony = colony5, ColonistId = colonists[3].Id, Colonist = colonists[3] },
+            new() { ColonyId = colony5.Id, Colony = colony5, ColonistId = colonists[4].Id, Colonist = colonists[4] },
+            
+            new() { ColonyId = colony6.Id, Colony = colony6, ColonistId = colonists[0].Id, Colonist = colonists[0] },
+            
+            new() { ColonyId = colony7.Id, Colony = colony7, ColonistId = colonists[1].Id, Colonist = colonists[1] },
+            
+            new() { ColonyId = colony8.Id, Colony = colony8, ColonistId = colonists[2].Id, Colonist = colonists[2] },
+            new() { ColonyId = colony8.Id, Colony = colony8, ColonistId = colonists[3].Id, Colonist = colonists[3] },
+            
+            new() { ColonyId = colony9.Id, Colony = colony9, ColonistId = colonists[4].Id, Colonist = colonists[4] },
+            new() { ColonyId = colony9.Id, Colony = colony9, ColonistId = colonists[0].Id, Colonist = colonists[0] },
+            new() { ColonyId = colony9.Id, Colony = colony9, ColonistId = colonists[1].Id, Colonist = colonists[1] },
+            new() { ColonyId = colony9.Id, Colony = colony9, ColonistId = colonists[2].Id, Colonist = colonists[2] },
+            
+            new() { ColonyId = colony10.Id, Colony = colony10, ColonistId = colonists[3].Id, Colonist = colonists[3] },
+            new() { ColonyId = colony10.Id, Colony = colony10, ColonistId = colonists[4].Id, Colonist = colonists[4] },
         };
 
         context.ColoniesMembers.AddRange(members);

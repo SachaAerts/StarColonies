@@ -4,7 +4,7 @@ using StarColonies.Infrastructures.Data.Entities;
 
 namespace StarColonies.Infrastructures.Data.Configurations;
 
-public class ColonieConfiguration : IEntityTypeConfiguration<ColonyEntity>
+public class ColonyConfiguration : IEntityTypeConfiguration<ColonyEntity>
 {
     public void Configure(EntityTypeBuilder<ColonyEntity> builder)
     {
