@@ -31,4 +31,8 @@
       <Content Include="StarColonies.Web.csproj.DotSettings.user" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\overlays\MissionDetailsCommand.js" />
+    </ItemGroup>
+
 </Project>

@@ -1,6 +1,13 @@
 ﻿@page
 @using System.Text.Encodings.Web
 @model StarColonies.Web.Pages.Map
+
+<!--
+Token for anti-forgery validation: 
+The anti-falsification token is a security measure against CSRF (Cross-Site Request Forgery) attacks.
+It compares the token sent with the request with the token stored in a hidden attribute in the form.
+This ensures that the request actually comes from the authenticated user and not from a malicious third party. 
+-->
 @Html.AntiForgeryToken()
 
 @{
@@ -86,8 +93,8 @@
 
 <!-- Import js file -->
 <script src="~/js/components/nav_bar.js"></script>
-<script src="~/js/components/map/map.js"></script>
-<script type="module" src="~/js/components/map/planets/PlanetItem.js"></script>
+<script src="~/js/components/map/utils/map.js"></script>
+<script type="module" src="~/js/components/map/planets/planetItem.js"></script>
 
 </body>
 </html>

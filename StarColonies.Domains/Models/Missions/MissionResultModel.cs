@@ -1,4 +1,6 @@
-﻿namespace StarColonies.Domains.Models.Missions;
+﻿using StarColonies.Domains.Models.Items;
+
+namespace StarColonies.Domains.Models.Missions;
 
 public class MissionResultModel
 {
@@ -12,4 +14,6 @@ public class MissionResultModel
         get => MissionSuccess ? "La mission est un succès !" : "La mission est un échec !";
         set => ResultMessage = value;
     }
+    
+    public IList<ItemModel> Rewards { get; set; } = new List<ItemModel>();
 }

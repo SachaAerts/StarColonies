@@ -1,7 +1,7 @@
-﻿import { parsePlanetData } from './PlanetData.js';
-import { createPlanetContainer } from './PlanetRenderer.js';
-import { getStyle } from './PlanetStyle.js';
-import { createQuestPanel } from '../missions/MissionPanel.js';
+﻿import { parsePlanetData } from './planetData.js';
+import { createPlanetContainer } from './planetRenderer.js';
+import { getStyle } from './planetStyle.js';
+import { createQuestPanel } from '../missions/missionPanel.js';
 
 export class PlanetItem extends HTMLElement {
     
@@ -21,7 +21,6 @@ export class PlanetItem extends HTMLElement {
         
         this.teams = teams;
         this.quests = quests;
-        console.log(this.quests);
         
         this.innerHTML = '';
         

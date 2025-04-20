@@ -27,8 +27,7 @@ public class Map(
     {
         var user = await userManager.GetUserAsync(User);
         
-        if (user == null)
-            return RedirectToPage("/Connection");
+        if (user == null) return RedirectToPage("/Connection");
 
         Planets  = await mapRepository.GetPlanetsWithMissionsAsync();
         Items    = await inventaryRepository.GetItemsForColonistAsync(user.Id);
@@ -43,14 +42,8 @@ public class Map(
     public async Task<JsonResult> OnPostResolveMissionAsync([FromBody] MissionRequestModel request)
     {
         var user = await userManager.GetUserAsync(User);
-        if (user == null)
-        {
-            Console.WriteLine("[Mission] Utilisateur non connecté.");
-            return new JsonResult(new { success = false, message = "Utilisateur non connecté" });
-        }
-
-        Console.WriteLine($"[Mission] Reçu: MissionId={request.MissionId}, ColonyId={request.ColonyId}, ItemIds=[{string.Join(",", request.ItemIds)}]");
-
+        if (user == null) return new JsonResult(new { success = false, message = "Utilisateur non connecté" });
+        
         var allColonies = await colonyRepository.GetColoniesForColonistAsync(user.Id);
         var allItems = await inventaryRepository.GetItemsForColonistAsync(user.Id);
         var allPlanets = await mapRepository.GetPlanetsWithMissionsAsync();
@@ -59,23 +52,31 @@ public class Map(
         var colony = allColonies.FirstOrDefault(c => c.Id == request.ColonyId);
         var selectedItems = allItems.Where(i => request.ItemIds.Contains(i.Id)).ToList();
 
-        if (mission == null || colony == null)
-        {
-            Console.WriteLine("[Mission] Paramètres invalides.");
+        if (mission == null || colony == null) 
             return new JsonResult(new { success = false, message = "Paramètres invalides" });
+
+        MissionResultModel result = IsMissionResolved(mission, colony, selectedItems);
+        result.Rewards = mission.Items;
+
+        foreach (var items in result.Rewards)
+        {
+            Console.WriteLine($"Item: {items.Name}, Description: {items.Description}");
         }
-
-        var result = IsMissionResolved(mission, colony, selectedItems);
-
-        Console.WriteLine($"[Mission] Résultat : {(result.MissionSuccess ? "SUCCÈS" : "ÉCHEC")} - {result.ResultMessage}");
-
+        
         return new JsonResult(new
         {
             success = true,
             result = new
             {
                 isSuccess = result.MissionSuccess,
-                description = result.ResultMessage
+                description = result.ResultMessage,
+                rewards = result.Rewards.Select(i => new
+                {
+                    i.Id,
+                    i.Name,
+                    i.Description,
+                    i.ImagePath
+                })
             }
         });
     }
