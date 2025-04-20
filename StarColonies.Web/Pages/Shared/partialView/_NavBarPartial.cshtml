@@ -1,0 +1,52 @@
+<nav class="navBar">
+    <div class="btnActive">
+        <img src="img/character/head_before.png" alt="" id="characterHead" data-state="before">
+    </div>
+    <div class="list-nav">
+        @if (User.Identity is not { IsAuthenticated: true })
+        {
+            <a class="item-nav" href="/Connection">
+                <img src="img/icons/navbar/connection.png" alt="">
+                <span>Connection</span>
+            </a>
+            <a class="item-nav" href="/Index">
+                <img src="img/icons/navbar/home.png" alt=""/>
+                <span>Home</span>
+            </a>
+        }
+        else
+        {
+            <form method="post" asp-page="/Logout" style="all: unset; cursor: pointer; background: none; border: none; padding: 0; margin: 0;">
+                <button class="item-nav" type="submit">
+                    <img src="img/icons/navbar/connection.png" alt="">
+                    <span>Logout</span>
+                </button>
+            </form>
+            <a class="item-nav" href="/Index">
+                <img src="img/icons/navbar/home.png" alt=""/>
+                <span>Home</span>
+            </a>
+            <a class="item-nav" href="/Map">
+                <img src="img/icons/navbar/mission.png" alt="">
+                <span>Mission</span>
+            </a>
+            <a class="item-nav" href="#">
+                <img src="img/icons/navbar/blackmarket.png" alt="">
+                <span>Black market</span>
+            </a>
+        }
+
+        @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+        {
+            <a class="item-nav" href="#">
+                <img src="img/icons/navbar/admin.png" alt="">
+                <span>Admin</span>
+            </a>
+        }
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            @await Component.InvokeAsync("ColonistProfile")
+        }
+    </div>
+</nav>

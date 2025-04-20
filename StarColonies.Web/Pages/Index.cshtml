@@ -1,14 +1,37 @@
 ﻿@page
 @model IndexModel
 
+@{
+    ViewData["Title"] = "Home";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/fonts.css"/>
+    <link rel="stylesheet" href="~/css/pages/index.css"/>
+    <link rel="stylesheet" href="~/css/partialView/navBar.css"/>
+</head>
+
+<body>
+<header>
+    @await Html.PartialAsync("Shared/partialView/_NavBarPartial")
+</header>
+
 <main>
     <section class="backgroundHeaderIndex">
         <h1>StarColonies</h1>
 
-        <section class="info">
-            <p>Plongez dans l’univers captivant de StarColonies: The Age of Middleware, un jeu de stratégie et d’exploration galactique signé Laudrikx Games. </p>
-            <p>Aux confins d’une galaxie lointaine, vous incarnez un colon intrépide débarquant sur une planète inconnue. </p>
-            <p>Accompagné de votre équipe de spécialistes – ingénieurs, médecins, scientifiques et soldats. Vous devrez bâtir, survivre, explorer et dominer.</p>
+        <div class="info">
+            <p>Dive into the captivating universe of StarColonnies: The Age of Middleware, a galactic strategy and exploration 
+                game developed by Laudrikx Games.</p>
+            <p>At the edge of a distant galaxy, you take on the role of a fearless colonist landing on an unknown planet. </p>
+            <p>Joined by your team of specialists—engineers, medics, scientists, and soldiers—you will need to build, survive, 
+                explore, and dominate.</p>
 
             <div class="btn">
                 <button class="buttonLoader" id="analyseBtn">
@@ -16,25 +39,127 @@
                     <div id="loaderBar" class="loader-bar hidden"></div>
                 </button>
             </div>
-        </section>
+        </div>
+    </section>
+
+    <section class="hallOfFame">
+        <h3>Hall of fame</h3>
+        
+        <div class="insideHallOfFame">
+            <div class="leftColumnHallOfFame">
+                <p>Welcome to the Hall of Fame, where only the top 10 colonies in the galaxy have earned their place among the stars.</p>
+                <p>These are not mere squads—they are frontier legends, forged across countless star systems, hardened by the vacuum of 
+                    space, and united by a single mission: to thrive where others fall. Across deadly asteroid fields, rogue moons, 
+                    derelict outposts, and ancient alien ruins, these teams have braved the unknown—and emerged triumphant.</p>
+                <p>Each of these colonies has completed missions that span the far reaches of the galaxy. They’ve faced cosmic storms, 
+                    battled swarms of bio-engineered predators, hacked abandoned AI networks, and negotiated with entities beyond 
+                    comprehension. Through it all, they stood strong—thanks to tactical brilliance, adaptive strategy, and the sheer 
+                    will to survive.</p>
+                <p>Their names are carved into history—not because of luck, but because of choices made under pressure, sacrifices accepted 
+                    without hesitation, and a relentless drive to protect and expand their influence among the stars.</p>
+                <p>This Hall is more than a leaderboard—it's a monument to greatness, a source of inspiration for every aspiring explorer, 
+                    strategist, and commander in StarColonnies.</p>
+                <p>The question remains: will your colony rise to claim its place among the galaxy’s finest?</p>
+            </div>
+
+            <div class="rightColumnHallOfFame">
+                <hr/>
+
+                <div class="topTenFame">
+                    <div class="oneFame">
+                        <img src="img/upload/1.png" alt="firstPlaceLogo"/>
+                        <h4>Novaterra</h4>
+                        <p>230000</p>
+                    </div>
+
+                    <div class="oneFame">
+                        <img src="img/upload/1.png" alt="firstPlaceLogo"/>
+                        <h4>Arthuro</h4>
+                        <p>210210</p>
+                    </div>
+
+                    <div class="oneFame">
+                        <img src="img/upload/1.png" alt="firstPlaceLogo"/>
+                        <h4>Guilde noir</h4>
+                        <p>190000</p>
+                    </div>
+
+                    <div class="oneFame">
+                        <img src="img/upload/1.png" alt="firstPlaceLogo"/>
+                        <h4>Arkatus</h4>
+                        <p>170000</p>
+                    </div>
+
+                    <div class="oneFame">
+                        <img src="img/upload/1.png" alt="firstPlaceLogo"/>
+                        <h4>Sylvanas</h4>
+                        <p>1200000</p>
+                    </div>
+
+                    <div class="oneFame">
+                        <img src="img/upload/1.png" alt="firstPlaceLogo"/>
+                        <h4>Team du zodiac</h4>
+                        <p>100000</p>
+                    </div>
+
+                    <div class="oneFame">
+                        <img src="img/upload/1.png" alt="firstPlaceLogo"/>
+                        <h4>Hellstorm</h4>
+                        <p>97455</p>
+                    </div>
+
+                    <div class="oneFame">
+                        <img src="img/upload/1.png" alt="firstPlaceLogo"/>
+                        <h4>Les chasseurs noirs</h4>
+                        <p>90000</p>
+                    </div>
+
+                    <div class="oneFame">
+                        <img src="img/upload/1.png" alt="firstPlaceLogo"/>
+                        <h4>Barlo</h4>
+                        <p>80000</p>
+                    </div>
+
+                    <div class="oneFame">
+                        <img src="img/upload/1.png" alt="firstPlaceLogo"/>
+                        <h4>Neni hein</h4>
+                        <p>70000</p>
+                    </div>
+                </div>
+                
+                <hr/>
+            </div>
+        </div>
     </section>
     
-    <section>
-        <div>
-            <p>These are the finest squads in all of Novaterra. Their courage, strategic brilliance, and relentless pursuit of excellence have earned them a place among the stars.</p>
-            <p>From mysterious anomalies to deadly extraterrestrial threats, they’ve faced every challenge—and emerged victorious.</p>
-            <p>Will your team be next to join the ranks of the StarColonnies elite?</p>
-        </div>
-
-        <div>
-            <h3>Hall of fame</h3>
+    <section class="laudrikxSection">
+        <img src="img/laudrikx_game.png" alt="laudrikx_game"/>
+        <div class="laudrikxDescription">
+            <h3>Laudrikx Games</h3>
             
-            <hr/>
-            
+            <p>At Laudrikx Games, we don’t just build games—we craft galaxies.</p>
+            <p>Born from the minds of passionate storytellers, visionary designers, and veteran developers, 
+                Laudrikx Games is an independent studio dedicated to creating bold, immersive, and meaningful 
+                gaming experiences. We believe that video games are the most powerful form of interactive 
+                storytelling, and we strive to harness that power with every project we launch.</p>
+            <p>With a strong focus on science fiction, tactical gameplay, and roleplaying depth, we aim to blur 
+                the lines between narrative and mechanics. Every pixel we place, every system we design, and 
+                every story we write is crafted to ignite the imagination and challenge the mind.</p>
+            <p>Our latest venture, StarColonnies, is not just a game—it’s a dynamic and ever-expanding universe. 
+                In this futuristic saga, players take on the role of brave pioneers sent to explore, colonize, 
+                and survive in the most hostile corners of the galaxy. From assembling diverse teams of specialists, 
+                to unlocking lost technologies and confronting ancient alien threats, StarColonnies is a test of leadership, 
+                adaptability, and long-term strategy.</p>
+            <p>Every decision matters. Every mission leaves a trace. And every player shapes a unique path through a living, 
+                evolving sci-fi sandbox.</p>
+            <p>At Laudrikx Games, we don’t follow trends—we build worlds. And with StarColonnies, we invite you to become 
+                part of something bigger than yourself.</p>
+            <p>Join us as we build the future—one colony at a time.</p>
         </div>
     </section>
 </main>
 
-
 <script src="~/js/components/loader.js"></script>
-
+<script src="~/js/components/nav_bar.js"></script>
+</body>
+</html>

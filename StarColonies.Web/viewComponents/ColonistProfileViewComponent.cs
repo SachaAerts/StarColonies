@@ -9,7 +9,7 @@ public class ColonistProfileViewComponent(UserManager<ColonistEntity> userManage
     public async Task<IViewComponentResult> InvokeAsync()
     {
         if (!User.Identity?.IsAuthenticated ?? true)
-            return View(null); // utilisateur non connecté
+            return View(null);
 
         var colonist = await userManager.GetUserAsync((System.Security.Claims.ClaimsPrincipal)User);
         return View(colonist);
