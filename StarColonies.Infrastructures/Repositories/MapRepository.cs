@@ -12,8 +12,7 @@ namespace StarColonies.Infrastructures.Repositories;
 
 public class MapRepository(
     StarColoniesDbContext context,
-    IEntityToDomainMapper<PlanetModel, PlanetEntity> planetMapper,
-    IEntityToDomainMapper<ColonyModel, ColonyEntity> colonyMapper) : IMapRepository
+    IEntityToDomainMapper<PlanetModel, PlanetEntity> planetMapper) : IMapRepository
 {
     public async Task<IList<PlanetModel>> GetPlanetsWithMissionsAsync()
     {
@@ -28,15 +27,5 @@ public class MapRepository(
             .ToListAsync();
 
         return planets.Select(planetMapper.Map).ToList();
-    }
-    
-    public async Task<IList<ColonyModel>> GetColoniesForColonistAsync(string colonistId)
-    {
-        var colonies = await context.Colonies
-            .Include(c => c.Owner)
-            .Where(c => c.Members.Any(m => m.ColonistId == colonistId))
-            .ToListAsync();
-
-        return colonies.Select(colonyMapper.Map).ToList();
     }
 }

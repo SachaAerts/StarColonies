@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StarColonies.Infrastructures.Data;
 
@@ -11,9 +12,11 @@ using StarColonies.Infrastructures.Data;
 namespace StarColonies.Infrastructures.Migrations
 {
     [DbContext(typeof(StarColoniesDbContext))]
-    partial class StarColoniesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250420095529_Colonies2")]
+    partial class Colonies2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,13 +298,13 @@ namespace StarColonies.Infrastructures.Migrations
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonyMemberEntity", b =>
                 {
-                    b.Property<int>("ColonyId")
+                    b.Property<int>("ColonieId")
                         .HasColumnType("int");
 
                     b.Property<string>("ColonistId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("ColonyId", "ColonistId");
+                    b.HasKey("ColonieId", "ColonistId");
 
                     b.HasIndex("ColonistId");
 
@@ -643,16 +646,16 @@ namespace StarColonies.Infrastructures.Migrations
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonyMemberEntity", b =>
                 {
+                    b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonyEntity", "Colony")
+                        .WithMany("Members")
+                        .HasForeignKey("ColonieId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonistEntity", "Colonist")
                         .WithMany("Colonies")
                         .HasForeignKey("ColonistId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonyEntity", "Colony")
-                        .WithMany("Members")
-                        .HasForeignKey("ColonyId")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Colonist");

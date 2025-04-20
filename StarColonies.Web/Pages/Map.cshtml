@@ -20,6 +20,13 @@
         id = c.Id,
         name = c.Name
     }));
+    var itemsJson = System.Text.Json.JsonSerializer.Serialize(Model.Items.Select(i => new {
+        id = i.Id,
+        name = i.Name,
+        image = i.ImagePath,
+        forceModifier = i.Effect.ForceModifier,
+        staminaModifier = i.Effect.StaminaModifier
+    }));
 }
 
 <section id="viewport">
@@ -29,10 +36,10 @@
             <planet-item
                 data-name="@planet.Name"
                 data-image="@planet.ImagePath"
-                data-x="@planet.X"
-                data-y="@planet.Y"
+                data-x="@planet.X" data-y="@planet.Y"
                 data-id="@planet.Id"
-                data-teams='@Html.Raw(HtmlEncoder.Default.Encode(coloniesJson))'>
+                data-teams='@Html.Raw(HtmlEncoder.Default.Encode(coloniesJson))'
+                data-items='@Html.Raw(HtmlEncoder.Default.Encode(itemsJson))'>
 
                 @foreach (var mission in planet.Missions)
                 {
@@ -70,9 +77,8 @@
 </section>
 
 <!-- Import js file -->
-<script src="~/js/components/planet.js"></script>
-<script src="~/js/map.js"></script>
-<script src="~/js/missionLaunch.js"></script>
+<script src="~/js/components/map/map.js"></script>
+<script type="module" src="~/js/components/map/planets/PlanetItem.js"></script>
 
 </body>
 </html>

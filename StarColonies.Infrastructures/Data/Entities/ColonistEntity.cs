@@ -20,6 +20,6 @@ public class ColonistEntity : IdentityUser
     
     public string ProfilPicture { get; set; }
 
-    public ICollection<ColonieMemberEntity> Colonies { get; set; } = new List<ColonieMemberEntity>();
+    public ICollection<ColonyMemberEntity> Colonies { get; set; } = new List<ColonyMemberEntity>();
     public ICollection<InventoryEntity> Inventory { get; set; } = new List<InventoryEntity>();
 }

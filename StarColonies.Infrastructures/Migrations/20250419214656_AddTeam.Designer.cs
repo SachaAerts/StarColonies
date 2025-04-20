@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StarColonies.Infrastructures.Data;
 
@@ -11,9 +12,11 @@ using StarColonies.Infrastructures.Data;
 namespace StarColonies.Infrastructures.Migrations
 {
     [DbContext(typeof(StarColoniesDbContext))]
-    partial class StarColoniesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250419214656_AddTeam")]
+    partial class AddTeam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,6 +177,21 @@ namespace StarColonies.Infrastructures.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonieMemberEntity", b =>
+                {
+                    b.Property<int>("ColonieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ColonistId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ColonieId", "ColonistId");
+
+                    b.HasIndex("ColonistId");
+
+                    b.ToTable("ColoniesMembers");
+                });
+
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonistEntity", b =>
                 {
                     b.Property<string>("Id")
@@ -291,21 +309,6 @@ namespace StarColonies.Infrastructures.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Colonies");
-                });
-
-            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonyMemberEntity", b =>
-                {
-                    b.Property<int>("ColonyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ColonistId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ColonyId", "ColonistId");
-
-                    b.HasIndex("ColonistId");
-
-                    b.ToTable("ColoniesMembers");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.EffectEntity", b =>
@@ -630,6 +633,25 @@ namespace StarColonies.Infrastructures.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonieMemberEntity", b =>
+                {
+                    b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonyEntity", "Colony")
+                        .WithMany("Members")
+                        .HasForeignKey("ColonieId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonistEntity", "Colonist")
+                        .WithMany("Colonies")
+                        .HasForeignKey("ColonistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Colonist");
+
+                    b.Navigation("Colony");
+                });
+
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonyEntity", b =>
                 {
                     b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonistEntity", "Owner")
@@ -639,25 +661,6 @@ namespace StarColonies.Infrastructures.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonyMemberEntity", b =>
-                {
-                    b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonistEntity", "Colonist")
-                        .WithMany("Colonies")
-                        .HasForeignKey("ColonistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonyEntity", "Colony")
-                        .WithMany("Members")
-                        .HasForeignKey("ColonyId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Colonist");
-
-                    b.Navigation("Colony");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.InventoryEntity", b =>

@@ -24,19 +24,22 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<ReverseProxyLinksMiddleware>();
 
-// Inject Mapper the DbContext
-builder.Services.AddScoped<IEntityToDomainMapper<PlanetModel, PlanetEntity>, PlanetToDomainMapper>();
-builder.Services.AddScoped<IEntityToDomainMapper<MissionModel, MissionEntity>, MissionToDomainMapper>();
-builder.Services.AddScoped<IEntityToDomainMapper<EnemyModel, EnemyEntity>, EnemyToDomainMapper>();
-builder.Services.AddScoped<IEntityToDomainMapper<ColonyModel, ColonyEntity>, ColonyToDomainMapper>();
-builder.Services.AddScoped<IEntityToDomainMapper<EffectModel, EffectEntity>, EffectToDomainMapper>();
-builder.Services.AddScoped<IEntityToDomainMapper<ItemModel, ItemEntity>, ItemToDomainMapper>();
+// Inject Mapper: Entity -> Domain(Models)
+builder.Services.AddScoped<IEntityToDomainMapper<PlanetModel, PlanetEntity>,     PlanetToDomainMapper>();
+builder.Services.AddScoped<IEntityToDomainMapper<MissionModel, MissionEntity>,   MissionToDomainMapper>();
+builder.Services.AddScoped<IEntityToDomainMapper<EnemyModel, EnemyEntity>,       EnemyToDomainMapper>();
+builder.Services.AddScoped<IEntityToDomainMapper<ColonyModel, ColonyEntity>,     ColonyToDomainMapper>();
+builder.Services.AddScoped<IEntityToDomainMapper<EffectModel, EffectEntity>,     EffectToDomainMapper>();
+builder.Services.AddScoped<IEntityToDomainMapper<ItemModel, ItemEntity>,         ItemToDomainMapper>();
 builder.Services.AddScoped<IEntityToDomainMapper<ColonistModel, ColonistEntity>, ColonistToDomainMapper>();
 
+// Inject Mapper: Domain(Models) -> Entity
 builder.Services.AddScoped<IDomainToEntityMapper<ColonistEntity, ColonistModel>, ColonistToEntityMapper>();
+builder.Services.AddScoped<IDomainToEntityMapper<ColonyEntity, ColonyModel>,     ColonyToEntityMapper>();
 
 // Inject Repositories
 builder.Services.AddScoped<IMapRepository, MapRepository>();
+builder.Services.AddScoped<IColonyRepository, ColonyRepository>();
 builder.Services.AddScoped<IColonistRepository, ColonistRepository>();
 builder.Services.AddScoped<IInventaryRepository, InventaryRepository>();
 
@@ -81,13 +84,15 @@ return;
 static async Task SeedDataAsync(WebApplication app)
 {
     using var scope = app.Services.CreateScope();
-    
     var context = scope.ServiceProvider.GetRequiredService<StarColoniesDbContext>();
-    
     await context.Database.MigrateAsync();
     
+    Seed(context);
+}
+
+static void Seed(StarColoniesDbContext context)
+{
     MapSeeder.Seed(context);
-    ColonieSeeder.Seed(context);
+    ColonySeeder.Seed(context);
     InventarySeeder.Seed(context);
-    //GiveItems(context);
 }

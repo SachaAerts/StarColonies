@@ -1,5 +1,5 @@
 ﻿
-function renderOverlay(type, data) {
+export function renderOverlay(type, data) {
     const overlay = document.getElementById("overlay");
     const content = overlay.querySelector(".overlay-content");
 
@@ -13,7 +13,7 @@ function renderOverlay(type, data) {
             break;
             
         case "missionLaunch":
-            content.innerHTML = renderMissionLaunch(data.planetImg);
+            content.innerHTML = renderLaunchLoading(data.planetImg);
             break;
             
         default:
@@ -78,7 +78,7 @@ function renderMissionDetails(quest) {
     `;
 }
 
-function renderMissionLaunch(planetImg) {
+function renderLaunchLoading(planetImg) {
     return `
         <div class="scene">
             <img class="planetLoader" src="${planetImg}" height="90" alt="Planet">
@@ -88,7 +88,7 @@ function renderMissionLaunch(planetImg) {
         </div>
         
         <style>
-            .overlay-content {background: none;border: none;}
+            .overlay-content {background: none; border: none;}
             .scene {
                 transform: scale(1.5);
                 position: relative;
@@ -147,8 +147,10 @@ function renderTeamSelection({ teams, items }) {
 
     const itemsHTML = items.map(item => `
         <label>
-            <input type="checkbox" value="${item.id}"/>
-            <img src="${item.image}" height="20" alt="Image"> ${item.name}
+            ${items.length === 0 || !items ? `<p>Vous n'avez actuellement aucun item</p>` : `
+                <input type="checkbox" value="${item.id}"/>
+                <img src="${item.image}" height="40" alt="Image"> ${item.name}
+            `}
         </label>
     `).join('<br>');
 

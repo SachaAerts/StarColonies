@@ -15,7 +15,7 @@ public class ColonyEntity
     public required string OwnerId { get; set; }
     public required ColonistEntity Owner { get; set; }
 
-    public ICollection<ColonieMemberEntity> Members { get; set; } = new List<ColonieMemberEntity>();
+    public ICollection<ColonyMemberEntity> Members { get; set; } = new List<ColonyMemberEntity>();
 
-    public required ICollection<MissionExecutionEntity> MissionExecutions { get; set; } = new List<MissionExecutionEntity>();
+    public ICollection<MissionExecutionEntity> MissionExecutions { get; set; } = new List<MissionExecutionEntity>();
 }

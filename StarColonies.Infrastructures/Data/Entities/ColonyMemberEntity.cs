@@ -1,8 +1,8 @@
 ﻿namespace StarColonies.Infrastructures.Data.Entities;
 
-public class ColonieMemberEntity
+public class ColonyMemberEntity
 {
-    public int ColonieId { get; set; }
+    public int ColonyId { get; set; }
     public required ColonyEntity Colony { get; set; }
 
     public string ColonistId { get; set; } = string.Empty;
