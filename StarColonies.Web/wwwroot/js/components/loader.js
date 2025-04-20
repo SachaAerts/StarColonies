@@ -3,8 +3,15 @@ const buttonText = document.getElementById('buttonText');
 const loaderBar = document.getElementById('loaderBar');
 
 analyseBtn.addEventListener('click', async () => {
+    console.log('Analyse');
     await simulateTextAnimation();
     await simulateLoaderBar();
+
+    if (window.isAuthenticated) {
+        window.location.href = "/Map";
+    } else {
+        window.location.href = "/Connection";
+    }
 });
 
 async function simulateTextAnimation() {
