@@ -91,3 +91,41 @@ nav {
 .list-nav.hidde .item-nav:nth-child(4) { transition-delay: 0.2s; }
 .list-nav.hidde .item-nav:nth-child(5) { transition-delay: 0.1s; }
 .list-nav.hidde .item-nav:nth-child(6) { transition-delay:   0s; }
+
+@media (max-height: 900px) {
+    nav {
+        gap: 20px;
+    }
+
+    .list-nav {
+        gap: 20px;
+    }
+
+    .list-nav img {
+        height: 40px;
+        width: 48px;
+    }
+
+    .list-nav .item-nav span {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-height: 700px) {
+    nav {
+        gap: 10px;
+    }
+
+    .list-nav {
+        gap: 10px;
+    }
+
+    .list-nav img {
+        height: 32px;
+        width: 40px;
+    }
+
+    .list-nav .item-nav span {
+        font-size: 0.7rem;
+    }
+}
