@@ -26,4 +26,22 @@ public class ColonyRepository(
     
     public void AddColony(ColonyModel colony) 
         => context.Colonies.Add(reverseMapper.Map(colony));
+    
+    public async Task<IList<ColonyModel>> GetTop10ColoniesAsync()
+    {
+        var colonies = await context.Colonies
+            .Include(c => c.Members)
+            .ThenInclude(m => m.Colonist)
+            .Include(c => c.Owner)
+            .ToListAsync();
+
+        var colonyModels = colonies
+            .Select(mapper.Map)
+            .Where(c => c.Colonists.Any())
+            .OrderByDescending(c => c.Strength)
+            .Take(10)
+            .ToList();
+
+        return colonyModels;
+    }
 }
