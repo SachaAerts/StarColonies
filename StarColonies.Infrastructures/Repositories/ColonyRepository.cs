@@ -20,7 +20,7 @@ public class ColonyRepository(
             .Include(c => c.Owner)
             .Where(c => c.Members.Any(m => m.ColonistId == colonistId))
             .ToListAsync();
-
+     
         return colonies.Select(mapper.Map).ToList();
     }
     

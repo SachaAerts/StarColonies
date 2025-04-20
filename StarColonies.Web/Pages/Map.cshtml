@@ -1,17 +1,20 @@
 ﻿@page
 @using System.Text.Encodings.Web
 @model StarColonies.Web.Pages.Map
+@Html.AntiForgeryToken()
 
 @{
     ViewData["Title"] = "Map";
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/components/font.css">
     <link rel="stylesheet" href="~/css/pages/map.css">
+    <link rel="stylesheet" href="~/css/partialView/navBar.css"/>
 </head>
 <body>
 
@@ -29,6 +32,10 @@
     }));
 }
 
+<header>
+    @await Html.PartialAsync("Shared/partialView/_NavBarPartial")
+</header>
+
 <section id="viewport">
     <div id="map">
         @foreach (var planet in Model.Planets)
@@ -44,6 +51,7 @@
                 @foreach (var mission in planet.Missions)
                 {
                     <quest
+                        id="@mission.Id"
                         title="@mission.Name"
                         description="@mission.Description"
                         difficulty="@mission.Difficulty"
@@ -77,6 +85,7 @@
 </section>
 
 <!-- Import js file -->
+<script src="~/js/components/nav_bar.js"></script>
 <script src="~/js/components/map/map.js"></script>
 <script type="module" src="~/js/components/map/planets/PlanetItem.js"></script>
 

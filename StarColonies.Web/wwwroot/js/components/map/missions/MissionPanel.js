@@ -1,5 +1,6 @@
-﻿import { truncateText } from './utils.js';
+﻿import { truncateText } from '../utils/utils.js';
 import { renderOverlay } from './MissionLaunchRenderer.js';
+import { setSelectedMission, getSelectedMission } from './MissionContext.js';
 
 export function createQuestPanel(data) {
     const panel = createQuestPanelContainer(data.x);
@@ -49,7 +50,12 @@ function attachQuestListeners(scroll, data) {
 
             const index = parseInt(el.getAttribute('data-index'));
             const quest = data.quests[index];
+            
+            setSelectedMission(quest);
 
+            scroll.querySelectorAll(".quest-frame").forEach(q => q.removeAttribute("selected"));
+            el.setAttribute("selected", "true");
+            
             renderOverlay("missionDetails", quest);
             waitForElement("#launchMission", launchBtn =>
                 launchBtn.addEventListener("click", () => { handleLaunchClick(data); })
@@ -69,13 +75,53 @@ function handleLaunchClick(data) {
             const selectedTeam = document.getElementById("teamSelect")?.value;
             const selectedItems = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(i => parseInt(i.value));
 
-            renderOverlay("missionLaunch", {
-                planetImg: data.image,
-                teamId: selectedTeam,
-                items: selectedItems
-            });
+            renderOverlay("missionLaunch", { planetImg: data.image });
+            post(data, selectedTeam, selectedItems);
         });
     });
+}
+
+function post(data, selectedTeam, selectedItems) {
+    setTimeout(async () => {
+        const mission = getSelectedMission();
+
+        if (!mission) {
+            console.error("Aucune mission sélectionnée");
+            return;
+        }
+
+        const missionData = {
+            MissionId: parseInt(mission.id),
+            ColonyId: parseInt(selectedTeam),
+            ItemIds: selectedItems
+        };
+        
+        const response = await fetch("/Map?handler=ResolveMission", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+            },
+            body: JSON.stringify(missionData)
+        });
+
+        if (!response.ok) {
+            const error = await response.text();
+            renderOverlay("missionResult", {
+                description: "Erreur réseau : " + error,
+                isSuccess: false,
+                rewards: []
+            });
+            return;
+        }
+
+        const result = await response.json();
+        console.log("[Mission] Résultat reçu du serveur :", result);
+        
+        setTimeout(() => {
+            renderOverlay("missionResult", result.result);
+        }, 2000);
+    }, 0);
 }
 
 function waitForElement(selector, callback, retry = 5, delay = 50) {

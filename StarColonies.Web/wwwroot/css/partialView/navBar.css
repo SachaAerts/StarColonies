@@ -8,6 +8,10 @@ nav {
     gap: 40px;
 }
 
+#characterHead {
+    cursor: pointer;
+}
+
 .list-nav {
     display: flex;
     align-items: center;

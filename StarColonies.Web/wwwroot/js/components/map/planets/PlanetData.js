@@ -6,6 +6,7 @@
         y: parseInt(element.getAttribute("data-y")),
         teams: JSON.parse(element.getAttribute("data-teams")),
         quests: Array.from(element.querySelectorAll("quest")).map(q => ({
+            id: q.getAttribute("id"),
             title: q.getAttribute("title"),
             description: q.getAttribute("description"),
             difficulty: q.getAttribute("difficulty"),

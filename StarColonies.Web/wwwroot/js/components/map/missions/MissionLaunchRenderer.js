@@ -15,17 +15,50 @@ export function renderOverlay(type, data) {
         case "missionLaunch":
             content.innerHTML = renderLaunchLoading(data.planetImg);
             break;
-            
+        
+        case "missionResult":
+            content.innerHTML = renderMissionResult(data);
+            break;
+        
         default:
             content.innerHTML = "<p>Contenu non disponible</p>";
             break;
     }
 
     overlay.classList.remove("hidden");
-    content.querySelector("#closeOverlay").addEventListener("click", () => {
-        overlay.classList.add("hidden");
+
+    waitForElement("#closeOverlay", (btn) => {
+        btn.addEventListener("click", () => { overlay.classList.add("hidden"); });
     });
 }
+
+function waitForElement(selector, callback, retry = 5, delay = 50) {
+    const element = document.querySelector(selector);
+    if (element) {
+        callback(element);
+    } else if (retry > 0) {
+        setTimeout(() => waitForElement(selector, callback, retry - 1, delay), delay);
+    }
+}
+
+function renderMissionResult(data) {
+    return `
+        <h4>Résultat de la mission</h4>
+        <p>${data.description}</p>
+
+        <p style="color: ${data.isSuccess ? 'lightgreen' : 'crimson'};">
+            ${data.isSuccess ? "Mission réussie !" : "Échec de la mission"}
+        </p>
+
+        <h5>Récompenses :</h5>
+        <ul>
+            ${(data.rewards || []).map(r => `<li>${r.name} (${r.type})</li>`).join("") || "<li>Aucune</li>"}
+        </ul>
+
+        <button id="closeOverlay">Fermer</button>
+    `;
+}
+
 
 function renderMissionDetails(quest) {
     const enemies = quest.enemies.map(e => `
@@ -44,7 +77,7 @@ function renderMissionDetails(quest) {
 
     return `
         <link rel="stylesheet" href="/css/components/button.css">
-        <h4 style="text-align: center;">${quest.title}</h4>
+        <h4 style="text-align: center;" id="titleQuest">${quest.title}</h4>
         <p  style="padding: 0 10px;">${quest.description}</p>
         <p  style="padding: 0 10px;"><strong>Difficulté:</strong> ${quest.difficulty}</p>
         <p  style="padding: 0 10px;display: flex;align-items: center;">

@@ -22,7 +22,6 @@ La suite du document sera à compléter par vos soins.
 
 **TODO :** expliquez les étapes nécessaires à la récupération de votre solution, à sa construction et à son exécution dans un environnement de développement (tel que l'ordinateur de votre responsable).
 
-
 ## Fonctionnalités implémentées
 
 **TODO :** pour chaque US décrite dans l'énoncé, indiquez son état d'avancement (non-faite, débutée, partiellement achevée, totalement achevée). Quand une US est débutée ou partiellement achevée, indiquez en quelques mots ce qui manque selon vous.

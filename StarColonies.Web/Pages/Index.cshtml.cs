@@ -13,6 +13,6 @@ public class IndexModel(ILogger<IndexModel> logger, IColonyRepository colonyRepo
 
     public async Task OnGetAsync()
     {
-        TopColonies = await colonyRepository.GetTop10ColoniesAsync();
+        //TopColonies = await colonyRepository.GetTop10ColoniesAsync();
     }
 }

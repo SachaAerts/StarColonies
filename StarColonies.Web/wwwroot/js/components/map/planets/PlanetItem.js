@@ -1,7 +1,7 @@
 ﻿import { parsePlanetData } from './PlanetData.js';
 import { createPlanetContainer } from './PlanetRenderer.js';
 import { getStyle } from './PlanetStyle.js';
-import { createQuestPanel } from './QuestPanel.js';
+import { createQuestPanel } from '../missions/MissionPanel.js';
 
 export class PlanetItem extends HTMLElement {
     
@@ -21,6 +21,8 @@ export class PlanetItem extends HTMLElement {
         
         this.teams = teams;
         this.quests = quests;
+        console.log(this.quests);
+        
         this.innerHTML = '';
         
         this.container = createPlanetContainer(this.x, this.y, this.image, () => this.handleClick());
@@ -39,6 +41,7 @@ export class PlanetItem extends HTMLElement {
                     panel.addEventListener('animationend', () => panel.remove(), { once: true });
                 }
                 item.click = false;
+                item.removeAttribute("selected");
             });
         };
 
@@ -59,6 +62,8 @@ export class PlanetItem extends HTMLElement {
         const panel = createQuestPanel(this);
         this.container.appendChild(panel);
         this.click = true;
+        this.setAttribute("selected", "true");
+        
     }
 }
 
