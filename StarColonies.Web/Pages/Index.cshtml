@@ -66,65 +66,14 @@
                 <hr/>
 
                 <div class="topTenFame">
-                    <div class="oneFame">
-                        <img src="img/upload/default_team_logo.png" alt="firstPlaceLogo"/>
-                        <h4>Novaterra</h4>
-                        <p>230000</p>
-                    </div>
-
-                    <div class="oneFame">
-                        <img src="img/upload/default_team_logo.png" alt="firstPlaceLogo"/>
-                        <h4>Arthuro</h4>
-                        <p>210210</p>
-                    </div>
-
-                    <div class="oneFame">
-                        <img src="img/upload/default_team_logo.png" alt="firstPlaceLogo"/>
-                        <h4>Guilde noir</h4>
-                        <p>190000</p>
-                    </div>
-
-                    <div class="oneFame">
-                        <img src="img/upload/default_team_logo.png" alt="firstPlaceLogo"/>
-                        <h4>Arkatus</h4>
-                        <p>170000</p>
-                    </div>
-
-                    <div class="oneFame">
-                        <img src="img/upload/default_team_logo.png" alt="firstPlaceLogo"/>
-                        <h4>Sylvanas</h4>
-                        <p>1200000</p>
-                    </div>
-
-                    <div class="oneFame">
-                        <img src="img/upload/default_team_logo.png" alt="firstPlaceLogo"/>
-                        <h4>Team du zodiac</h4>
-                        <p>100000</p>
-                    </div>
-
-                    <div class="oneFame">
-                        <img src="img/upload/default_team_logo.png" alt="firstPlaceLogo"/>
-                        <h4>Hellstorm</h4>
-                        <p>97455</p>
-                    </div>
-
-                    <div class="oneFame">
-                        <img src="img/upload/default_team_logo.png" alt="firstPlaceLogo"/>
-                        <h4>Les chasseurs noirs</h4>
-                        <p>90000</p>
-                    </div>
-
-                    <div class="oneFame">
-                        <img src="img/upload/default_team_logo.png" alt="firstPlaceLogo"/>
-                        <h4>Barlo</h4>
-                        <p>80000</p>
-                    </div>
-
-                    <div class="oneFame">
-                        <img src="img/upload/default_team_logo.png" alt="firstPlaceLogo"/>
-                        <h4>Neni hein</h4>
-                        <p>70000</p>
-                    </div>
+                    @foreach (var colony in Model.TopColonies)
+                    {
+                        <div class="oneFame">
+                            <img src="img/upload/@colony.LogoPath" alt="teamLogo"/>
+                            <h4>@colony.Name</h4>
+                            <p>@colony.Strength</p>
+                        </div>
+                    }
                 </div>
                 
                 <hr/>
