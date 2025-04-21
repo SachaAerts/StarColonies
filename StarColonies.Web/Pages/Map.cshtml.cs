@@ -57,6 +57,7 @@ public class Map(
 
         MissionResultModel result = IsMissionResolved(mission, colony, selectedItems);
         result.Rewards = mission.Items;
+        result.CoinsReward = mission.CoinsReward;
 
         foreach (var items in result.Rewards)
         {
@@ -76,7 +77,8 @@ public class Map(
                     i.Name,
                     i.Description,
                     i.ImagePath
-                })
+                }),
+                coinsReward = result.CoinsReward
             }
         });
     }

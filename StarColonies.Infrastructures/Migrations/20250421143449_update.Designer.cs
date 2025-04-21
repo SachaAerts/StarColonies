@@ -12,8 +12,8 @@ using StarColonies.Infrastructures.Data;
 namespace StarColonies.Infrastructures.Migrations
 {
     [DbContext(typeof(StarColoniesDbContext))]
-    [Migration("20250417220514_AddProfilPictureToColonist")]
-    partial class AddProfilPictureToColonist
+    [Migration("20250421143449_update")]
+    partial class update
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -177,48 +177,6 @@ namespace StarColonies.Infrastructures.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonieEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("OwnerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("Colonies");
-                });
-
-            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonieMemberEntity", b =>
-                {
-                    b.Property<int>("ColonieId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ColonistId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ColonieId", "ColonistId");
-
-                    b.HasIndex("ColonistId");
-
-                    b.ToTable("ColoniesMembers");
-                });
-
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonistEntity", b =>
                 {
                     b.Property<string>("Id")
@@ -240,9 +198,6 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<int>("Endurance")
-                        .HasColumnType("int");
 
                     b.Property<string>("JobModel")
                         .IsRequired()
@@ -279,11 +234,13 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.Property<string>("ProfilPicture")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Stamina")
+                        .HasColumnType("int");
 
                     b.Property<int>("Strength")
                         .HasColumnType("int");
@@ -308,6 +265,52 @@ namespace StarColonies.Infrastructures.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonyEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LogoPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Colonies");
+                });
+
+            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonyMemberEntity", b =>
+                {
+                    b.Property<int>("ColonyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ColonistId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ColonyId", "ColonistId");
+
+                    b.HasIndex("ColonistId");
+
+                    b.ToTable("ColoniesMembers");
+                });
+
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.EffectEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -330,6 +333,21 @@ namespace StarColonies.Infrastructures.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Effects");
+                });
+
+            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.InventoryEntity", b =>
+                {
+                    b.Property<string>("ColonistId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ColonistId", "ItemId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("Inventory");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.ItemEntity", b =>
@@ -615,7 +633,7 @@ namespace StarColonies.Infrastructures.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonieEntity", b =>
+            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonyEntity", b =>
                 {
                     b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonistEntity", "Owner")
                         .WithMany()
@@ -626,23 +644,42 @@ namespace StarColonies.Infrastructures.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonieMemberEntity", b =>
+            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonyMemberEntity", b =>
                 {
-                    b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonieEntity", "Colonie")
-                        .WithMany("Members")
-                        .HasForeignKey("ColonieId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonistEntity", "Colonist")
                         .WithMany("Colonies")
                         .HasForeignKey("ColonistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Colonie");
+                    b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonyEntity", "Colony")
+                        .WithMany("Members")
+                        .HasForeignKey("ColonyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Colonist");
+
+                    b.Navigation("Colony");
+                });
+
+            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.InventoryEntity", b =>
+                {
+                    b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonistEntity", "Colonist")
+                        .WithMany("Inventory")
+                        .HasForeignKey("ColonistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StarColonies.Infrastructures.Data.Entities.Items.ItemEntity", "Item")
+                        .WithMany("Colonists")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Colonist");
+
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.ItemEntity", b =>
@@ -699,7 +736,7 @@ namespace StarColonies.Infrastructures.Migrations
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Missions.MissionExecutionEntity", b =>
                 {
-                    b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonieEntity", "Colonie")
+                    b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonyEntity", "Colony")
                         .WithMany("MissionExecutions")
                         .HasForeignKey("ColonieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -711,21 +748,23 @@ namespace StarColonies.Infrastructures.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Colonie");
+                    b.Navigation("Colony");
 
                     b.Navigation("Mission");
-                });
-
-            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonieEntity", b =>
-                {
-                    b.Navigation("Members");
-
-                    b.Navigation("MissionExecutions");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonistEntity", b =>
                 {
                     b.Navigation("Colonies");
+
+                    b.Navigation("Inventory");
+                });
+
+            modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonyEntity", b =>
+                {
+                    b.Navigation("Members");
+
+                    b.Navigation("MissionExecutions");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.EffectEntity", b =>
@@ -735,6 +774,8 @@ namespace StarColonies.Infrastructures.Migrations
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.ItemEntity", b =>
                 {
+                    b.Navigation("Colonists");
+
                     b.Navigation("Rewards");
                 });
 
