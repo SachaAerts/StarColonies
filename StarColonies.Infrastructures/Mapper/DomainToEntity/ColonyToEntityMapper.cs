@@ -19,4 +19,17 @@ public class ColonyToEntityMapper(
             OwnerId = entity.OwnerId,
             Owner = mapper.Map(repository.GetColonistByIdAsync(entity.OwnerId).Result)
         };
+    
+    public void MapInto(ColonistModel model, ColonistEntity entity)
+    {
+        entity.UserName = model.Name;
+        entity.Email = model.Email;
+        entity.DateOfBirth = model.DateOfBirth;
+        entity.JobModel = model.Job;
+        entity.Level = model.Level;
+        entity.Strength = model.Strength;
+        entity.Stamina = model.Stamina;
+        entity.Musty = model.Musty;
+        entity.ProfilPicture = model.ProfilPicture;
+    }
 }

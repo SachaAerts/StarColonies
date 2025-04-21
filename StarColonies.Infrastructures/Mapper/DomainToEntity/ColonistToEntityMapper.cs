@@ -19,4 +19,17 @@ public class ColonistToEntityMapper : IDomainToEntityMapper<ColonistEntity, Colo
             Musty = model.Musty,
             ProfilPicture = model.ProfilPicture
         };
+
+    public void MapInto(ColonistModel model, ColonistEntity entity)
+    {
+        entity.UserName = model.Name;
+        entity.Email = model.Email;
+        entity.DateOfBirth = model.DateOfBirth;
+        entity.JobModel = model.Job;
+        entity.Level = model.Level;
+        entity.Strength = model.Strength;
+        entity.Stamina = model.Stamina;
+        entity.Musty = model.Musty;
+        entity.ProfilPicture = model.ProfilPicture;
+    }
 }

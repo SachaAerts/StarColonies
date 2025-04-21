@@ -5,7 +5,8 @@ class CharacterItem extends HTMLElement {
     }
 
     connectedCallback() {
-        const imageSrc = this.getAttribute('image') || '';
+        const fileName = this.getAttribute('image') || '';
+        const imageSrc = `/img/upload/${fileName}`;
         const noInteraction = this.hasAttribute('no-interaction');
 
         this.shadowRoot.innerHTML = `
@@ -53,6 +54,7 @@ class CharacterItem extends HTMLElement {
 
         this.characterEl = this.shadowRoot.querySelector('.character');
         this.caseEl = this.shadowRoot.querySelector('.case');
+
         this.characterEl.addEventListener('click', () => {
             const isFocused = this.caseEl.classList.contains('focused');
 
@@ -80,10 +82,19 @@ class CharacterItem extends HTMLElement {
     }
 }
 
+customElements.define('character-item', CharacterItem);
+
 class CharacterPanel extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+        this.previewDiv = null;
+        this.selectedCharacter = null;
+        this.uploadedCharacter = null;
+    }
+
+    get defaultValue() {
+        return this.getAttribute('value') || null;
     }
 
     connectedCallback() {
@@ -94,7 +105,7 @@ class CharacterPanel extends HTMLElement {
                     font-family: 'Judge', sans-serif;
                     background: rgb(20, 28, 48);
                     border: 2px solid #122743;
-                    border-radius:2px;
+                    border-radius: 2px;
                     padding: 20px;
                 }
 
@@ -104,7 +115,8 @@ class CharacterPanel extends HTMLElement {
                 }
 
                 .line {
-                    margin-top: 6px; margin-bottom:20px;
+                    margin-top: 6px;
+                    margin-bottom: 20px;
                     height: 2px;
                     background-color: rgba(214, 214, 214, 0.193);
                 }
@@ -119,32 +131,46 @@ class CharacterPanel extends HTMLElement {
                 }
 
                 .create-button {
-                    position:absolute;
-                    top:100%; left:50%;
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     cursor: pointer;
-                    transform:translate(-50%,-50%);
+                    transform: translate(-50%, -50%);
                 }
+
                 .create-button .label {
                     z-index: 10;
                     font-size: 1.5rem;
                     color: #EAEAEA;
                 }
+
                 .create-button svg {
                     position: absolute;
                     z-index: 5;
                 }
-                
+
                 .label {
-                    cursor:pointer;
+                    cursor: pointer;
+                }
+
+                .preview {
+                    margin-top: 20px;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .preview img {
+                    height: 80px;
+                    border-radius: 4px;
                 }
             </style>
 
             <div class="panel">
                 <div class="title">
-                    <h1>Choose the profil photo</h1>
+                    <h1>Choose the profile photo</h1>
                     <div class="line"></div>
                 </div>
                 <div class="photos">
@@ -157,11 +183,24 @@ class CharacterPanel extends HTMLElement {
                         <path d="M1 16.4657V8.11111C1 7.88481 1.07676 7.66519 1.21774 7.48816L6.08436 1.37705C6.27409 1.13879 6.56205 1 6.86661 1H133.821C134.107 1 134.379 1.12196 134.568 1.33516L140.063 7.50834C140.226 7.69146 140.316 7.92805 140.316 8.17319V16.4036C140.316 16.6487 140.226 16.8853 140.063 17.0685L134.568 23.2416C134.379 23.4548 134.107 23.5768 133.821 23.5768H6.86662C6.56205 23.5768 6.27409 23.438 6.08436 23.1998L1.21774 17.0886C1.07676 16.9116 1 16.692 1 16.4657Z" fill="#12273B" stroke="#152F49" stroke-width="2"/>
                     </svg>
                 </div>
+                <div class="preview" id="preview"></div>
             </div>
         `;
 
         const fileInput = this.shadowRoot.querySelector('#file-input');
-        const previewDiv = this.shadowRoot.querySelector('#preview');
+        this.previewDiv = this.shadowRoot.querySelector('#preview');
+
+        // Pré-sélection si une valeur est définie
+        const slot = this.shadowRoot.querySelector('slot');
+        slot.addEventListener('slotchange', () => {
+            const defaultImage = this.defaultValue;
+            if (defaultImage) {
+                const matchingItem = this.querySelector(`character-item[image="${defaultImage}"]`);
+                if (matchingItem) {
+                    matchingItem.shadowRoot.querySelector('.character').click();
+                }
+            }
+        });
 
         fileInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
@@ -170,7 +209,7 @@ class CharacterPanel extends HTMLElement {
                 reader.onload = () => {
                     this.uploadedCharacter = reader.result;
                     this.selectedCharacter = null;
-                    this.renderPreview(previewDiv);
+                    this.renderPreview();
                 };
                 reader.readAsDataURL(file);
             }
@@ -179,33 +218,32 @@ class CharacterPanel extends HTMLElement {
         this.addEventListener('characterSelected', (event) => {
             this.selectedCharacter = event.detail.image;
             this.uploadedCharacter = null;
-            this.renderPreview(previewDiv);
+            this.renderPreview();
         });
     }
 
-    renderPreview(container) {
-        container.innerHTML = '';
+    renderPreview() {
+        this.previewDiv.innerHTML = '';
         if (this.selectedCharacter) {
             const img = document.createElement('img');
-            img.src = this.selectedCharacter;
+            img.src = `/img/upload/${this.selectedCharacter}`;
             img.alt = 'Avatar sélectionné';
-            container.appendChild(img);
+            this.previewDiv.appendChild(img);
         }
         if (this.uploadedCharacter) {
             const img = document.createElement('img');
             img.src = this.uploadedCharacter;
             img.alt = 'Avatar importé';
-            container.appendChild(img);
+            this.previewDiv.appendChild(img);
         }
     }
 
     getSelectedImageDetails() {
         return {
-            selectedCharacter: this.selectedCharacter,
+            selectedCharacter: this.selectedCharacter ? `/img/upload/${this.selectedCharacter}` : null,
             uploadedCharacter: this.uploadedCharacter
         };
     }
 }
 
-customElements.define('character-item', CharacterItem);
 customElements.define('character-panel', CharacterPanel);

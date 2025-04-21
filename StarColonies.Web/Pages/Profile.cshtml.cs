@@ -23,7 +23,7 @@ public class Profile(IColonistRepository colonistRepository, IColonyRepository c
         string id = Id.ToString();
         Colonist = await colonistRepository.GetColonistByIdAsync(Id.ToString());
         Colonies = await colonyRepository.GetColoniesForColonistAsync(Colonist.Id);
-        
+        Console.WriteLine("Bonsoir: " + Colonist.Id);
         return Page();
     }
 }

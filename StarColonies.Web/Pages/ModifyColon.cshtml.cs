@@ -7,71 +7,69 @@ using StarColonies.Domains.Repositories;
 using StarColonies.Domains.Services.pictures;
 using StarColonies.Web.wwwroot.models;
 
-namespace StarColonies.Web.Pages;
-
-public class ModifyColon(IColonistRepository colonistRepository)
-    : PageModel
+namespace StarColonies.Web.Pages
 {
-    [BindProperty(SupportsGet = true)]
-    public Guid Id { get; set; }
-    
-    public required ColonistModel Colonist { get; set; }
-    
-    [BindProperty]
-    public NewUser NewUser { get; set; }
-    
-    public async Task<IActionResult> OnGet()
+    public class ModifyColon : PageModel
     {
-        if (!User.Identity?.IsAuthenticated ?? true)
-            return Forbid();
-        
-        Console.WriteLine("id: " + Id.ToString());
-        Colonist = await colonistRepository.GetColonistByIdAsync(Id.ToString());
-        
-        return Page();
-    }
+        private readonly IColonistRepository _colonistRepository;
 
-    public async Task<IActionResult> OnPost()
-    {
-        if (!ModelState.IsValid)
-            return Page();
-
-        AnalyzeProfilePicture analyzeProfilePicture = new AnalyzeProfilePicture(NewUser.SettlerName);
-        
-        var colonist = new ColonistModel()
+        public ModifyColon(IColonistRepository colonistRepository)
         {
-            Id = Colonist.Id,
-            Name = NewUser.SettlerName,
-            Email = NewUser.Email,
-            DateOfBirth = DateTime.ParseExact(NewUser.BirthdayEntry, "dd/MM/yyyy", CultureInfo.InvariantCulture),
-            Job = Enum.Parse<JobModel>(NewUser.Profession),
-            Level = Colonist.Level,
-            Strength = GetStrength(NewUser.Statistics),
-            Stamina = GetStamina(NewUser.Statistics),
-            Musty = Colonist.Musty,
-            ProfilPicture = analyzeProfilePicture.GetProfilePictureFileNameForUpdate(NewUser.ProfilePicture, Colonist.ProfilPicture)
-        };
-        
-        Console.WriteLine("user: " + colonist);
-        
-        //await colonistRepository.UpdateColonistAsync(colonist);
-        
-        return RedirectToPage("/Profile/Index", new { id = colonist.Id });
-    }
-    
-    private int GetStrength(string stats)
-    {
-        if (string.IsNullOrWhiteSpace(stats)) return -1;
+            _colonistRepository = colonistRepository;
+        }
 
-        var parts = stats.Split('-');
-        return (parts.Length == 2 && int.TryParse(parts[0], out int left)) ? left : -1;
-    }
+        [BindProperty(SupportsGet = true)]
+        public Guid Id { get; set; }
 
-    private int GetStamina(string stats)
-    {
-        if (string.IsNullOrWhiteSpace(stats)) return -1;
+        public required ColonistModel Colonist { get; set; }
 
-        var parts = stats.Split('-');
-        return (parts.Length == 2 && int.TryParse(parts[1], out int right)) ? right : -1;
+        [BindProperty]
+        public ModifyProfileModel ModifyUser { get; set; } = new();
+
+        public async Task<IActionResult> OnGet()
+        {
+            if (!User.Identity?.IsAuthenticated ?? true)
+                return Forbid();
+
+            Colonist = await _colonistRepository.GetColonistByIdAsync(Id.ToString());
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPost()
+        {
+            Colonist = await _colonistRepository.GetColonistByIdAsync(Id.ToString());
+
+            if (!ModelState.IsValid)
+                return Page();
+
+            var analyzer = new AnalyzeProfilePicture(ModifyUser.SettlerName);
+
+            var colonist = new ColonistModel
+            {
+                Id = Colonist.Id,
+                Name = ModifyUser.SettlerName,
+                Email = ModifyUser.Email,
+                DateOfBirth = DateTime.ParseExact(ModifyUser.BirthdayEntry, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                Job = Enum.Parse<JobModel>(ModifyUser.Profession),
+                Level = Colonist.Level,
+                Strength = GetStrength(ModifyUser.Statistics),
+                Stamina = GetStamina(ModifyUser.Statistics),
+                Musty = Colonist.Musty,
+                ProfilPicture = analyzer.GetProfilePictureFileName(ModifyUser.ProfilePicture)
+            };
+
+            await _colonistRepository.UpdateColonistAsync(colonist);
+
+            return RedirectToPage("/Profile", new { id = colonist.Id });
+        }
+        
+        private int GetStrength(string stats) =>
+            string.IsNullOrWhiteSpace(stats) ? -1 :
+            stats.Split('-') is [var s, _] && int.TryParse(s, out var strength) ? strength : -1;
+
+        private int GetStamina(string stats) =>
+            string.IsNullOrWhiteSpace(stats) ? -1 :
+            stats.Split('-') is [_, var s] && int.TryParse(s, out var stamina) ? stamina : -1;
     }
 }

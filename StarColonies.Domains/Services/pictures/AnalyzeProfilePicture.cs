@@ -2,8 +2,6 @@ namespace StarColonies.Domains.Services.pictures;
 
 public class AnalyzeProfilePicture(string settlerName)
 {
-    private readonly string _settlerName = settlerName;
-
     public string GetProfilePictureFileName(string picture)
     {
         if (string.IsNullOrWhiteSpace(picture))
@@ -23,7 +21,7 @@ public class AnalyzeProfilePicture(string settlerName)
             var bytes = Convert.FromBase64String(base64Data);
 
             var extension = GetImageExtension(picture);
-            var fileName = GenerateUniqueFileName(_settlerName, extension);
+            var fileName = GenerateUniqueFileName(settlerName, extension);
             var uploadDir = Path.Combine("wwwroot", "img", "upload");
 
             if (!Directory.Exists(uploadDir))
@@ -33,7 +31,7 @@ public class AnalyzeProfilePicture(string settlerName)
             
             while (File.Exists(fullPath))
             {
-                fileName = GenerateUniqueFileName(_settlerName, extension, forceGuid: true);
+                fileName = GenerateUniqueFileName(settlerName, extension, forceGuid: true);
                 fullPath = Path.Combine(uploadDir, fileName);
             }
 
@@ -71,13 +69,5 @@ public class AnalyzeProfilePicture(string settlerName)
             input = input.Replace(c, '_');
         }
         return input.Replace(" ", "_").ToLowerInvariant();
-    }
-    
-    public string GetProfilePictureFileNameForUpdate(string newPicture, string currentFileName)
-    {
-        if (string.IsNullOrWhiteSpace(newPicture))
-            return currentFileName;
-
-        return GetProfilePictureFileName(newPicture);
     }
 }

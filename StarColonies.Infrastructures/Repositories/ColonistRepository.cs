@@ -43,9 +43,7 @@ public class ColonistRepository(StarColoniesDbContext context,
         var entity = await context.Users.FindAsync(colonist.Id);
         if (entity == null) return;
 
-        var updatedEntity = colonistReverseMapper.Map(colonist);
-        context.Entry(entity).CurrentValues.SetValues(updatedEntity);
-
+        colonistReverseMapper.MapInto(colonist, entity);
         await context.SaveChangesAsync();
     }
 

@@ -2,11 +2,11 @@
 @model StarColonies.Web.Pages.ModifyColon
 
 @{
-    ViewData["Title"] = "Create colon";
+    ViewData["Title"] = "Modify profile";
     Layout = "Shared/_Layout";
 }
 
-<div class="mainFrame">
+<div class="mainFrame mainModifyProfile">
     <a asp-page="Profile" asp-route-id="@Model.Id" class="buttonProfile backButtonProfile">
         <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
     </a>
@@ -18,27 +18,22 @@
             <div class="columnLeftModifyProfile">
                 <div>
                     <space-input id="email-input" label="Email" label-position="50" value="@Model.Colonist.Email" required></space-input>
-                    <span asp-validation-for="NewUser.Email" class="text-danger"></span>
-                </div>
-
-                <div>
-                    <space-input id="password-input" label="Password" label-position="50" value="*******" required></space-input>
-                    <span asp-validation-for="NewUser.Password" class="text-danger"></span>
+                    <span asp-validation-for="ModifyUser.Email" class="text-danger"></span>
                 </div>
 
                 <div>
                     <space-input id="settler-name-input" label="Settler's name" label-position="50" value="@Model.Colonist.Name" required></space-input>
-                    <span asp-validation-for="NewUser.SettlerName" class="text-danger"></span>
+                    <span asp-validation-for="ModifyUser.SettlerName" class="text-danger"></span>
                 </div>
 
                 <div>
                     <space-date label="Birthday" label-position="50" required value="@Model.Colonist.DateOfBirth.ToString("dd/MM/yyyy")"></space-date>
-                    <span asp-validation-for="NewUser.BirthdayEntry" class="text-danger"></span>
+                    <span asp-validation-for="ModifyUser.BirthdayEntry" class="text-danger"></span>
                 </div>
 
                 <div>
                     <space-select label="Choose profession" options='["Engineer", "Doctor", "Scientist", "Soldier"]' value="@Model.Colonist.Job" required></space-select>
-                    <span asp-validation-for="NewUser.Profession" class="text-danger"></span>
+                    <span asp-validation-for="ModifyUser.Profession" class="text-danger"></span>
                 </div>
 
                 <div>
@@ -46,34 +41,33 @@
                         force="@Model.Colonist.Strength"
                         stamina="@Model.Colonist.Stamina"
                         max="7"></stat-panel>
-                    <span asp-validation-for="NewUser.Statistics" class="text-danger"></span>
+                    <span asp-validation-for="ModifyUser.Statistics" class="text-danger"></span>
                 </div>
 
-                <input id="email-hidden" asp-for="NewUser.Email" type="hidden"/>
-                <input id="password-hidden" asp-for="NewUser.Password" type="hidden"/>
-                <input id="settler-name-hidden" asp-for="NewUser.SettlerName" type="hidden"/>
-                <input id="birthdate-hidden" asp-for="NewUser.BirthdayEntry" type="hidden"/>
-                <input id="profession-hidden" asp-for="NewUser.Profession" type="hidden"/>
-                <input id="stats-hidden" asp-for="NewUser.Statistics" type="hidden"/>
+                <input id="email-hidden" asp-for="ModifyUser.Email" type="hidden"/>
+                <input id="settler-name-hidden" asp-for="ModifyUser.SettlerName" type="hidden"/>
+                <input id="birthdate-hidden" asp-for="ModifyUser.BirthdayEntry" type="hidden"/>
+                <input id="profession-hidden" asp-for="ModifyUser.Profession" type="hidden"/>
+                <input id="stats-hidden" asp-for="ModifyUser.Statistics" type="hidden"/>
             </div>
 
             <div class="columnRight">
-                <input id="character-hidden" asp-for="NewUser.ProfilePicture" type="hidden"></input>
-                <character-panel>
-                    <character-item image="/img/upload/1.png"></character-item>
-                    <character-item image="/img/upload/2.png"></character-item>
-                    <character-item image="/img/upload/3.png"></character-item>
-                    <character-item image="/img/upload/4.png"></character-item>
-                    <character-item image="/img/upload/5.png"></character-item>
-                    <character-item image="/img/upload/6.png"></character-item>
-                    <character-item image="/img/upload/7.png"></character-item>
-                    <character-item image="/img/upload/8.png"></character-item>
-                    <character-item image="/img/upload/9.png"></character-item>
-                    <character-item image="/img/upload/10.png"></character-item>
-                    <character-item image="/img/upload/11.png"></character-item>
-                    <character-item image="/img/upload/12.png"></character-item>
+                <input id="character-hidden" asp-for="ModifyUser.ProfilePicture" type="hidden"></input>
+                <character-panel value="@Model.Colonist.ProfilPicture">
+                    <character-item image="1.png"></character-item>
+                    <character-item image="2.png"></character-item>
+                    <character-item image="3.png"></character-item>
+                    <character-item image="4.png"></character-item>
+                    <character-item image="5.png"></character-item>
+                    <character-item image="6.png"></character-item>
+                    <character-item image="7.png"></character-item>
+                    <character-item image="8.png"></character-item>
+                    <character-item image="9.png"></character-item>
+                    <character-item image="10.png"></character-item>
+                    <character-item image="11.png"></character-item>
+                    <character-item image="12.png"></character-item>
                 </character-panel>
-                <span asp-validation-for="NewUser.ProfilePicture" class="text-danger"></span>
+                <span asp-validation-for="ModifyUser.ProfilePicture" class="text-danger"></span>
             </div>
         </div>
 
@@ -88,7 +82,6 @@
 <script>
     document.querySelector("form").addEventListener("submit", () => {
         const emailComponent = document.getElementById("email-input");
-        const passwordComponent = document.getElementById("password-input");
         const settlerNameComponent = document.getElementById("settler-name-input");
         const dateComponent = document.querySelector("space-date")
         const professionComponent = document.querySelector("space-select")
@@ -96,7 +89,6 @@
         const panel = document.querySelector('character-panel');
 
         document.getElementById("email-hidden").value = emailComponent.value;
-        document.getElementById("password-hidden").value = passwordComponent.value;
         document.getElementById("settler-name-hidden").value = settlerNameComponent.value;
         const dateHidden = document.getElementById("birthdate-hidden")
         const professionHidden = document.getElementById("profession-hidden")
