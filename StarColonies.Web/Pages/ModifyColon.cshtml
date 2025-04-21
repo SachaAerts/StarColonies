@@ -1,0 +1,97 @@
+@page
+@model StarColonies.Web.Pages.ModifyColon
+
+@{
+    ViewData["Title"] = "Create colon";
+    Layout = "Shared/_Layout";
+}
+
+<div class="mainFrame">
+    <form method="post" class="containerCreateColon">
+        <h1>Create colon</h1>
+
+        <div class="containColumn">
+            <div class="columnLeft">
+                <div>
+                    <space-input label="Settler's name" label-position="50" required></space-input>
+                    <span asp-validation-for="NewUser.SettlerName" class="text-danger"></span>
+                </div>
+                
+                <div>
+                    <space-date label="Birthday" label-position="50" required></space-date>
+                    <span asp-validation-for="NewUser.BirthdayEntry" class="text-danger"></span>
+                </div>
+                
+                <div>
+                    <space-select label="Choose profession" options='["Engineer", "Doctor", "Scientist", "Soldier"]' required></space-select>
+                    <span asp-validation-for="NewUser.Profession" class="text-danger"></span>
+                </div>
+                
+                <div>
+                    <stat-panel force="0" stamina="0" max="7"></stat-panel>
+                    <span asp-validation-for="NewUser.Statistics" class="text-danger"></span>
+                </div>
+
+                <input id="settler-name-hidden" asp-for="NewUser.SettlerName" type="hidden"/>
+                <input id="birthdate-hidden" asp-for="NewUser.BirthdayEntry" type="hidden"/>
+                <input id="profession-hidden" asp-for="NewUser.Profession" type="hidden"/>
+                <input id="stats-hidden" asp-for="NewUser.Statistics" type="hidden"/>
+                <input id="email-hidden" asp-for="NewUser.Email" type="hidden"/>
+                <input id="password-hidden" asp-for="NewUser.Password" type="hidden"/>
+            </div>
+
+            <div class="columnRight">
+                <input id="character-hidden" asp-for="NewUser.ProfilePicture" type="hidden"></input>
+                <character-panel>
+                    <character-item image="/img/upload/1.png"></character-item>
+                    <character-item image="/img/upload/2.png"></character-item>
+                    <character-item image="/img/upload/3.png"></character-item>
+                    <character-item image="/img/upload/4.png"></character-item>
+                    <character-item image="/img/upload/5.png"></character-item>
+                    <character-item image="/img/upload/6.png"></character-item>
+                    <character-item image="/img/upload/7.png"></character-item>
+                    <character-item image="/img/upload/8.png"></character-item>
+                    <character-item image="/img/upload/9.png"></character-item>
+                    <character-item image="/img/upload/10.png"></character-item>
+                    <character-item image="/img/upload/11.png"></character-item>
+                    <character-item image="/img/upload/12.png"></character-item>
+                </character-panel>
+                <span asp-validation-for="NewUser.ProfilePicture" class="text-danger"></span>
+            </div>
+        </div>
+
+        <button class="formButton" type="submit">Create colon</button>
+    </form>
+</div>
+
+<script type="module" src="~/js/components/inputs/import.js"></script>
+<script type="module" src="~/js/components/stat_panel.js"></script>
+<script src="~/js/components/character_panel.js"></script>
+
+<script>
+    document.querySelector("form").addEventListener("submit", () => {
+        const settlerNameComponent = document.querySelector("space-input")
+        const dateComponent = document.querySelector("space-date")
+        const professionComponent = document.querySelector("space-select")
+        const statsComponent = document.querySelector("stat-panel")
+        const panel = document.querySelector('character-panel');
+
+        const settlerNameHidden = document.getElementById("settler-name-hidden");
+        const dateHidden = document.getElementById("birthdate-hidden")
+        const professionHidden = document.getElementById("profession-hidden")
+        const statHidden = document.getElementById("stats-hidden")
+        const characterHidden = document.getElementById("character-hidden")
+
+        settlerNameHidden.value = settlerNameComponent.value
+        dateHidden.value = dateComponent.value
+        professionHidden.value = professionComponent.value
+        statHidden.value = statsComponent.value
+        const { selectedCharacter, uploadedCharacter } = panel.getSelectedImageDetails();
+
+        if (selectedCharacter) {
+            characterHidden.value = selectedCharacter;
+        }else if (uploadedCharacter) {
+            characterHidden.value = uploadedCharacter;
+        }
+    });
+</script>
