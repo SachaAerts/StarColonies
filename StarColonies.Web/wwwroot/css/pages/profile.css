@@ -8,12 +8,6 @@ a {
     display: inline-block;
 }
 
-@media (max-height: 700px) {
-    .mainProfile {
-        transform: translate(50%, 50%) scale(0.8);
-    }
-}
-
 .mainProfile {
     position: absolute;
     bottom: 50%; right: 50%;

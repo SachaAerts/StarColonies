@@ -1,0 +1,20 @@
+﻿@media (max-height: 700px) {
+    .mainProfile {
+        transform: translate(50%, 50%) scale(0.8);
+    }
+    .navBar {
+        font-family: 'Judge', sans-serif;
+        font-size: 0.8rem;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 20px;
+    }
+    .navBar .list-nav {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 5px;
+    }
+    .navBar .list-nav img {
+        transform: scale(0.8);
+    }
+}
