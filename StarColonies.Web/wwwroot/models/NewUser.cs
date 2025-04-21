@@ -6,8 +6,12 @@ namespace StarColonies.Web.wwwroot.models;
 
 public class NewUser
 {
+    [Required(ErrorMessage = "Email required")]
+    [EmailAddress(ErrorMessage = "Invalid email")]
     public string Email { get; set; } = "";
     
+    [DataType(DataType.Password)]
+    [Required(ErrorMessage = "Password required")]
     public string Password { get; set; } = "";
     
     [Required(ErrorMessage = "Settler's name is required")]

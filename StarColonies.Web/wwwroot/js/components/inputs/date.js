@@ -17,6 +17,15 @@ class DateInput extends HTMLElement {
         return this.getAttribute("format") || "dd/mm/yyyy";
     }
 
+    get defaultValue() {
+        return this.getAttribute("value") || "";
+    }
+
+    set value(val) {
+        const input = this.shadowRoot.querySelector("input");
+        if (input) input.value = val;
+    }
+
     validateDate() {
         const input = this.shadowRoot.querySelector("input");
         const errorIcon = this.shadowRoot.querySelector(".error-icon");
@@ -193,7 +202,11 @@ class DateInput extends HTMLElement {
             </style>
             <section>
                 <div class="label">${this.getAttribute("label") || "Date"}</div>
-                <input type="text" placeholder="${this.getDateFormat()}" ${this.hasAttribute("required") ? "required" : ""}>
+                <input 
+                    type="text" 
+                    placeholder="${this.getDateFormat()}" 
+                    value="${this.defaultValue}"
+                    ${this.hasAttribute("required") ? "required" : ""}>
                 <svg width="270" height="40" viewBox="0 0 270 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1 37.791V20.7239C1 20.4587 1.10536 20.2044 1.29289 20.0168L20.3097 1H21.1791H163.5H178H267.552C268.105 1 268.552 1.44771 268.552 2V20.9925C268.552 21.2577 268.447 21.512 268.259 21.6996L251.461 38.4981C251.273 38.6857 251.019 38.791 250.754 38.791H2C1.44772 38.791 1 38.3433 1 37.791Z" stroke="#152F49" stroke-width="2"/>
                 </svg>

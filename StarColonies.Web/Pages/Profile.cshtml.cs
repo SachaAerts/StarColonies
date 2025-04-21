@@ -13,8 +13,6 @@ public class Profile(IColonistRepository colonistRepository, IColonyRepository c
     
     public required ColonistModel Colonist { get; set; }
     
-    public required int LvlToAttribuate { get; set; }
-    
     public required IList<ColonyModel> Colonies { get; set; }
 
     public async Task<IActionResult> OnGet()
@@ -23,17 +21,9 @@ public class Profile(IColonistRepository colonistRepository, IColonyRepository c
             return Forbid();
         
         string id = Id.ToString();
-        Console.WriteLine("test: " + id);
         Colonist = await colonistRepository.GetColonistByIdAsync(Id.ToString());
         Colonies = await colonyRepository.GetColoniesForColonistAsync(Colonist.Id);
-        CalculateLvlToAttribuate();
         
         return Page();
-    }
-
-    private void CalculateLvlToAttribuate()
-    {
-        int maxPoint = 7 + (Colonist.Level - 1);
-        LvlToAttribuate = maxPoint - Colonist.Strength - Colonist.Stamina;
     }
 }

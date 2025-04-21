@@ -21,9 +21,22 @@ class SelectInput extends HTMLElement {
         return select ? select.value : ""
     }
 
+    get defaultValue() {
+        return this.getAttribute("value") || "";
+    }
+
+    set value(val) {
+        const select = this.shadowRoot.querySelector("select");
+        if (select) select.value = val;
+    }
+
     render() {
+        const defaultValue = this.defaultValue;
         const options = this.getOptions()
-            .map(option => `<option value="${option}">${option}</option>`)
+            .map(option => {
+                const selected = option === defaultValue ? "selected" : "";
+                return `<option value="${option}" ${selected}>${option}</option>`;
+            })
             .join("");
 
         this.shadowRoot.innerHTML = `
@@ -82,7 +95,7 @@ class SelectInput extends HTMLElement {
             <section class="select">
                 <div class="label">${this.getAttribute("label") || "Select an option"}</div>
                 <select>
-                    <option value="" disabled selected>Choose...</option>
+                    <option value="" disabled ${!this.defaultValue ? "selected" : ""}>Choose...</option>
                     ${options}
                 </select>
                 <svg width="270" height="40" viewBox="0 0 270 40" fill="none" xmlns="http://www.w3.org/2000/svg">
