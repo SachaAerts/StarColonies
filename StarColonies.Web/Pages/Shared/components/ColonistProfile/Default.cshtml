@@ -1,6 +1,6 @@
 @model StarColonies.Infrastructures.Data.Entities.ColonistEntity
 
-<a class="item-nav" href="#">
+<a class="item-nav" asp-page="Profile" asp-route-id="@Model.Id">
     <img class="colonist-avatar" src="/img/upload/@Model.ProfilPicture" alt="Avatar">
     <span>Profil</span>
 </a>

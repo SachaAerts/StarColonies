@@ -1,0 +1,320 @@
+* {
+    color: white;
+}
+
+a {
+    all: unset;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.mainFrame section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    background-color: #161C2B;
+    border: 2px solid #152F49;
+    border-radius: 5px;
+    padding: 30px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.backButtonProfile {
+    position: absolute;
+    top: 3%; left: 2%;
+}
+
+.mainProfile p {
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.mainProfile hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(
+            90deg,
+            #00ffe0,
+            #7f00ff,
+            #00ffe0,
+            #7f00ff,
+            #00ffe0
+    );
+    background-size: 400% 100%;
+    animation: glowMove 5s linear infinite;
+    box-shadow: 0 0 8px #00ffe0, 0 0 16px #7f00ff;
+    margin: 10px 0;
+    border-radius: 2px;
+}
+
+@keyframes glowMove {
+    0% {
+        background-position: 0 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.mainProfile h3 {
+    font-family: 'Judge Italic', sans-serif;
+    font-size: 3rem;
+    margin: 0;
+}
+
+.mainFrameFirstPart {
+    display: flex;
+    width: 50%;
+}
+
+.mainFrameFirstPart div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.mainFrameFirstPart img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: #6f7075;
+    padding: 5px;
+}
+
+.mainFrameFirstPart h2, .mainFrameFirstPart p {
+    margin: 0;
+    padding: 0;
+}
+
+.mainFrameFirstPart h2 {
+    font-size: 5rem;
+    font-family: 'Judge Italic', sans-serif;
+}
+
+.mainFrameFirstPart p {
+    font-size: 1.2rem;
+}
+
+.informationProfile {
+    display: flex;
+    align-items: center;
+}
+
+.informationProfileValue {
+    background-color: #1e153c;
+    color: #e0e6f8;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin-left: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+    box-shadow: 0 0 6px rgba(91, 107, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
+    cursor: default;
+}
+
+.informationProfileValue:hover {
+    background-color: #271d4f;
+}
+
+.statsProfile, .statsProfile div {
+    display: flex;
+    align-items: center;
+}
+
+.statsProfile {
+    gap: 10px;
+}
+
+.valueStatProfile {
+    margin-left: 2px;
+}
+
+.mainFrameSecondPart {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.profileInformations, .teamListProfile {
+    width: 40%;
+    padding: 0 20px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.profileInformations {
+    gap: 2px;
+}
+
+.teamListProfile {
+    overflow: hidden;
+}
+
+.profileInformations hr, .teamListProfile hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.profileHeaders {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonProfile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(3px);
+    box-shadow: 0 2px 6px rgba(0, 255, 255, 0.1), 0 0 8px rgba(127, 0, 255, 0.15);
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+}
+
+.buttonProfile:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(0, 255, 255, 0.2), 0 0 18px rgba(127, 0, 255, 0.3);
+}
+
+.modifyLogoProfile {
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.teamListProfile > div {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+    padding-left: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.teamListProfile > div::-webkit-scrollbar {
+    width: 6px;
+}
+
+.teamListProfile > div::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.teamListProfile > div::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.teamListProfile a {
+    width: 100%;
+    display: block;
+}
+
+.oneTeamInProfile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: calc(100% - 10px);
+    max-width: calc(100% - 10px);
+    min-width: 0;
+    overflow: hidden;
+
+    padding: 5px 10px;
+    margin: 8px 5px;
+
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(3px);
+    box-shadow: 0 2px 6px rgba(0, 255, 255, 0.1), 0 0 8px rgba(127, 0, 255, 0.15);
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.oneTeamInProfile:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(0, 255, 255, 0.2), 0 0 18px rgba(127, 0, 255, 0.3);
+}
+
+.logoTeamInProfile {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+}
+
+.oneTeamInProfile h4 {
+    font-family: 'Pixelify Sans', sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    margin: 0 10px;
+    max-width: 65%;
+}
+
+.oneTeamInProfile p {
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.addTeamLogoProfile {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+.mustyCoinProfile {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.valueWithCoin {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* espace entre le texte et la pièce */
+    background-color: #1e153c;
+    color: #e0e6f8;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin-left: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+    box-shadow: 0 0 6px rgba(91, 107, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
+    cursor: default;
+}
+
+.valueWithCoin:hover {
+    background-color: #271d4f;
+}
+
+.valueWithCoin p {
+    margin: 0;
+    padding: 0;
+}
