@@ -207,7 +207,10 @@ h1 {
     height: 50px;
 }
 
-/* Styles existants */
+.oneFame p, .oneFame h4 {
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
 .laudrikxSection {
     display: flex;
     margin-bottom: 50px;

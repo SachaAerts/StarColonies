@@ -1,0 +1,101 @@
+@page "{id:guid}"
+@model StarColonies.Web.Pages.Profile
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "Shared/_LayoutConnection";
+}
+
+<div class="mainFrame mainProfile">
+    <section>
+        <a asp-page="Index" class="buttonProfile backButtonProfile">
+            <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
+        </a>
+        
+        <div class="mainFrameFirstPart">
+            <img src="/img/upload/@Model.Colonist.ProfilPicture" alt="profilePicture"/>
+            <div>
+                <h2>@Model.Colonist.Name</h2>
+                <p>Lvl: @Model.Colonist.Level</p>
+            </div>
+        </div>
+
+        <div class="mainFrameSecondPart">
+            <div class="profileInformations">
+                <div class="profileHeaders">
+                    <h3>Informations</h3>
+                    <a asp-page="#" class="buttonProfile">
+                        <img class="modifyLogoProfile" src="/img/icons/modify.png" alt="modify"/>
+                    </a>
+                </div>
+                <hr/>
+
+                <div class="informationProfile">
+                    <p>Email:</p>
+                    <p class="informationProfileValue">@Model.Colonist.Email</p>
+                </div>
+                <div class="informationProfile">
+                    <p>Birthdate:</p>
+                    <p class="informationProfileValue">@Model.Colonist.DateOfBirth.ToString("dd/MM/yyyy")</p>
+                </div>
+                <div class="informationProfile">
+                    <p>Job:</p>
+                    <p class="informationProfileValue">@Model.Colonist.Job</p>
+                </div>
+
+                <div class="statsProfile">
+                    <p>Stats:</p>
+                    <div>
+                        <img src="/img/icons/force.png" alt="strengh"/>
+                        <p class="informationProfileValue valueStatProfile">@Model.Colonist.Strength</p>
+                    </div>
+                    <div>
+                        <img src="/img/icons/stamina.png" alt="stamina"/>
+                        <p class="informationProfileValue valueStatProfile">@Model.Colonist.Stamina</p>
+                    </div>
+                    <div>
+                        <img src="/img/icons/lvl.png" alt="lvl"/>
+                        <p class="informationProfileValue valueStatProfile">@Model.LvlToAttribuate</p>
+                    </div>
+                </div>
+
+                <div class="informationProfile">
+                    <p>Musty:</p>
+                    <div class="informationProfileValue valueWithCoin">
+                        <p>@Model.Colonist.Musty</p>
+                        <img class="mustyCoinProfile" src="/img/icons/mustysCoin.png" alt="mustyCoin"/>
+                    </div>
+                </div>
+
+                <hr/>
+            </div>
+
+            <div class="teamListProfile">
+                <h3>Colonies</h3>
+                <hr/>
+                <div>
+                    @foreach (var colony in Model.Colonies)
+                    {
+                        <a asp-page="#">
+                            <div class="oneTeamInProfile">
+                                <img class="logoTeamInProfile" src="/img/upload/@colony.LogoPath" alt="teamIcon"/>
+                                <h4>@colony.Name</h4>
+                                <p>@colony.Strength</p>
+                            </div>
+                        </a>
+                    }
+
+                    <a asp-page="#">
+                        <div class="oneTeamInProfile">
+                            <div></div>
+                            <img class="addTeamLogoProfile" src="/img/icons/add.png" alt="add"/>
+                            <div></div>
+                        </div>
+                    </a>
+                </div>
+
+                <hr/>
+            </div>
+        </div>
+    </section>
+</div>

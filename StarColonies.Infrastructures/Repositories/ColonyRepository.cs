@@ -17,6 +17,8 @@ public class ColonyRepository(
     public async Task<IList<ColonyModel>> GetColoniesForColonistAsync(string colonistId)
     {
         var colonies = await context.Colonies
+            .Include(c => c.Members)
+            .ThenInclude(m => m.Colonist)
             .Include(c => c.Owner)
             .Where(c => c.Members.Any(m => m.ColonistId == colonistId))
             .ToListAsync();
