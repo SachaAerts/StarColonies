@@ -1,7 +1,10 @@
 ﻿@media (max-height: 700px) {
+    /* Main Profile */
     .mainProfile {
         transform: translate(50%, 50%) scale(0.8);
     }
+    
+    /* Navigation */
     .navBar {
         font-family: 'Judge', sans-serif;
         font-size: 0.8rem;
@@ -17,4 +20,5 @@
     .navBar .list-nav img {
         transform: scale(0.8);
     }
+    
 }
