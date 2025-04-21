@@ -1,4 +1,5 @@
 ﻿@media (max-height: 700px) {
+
     /* Main Profile */
     .mainProfile {
         transform: translate(50%, 50%) scale(0.8);
@@ -21,4 +22,11 @@
         transform: scale(0.8);
     }
     
+}
+
+@media (min-height: 700px) {
+    /* Main Profile */
+    .mainProfile {
+        transform: translate(50%, 50%) scale(0.8);
+    }
 }
