@@ -78,10 +78,9 @@
                             <p>@colony.Strength</p>
                         </div>
                     </a>
-                    Console.WriteLine("nom: " + colony.Name);
                 }
 
-                <a asp-page="#">
+                <a asp-page="CreateColony" asp-route-id="@Model.Id">
                     <div class="oneTeamInProfile">
                         <div></div>
                         <img class="addTeamLogoProfile" src="/img/icons/add.png" alt="add"/>

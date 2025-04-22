@@ -38,7 +38,7 @@ a {
     font-family: 'Pixelify Sans', sans-serif;
 }
 
-.mainProfile hr {
+.mainProfile hr, .ledHr {
     border: none;
     height: 2px;
     background: linear-gradient(

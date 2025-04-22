@@ -13,11 +13,6 @@ namespace StarColonies.Web.Pages
     {
         private readonly IColonistRepository _colonistRepository;
 
-        public ModifyColon(IColonistRepository colonistRepository)
-        {
-            _colonistRepository = colonistRepository;
-        }
-
         [BindProperty(SupportsGet = true)]
         public Guid Id { get; set; }
 
@@ -25,6 +20,11 @@ namespace StarColonies.Web.Pages
 
         [BindProperty]
         public ModifyProfileModel ModifyUser { get; set; } = new();
+        
+        public ModifyColon(IColonistRepository colonistRepository)
+        {
+            _colonistRepository = colonistRepository;
+        }
 
         public async Task<IActionResult> OnGet()
         {

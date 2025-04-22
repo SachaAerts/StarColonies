@@ -1,8 +1,20 @@
 .mainModifyProfile {
-    position: relative;
+    position: absolute;
+    bottom: 50%; right: 50%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    max-width: 1200px; width: 100%;
+
+    box-sizing: border-box;
 }
 
 .containerModifyColon {
+    position: relative;
     background-color: #161C2B;
     border: 2px solid #152F49;
     border-radius: 5px;
