@@ -2,11 +2,11 @@
 
 namespace StarColonies.Web.Factories;
 
-public class JsonResultFactory : IJsonResultFactory
+public class JsonResultFactory : IResultFactory<JsonResult, object>
 {
     public JsonResult Create(bool success, string message)
-        => new JsonResult(new { success = success, message = message });
+        => new (new { success, message });
 
     public JsonResult Create(bool succes, object? serializerSettings)
-        => new JsonResult(new { succes = succes, result = serializerSettings });
+        => new (new { succes, result = serializerSettings });
 }

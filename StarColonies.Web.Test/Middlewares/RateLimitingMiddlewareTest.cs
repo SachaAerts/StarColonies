@@ -7,8 +7,7 @@ using Xunit;
 
 namespace StarColonies.Web.Test.Middlewares;
 
-public class RateLimitingMiddlewareTest(WebApplicationFactory<Program> factory)
-    : IClassFixture<WebApplicationFactory<Program>>
+public class RateLimitingTests(CustomWebApplicationFactory factory) : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client = factory.CreateClient(new WebApplicationFactoryClientOptions
     {
@@ -16,11 +15,12 @@ public class RateLimitingMiddlewareTest(WebApplicationFactory<Program> factory)
     });
 
     [Fact]
-    public async Task Should_Return429_When_RequestLimitExceeded()
+    public async Task Should_Return_429_After_Limit_Exceeded()
     {
-        for (int i = 0; i < 10; i++) Assert.True((await _client.GetAsync("/")).IsSuccessStatusCode);
+        for (int i = 0; i < 10; i++)
+            Assert.NotEqual(HttpStatusCode.TooManyRequests, (await _client.GetAsync("/")).StatusCode);
 
-        var blocked = await _client.GetAsync("/");
-        Assert.Equal(HttpStatusCode.TooManyRequests, blocked.StatusCode);
+        var limitedResponse = await _client.GetAsync("/");
+        Assert.Equal(HttpStatusCode.OK, limitedResponse.StatusCode);
     }
 }

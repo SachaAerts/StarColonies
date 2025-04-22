@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StarColonies.Domains.Models;
 using StarColonies.Domains.Models.Colony;
 using StarColonies.Domains.Models.Items;
 using StarColonies.Domains.Models.Missions;
 using StarColonies.Domains.Repositories;
-using StarColonies.Web.Middlewares;
 using StarColonies.Infrastructures.Data;
 using StarColonies.Infrastructures.Data.Configurations.Seeder;
 using StarColonies.Infrastructures.Data.Configurations.Seeder.Map;
@@ -17,15 +17,16 @@ using StarColonies.Infrastructures.Mapper.DomainToEntity;
 using StarColonies.Infrastructures.Mapper.EntityToDomain;
 using StarColonies.Infrastructures.Repositories;
 using StarColonies.Web.Factories;
-using StarColonies.Web.Pages;
+using StarColonies.Web.Middlewares;
 
+//========================== Application Building ==========================//
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<ReverseProxyLinksMiddleware>();
 
-// Inject Mapper: Entity -> Domain(Models)
+//Inject Mapper: Entity -> Domain(Models)
 builder.Services.AddScoped<IEntityToDomainMapper<PlanetModel, PlanetEntity>,     PlanetToDomainMapper>();
 builder.Services.AddScoped<IEntityToDomainMapper<MissionModel, MissionEntity>,   MissionToDomainMapper>();
 builder.Services.AddScoped<IEntityToDomainMapper<EnemyModel, EnemyEntity>,       EnemyToDomainMapper>();
@@ -34,19 +35,23 @@ builder.Services.AddScoped<IEntityToDomainMapper<EffectModel, EffectEntity>,    
 builder.Services.AddScoped<IEntityToDomainMapper<ItemModel, ItemEntity>,         ItemToDomainMapper>();
 builder.Services.AddScoped<IEntityToDomainMapper<ColonistModel, ColonistEntity>, ColonistToDomainMapper>();
 
-// Inject Mapper: Domain(Models) -> Entity
+//Inject Mapper: Domain(Models) -> Entity
 builder.Services.AddScoped<IDomainToEntityMapper<ColonistEntity, ColonistModel>, ColonistToEntityMapper>();
 builder.Services.AddScoped<IDomainToEntityMapper<ColonyEntity, ColonyModel>,     ColonyToEntityMapper>();
 
-// Inject Repositories
+//Inject Repositories
 builder.Services.AddScoped<IMapRepository, MapRepository>();
 builder.Services.AddScoped<IColonyRepository, ColonyRepository>();
 builder.Services.AddScoped<IColonistRepository, ColonistRepository>();
 builder.Services.AddScoped<IInventaryRepository, InventaryRepository>();
 
-// Inject Services
-builder.Services.AddScoped<IJsonResultFactory, JsonResultFactory>();
+//Inject Factories
+builder.Services.AddScoped<IResultFactory<JsonResult, object>, JsonResultFactory>();
 
+//Inject Rate Limiting
+builder.Services.AddFixedWindowRateLimiting();
+
+//Inject Database Context
 builder.Services.AddDbContext<StarColoniesDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString
@@ -57,11 +62,9 @@ builder.Services.AddDefaultIdentity<ColonistEntity>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StarColoniesDbContext>();
 
+//========================== Application settings ==========================//
 var app = builder.Build();
 
-// Middleware for rate limiting
-//app.UseRateLimiting();
-    
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -104,3 +107,5 @@ static void Seed(StarColoniesDbContext context)
     ColonySeeder.Seed(context);
     InventarySeeder.Seed(context);
 }
+
+public partial class Program {}
