@@ -1,18 +1,24 @@
-﻿export function renderTeamSelection({ teams, items }) {
-    if (!teams || teams.length === 0) {
-        return `
-            <h4>Vous n’avez encore aucune colonie pour lancer une mission.</h4>
-            <button id="closeOverlay">Fermer</button>
-        `;
+﻿import {renderOverlay} from "../../overlayRenderer.js";
+
+export function renderTeamSelection(data) {
+    const notyf = new Notyf({
+        duration: 8000,
+        ripple: true,
+        position: { x: 'right', y: 'top' }
+    });
+    
+    if (!data.teams || data.teams.length === 0) {
+        notyf.error("Aucune colonie disponible pour cette mission.");
+        return renderOverlay("missionDetails", data);
     }
 
-    const teamsHTML = teams.map(team => `
+    const teamsHTML = data.teams.map(team => `
         <option value="${team.id}">${team.name}</option>
     `).join('');
 
-    const itemsHTML = items.map(item => `
+    const itemsHTML = data.items.map(item => `
         <label>
-            ${items.length === 0 || !items ? `<p>Vous n'avez actuellement aucun item</p>` : `
+            ${data.items.length === 0 || !data.items ? `<p>Vous n'avez actuellement aucun item</p>` : `
                 <input type="checkbox" value="${item.id}"/>
                 <img src="${item.image}" height="40" alt="Image"> ${item.name}
             `}

@@ -17,8 +17,14 @@ export function renderOverlay(type, data) {
     const content = overlay.querySelector(".overlay-content");
 
     const command = overlayCommands[type] ?? new DefaultCommand();
-    content.innerHTML = command.render(data);
+    const html = command.render(data);
 
+    if (!html || html.trim() === "") {
+        overlay.classList.add("hidden");
+        return;
+    }
+
+    content.innerHTML = html;
     overlay.classList.remove("hidden");
 
     waitForElement("#closeOverlay", (btn) => {

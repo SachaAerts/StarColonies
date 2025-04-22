@@ -2,8 +2,8 @@
 
 namespace StarColonies.Web.Factories;
 
-public interface JsonResultFactory
+public interface IJsonResultFactory
 {
     JsonResult Create(bool success, string message);
-    JsonResult Create(bool succes);
+    JsonResult Create(bool succes, object? serializerSettings);
 }

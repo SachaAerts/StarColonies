@@ -22,3 +22,7 @@ h1.Title {
 img { 
   height: 100vh; width: 100%;
 }
+
+.notyf {
+  z-index: 99999;
+}

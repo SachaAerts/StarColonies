@@ -1,5 +1,4 @@
-﻿using StarColonies.Domains.Models.Items;
-
+﻿
 namespace StarColonies.Domains.Models.Missions;
 
 public class MissionResultModel
@@ -13,10 +12,7 @@ public class MissionResultModel
     {
         get => MissionSuccess ? "La mission est un succès !" : 
             LivingColony ? "La mission a échoué, mais la colonie est toujours en vie." : 
-            "La mission a échoué et la colonie est morte.";
+                           "La mission a échoué et la colonie est morte.";
         set => ResultMessage = value;
     }
-    
-    public IList<ItemModel> Rewards { get; set; } = new List<ItemModel>();
-    public int CoinsReward { get; set; }
 }

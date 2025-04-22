@@ -14,6 +14,11 @@
     `).join('');
 
     return `
+        <style>
+            .notyf {
+                z-index: 99999;
+            }
+        </style>
         <link rel="stylesheet" href="/css/components/button.css">
         <h4 style="text-align: center;" id="titleQuest">${quest.title}</h4>
         <p  style="padding: 0 10px;">${quest.description}</p>

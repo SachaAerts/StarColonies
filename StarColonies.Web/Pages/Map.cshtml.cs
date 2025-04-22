@@ -8,6 +8,7 @@ using StarColonies.Domains.Models.Missions;
 using StarColonies.Domains.Repositories;
 using StarColonies.Domains.Services;
 using StarColonies.Infrastructures.Data.Entities;
+using StarColonies.Web.Factories;
 
 namespace StarColonies.Web.Pages;
 
@@ -15,6 +16,7 @@ public class Map(
     IMapRepository mapRepository, 
     IInventaryRepository inventaryRepository,
     IColonyRepository colonyRepository,
+    IJsonResultFactory jsonResultFactory,
     UserManager<ColonistEntity> userManager) : PageModel
 {
     public IList<PlanetModel> Planets { get; private set; } = new List<PlanetModel>();
@@ -35,14 +37,11 @@ public class Map(
 
         return Page();
     }
-
-    public MissionResultModel IsMissionResolved(MissionModel mission, ColonyModel colony, IList<ItemModel> items) 
-        => MissionService.Result(mission, colony, items);
     
     public async Task<JsonResult> OnPostResolveMissionAsync([FromBody] MissionRequestModel request)
     {
         var user = await userManager.GetUserAsync(User);
-        if (user == null) return new JsonResult(new { success = false, message = "Utilisateur non connecté" });
+        if (user == null) return jsonResultFactory.Create(false, "Utilisateur non connecté");
         
         var allColonies = await colonyRepository.GetColoniesForColonistAsync(user.Id);
         var allItems = await inventaryRepository.GetItemsForColonistAsync(user.Id);
@@ -53,42 +52,39 @@ public class Map(
         var selectedItems = allItems.Where(i => request.ItemIds.Contains(i.Id)).ToList();
 
         if (mission == null || colony == null) 
-            return new JsonResult(new { success = false, message = "Paramètres invalides" });
+            return jsonResultFactory.Create(false, "Paramètres invalides [mission ou colonie]");
 
         MissionResultModel result = IsMissionResolved(mission, colony, selectedItems);
-        result.Rewards = mission.Items;
-        result.CoinsReward = mission.CoinsReward;
 
-        foreach (var items in result.Rewards)
-        {
-            Console.WriteLine($"Item: {items.Name}, Description: {items.Description}");
-        }
-        
-        return new JsonResult(new
-        {
-            success = true,
-            result = new
+        return jsonResultFactory.Create(true,
+            new
             {
                 isSuccess = result.MissionSuccess,
+                livingColony = result.LivingColony,
+                overcomingMission = result.OvercomingMission,
                 description = result.ResultMessage,
-                rewards = result.Rewards.Select(i => new
+                rewards = mission.Items.Select(i => new
                 {
                     i.Id,
                     i.Name,
                     i.Description,
                     i.ImagePath
                 }),
-                coinsReward = result.CoinsReward
+                coinsReward = mission.CoinsReward
             }
-        });
+        ); 
     }
 
-    [BindProperties]
-    public class MissionRequestModel
-    {
-        public int MissionId { get; set; }
-        public int ColonyId { get; set; }
-        public List<int> ItemIds { get; set; } = new();
-    }
+    private MissionResultModel IsMissionResolved(MissionModel mission, ColonyModel colony, IList<ItemModel> items) 
+        => MissionService.Result(mission, colony, items);
     
 }
+
+[BindProperties]
+public class MissionRequestModel
+{
+    public int MissionId { get; set; }
+    public int ColonyId { get; set; }
+    public List<int> ItemIds { get; set; } = new();
+}
+ 

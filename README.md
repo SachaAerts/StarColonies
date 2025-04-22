@@ -10,13 +10,12 @@ La suite du document sera à compléter par vos soins.
 
 ## Membres de l'équipe
 
-**TODO :** indiquez les membres de votre équipe (de deux à trois membres).
-- Boukhanouche Ayoub
-- Ciasiolki Alexandre
-- Aerts Sacha
+- Boukhanouche Ayoub(*Q230049*)
+- Ciasiolki Alexandre(*Q230119*)
+- Aerts Sacha()
 
-**TODO :** indiquez quel membre est responsable du déploiement. Nous testerons l'application web depuis son URL.
-- Matricule : [Q230049](https://ue19.cg.helmo.be/q230049)
+
+- **Version Production** : [Q230049](https://ue19.cg.helmo.be/q230049)
 
 ## Construction de la solution
 
@@ -32,4 +31,15 @@ La suite du document sera à compléter par vos soins.
 
 ## Éléments techniques notables
 
-**TODO :** indiquez les éléments techniques que vous jugez notables. Par exemple, l'utilisation d'un framework CSS autre que Bootstrap. Autre exemple, l'utilisation de bibliothèques JS pour l'affichage de graphiques.
+### Tests automatisés
+Des **tests d’intégration** ont été mis en place pour valider la protection anti-DoS.
+
+**Middleware testé :** 
+ - `RateLimitingMiddleware` (limite chaque adresse ip à 10 requêtes toutes les 10 secondes)
+    - Librairie utilisée : 
+      - [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)
+      - [xUnit](https://xunit.net/)
+
+```csproj
+<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
+```

@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarColonies.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarColonies.Web", "StarColonies.Web\StarColonies.Web.csproj", "{11DE2CAB-7B21-4AB5-87A8-5DCF94D0C9A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarColonies.Web.Test", "StarColonies.Web.Test\StarColonies.Web.Test.csproj", "{A5DCD0AC-408A-48E1-813B-BD9150BCC661}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{11DE2CAB-7B21-4AB5-87A8-5DCF94D0C9A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11DE2CAB-7B21-4AB5-87A8-5DCF94D0C9A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11DE2CAB-7B21-4AB5-87A8-5DCF94D0C9A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5DCD0AC-408A-48E1-813B-BD9150BCC661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5DCD0AC-408A-48E1-813B-BD9150BCC661}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5DCD0AC-408A-48E1-813B-BD9150BCC661}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5DCD0AC-408A-48E1-813B-BD9150BCC661}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

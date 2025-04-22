@@ -15,7 +15,7 @@ public class AnalyzeProfilePicture(string settlerName)
         }
 
         // Cas 2 : base64
-        if (picture.StartsWith("data:image"))
+        if (!picture.StartsWith("data:image")) return "1.png";
         {
             var base64Data = picture.Substring(picture.IndexOf(',') + 1);
             var bytes = Convert.FromBase64String(base64Data);
@@ -39,7 +39,6 @@ public class AnalyzeProfilePicture(string settlerName)
             return fileName;
         }
 
-        return "1.png";
     }
     
     private string GenerateUniqueFileName(string baseName, string extension, bool forceGuid = false)
@@ -58,16 +57,12 @@ public class AnalyzeProfilePicture(string settlerName)
     {
         if (picture.StartsWith("data:image/jpeg")) return ".jpg";
         if (picture.StartsWith("data:image/png")) return ".png";
-        if (picture.StartsWith("data:image/gif")) return ".gif";
-        return ".png";
+        return picture.StartsWith("data:image/gif") ? ".gif" : ".png";
     }
 
     private string SanitizeFileName(string input)
     {
-        foreach (var c in Path.GetInvalidFileNameChars())
-        {
-            input = input.Replace(c, '_');
-        }
+        input = Path.GetInvalidFileNameChars().Aggregate(input, (current, c) => current.Replace(c, '_'));
         return input.Replace(" ", "_").ToLowerInvariant();
     }
 }
