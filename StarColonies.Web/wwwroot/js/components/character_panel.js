@@ -170,7 +170,7 @@ class CharacterPanel extends HTMLElement {
 
             <div class="panel">
                 <div class="title">
-                    <h1>Choose the profile photo</h1>
+                    <h1>Choose photo</h1>
                     <div class="line"></div>
                 </div>
                 <div class="photos">

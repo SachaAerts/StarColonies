@@ -1,0 +1,243 @@
+@page "{id:guid}"
+@model StarColonies.Web.Pages.CreateColony
+
+@{
+    ViewData["Title"] = "Create colony";
+    Layout = "Shared/_Layout";
+}
+
+<section class="mainModifyProfile">
+    <form method="post" class="containerModifyColon">
+        <a asp-page="Profile" asp-route-id="@Model.Id" class="buttonProfile backButtonProfile">
+            <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
+        </a>
+
+        <h1>Create colony</h1>
+
+        <space-input label="Name" label-position="50" required></space-input>
+        
+        <div class="columnsCreateColony">
+            <div class="firstColumnCreateColony">
+                <div class="headerFirstColumnCreateColony">
+                    <h2 class="titlesCreateColony">Team</h2>
+                    <p class="titlesCreateColony">4/5</p>
+                </div>
+                
+                <hr class="ledHr"/>
+
+                <div>
+                    <div class="oneMemberTeamCreateColony">
+                        <div class="delete-cross"></div>
+                        <div class="delete-indicator"></div>
+                        <img src="/img/upload/1.png" alt="userLogo"/>
+                        <div>
+                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
+                            <p class="textsCreateColony">Soldier</p>
+                        </div>
+                    </div>
+
+                    <div class="oneMemberTeamCreateColony">
+                        <div class="delete-cross"></div>
+                        <div class="delete-indicator"></div>
+                        <img src="/img/upload/1.png" alt="userLogo"/>
+                        <div>
+                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
+                            <p class="textsCreateColony">Soldier</p>
+                        </div>
+                    </div>
+
+                    <div class="oneMemberTeamCreateColony">
+                        <div class="delete-cross"></div>
+                        <div class="delete-indicator"></div>
+                        <img src="/img/upload/1.png" alt="userLogo"/>
+                        <div>
+                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
+                            <p class="textsCreateColony">Soldier</p>
+                        </div>
+                    </div>
+
+                    <div class="oneMemberTeamCreateColony">
+                        <div class="delete-cross"></div>
+                        <div class="delete-indicator"></div>
+                        <img src="/img/upload/1.png" alt="userLogo"/>
+                        <div>
+                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
+                            <p class="textsCreateColony">Soldier</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="secondColumnCreateColony">
+                <h2 class="titlesCreateColony">Colonists</h2>
+                
+                <hr class="ledHr"/>
+                
+                <div>
+                    <div class="oneUserCreateColony">
+                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
+                        <div>
+                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
+                            <p class="textsCreateColony">Lvl: 100</p>
+                        </div>
+
+                        <p class="textsCreateColony">Soldier</p>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/force.png" alt="strengh"/>
+                            <p class="textsCreateColony">4</p>
+                        </div>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/stamina.png" alt="stamina"/>
+                            <p class="textsCreateColony">3</p>
+                        </div>
+                    </div>
+
+                    <div class="oneUserCreateColony">
+                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
+                        <div>
+                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
+                            <p class="textsCreateColony">Lvl: 100</p>
+                        </div>
+
+                        <p class="textsCreateColony">Soldier</p>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/force.png" alt="strengh"/>
+                            <p class="textsCreateColony">4</p>
+                        </div>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/stamina.png" alt="stamina"/>
+                            <p class="textsCreateColony">3</p>
+                        </div>
+                    </div>
+
+                    <div class="oneUserCreateColony">
+                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
+                        <div>
+                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
+                            <p class="textsCreateColony">Lvl: 100</p>
+                        </div>
+
+                        <p class="textsCreateColony">Soldier</p>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/force.png" alt="strengh"/>
+                            <p class="textsCreateColony">4</p>
+                        </div>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/stamina.png" alt="stamina"/>
+                            <p class="textsCreateColony">3</p>
+                        </div>
+                    </div>
+
+                    <div class="oneUserCreateColony">
+                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
+                        <div>
+                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
+                            <p class="textsCreateColony">Lvl: 100</p>
+                        </div>
+
+                        <p class="textsCreateColony">Soldier</p>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/force.png" alt="strengh"/>
+                            <p class="textsCreateColony">4</p>
+                        </div>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/stamina.png" alt="stamina"/>
+                            <p class="textsCreateColony">3</p>
+                        </div>
+                    </div>
+
+                    <div class="oneUserCreateColony">
+                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
+                        <div>
+                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
+                            <p class="textsCreateColony">Lvl: 100</p>
+                        </div>
+
+                        <p class="textsCreateColony">Soldier</p>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/force.png" alt="strengh"/>
+                            <p class="textsCreateColony">4</p>
+                        </div>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/stamina.png" alt="stamina"/>
+                            <p class="textsCreateColony">3</p>
+                        </div>
+                    </div>
+
+                    <div class="oneUserCreateColony">
+                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
+                        <div>
+                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
+                            <p class="textsCreateColony">Lvl: 100</p>
+                        </div>
+
+                        <p class="textsCreateColony">Soldier</p>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/force.png" alt="strengh"/>
+                            <p class="textsCreateColony">4</p>
+                        </div>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/stamina.png" alt="stamina"/>
+                            <p class="textsCreateColony">3</p>
+                        </div>
+                    </div>
+
+                    <div class="oneUserCreateColony">
+                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
+                        <div>
+                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
+                            <p class="textsCreateColony">Lvl: 100</p>
+                        </div>
+
+                        <p class="textsCreateColony">Soldier</p>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/force.png" alt="strengh"/>
+                            <p class="textsCreateColony">4</p>
+                        </div>
+
+                        <div class="oneUserStatCreateColony">
+                            <img src="/img/icons/stamina.png" alt="stamina"/>
+                            <p class="textsCreateColony">3</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr class="ledHr"/>
+            </div>
+
+            <input id="character-hidden" type="hidden"/>
+            <character-panel>
+                <character-item image="team1.png"></character-item>
+                <character-item image="team2.png"></character-item>
+                <character-item image="team3.png"></character-item>
+                <character-item image="team4.png"></character-item>
+                <character-item image="team5.png"></character-item>
+                <character-item image="team6.png"></character-item>
+                <character-item image="team7.png"></character-item>
+                <character-item image="team8.png"></character-item>
+                <character-item image="team9.png"></character-item>
+                <character-item image="team10.png"></character-item>
+                <character-item image="team11.png"></character-item>
+                <character-item image="team12.png"></character-item>
+            </character-panel>
+        </div>
+
+        <button class="formButton" type="submit">Create colony</button>
+    </form>
+</section>
+
+<script type="module" src="~/js/components/inputs/input.js"></script>
+<script src="~/js/components/character_panel.js"></script>

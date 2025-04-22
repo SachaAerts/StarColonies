@@ -6,12 +6,12 @@
     Layout = "Shared/_Layout";
 }
 
-<div class="mainFrame mainModifyProfile">
-    <a asp-page="Profile" asp-route-id="@Model.Id" class="buttonProfile backButtonProfile">
-        <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
-    </a>
-    
+<div class="mainModifyProfile">
     <form method="post" class="containerModifyColon">
+        <a asp-page="Profile" asp-route-id="@Model.Id" class="buttonProfile backButtonProfile">
+            <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
+        </a>
+        
         <h1>Modify profile</h1>
 
         <div class="containColumnModifyProfile">

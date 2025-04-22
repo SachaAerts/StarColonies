@@ -1,0 +1,269 @@
+.titlesCreateColony {
+    font-family: 'Judge Italic', sans-serif;
+}
+
+.textsCreateColony {
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.columnsCreateColony {
+    display: flex;
+    gap: 50px;
+}
+
+.firstColumnCreateColony, .secondColumnCreateColony {
+    display: flex;
+    flex-direction: column;
+}
+
+.secondColumnCreateColony {
+    height: 400px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.secondColumnCreateColony h2 {
+    flex-shrink: 0;
+    margin-bottom: 10px;
+}
+
+.secondColumnCreateColony hr.ledHr {
+    flex-shrink: 0;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.secondColumnCreateColony > div:nth-child(3) {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 300px;
+    margin: 0;
+    padding-right: 5px;
+}
+
+.secondColumnCreateColony > div:nth-child(3)::-webkit-scrollbar {
+    width: 6px;
+}
+
+.secondColumnCreateColony > div:nth-child(3)::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+.secondColumnCreateColony > div:nth-child(3)::-webkit-scrollbar-thumb {
+    background: rgba(127, 0, 255, 0.3);
+    border-radius: 3px;
+}
+
+.secondColumnCreateColony > div:nth-child(3)::-webkit-scrollbar-thumb:hover {
+    background: rgba(127, 0, 255, 0.5);
+}
+
+.headerFirstColumnCreateColony {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.oneMemberTeamCreateColony, .oneUserCreateColony {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    width: calc(100% - 10px);
+    max-width: calc(100% - 10px);
+    min-width: 0;
+    overflow: hidden;
+
+    padding: 5px 10px;
+    margin: 8px 5px;
+
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(3px);
+    box-shadow: 0 2px 6px rgba(0, 255, 255, 0.1), 0 0 8px rgba(127, 0, 255, 0.15);
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
+    cursor: pointer;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Style normal au survol pour les éléments de la colonne de droite */
+.oneUserCreateColony:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(0, 255, 255, 0.2), 0 0 18px rgba(127, 0, 255, 0.3);
+}
+
+/* Effet de suppression pour les membres de l'équipe au survol */
+.oneMemberTeamCreateColony {
+    position: relative;
+    overflow: hidden;
+}
+
+.oneMemberTeamCreateColony:hover {
+    box-shadow: 0 4px 16px rgba(255, 0, 0, 0.4), 0 0 18px rgba(255, 0, 0, 0.5);
+    background: rgba(255, 0, 0, 0.08);
+}
+
+/* Ajout d'une croix sur l'élément au survol */
+.oneMemberTeamCreateColony::before,
+.oneMemberTeamCreateColony::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: rgba(255, 0, 0, 0.7);
+    transform-origin: center;
+    transition: width 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    z-index: 2;
+}
+
+.oneMemberTeamCreateColony:hover::before,
+.oneMemberTeamCreateColony:hover::after {
+    width: 80%;
+    opacity: 1;
+}
+
+.oneMemberTeamCreateColony::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.oneMemberTeamCreateColony::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Voile rouge semi-transparent au survol */
+.oneMemberTeamCreateColony::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 0, 0, 0);
+    transition: background 0.3s ease;
+    z-index: 1;
+    transform: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.oneMemberTeamCreateColony:hover::after {
+    background: rgba(255, 0, 0, 0.15);
+    opacity: 1;
+}
+
+/* Ajout de la croix avec pseudo-élément */
+.oneMemberTeamCreateColony .delete-cross {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.oneMemberTeamCreateColony .delete-cross::before,
+.oneMemberTeamCreateColony .delete-cross::after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 3px;
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+.oneMemberTeamCreateColony .delete-cross::before {
+    transform: rotate(45deg);
+}
+
+.oneMemberTeamCreateColony .delete-cross::after {
+    transform: rotate(-45deg);
+}
+
+.oneMemberTeamCreateColony:hover .delete-cross {
+    opacity: 1;
+}
+
+.oneMemberTeamCreateColony img, .logoUserCreateColony {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+}
+
+.oneMemberTeamCreateColony > div {
+    position: relative;
+    z-index: 2;
+}
+
+.oneMemberTeamCreateColony h3, .oneMemberTeamCreateColony p,
+.oneUserCreateColony p, .oneUserCreateColony h3,
+.headerFirstColumnCreateColony p, .headerFirstColumnCreateColony h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.secondColumnCreateColony h2 {
+    margin: 0 0 4px 0;
+}
+
+.oneUserCreateColony, .oneUserStatCreateColony {
+    display: flex;
+    align-items: center;
+}
+
+.oneUserCreateColony {
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.oneUserCreateColony > div:nth-child(2) {
+    flex: 1;
+    min-width: 0;
+}
+
+.oneUserStatCreateColony {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.oneUserStatCreateColony img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Ajoutez cet élément à chaque oneMemberTeamCreateColony dans le HTML */
+.oneMemberTeamCreateColony {
+    position: relative;
+}
+
+.oneMemberTeamCreateColony .delete-indicator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(135deg, rgba(255,0,0,0) 0%, rgba(255,0,0,0.2) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.oneMemberTeamCreateColony:hover .delete-indicator {
+    opacity: 1;
+}
