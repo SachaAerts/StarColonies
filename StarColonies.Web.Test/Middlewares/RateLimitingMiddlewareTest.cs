@@ -23,5 +23,4 @@ public class RateLimitingMiddlewareTest(WebApplicationFactory<Program> factory)
         var blocked = await _client.GetAsync("/");
         Assert.Equal(HttpStatusCode.TooManyRequests, blocked.StatusCode);
     }
-
 }
