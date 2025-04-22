@@ -23,7 +23,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddMemoryCache();
 builder.Services.AddScoped<ReverseProxyLinksMiddleware>();
 
 // Inject Mapper: Entity -> Domain(Models)
@@ -61,7 +60,7 @@ builder.Services.AddDefaultIdentity<ColonistEntity>()
 var app = builder.Build();
 
 // Middleware for rate limiting
-app.UseRateLimiting();
+//app.UseRateLimiting();
     
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -105,5 +104,3 @@ static void Seed(StarColoniesDbContext context)
     ColonySeeder.Seed(context);
     InventarySeeder.Seed(context);
 }
-
-public partial class Program { }

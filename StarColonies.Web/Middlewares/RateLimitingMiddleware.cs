@@ -10,7 +10,7 @@ namespace StarColonies.Web.Middlewares;
  */
 public class RateLimitingMiddleware(RequestDelegate next, IMemoryCache cache)
 {
-    private const int MaxRequestsPerInterval = 10;
+    private const int MaxRequests = 10;
     private static readonly TimeSpan Interval = TimeSpan.FromSeconds(10);
     
     /**
@@ -20,29 +20,46 @@ public class RateLimitingMiddleware(RequestDelegate next, IMemoryCache cache)
      */
     public async Task InvokeAsync(HttpContext context)
     {
-        var ip = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-        var cacheKey = $"RateLimit-{ip}";
+        var clientIp = GetClientIp(context);
+        var cacheKey = BuildCacheKey(clientIp);
 
-        int currentRequestCount = cache.GetOrCreate(cacheKey, entry =>
-        {
-            entry.AbsoluteExpirationRelativeToNow = Interval;
-            entry.AddExpirationToken(new CancellationChangeToken(new CancellationTokenSource(Interval).Token));
-            return 0;
-        });
-
-        if (currentRequestCount >= MaxRequestsPerInterval)
+        if (IsRequestLimitExceeded(cacheKey))
         {
             context.Response.StatusCode = StatusCodes.Status429TooManyRequests;
             await context.Response.WriteAsync("Trop de requêtes, réessayez plus tard.");
             return;
         }
 
-        cache.Set(cacheKey, currentRequestCount + 1, new MemoryCacheEntryOptions
+        IncrementRequestCount(cacheKey);
+        await next(context);
+    }
+    
+    private static string GetClientIp(HttpContext context) =>
+        context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+    private static string BuildCacheKey(string ip) => $"RateLimit-{ip}";
+
+    private bool IsRequestLimitExceeded(string cacheKey)
+    {
+        var currentCount = cache.GetOrCreate(cacheKey, entry =>
         {
-            AbsoluteExpirationRelativeToNow = Interval
+            entry.AbsoluteExpirationRelativeToNow = Interval;
+            entry.AddExpirationToken(new CancellationChangeToken(new CancellationTokenSource(Interval).Token));
+            return 0;
         });
 
-        await next(context);
+        return currentCount >= MaxRequests;
+    }
+
+    private void IncrementRequestCount(string cacheKey)
+    {
+        if (cache.TryGetValue<int>(cacheKey, out var count))
+        {
+            cache.Set(cacheKey, count + 1, new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = Interval
+            });
+        }
     }
     
 }
