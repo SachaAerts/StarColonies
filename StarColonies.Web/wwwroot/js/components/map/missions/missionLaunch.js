@@ -36,9 +36,11 @@ async function sendMissionRequest(selectedTeam, selectedItems) {
 
     try {
         const response = await post(body);
-
+        
         const result = await response.json();
 
+        console.log("Mission result: ", result);
+        
         setTimeout(() => renderOverlay("missionResult", result.result), 2000);
 
     } catch (error) {

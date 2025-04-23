@@ -83,7 +83,7 @@ public class MissionSeeder
             ItemId = itemChoices[0].Id,
             MissionId = mission.Id,
             Mission = mission,
-            Quantity = 1,
+            Quantity = 1
         });
 
         mission.Rewards.Add(new RewardedEntity

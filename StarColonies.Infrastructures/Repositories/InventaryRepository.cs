@@ -33,12 +33,33 @@ public class InventaryRepository(
     {
         var itemEntity = reverseMapper.Map(item);
         
-        context.Inventory.Add(new InventoryEntity
+        var existingInventory = await context.Inventory
+            .FirstOrDefaultAsync(i => i.ColonistId == userId && i.ItemId == itemEntity.Id);
+
+        if (existingInventory != null) existingInventory.Quantity += 1;
+        else
         {
-            ColonistId = userId,
-            Item = itemEntity
-        });
+            context.Inventory.Add(new InventoryEntity
+            {
+                ColonistId = userId,
+                ItemId = itemEntity.Id,
+                Quantity = 1
+            });
+        }
         
-        context.SaveChanges();
+        await context.SaveChangesAsync();
+    }
+    
+    public async Task UseItemFromUserAsync(string userId, int itemId)
+    {
+        var inventory = await context.Inventory
+            .FirstOrDefaultAsync(i => i.ColonistId == userId && i.ItemId == itemId);
+
+        if (inventory == null) throw new InvalidOperationException("Item not found in inventory.");
+
+        if (inventory.Quantity > 1) inventory.Quantity -= 1;
+            else context.Inventory.Remove(inventory);
+
+        await context.SaveChangesAsync();
     }
 }

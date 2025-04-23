@@ -1,18 +1,39 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using StarColonies.Domains.Models.Colony;
+using StarColonies.Domains.Models.Items;
 using StarColonies.Domains.Models.Missions;
 using StarColonies.Domains.Repositories;
+using StarColonies.Infrastructures.Data;
 using StarColonies.Infrastructures.Data.Entities;
+using StarColonies.Infrastructures.Data.Entities.Items;
 using StarColonies.Infrastructures.Mapper.DomainToEntity;
+using StarColonies.Infrastructures.Mapper.EntityToDomain;
+using StarColonies.Infrastructures.Services;
 
 namespace StarColonies.Infrastructures.Repositories;
 
-public class RewardRepository(
+public class RewardRepository(StarColoniesDbContext context,
     UserManager<ColonistEntity> userManager, 
     IInventaryRepository inventaryRepository,
     IDomainToEntityMapper<ColonistEntity, ColonistModel> mapper,
+    IEntityToDomainMapper<ItemModel, ItemEntity> itemMapper,
     IColonyRepository colonyRepository) : IRewardRepository
 {
+    private RewardService RewardService => new(userManager, inventaryRepository, mapper);
+    
+    public async Task<IList<RewardItemModel>> GetRewardsForMissionAsync(int missionId)
+    {
+        var rewards = await context.Rewarded
+            .Include(r => r.Item)
+            .ThenInclude(i => i.Effect)
+            .Where(r => r.MissionId == missionId)
+            .ToListAsync();
+
+        return rewards.Select(r 
+            => new RewardItemModel { Item = itemMapper.Map(r.Item), Quantity = r.Quantity }).ToList();
+    }
+    
     public async Task GiveRewardAsync(ColonistModel userModel, MissionResultModel result, int colonyId)
     {
         ColonistEntity user = mapper.Map(userModel);
@@ -20,32 +41,12 @@ public class RewardRepository(
         if (result is { OvercomingMission: true, LivingColony: true })
         {
             var members = await colonyRepository.GetColonistsForColonyAsync(colonyId);
-            await GiveLevelsToMembersAsync(members);
-
-            await GiveResourcesToOwnerAsync(user, result);
+            
+            await RewardService.GiveLevelsToMembersAsync(members);
+            await RewardService.GiveResourcesToOwnerAsync(user, result);
+            
             await userManager.UpdateAsync(user);
         }
-    }
-
-    private async Task GiveLevelsToMembersAsync(IList<ColonistModel> colonistModels)
-    {
-        var updateTasks = colonistModels.Select(async colonist =>
-        {
-            colonist.Level += 1;
-            var entity = mapper.Map(colonist);
-            await userManager.UpdateAsync(entity);
-        });
-
-        await Task.WhenAll(updateTasks);
-    }
-
-    private async Task GiveResourcesToOwnerAsync(ColonistEntity user, MissionResultModel result)
-    {
-        user.Level += 1;
-        user.Musty += result.CoinsReward;
-
-        var itemAddTasks = result.Rewards.Select(r => inventaryRepository.AddItemToUser(user.Id, r));
-        await Task.WhenAll(itemAddTasks);
     }
     
 }

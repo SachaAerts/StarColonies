@@ -36,7 +36,9 @@ public class Map(
         Planets  = await mapRepository.GetPlanetsWithMissionsAsync();
         Items    = await inventaryRepository.GetItemsForColonistAsync(user.Id);
         Colonies = await colonyRepository.GetColoniesForColonistAsync(user.Id);
-
+        
+        await AllocateRewardsToMissionAsync();
+        
         return Page();
     }
     
@@ -59,12 +61,19 @@ public class Map(
         MissionResultModel result = IsMissionResolved(mission, colony, selectedItems);
         
         var colonist = await colonistRepository.GetColonistByIdAsync(user.Id);
-        await rewardRepository.GiveRewardAsync(colonist, result, colony.Id);
+        
+        //await rewardRepository.GiveRewardAsync(colonist, result, colony.Id);
         return jsonResultFactory.Create(true, new {result, mission});
     }
 
     private MissionResultModel IsMissionResolved(MissionModel mission, ColonyModel colony, IList<ItemModel> items) 
         => MissionService.Result(mission, colony, items);
+
+    private async Task AllocateRewardsToMissionAsync()
+    {
+        foreach (var mission in Planets.SelectMany(p => p.Missions))
+            mission.Items = await rewardRepository.GetRewardsForMissionAsync(mission.Id);
+    }
     
 }
 

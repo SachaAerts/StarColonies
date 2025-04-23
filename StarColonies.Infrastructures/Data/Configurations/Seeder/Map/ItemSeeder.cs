@@ -28,7 +28,7 @@ public class ItemSeeder
                 EffectId = effect2.Id,
                 Effect = effect2,
                 CoinsValue = 8,
-                ImagePath = "/img/items/stamina.png",
+                ImagePath = "/img/items/stamina.png"
             },
             new()
             {

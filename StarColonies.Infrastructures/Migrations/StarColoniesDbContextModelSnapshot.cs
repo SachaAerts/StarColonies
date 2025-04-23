@@ -340,6 +340,9 @@ namespace StarColonies.Infrastructures.Migrations
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("ColonistId", "ItemId");
 
                     b.HasIndex("ItemId");
@@ -396,9 +399,7 @@ namespace StarColonies.Infrastructures.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
+                        .HasColumnType("int");
 
                     b.HasKey("MissionId", "ItemId");
 

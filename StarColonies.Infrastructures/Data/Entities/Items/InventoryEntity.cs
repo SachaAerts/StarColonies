@@ -7,4 +7,6 @@ public class InventoryEntity
 
     public int ItemId { get; set; }
     public ItemEntity Item { get; set; }
+    
+    public int Quantity { get; set; }
 }

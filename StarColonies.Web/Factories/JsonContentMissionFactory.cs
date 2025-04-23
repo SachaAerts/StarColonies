@@ -19,8 +19,7 @@ public class JsonContentMissionFactory : IJsonContentFactory
             livingColony = result.LivingColony,
             overcomingMission = result.OvercomingMission,
             description = result.ResultMessage,
-            rewards = mission.Items.Select(i => new { i.Id, i.Name, i.Description, i.ImagePath }),
-            coinsReward = mission.CoinsReward
+            rewards = mission.Items
         };
 }
 
