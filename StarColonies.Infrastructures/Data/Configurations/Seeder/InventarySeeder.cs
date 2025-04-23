@@ -28,7 +28,8 @@ public class InventarySeeder()
                 context.Inventory.Add(new InventoryEntity
                 {
                     ColonistId = colonist.Id,
-                    ItemId = item.Id
+                    ItemId = item.Id,
+                    Quantity = random.Next(1, 5)
                 });
             }
         }

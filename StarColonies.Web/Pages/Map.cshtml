@@ -32,12 +32,13 @@ This ensures that the request actually comes from the authenticated user and not
         id = c.Id,
         name = c.Name
     }));
-    var itemsJson = System.Text.Json.JsonSerializer.Serialize(Model.Items.Select(i => new {
-        id = i.Id,
-        name = i.Name,
-        image = i.ImagePath,
-        forceModifier = i.Effect.ForceModifier,
-        staminaModifier = i.Effect.StaminaModifier
+    var itemsJson = System.Text.Json.JsonSerializer.Serialize(Model.Inventory.Select(i => new {
+        id = i.Item.Id,
+        name = i.Item.Name,
+        image = i.Item.ImagePath,
+        quantity = i.Quantity,
+        forceModifier = i.Item.Effect.ForceModifier,
+        staminaModifier = i.Item.Effect.StaminaModifier
     }));
 }
 

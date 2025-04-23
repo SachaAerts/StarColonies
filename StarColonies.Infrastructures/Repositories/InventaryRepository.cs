@@ -17,36 +17,34 @@ public class InventaryRepository(
     StarColoniesDbContext context) : IInventaryRepository
 {
     
-    public async Task<IList<ItemModel>> GetItemsForColonistAsync(string colonistId)
+    public async Task<IList<RewardItemModel>> GetItemsForColonistAsync(string colonistId)
     {
         var items = await context.Inventory
-            .Where(i => i.ColonistId == colonistId)
             .Include(i => i.Item)
-            .ThenInclude(item => item.Effect)
-            .Select(i => i.Item)
+            .Where(i => i.ColonistId == colonistId)
             .ToListAsync();
-
-        return items.Select(itemMapper.Map).ToList();
+        return items 
+            .Select(i => new RewardItemModel
+            {
+                Item = itemMapper.Map(i.Item),
+                Quantity = i.Quantity
+            })
+            .ToList();
     }
     
-    public async Task AddItemToUser(string userId, ItemModel item)
+    public async Task AddItemToUser(string userId, RewardItemModel reward)
     {
-        var itemEntity = reverseMapper.Map(item);
-        
-        var existingInventory = await context.Inventory
+        if (string.IsNullOrWhiteSpace(userId)) throw new ArgumentException("User ID cannot be null or empty.", nameof(userId));
+        if (reward == null) throw new ArgumentNullException(nameof(reward), "Reward item cannot be null.");
+
+        var itemEntity = reverseMapper.Map(reward.Item);
+
+        var inventory = await context.Inventory
             .FirstOrDefaultAsync(i => i.ColonistId == userId && i.ItemId == itemEntity.Id);
 
-        if (existingInventory != null) existingInventory.Quantity += 1;
-        else
-        {
-            context.Inventory.Add(new InventoryEntity
-            {
-                ColonistId = userId,
-                ItemId = itemEntity.Id,
-                Quantity = 1
-            });
-        }
-        
+        if (inventory != null) inventory.Quantity += reward.Quantity;
+        else context.Inventory.Add(new InventoryEntity { ColonistId = userId, ItemId = itemEntity.Id, Quantity = reward.Quantity });
+
         await context.SaveChangesAsync();
     }
     

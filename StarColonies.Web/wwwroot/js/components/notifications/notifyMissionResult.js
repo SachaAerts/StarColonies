@@ -15,9 +15,12 @@ export const notifyMissionResult = (result, mission) => {
         if (result.coinsReward > 0) {
             notifier.success(`Vous gagnez ${mission.coinsReward} Musty !`);
         }
-        mission.items?.forEach(r => notifier.success(`Ressource obtenue : ${r.name}`));
+        mission.items?.forEach(r => notifier.success(`Ressource obtenue : ${r.item.name}`));
     } else if (overcomingMission && !livingColony) {
         notifier.error("Les défis ont été surmontés, mais l’équipe n’a pas survécu.");
+        if (result.coinsReward > 0) {
+            notifier.success(`Vous gagnez ${mission.coinsReward} Musty !`);
+        }
     } else if (!overcomingMission && livingColony) {
         notifier.error("L’équipe a survécu, mais n’a pas réussi à surmonter les défis.");
         notifier.success("Tous les membres de l’équipe gagnent un niveau !");

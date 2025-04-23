@@ -9,27 +9,32 @@ namespace StarColonies.Infrastructures.Services;
 
 public class RewardService(
     UserManager<ColonistEntity> userManager, 
-    IInventaryRepository inventaryRepository,
-    IDomainToEntityMapper<ColonistEntity, ColonistModel> mapper)
+    IInventaryRepository inventaryRepository) : IRewardService
 {
     public async Task GiveLevelsToMembersAsync(IList<ColonistModel> colonistModels)
     {
-        var updateTasks = colonistModels.Select(async colonist =>
+        foreach (var colonist in colonistModels)
         {
-            colonist.Level += 1;
-            var entity = mapper.Map(colonist);
+            var entity = await userManager.FindByIdAsync(colonist.Id);
+            if (entity == null) continue;
+            
+            entity.Level = colonist.Level + 1;
+            
             await userManager.UpdateAsync(entity);
-        });
-
-        await Task.WhenAll(updateTasks);
+        }
     }
 
     public async Task GiveResourcesToOwnerAsync(ColonistEntity user, MissionResultModel result)
     {
-        user.Level += 1;
+        Console.WriteLine($"Rewarding {user.UserName} with {result.Rewards.Count} items.");
         user.Musty += result.CoinsReward;
-
-        var itemAddTasks = result.Rewards.Select(r => inventaryRepository.AddItemToUser(user.Id, r));
-        await Task.WhenAll(itemAddTasks);
+        foreach (var reward in result.Rewards)
+            await inventaryRepository.AddItemToUser(user.Id, reward);
+    }
+    
+    public Task GiveMoneyToOwnerAsync(ColonistEntity user, MissionResultModel result)
+    {
+        user.Musty += result.CoinsReward;
+        return Task.CompletedTask;
     }
 }

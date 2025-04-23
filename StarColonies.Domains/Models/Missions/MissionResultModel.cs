@@ -18,6 +18,6 @@ public class MissionResultModel
         set => ResultMessage = value;
     }
 
-    public int CoinsReward { get; set; } = 0;
-    public IList<ItemModel> Rewards { get; set; } = new List<ItemModel>();
+    public int CoinsReward { get; set; }
+    public IList<RewardItemModel> Rewards { get; set; } = new List<RewardItemModel>();
 }

@@ -10,18 +10,16 @@ using StarColonies.Infrastructures.Data.Entities.Items;
 using StarColonies.Infrastructures.Mapper.DomainToEntity;
 using StarColonies.Infrastructures.Mapper.EntityToDomain;
 using StarColonies.Infrastructures.Services;
+using StarColonies.Infrastructures.Services.RewardStrategy;
 
 namespace StarColonies.Infrastructures.Repositories;
 
 public class RewardRepository(StarColoniesDbContext context,
     UserManager<ColonistEntity> userManager, 
-    IInventaryRepository inventaryRepository,
     IDomainToEntityMapper<ColonistEntity, ColonistModel> mapper,
     IEntityToDomainMapper<ItemModel, ItemEntity> itemMapper,
-    IColonyRepository colonyRepository) : IRewardRepository
+    IStrategyFactory missionRewardStrategyFactory) : IRewardRepository
 {
-    private RewardService RewardService => new(userManager, inventaryRepository, mapper);
-    
     public async Task<IList<RewardItemModel>> GetRewardsForMissionAsync(int missionId)
     {
         var rewards = await context.Rewarded
@@ -36,17 +34,13 @@ public class RewardRepository(StarColoniesDbContext context,
     
     public async Task GiveRewardAsync(ColonistModel userModel, MissionResultModel result, int colonyId)
     {
-        ColonistEntity user = mapper.Map(userModel);
-    
-        if (result is { OvercomingMission: true, LivingColony: true })
-        {
-            var members = await colonyRepository.GetColonistsForColonyAsync(colonyId);
-            
-            await RewardService.GiveLevelsToMembersAsync(members);
-            await RewardService.GiveResourcesToOwnerAsync(user, result);
-            
-            await userManager.UpdateAsync(user);
-        }
+        var user = await context.Users.FindAsync(userModel.Id);
+        
+        IMissionRewardStrategy strategy = missionRewardStrategyFactory.GetStrategy(result) 
+                                          ?? throw new InvalidOperationException("No strategy found for the given result.");
+
+        await strategy.ExecuteAsync(user, result, colonyId);
+        await userManager.UpdateAsync(user);
     }
     
 }
