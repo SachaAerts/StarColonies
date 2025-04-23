@@ -38,15 +38,19 @@ builder.Services.AddScoped<IEntityToDomainMapper<ColonistModel, ColonistEntity>,
 //Inject Mapper: Domain(Models) -> Entity
 builder.Services.AddScoped<IDomainToEntityMapper<ColonistEntity, ColonistModel>, ColonistToEntityMapper>();
 builder.Services.AddScoped<IDomainToEntityMapper<ColonyEntity, ColonyModel>,     ColonyToEntityMapper>();
+builder.Services.AddScoped<IDomainToEntityMapper<ItemEntity, ItemModel>,         ItemToEntityMapper>();
+builder.Services.AddScoped<IDomainToEntityMapper<EffectEntity, EffectModel>,     EffectToEntityMapper>();
 
 //Inject Repositories
 builder.Services.AddScoped<IMapRepository, MapRepository>();
 builder.Services.AddScoped<IColonyRepository, ColonyRepository>();
 builder.Services.AddScoped<IColonistRepository, ColonistRepository>();
 builder.Services.AddScoped<IInventaryRepository, InventaryRepository>();
+builder.Services.AddScoped<IRewardRepository, RewardRepository>();
 
 //Inject Factories
 builder.Services.AddScoped<IResultFactory<JsonResult, object>, JsonResultFactory>();
+builder.Services.AddScoped<IJsonContentFactory, JsonContentMissionFactory>();
 
 //Inject Rate Limiting
 builder.Services.AddFixedWindowRateLimiting();

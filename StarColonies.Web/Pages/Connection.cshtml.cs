@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using StarColonies.Domains.Models;
 using StarColonies.Infrastructures.Data.Entities;
 using StarColonies.Web.wwwroot.models;
 

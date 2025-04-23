@@ -1,5 +1,4 @@
 ﻿export function renderMissionResult(data) {
-    console.log("Rendering mission result : ", data);
 
     const notyf = new Notyf({
         duration: 8000,
@@ -24,6 +23,7 @@
         notyf.error("Les défis ont été surmontés, mais l’équipe n’a pas survécu.");
     } else if (!overcomingMission && livingColony) {
         notyf.error("L’équipe a survécu, mais n’a pas réussi à surmonter les défis.");
+        notyf.success("Tous les membres de l’équipe gagnent un niveau !");
     } else {
         notyf.error("Échec complet : l’équipe n’a pas survécu et les défis n’ont pas été surmontés.");
     }

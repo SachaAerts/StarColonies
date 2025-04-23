@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StarColonies.Infrastructures.Migrations
 {
     /// <inheritdoc />
-    public partial class update : Migration
+    public partial class updateNameEntities : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

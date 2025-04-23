@@ -54,7 +54,7 @@ public class MissionSeeder
                 planets[6], enemies, items)
         };
 
-        context.Missions.AddRange(missions);
+        context.Mission.AddRange(missions);
         context.SaveChanges();
     }
     

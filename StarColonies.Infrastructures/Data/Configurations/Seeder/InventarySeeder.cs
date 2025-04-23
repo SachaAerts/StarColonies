@@ -13,7 +13,7 @@ public class InventarySeeder()
             .OrderBy(u => u.UserName)
             .ToList();
 
-        var items = context.Items.ToList();
+        var items = context.Item.ToList();
         var random = new Random();
 
         foreach (var colonist in colonists)

@@ -14,7 +14,7 @@ public class TypeSeeder
                 Name = type.ToString(),
             })
             .ToList();
-        context.Types.AddRange(types);
+        context.Type.AddRange(types);
         context.SaveChanges();
         return types;
     }

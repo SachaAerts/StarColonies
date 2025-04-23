@@ -17,7 +17,7 @@ public class PlanetSeeder
             new() { Name = "Solara",    ImagePath = "/img/planets/solara.png",    X = 2680, Y = 900  }
         };
 
-        context.Planets.AddRange(planets);
+        context.Planet.AddRange(planets);
         context.SaveChanges();
         return planets;
     }
