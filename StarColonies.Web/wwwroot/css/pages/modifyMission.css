@@ -40,7 +40,7 @@
     height: 100px;
 }
 
-.formMissionModify div {
+.formMissionModify div.containForm {
     display: flex;
     flex-direction: column;
     gap: 10px;

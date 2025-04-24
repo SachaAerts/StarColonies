@@ -13,7 +13,7 @@ namespace StarColonies.Infrastructures.Repositories;
 
 public class InventaryRepository(
     IEntityToDomainMapper<ItemModel, ItemEntity> itemMapper, 
-    IDomainToEntityMapper<ItemEntity, ItemModel> reverseMapper,
+    IDomainToEntityMapper<ItemEntity, ItemModel?> reverseMapper,
     StarColoniesDbContext context) : IInventaryRepository
 {
     

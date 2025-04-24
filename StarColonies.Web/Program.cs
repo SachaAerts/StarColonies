@@ -51,6 +51,7 @@ builder.Services.AddScoped<IRewardRepository,    RewardRepository>();
 builder.Services.AddScoped<IInventaryRepository, InventaryRepository>();
 builder.Services.AddScoped<IMissionRepository,   MissionRepository>();
 builder.Services.AddScoped<IEnemyRepository,     EnemyRepository>();
+builder.Services.AddScoped<IItemRepository,      ItemRepository>();
 
 //Inject Factories
 builder.Services.AddScoped<IResultFactory<JsonResult, object>,  JsonResultFactory>();
