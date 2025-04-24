@@ -19,10 +19,12 @@ public class InventaryRepository(
     
     public async Task<IList<RewardItemModel>> GetItemsForColonistAsync(string colonistId)
     {
+        Console.WriteLine($"GetItemsForColonistAsync: {colonistId}");
         var items = await context.Inventory
-            .Include(i => i.Item)
+            .Include(i => i.Item).ThenInclude(itemEntity => itemEntity.Effect)
             .Where(i => i.ColonistId == colonistId)
             .ToListAsync();
+        Console.WriteLine($"GetItemsForColonistAsync: {string.Join(", ", items.Select(i => i.Item.Name + " " + i.Item.Effect.ForceModifier + " " + i.Item.Effect.StaminaModifier))}");
         return items 
             .Select(i => new RewardItemModel
             {

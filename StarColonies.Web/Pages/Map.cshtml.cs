@@ -24,7 +24,7 @@ public class Map(
     public IList<PlanetModel> Planets { get; private set; } = new List<PlanetModel>();
     public IList<ColonyModel> Colonies { get; private set; } = new List<ColonyModel>();
     public IList<RewardItemModel> Inventory { get; private set; } = new List<RewardItemModel>();
-    public IList<ItemModel> Items { get; private set; } = new List<ItemModel>();
+    public IList<ItemModel> ItemsInventory { get; private set; } = new List<ItemModel>();
     
     public MissionResolverService MissionService => new();
 
@@ -35,7 +35,7 @@ public class Map(
 
         Planets   = await mapRepository.GetPlanetsWithMissionsAsync();
         Inventory = await inventaryRepository.GetItemsForColonistAsync(user.Id);
-        Items     = Inventory.Select(i => i.Item).ToList();
+        ItemsInventory = Inventory.Select(i => i.Item).ToList();
         Colonies  = await colonyRepository.GetColoniesForColonistAsync(user.Id);
         
         await AllocateRewardsToMissionAsync();
@@ -55,7 +55,9 @@ public class Map(
         var mission = allPlanets.SelectMany(p => p.Missions).FirstOrDefault(m => m.Id == request.MissionId);
         var colony = allColonies.FirstOrDefault(c => c.Id == request.ColonyId);
         IList<ItemModel> selectedItems = allItems.Where(i => request.ItemIds.Contains(i.Item.Id)).Select(i => i.Item).ToList();
-
+        
+        Console.WriteLine($"Items: \n{string.Join(", ", selectedItems.Select(i => i.Name + " " + i.Effect.ForceModifier + " " + i.Effect.StaminaModifier))}");
+        
         if (mission == null || colony == null) 
             return jsonResultFactory.Create(false, "Paramètres invalides [mission ou colonie]");
 
