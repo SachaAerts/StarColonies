@@ -8,6 +8,7 @@ public class ColonistProfileViewComponent(UserManager<ColonistEntity> userManage
 {
     public async Task<IViewComponentResult> InvokeAsync()
     {
+        
         if (!User.Identity?.IsAuthenticated ?? true)
             return View(null);
 

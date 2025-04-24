@@ -16,11 +16,14 @@ public class Map(
     IMapRepository mapRepository, 
     IInventaryRepository inventaryRepository,
     IColonyRepository colonyRepository,
-    IJsonResultFactory jsonResultFactory,
+    IColonistRepository colonistRepository,
+    IRewardRepository rewardRepository,
+    IResultFactory<JsonResult, object> jsonResultFactory,
     UserManager<ColonistEntity> userManager) : PageModel
 {
     public IList<PlanetModel> Planets { get; private set; } = new List<PlanetModel>();
     public IList<ColonyModel> Colonies { get; private set; } = new List<ColonyModel>();
+    public IList<RewardItemModel> Inventory { get; private set; } = new List<RewardItemModel>();
     public IList<ItemModel> Items { get; private set; } = new List<ItemModel>();
     
     public MissionResolverService MissionService => new();
@@ -28,13 +31,15 @@ public class Map(
     public async Task<IActionResult> OnGetAsync()
     {
         var user = await userManager.GetUserAsync(User);
-        
         if (user == null) return RedirectToPage("/Connection");
 
-        Planets  = await mapRepository.GetPlanetsWithMissionsAsync();
-        Items    = await inventaryRepository.GetItemsForColonistAsync(user.Id);
-        Colonies = await colonyRepository.GetColoniesForColonistAsync(user.Id);
-
+        Planets   = await mapRepository.GetPlanetsWithMissionsAsync();
+        Inventory = await inventaryRepository.GetItemsForColonistAsync(user.Id);
+        Items     = Inventory.Select(i => i.Item).ToList();
+        Colonies  = await colonyRepository.GetColoniesForColonistAsync(user.Id);
+        
+        await AllocateRewardsToMissionAsync();
+        
         return Page();
     }
     
@@ -49,35 +54,26 @@ public class Map(
 
         var mission = allPlanets.SelectMany(p => p.Missions).FirstOrDefault(m => m.Id == request.MissionId);
         var colony = allColonies.FirstOrDefault(c => c.Id == request.ColonyId);
-        var selectedItems = allItems.Where(i => request.ItemIds.Contains(i.Id)).ToList();
+        IList<ItemModel> selectedItems = allItems.Where(i => request.ItemIds.Contains(i.Item.Id)).Select(i => i.Item).ToList();
 
         if (mission == null || colony == null) 
             return jsonResultFactory.Create(false, "Paramètres invalides [mission ou colonie]");
 
         MissionResultModel result = IsMissionResolved(mission, colony, selectedItems);
-
-        return jsonResultFactory.Create(true,
-            new
-            {
-                isSuccess = result.MissionSuccess,
-                livingColony = result.LivingColony,
-                overcomingMission = result.OvercomingMission,
-                description = result.ResultMessage,
-                rewards = mission.Items.Select(i => new
-                {
-                    i.Id,
-                    i.Name,
-                    i.Description,
-                    i.ImagePath
-                }),
-                coinsReward = mission.CoinsReward
-            }
-        ); 
+        var colonist = await colonistRepository.GetColonistByIdAsync(user.Id);
+        
+        await rewardRepository.GiveRewardAsync(colonist, result, colony.Id);
+        return jsonResultFactory.Create(true, new {result, mission});
     }
 
     private MissionResultModel IsMissionResolved(MissionModel mission, ColonyModel colony, IList<ItemModel> items) 
         => MissionService.Result(mission, colony, items);
-    
+
+    private async Task AllocateRewardsToMissionAsync()
+    {
+        foreach (var mission in Planets.SelectMany(p => p.Missions))
+            mission.Items = await rewardRepository.GetRewardsForMissionAsync(mission.Id);
+    }
 }
 
 [BindProperties]

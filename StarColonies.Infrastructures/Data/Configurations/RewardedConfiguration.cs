@@ -19,9 +19,5 @@ public class RewardedConfiguration : IEntityTypeConfiguration<RewardedEntity>
         builder.HasOne(r => r.Item)
             .WithMany(i => i.Rewards)
             .HasForeignKey(r => r.ItemId);
-
-        builder.Property(r => r.Quantity)
-            .IsRequired()
-            .HasDefaultValue(1);
     }
 }

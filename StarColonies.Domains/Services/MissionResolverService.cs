@@ -30,7 +30,9 @@ public class MissionResolverService()
         return new MissionResultModel()
         {
             OvercomingMission = colonyStrength > missionStrength,
-            LivingColony  = colonyStamina > missionStamina
+            LivingColony  = colonyStamina > missionStamina,
+            CoinsReward = mission.CoinsReward,
+            Rewards = mission.Items
         };
     }
 }

@@ -19,5 +19,10 @@ public class InventoryConfiguration : IEntityTypeConfiguration<InventoryEntity>
             .HasOne(ci => ci.Item)
             .WithMany(i => i.Colonists)
             .HasForeignKey(ci => ci.ItemId);
+        
+        builder.Property(ci => ci.Quantity)
+            .IsRequired()
+            .HasDefaultValue(1);
+        
     }
 }

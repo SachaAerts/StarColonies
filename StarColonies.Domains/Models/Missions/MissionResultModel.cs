@@ -1,4 +1,6 @@
 ﻿
+using StarColonies.Domains.Models.Items;
+
 namespace StarColonies.Domains.Models.Missions;
 
 public class MissionResultModel
@@ -15,4 +17,7 @@ public class MissionResultModel
                            "La mission a échoué et la colonie est morte.";
         set => ResultMessage = value;
     }
+
+    public int CoinsReward { get; set; }
+    public IList<RewardItemModel> Rewards { get; set; } = new List<RewardItemModel>();
 }

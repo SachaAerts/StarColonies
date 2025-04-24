@@ -44,6 +44,7 @@ function parseEnemies(questElement) {
 function parseRewards(questElement) {
     return Array.from(questElement.querySelectorAll("reward")).map(r => ({
         name: r.getAttribute("name"),
-        image: r.getAttribute("image")
+        image: r.getAttribute("image"),
+        quantity: r.getAttribute("quantity")
     }));
 }

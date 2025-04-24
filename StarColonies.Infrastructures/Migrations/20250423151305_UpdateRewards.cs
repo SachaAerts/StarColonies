@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StarColonies.Infrastructures.Migrations
 {
     /// <inheritdoc />
-    public partial class update : Migration
+    public partial class UpdateRewards : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,7 +58,7 @@ namespace StarColonies.Infrastructures.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Effects",
+                name: "Effect",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -69,11 +69,11 @@ namespace StarColonies.Infrastructures.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Effects", x => x.Id);
+                    table.PrimaryKey("PK_Effect", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Planets",
+                name: "Planet",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -85,11 +85,11 @@ namespace StarColonies.Infrastructures.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Planets", x => x.Id);
+                    table.PrimaryKey("PK_Planet", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Types",
+                name: "Type",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -98,7 +98,7 @@ namespace StarColonies.Infrastructures.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Types", x => x.Id);
+                    table.PrimaryKey("PK_Type", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -208,7 +208,7 @@ namespace StarColonies.Infrastructures.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Colonies",
+                name: "Colony",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -220,9 +220,9 @@ namespace StarColonies.Infrastructures.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Colonies", x => x.Id);
+                    table.PrimaryKey("PK_Colony", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Colonies_AspNetUsers_OwnerId",
+                        name: "FK_Colony_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -230,7 +230,7 @@ namespace StarColonies.Infrastructures.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Items",
+                name: "Item",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -243,17 +243,17 @@ namespace StarColonies.Infrastructures.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Items", x => x.Id);
+                    table.PrimaryKey("PK_Item", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Items_Effects_EffectId",
+                        name: "FK_Item_Effect_EffectId",
                         column: x => x.EffectId,
-                        principalTable: "Effects",
+                        principalTable: "Effect",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Missions",
+                name: "Mission",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -266,17 +266,17 @@ namespace StarColonies.Infrastructures.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Missions", x => x.Id);
+                    table.PrimaryKey("PK_Mission", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Missions_Planets_PlanetId",
+                        name: "FK_Mission_Planet_PlanetId",
                         column: x => x.PlanetId,
-                        principalTable: "Planets",
+                        principalTable: "Planet",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Enemies",
+                name: "Enemy",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -289,17 +289,17 @@ namespace StarColonies.Infrastructures.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enemies", x => x.Id);
+                    table.PrimaryKey("PK_Enemy", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Enemies_Types_TypeId",
+                        name: "FK_Enemy_Type_TypeId",
                         column: x => x.TypeId,
-                        principalTable: "Types",
+                        principalTable: "Type",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ColoniesMembers",
+                name: "ColonyMember",
                 columns: table => new
                 {
                     ColonyId = table.Column<int>(type: "int", nullable: false),
@@ -307,17 +307,17 @@ namespace StarColonies.Infrastructures.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ColoniesMembers", x => new { x.ColonyId, x.ColonistId });
+                    table.PrimaryKey("PK_ColonyMember", x => new { x.ColonyId, x.ColonistId });
                     table.ForeignKey(
-                        name: "FK_ColoniesMembers_AspNetUsers_ColonistId",
+                        name: "FK_ColonyMember_AspNetUsers_ColonistId",
                         column: x => x.ColonistId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ColoniesMembers_Colonies_ColonyId",
+                        name: "FK_ColonyMember_Colony_ColonyId",
                         column: x => x.ColonyId,
-                        principalTable: "Colonies",
+                        principalTable: "Colony",
                         principalColumn: "Id");
                 });
 
@@ -326,7 +326,8 @@ namespace StarColonies.Infrastructures.Migrations
                 columns: table => new
                 {
                     ColonistId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ItemId = table.Column<int>(type: "int", nullable: false)
+                    ItemId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -338,15 +339,15 @@ namespace StarColonies.Infrastructures.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Inventory_Items_ItemId",
+                        name: "FK_Inventory_Item_ItemId",
                         column: x => x.ItemId,
-                        principalTable: "Items",
+                        principalTable: "Item",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MissionExecutions",
+                name: "MissionExecution",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -359,17 +360,17 @@ namespace StarColonies.Infrastructures.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MissionExecutions", x => x.Id);
+                    table.PrimaryKey("PK_MissionExecution", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MissionExecutions_Colonies_ColonieId",
+                        name: "FK_MissionExecution_Colony_ColonieId",
                         column: x => x.ColonieId,
-                        principalTable: "Colonies",
+                        principalTable: "Colony",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MissionExecutions_Missions_MissionId",
+                        name: "FK_MissionExecution_Mission_MissionId",
                         column: x => x.MissionId,
-                        principalTable: "Missions",
+                        principalTable: "Mission",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -380,21 +381,21 @@ namespace StarColonies.Infrastructures.Migrations
                 {
                     MissionId = table.Column<int>(type: "int", nullable: false),
                     ItemId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false, defaultValue: 1)
+                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rewarded", x => new { x.MissionId, x.ItemId });
                     table.ForeignKey(
-                        name: "FK_Rewarded_Items_ItemId",
+                        name: "FK_Rewarded_Item_ItemId",
                         column: x => x.ItemId,
-                        principalTable: "Items",
+                        principalTable: "Item",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Rewarded_Missions_MissionId",
+                        name: "FK_Rewarded_Mission_MissionId",
                         column: x => x.MissionId,
-                        principalTable: "Missions",
+                        principalTable: "Mission",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -410,15 +411,15 @@ namespace StarColonies.Infrastructures.Migrations
                 {
                     table.PrimaryKey("PK_EnemyEntityMissionEntity", x => new { x.EnemiesId, x.MissionsId });
                     table.ForeignKey(
-                        name: "FK_EnemyEntityMissionEntity_Enemies_EnemiesId",
+                        name: "FK_EnemyEntityMissionEntity_Enemy_EnemiesId",
                         column: x => x.EnemiesId,
-                        principalTable: "Enemies",
+                        principalTable: "Enemy",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EnemyEntityMissionEntity_Missions_MissionsId",
+                        name: "FK_EnemyEntityMissionEntity_Mission_MissionsId",
                         column: x => x.MissionsId,
-                        principalTable: "Missions",
+                        principalTable: "Mission",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -463,18 +464,18 @@ namespace StarColonies.Infrastructures.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Colonies_OwnerId",
-                table: "Colonies",
+                name: "IX_Colony_OwnerId",
+                table: "Colony",
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ColoniesMembers_ColonistId",
-                table: "ColoniesMembers",
+                name: "IX_ColonyMember_ColonistId",
+                table: "ColonyMember",
                 column: "ColonistId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Enemies_TypeId",
-                table: "Enemies",
+                name: "IX_Enemy_TypeId",
+                table: "Enemy",
                 column: "TypeId");
 
             migrationBuilder.CreateIndex(
@@ -488,34 +489,34 @@ namespace StarColonies.Infrastructures.Migrations
                 column: "ItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_EffectId",
-                table: "Items",
+                name: "IX_Item_EffectId",
+                table: "Item",
                 column: "EffectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_Name",
-                table: "Items",
+                name: "IX_Item_Name",
+                table: "Item",
                 column: "Name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_MissionExecutions_ColonieId",
-                table: "MissionExecutions",
-                column: "ColonieId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MissionExecutions_MissionId",
-                table: "MissionExecutions",
-                column: "MissionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Missions_PlanetId",
-                table: "Missions",
+                name: "IX_Mission_PlanetId",
+                table: "Mission",
                 column: "PlanetId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Planets_Name",
-                table: "Planets",
+                name: "IX_MissionExecution_ColonieId",
+                table: "MissionExecution",
+                column: "ColonieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MissionExecution_MissionId",
+                table: "MissionExecution",
+                column: "MissionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Planet_Name",
+                table: "Planet",
                 column: "Name",
                 unique: true);
 
@@ -544,7 +545,7 @@ namespace StarColonies.Infrastructures.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ColoniesMembers");
+                name: "ColonyMember");
 
             migrationBuilder.DropTable(
                 name: "EnemyEntityMissionEntity");
@@ -553,7 +554,7 @@ namespace StarColonies.Infrastructures.Migrations
                 name: "Inventory");
 
             migrationBuilder.DropTable(
-                name: "MissionExecutions");
+                name: "MissionExecution");
 
             migrationBuilder.DropTable(
                 name: "Rewarded");
@@ -562,28 +563,28 @@ namespace StarColonies.Infrastructures.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Enemies");
+                name: "Enemy");
 
             migrationBuilder.DropTable(
-                name: "Colonies");
+                name: "Colony");
 
             migrationBuilder.DropTable(
-                name: "Items");
+                name: "Item");
 
             migrationBuilder.DropTable(
-                name: "Missions");
+                name: "Mission");
 
             migrationBuilder.DropTable(
-                name: "Types");
+                name: "Type");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Effects");
+                name: "Effect");
 
             migrationBuilder.DropTable(
-                name: "Planets");
+                name: "Planet");
         }
     }
 }

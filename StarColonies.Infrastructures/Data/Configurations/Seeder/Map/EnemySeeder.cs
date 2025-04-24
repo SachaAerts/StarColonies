@@ -115,7 +115,7 @@ public class EnemySeeder
             }
         };
 
-        context.Enemies.AddRange(enemies);
+        context.Enemy.AddRange(enemies);
         context.SaveChanges();
         return enemies;
     }
