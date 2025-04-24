@@ -1,4 +1,6 @@
 @page "{id:guid}"
+@using System.Text.Json
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model StarColonies.Web.Pages.CreateColony
 
 @{
@@ -25,47 +27,7 @@
                 
                 <hr class="ledHr"/>
 
-                <div>
-                    <div class="oneMemberTeamCreateColony">
-                        <div class="delete-cross"></div>
-                        <div class="delete-indicator"></div>
-                        <img src="/img/upload/1.png" alt="userLogo"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Soldier</p>
-                        </div>
-                    </div>
-
-                    <div class="oneMemberTeamCreateColony">
-                        <div class="delete-cross"></div>
-                        <div class="delete-indicator"></div>
-                        <img src="/img/upload/1.png" alt="userLogo"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Soldier</p>
-                        </div>
-                    </div>
-
-                    <div class="oneMemberTeamCreateColony">
-                        <div class="delete-cross"></div>
-                        <div class="delete-indicator"></div>
-                        <img src="/img/upload/1.png" alt="userLogo"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Soldier</p>
-                        </div>
-                    </div>
-
-                    <div class="oneMemberTeamCreateColony">
-                        <div class="delete-cross"></div>
-                        <div class="delete-indicator"></div>
-                        <img src="/img/upload/1.png" alt="userLogo"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Soldier</p>
-                        </div>
-                    </div>
-                </div>
+                <div id="teamList"></div>
             </div>
             
             <div class="secondColumnCreateColony">
@@ -73,146 +35,8 @@
                 
                 <hr class="ledHr"/>
                 
-                <div>
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
-
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
-
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
-
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
-
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
-
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
-
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
+                <div id="colonistsList">
+                    
                 </div>
                 
                 <hr class="ledHr"/>
@@ -239,5 +63,10 @@
     </form>
 </section>
 
+<script>
+    window.availableColonists = @Html.Raw(JsonSerializer.Serialize(Model.Colonists));
+</script>
+
 <script type="module" src="~/js/components/inputs/input.js"></script>
 <script src="~/js/components/character_panel.js"></script>
+<script type="module" src="~/js/pages/create_colony.js"></script>
