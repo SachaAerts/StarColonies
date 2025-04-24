@@ -1,0 +1,40 @@
+﻿@page "{id:int}"
+@model StarColonies.Web.Pages.ModifyMission
+
+@{
+    ViewData["Title"] = "Modify Mission";
+    Layout = "Shared/_Layout";
+}
+
+<section class="formMissionModifyContainer">
+    <form method="post" class="formMissionModify">
+        <input type="hidden" asp-for="Mission.Id" />
+
+        <div>
+            <label asp-for="Mission.Name"></label>
+            <input asp-for="Mission.Name" class="form-control" />
+        </div>
+
+        <div>
+            <label asp-for="Mission.Description"></label>
+            <textarea asp-for="Mission.Description" class="form-control"></textarea>
+        </div>
+
+        <div>
+            <label asp-for="Mission.CoinsReward"></label>
+            <input asp-for="Mission.CoinsReward" type="number" class="form-control" />
+        </div>
+
+        <div>
+            <label for="SelectedEnemyIds">Monstres (max. 3)</label>
+            <select asp-for="SelectedEnemyIds" asp-items="@(new MultiSelectList(Model.Enemies, "Id", "Name"))"
+                    multiple="multiple" class="form-control" id="SelectedEnemyIds">
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a asp-page="/Map" class="btn btn-secondary">Annuler</a>
+    </form>
+</section>
+
+<script type="module" src="~/js/components/notifications/notifyMissionForm.js"></script>

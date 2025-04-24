@@ -6,4 +6,5 @@ public interface IInventaryRepository
 {
     Task<IList<RewardItemModel>> GetItemsForColonistAsync(string colonistId);
     Task AddItemToUser(string userId, RewardItemModel item);
+    Task UseItemFromUserAsync(string userId, IList<ItemModel> items);
 }

@@ -5,7 +5,7 @@ import { renderOverlay } from '../overlayRenderer.js';
 
 export function attachQuestListeners(scroll, data) {
     const questFrames = scroll.querySelectorAll('.quest-frame');
-
+    
     questFrames.forEach(el => {
         el.addEventListener('click', event => {
             event.stopPropagation();

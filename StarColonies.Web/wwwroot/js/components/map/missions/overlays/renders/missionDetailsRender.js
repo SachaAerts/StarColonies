@@ -20,6 +20,9 @@
             }
         </style>
         <link rel="stylesheet" href="/css/components/button.css">
+        
+        <a href="ModifyMission/${quest.id}"><img src="img/icons/modify.png" height="20" alt="Modify"></a>
+        
         <h4 style="text-align: center;" id="titleQuest">${quest.title}</h4>
         <p  style="padding: 0 10px;">${quest.description}</p>
         <p  style="padding: 0 10px;"><strong>Difficulté:</strong> ${quest.difficulty}</p>

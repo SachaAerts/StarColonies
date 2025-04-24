@@ -14,7 +14,7 @@ export function renderMissionResult(data) {
     
     notifyMissionResult(result, mission);
     
-    return `
+    const render = `
         <style>
             .notyf {
                 z-index: 99999;
@@ -36,4 +36,19 @@ export function renderMissionResult(data) {
         
         <button id="closeOverlay">Fermer</button>
     `;
+    
+    refreshEvent("closeOverlay");
+    
+    return render;
+}
+
+function refreshEvent(id) {
+    setTimeout(() => {
+        const closeButton = document.getElementById(id);
+        if (closeButton) {
+            closeButton.addEventListener("click", () => {
+                location.reload();
+            });
+        }
+    }, 0);
 }

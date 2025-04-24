@@ -111,6 +111,12 @@
     background-color: #c43e3e;
 }
 
+/********************************* ADMINISTRATION *********************************/
+.btnAdmin {
+    position: absolute;
+    top: 20px; left: 20px;
+}
+
 /********************************* ANIMATION *********************************/
 @keyframes glow {
     0% {
