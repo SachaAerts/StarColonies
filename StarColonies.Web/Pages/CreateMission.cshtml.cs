@@ -17,6 +17,18 @@ public class CreateMission(
     public MissionModel Mission { get; set; } = new();
 
     [BindProperty]
+    [Text(Max = 100, Min = 5)]
+    public string Title { get; set; }
+    
+    [BindProperty]
+    [Text(Max = 500, Min = 5)]
+    public string Description { get; set; }
+    
+    [BindProperty]
+    [CoinsReward(Max = 1000, Min = 1)]
+    public int CoinsReward { get; set; }
+    
+    [BindProperty]
     [MaxEnemies(Max = 3)]
     public List<int> SelectedEnemyIds { get; set; } = [];
 
@@ -27,11 +39,12 @@ public class CreateMission(
     public IList<ItemModel> Items { get; set; } = new List<ItemModel>();
     public IList<EnemyModel> Enemies { get; set; } = new List<EnemyModel>();
     
+    [BindProperty(SupportsGet = true)]
     public int PlanetId { get; set; }
 
-    public async Task<IActionResult> OnGetAsync(int planetId)
+    public async Task<IActionResult> OnGetAsync(int id)
     {
-        PlanetId = planetId;
+        PlanetId = id;
         await LoadFormDataAsync();
         return Page();
     }
@@ -43,7 +56,9 @@ public class CreateMission(
             await LoadFormDataAsync();
             return Page();
         }
-
+        Mission.Name = Title;
+        Mission.Description = Description;
+        Mission.CoinsReward = CoinsReward;
         Mission.Items = await BuildRewardModelsAsync();
         await missionRepository.CreateMissionAsync(PlanetId, Mission, SelectedEnemyIds, Mission.Items);
 
@@ -64,8 +79,7 @@ public class CreateMission(
         foreach (var ri in selected)
         {
             var item = await itemRepository.GetItemByIdAsync(ri.ItemId);
-            if (item != null)
-                rewardModels.Add(new RewardItemModel { Item = item, Quantity = ri.Quantity });
+            if (item != null) rewardModels.Add(new RewardItemModel { Item = item, Quantity = ri.Quantity });
         }
 
         return rewardModels;

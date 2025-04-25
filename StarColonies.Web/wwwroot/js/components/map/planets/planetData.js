@@ -1,5 +1,6 @@
 ﻿export function parsePlanetData(element) {
     return {
+        id: element.dataset.id,
         name: element.dataset.name,
         image: element.dataset.image,
         x: parseInt(element.dataset.x), y: parseInt(element.dataset.y),

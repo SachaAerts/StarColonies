@@ -24,6 +24,12 @@
     cursor: grabbing;
 }
 
+.linkCreateMission {
+    position: absolute;
+    right: 5px;
+    z-index: 100000;
+}
+
 /********************************* BACKGROUND MAP *********************************/
 .planet, .star {
     position: absolute;

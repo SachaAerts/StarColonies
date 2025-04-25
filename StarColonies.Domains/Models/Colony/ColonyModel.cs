@@ -17,5 +17,5 @@ public class ColonyModel
     
     public IList<ColonistModel> Colonists { get; set; } = new List<ColonistModel>();
 
-    private List<ItemModel> Items { get; set; } = new();
+    private List<ItemModel> Items { get; set; } = [];
 }

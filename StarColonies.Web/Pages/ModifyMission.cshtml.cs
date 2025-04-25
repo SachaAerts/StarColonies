@@ -17,6 +17,18 @@ public class ModifyMission(
     public required MissionModel Mission { get; set; }
     
     [BindProperty]
+    [Text(Max = 100, Min = 5)]
+    public string Title { get; set; }
+    
+    [BindProperty]
+    [Text(Max = 500, Min = 5)]
+    public string Description { get; set; }
+    
+    [BindProperty]
+    [CoinsReward(Max = 1000, Min = 1)]
+    public int CoinsReward { get; set; }
+    
+    [BindProperty]
     [MaxEnemies(Max = 3)]
     public List<int> SelectedEnemyIds { get; set; } = [];
     
@@ -47,6 +59,9 @@ public class ModifyMission(
         if (!ModelState.IsValid || !AreItemQuantitiesValid() || !HasSelectedRewards())       
             return await ReturnPageWithReloadedDataAsync();
         
+        Mission.Name = Title;
+        Mission.Description = Description;
+        Mission.CoinsReward = CoinsReward;
         Mission.Items = await BuildRewardModelsAsync();
 
         await missionRepository.UpdateMissionAsync(Mission, SelectedEnemyIds, Mission.Items);
