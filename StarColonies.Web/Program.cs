@@ -81,6 +81,7 @@ builder.Services.AddDefaultIdentity<ColonistEntity>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StarColoniesDbContext>();
 
+
 //========================== Application settings ==========================//
 var app = builder.Build();
 
@@ -126,5 +127,3 @@ static void Seed(StarColoniesDbContext context)
     ColonySeeder.Seed(context);
     InventarySeeder.Seed(context);
 }
-
-public partial class Program {}

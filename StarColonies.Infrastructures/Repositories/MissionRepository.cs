@@ -29,6 +29,34 @@ public class MissionRepository(
         return missionMapper.Map(mission ?? throw new InvalidOperationException($"Mission with id {id} not found"));
     }
 
+    public async Task CreateMissionAsync(int planetId, MissionModel mission, IList<int> selectedEnemyIds, IList<RewardItemModel> rewardItems)
+    {
+        var enemies = await context.Enemy
+            .Where(e => selectedEnemyIds.Contains(e.Id))
+            .ToListAsync();
+
+        var newMission = new MissionEntity
+        {
+            PlanetId = planetId,
+            Name = mission.Name,
+            Description = mission.Description,
+            CoinsReward = mission.CoinsReward,
+            Enemies = enemies,
+            Difficulty = enemies.Sum(e => e.Strength)
+        };
+        
+        newMission.Rewards = rewardItems.Select(r => new RewardedEntity()
+        {
+            MissionId = newMission.Id,
+            Mission = newMission,
+            ItemId = r.Item.Id,
+            Quantity = r.Quantity
+        }).ToList();
+
+        await context.Mission.AddAsync(newMission);
+        await context.SaveChangesAsync();
+    }
+
     public async Task UpdateMissionAsync(MissionModel updatedModel, IList<int> selectedEnemyIds, IList<RewardItemModel> rewardItems)
     {
         var existingMission = await context.Mission
