@@ -1,0 +1,15 @@
+@page "{id:int}"
+@model StarColonies.Web.Pages.TeamProfile
+
+@{
+    ViewData["Title"] = "Team profile";
+    Layout = "Shared/_Layout";
+}
+
+<section class="mainProfile">
+    <a asp-page="Profile" asp-route-id="@Model.Id" class="buttonProfile backButtonProfile">
+        <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
+    </a>
+    
+    
+</section>
