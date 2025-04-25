@@ -5,47 +5,52 @@
     Layout = "Shared/_Layout";
 }
 
-<div class="mainFrame">
-    <h2 class="">Blackmarket</h2>
-    <div class="backgroundBlackmarket">
-        <div class="selectRow">
-            <div class="selectorBlackmarket - Buying active">
-                <h3 class="selectTitle">Buy</h3>
-            </div>
-            <div class="selectorBlackmarket - Selling inactive">
-                <h3 class="selectTitle">Sell</h3>
-            </div>
-        </div>
-
-        <!-- Interieur du blackmarket (achat) -->
-        <div>
-            
-            <!-- Mustys du joueur -->
-            <div>
-                <p>100</p>
-                <img src="" alt="">
+<div class="blackmarketMainFrame">
+    <div class="blackmarketMainContainer">
+        <a asp-page="Index" class="buttonProfile backButtonProfile">
+            <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
+        </a>
+        <h2 class="">Blackmarket</h2>
+        <div class="backgroundBlackmarket">
+            <div class="selectRow">
+                <div class="selectorBlackmarket - Buying active">
+                    <h3 class="selectTitle">Buy</h3>
+                </div>
+                <div class="selectorBlackmarket - Selling inactive">
+                    <h3 class="selectTitle">Sell</h3>
+                </div>
             </div>
 
-            <!-- Objets (en display flex, 3 par ligne) -->
+            <!-- Interieur du blackmarket (achat) -->
             <div>
-                
-                <!-- Un Objet -->
+
+                <!-- Mustys du joueur -->
                 <div>
+                    <p>100</p>
                     <img src="" alt="">
-                    <p>Nom de l'objet</p>
+                </div>
+
+                <!-- Objets (en display flex, 3 par ligne) -->
+                <div>
+
+                    <!-- Un Objet -->
                     <div>
-                        <p>Stat de l'objet</p>
-                        <!-- Prix -->
+                        <img src="" alt="">
+                        <p>Nom de l'objet</p>
                         <div>
-                            <p>100</p>
-                            <img src="" alt="">
+                            <p>Stat de l'objet</p>
+                            <!-- Prix -->
+                            <div>
+                                <p>100</p>
+                                <img src="" alt="">
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
-            
+
         </div>
-        
     </div>
 </div>

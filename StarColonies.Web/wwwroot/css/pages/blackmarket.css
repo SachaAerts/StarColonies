@@ -1,0 +1,12 @@
+﻿.blackmarketMainFrame {
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+}
+
+.blackmarketMainContainer {
+    border: 1px solid yellow;
+    width: 70%;
+    margin-top: 10rem;
+    position: relative;
+}
