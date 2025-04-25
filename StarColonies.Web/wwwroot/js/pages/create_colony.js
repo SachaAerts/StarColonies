@@ -1,7 +1,9 @@
 const availableContainer = document.getElementById('colonistsList');
 const teamContainer = document.getElementById('teamList');
 let availableColonists = window.availableColonists || [];
-let teamColonists = [];
+let teamColonists = (window.initialTeam && window.initialTeam.length > 0)
+    ? window.initialTeam
+    : [window.teamOwner];
 
 const jobLabels = {
     0: "Engineer",
@@ -11,25 +13,28 @@ const jobLabels = {
 };
 
 function getJobLabel(jobId) {
-    return jobLabels[jobId] || jobId ;
+    return jobLabels[jobId] || jobId;
 }
 
 function renderColonists(container, colonists, isTeam = false) {
     container.innerHTML = "";
 
-    colonists.forEach(colonist => {
+    colonists.forEach((colonist, index) => {
         const div = document.createElement('div');
+        const isOwner = colonist.Id === window.teamOwner.Id;
         div.className = isTeam ? 'oneMemberTeamCreateColony' : 'oneUserCreateColony';
+        if (isOwner) div.classList.add("leader");
 
         if (isTeam) {
-            // STRUCTURE : .oneMemberTeamCreateColony
             div.innerHTML = `
-                <div class="delete-cross"></div>
-                <div class="delete-indicator"></div>
+                ${!isOwner ? `
+                    <div class="delete-cross"></div>
+                    <div class="delete-indicator"></div>
+                ` : ""}
                 <img src="/img/upload/${colonist.ProfilPicture}" alt="userLogo"/>
                 <div>
                     <h3 class="titlesCreateColony">${colonist.Name}</h3>
-                    <p class="textsCreateColony">${jobLabels[colonist.Job] || colonist.Job}</p>
+                    <p class="textsCreateColony">${getJobLabel(colonist.Job)}</p>
                 </div>
             `;
         } else {
@@ -39,9 +44,9 @@ function renderColonists(container, colonists, isTeam = false) {
                     <h3 class="titlesCreateColony">${colonist.Name}</h3>
                     <p class="textsCreateColony">Lvl: ${colonist.Level}</p>
                 </div>
-                <p class="textsCreateColony">${jobLabels[colonist.Job] || colonist.Job}</p>
+                <p class="textsCreateColony">${getJobLabel(colonist.Job)}</p>
                 <div class="oneUserStatCreateColony">
-                    <img src="/img/icons/force.png" alt="strengh"/>
+                    <img src="/img/icons/force.png" alt="strength"/>
                     <p class="textsCreateColony">${colonist.Strength}</p>
                 </div>
                 <div class="oneUserStatCreateColony">
@@ -51,24 +56,47 @@ function renderColonists(container, colonists, isTeam = false) {
             `;
         }
 
-        div.addEventListener("click", () => {
-            if (isTeam) {
-                availableColonists.push(colonist);
-                teamColonists = teamColonists.filter(c => c.Id !== colonist.Id);
-            } else {
-                if (teamColonists.length < 5) {
-                    teamColonists.push(colonist);
-                    availableColonists = availableColonists.filter(c => c.Id !== colonist.Id);
+        if (!isOwner) {
+            div.addEventListener("click", () => {
+                if (isTeam) {
+                    availableColonists.push(colonist);
+                    teamColonists = teamColonists.filter(c => c.Id !== colonist.Id);
+                } else {
+                    if (teamColonists.length < 5) {
+                        teamColonists.push(colonist);
+                        availableColonists = availableColonists.filter(c => c.Id !== colonist.Id);
+                    }
                 }
-            }
 
-            renderColonists(teamContainer, teamColonists, true);
-            renderColonists(availableContainer, availableColonists, false);
-        });
+                renderColonists(teamContainer, teamColonists, true);
+                renderColonists(availableContainer, availableColonists, false);
+                updateTeamCount();
+            });
+        }
 
         container.appendChild(div);
     });
 }
 
+function updateTeamCount() {
+    const teamCountElement = document.getElementById('teamCount');
+    teamCountElement.textContent = `${teamColonists.length}/5`;
+}
+
 renderColonists(availableContainer, availableColonists, false);
 renderColonists(teamContainer, teamColonists, true);
+updateTeamCount();
+
+document.querySelector("form").addEventListener("submit", () => {
+    const nameComponent = document.querySelector("space-input");
+    const panel = document.querySelector('character-panel');
+
+    document.getElementById("name-hidden").value = nameComponent.value;
+
+    const { selectedCharacter, uploadedCharacter } = panel.getSelectedImageDetails();
+    document.getElementById("character-hidden").value = selectedCharacter || uploadedCharacter || "";
+
+    const colonistsHidden = document.getElementById("colonists-hidden");
+    const ids = teamColonists.map(c => c.Id);
+    colonistsHidden.value = JSON.stringify(ids);
+});

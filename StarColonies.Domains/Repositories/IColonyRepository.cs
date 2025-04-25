@@ -6,8 +6,8 @@ public interface IColonyRepository
 {
     Task<IList<ColonyModel>> GetColoniesForColonistAsync(string colonistId);
     Task<IList<ColonistModel>> GetColonistsForColonyAsync(int colonyId);
-    
-    void AddColony(ColonyModel colony);
+
+    Task AddColonyAsync(ColonyModel model);
 
     Task<IList<ColonyModel>> GetTop10ColoniesAsync();
 }
