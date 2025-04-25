@@ -17,7 +17,7 @@ public class ModifyMission(
     public required MissionModel Mission { get; set; }
     
     [BindProperty]
-    [MissionValidatorService(MaxEnemies = 3, RequireEnemies = false)]
+    [MaxEnemies(Max = 3)]
     public List<int> SelectedEnemyIds { get; set; } = [];
     
     [BindProperty]
@@ -27,6 +27,7 @@ public class ModifyMission(
     public List<int> ItemQuantities { get; set; } = [];
     
     [BindProperty]
+    [ValidRewardList]
     public List<RewardInput> RewardInputs { get; set; } = [];
 
     public IList<ItemModel> Items { get; set; } = new List<ItemModel>();    
@@ -43,42 +44,45 @@ public class ModifyMission(
     
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!ModelState.IsValid) return Page();
+        if (!ModelState.IsValid || !AreItemQuantitiesValid() || !HasSelectedRewards())       
+            return await ReturnPageWithReloadedDataAsync();
         
-        if (SelectedItemIds.Count != ItemQuantities.Count)
-        {
-            ModelState.AddModelError("", "Erreur de synchronisation entre les objets et les quantités.");
-            return Page();
-        }
-
-        var selectedItems = RewardInputs
-            .Where(ri => ri.Selected)
-            .ToList();
-
-        if (selectedItems.Count == 0)
-        {
-            ModelState.AddModelError("", "Vous devez sélectionner au moins un objet de récompense.");
-            return Page();
-        }
-
-        var rewardModels = new List<RewardItemModel>();
-        
-        foreach (var ri in selectedItems)
-        {
-            var item = await itemRepository.GetItemByIdAsync(ri.ItemId);
-            if (item != null)
-            {
-                rewardModels.Add(new RewardItemModel
-                {
-                    Item = item,
-                    Quantity = ri.Quantity
-                }); 
-            }
-        }
-        Mission.Items = rewardModels;
+        Mission.Items = await BuildRewardModelsAsync();
 
         await missionRepository.UpdateMissionAsync(Mission, SelectedEnemyIds, Mission.Items);
+
         return RedirectToPage("/Map");
+    }
+
+    private async Task<IActionResult> ReturnPageWithReloadedDataAsync()
+    {
+        await ReloadFormDataAsync();
+        return Page();
+    }
+
+    private bool AreItemQuantitiesValid() => SelectedItemIds.Count == ItemQuantities.Count;
+    private bool HasSelectedRewards() => RewardInputs.Any(ri => ri.Selected);
+
+    private async Task<List<RewardItemModel>> BuildRewardModelsAsync()
+    {
+        var rewardModels = new List<RewardItemModel>();
+
+        var selectedInputs = RewardInputs.Where(ri => ri.Selected).ToList();
+
+        foreach (var ri in selectedInputs)
+        {
+            var item = await itemRepository.GetItemByIdAsync(ri.ItemId);
+            if (item != null) rewardModels.Add(new RewardItemModel { Item = item, Quantity = ri.Quantity });
+        }
+
+        return rewardModels;
+    }
+
+    
+    private async Task ReloadFormDataAsync()
+    {
+        Enemies = await enemyRepository.GetAllEnemiesListAsync();
+        Items = await itemRepository.GetAllItemsAsync();
     }
     
 }

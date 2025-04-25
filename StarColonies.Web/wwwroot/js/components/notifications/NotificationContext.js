@@ -1,5 +1,5 @@
 ﻿
-class NotificationContext {
+export class NotificationContext {
     constructor(strategy) {
         this.strategy = strategy;
     }
