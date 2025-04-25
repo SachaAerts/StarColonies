@@ -6,5 +6,5 @@ public class ColonyMemberEntity
     public required ColonyEntity Colony { get; set; }
 
     public string ColonistId { get; set; } = string.Empty;
-    public required ColonistEntity Colonist { get; set; }
+    public ColonistEntity Colonist { get; set; }
 }

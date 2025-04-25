@@ -13,7 +13,7 @@ public class ColonyEntity
     public string LogoPath { get; set; } = string.Empty;
 
     public required string OwnerId { get; set; }
-    public required ColonistEntity Owner { get; set; }
+    public ColonistEntity Owner { get; set; }
 
     public ICollection<ColonyMemberEntity> Members { get; set; } = new List<ColonyMemberEntity>();
 

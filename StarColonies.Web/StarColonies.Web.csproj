@@ -25,6 +25,7 @@
     <ItemGroup>
       <Compile Include="wwwroot\models\ConnectionModel.cs" />
       <Compile Include="wwwroot\models\ModifyProfileModel.cs" />
+      <Compile Include="wwwroot\models\NewColony.cs" />
       <Compile Include="wwwroot\models\NewUser.cs" />
       <Compile Include="wwwroot\models\RegisterModel.cs" />
     </ItemGroup>

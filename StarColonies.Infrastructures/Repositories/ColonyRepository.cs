@@ -38,8 +38,16 @@ public class ColonyRepository(
         return colonists.Select(colonistMapper.Map).ToList();
     }
     
-    public void AddColony(ColonyModel colony) 
-        => context.Colony.Add(reverseMapper.Map(colony));
+    public async Task AddColonyAsync(ColonyModel model)
+    {
+        var entity = reverseMapper.Map(model);
+
+        var memberIds = model.Colonists.Select(c => Guid.Parse(c.Id)).ToList();
+        entity.Members = await BuildColonyMembersAsync(memberIds, entity);
+
+        context.Colony.Add(entity);
+        await context.SaveChangesAsync();
+    }
     
     public async Task<IList<ColonyModel>> GetTop10ColoniesAsync()
     {
@@ -57,5 +65,14 @@ public class ColonyRepository(
             .ToList();
 
         return colonyModels;
+    }
+    
+    private Task<List<ColonyMemberEntity>> BuildColonyMembersAsync(List<Guid> colonistIds, ColonyEntity colony)
+    {
+        return Task.FromResult(colonistIds.Select(id => new ColonyMemberEntity
+        {
+            ColonistId = id.ToString(),
+            Colony = colony             
+        }).ToList());
     }
 }

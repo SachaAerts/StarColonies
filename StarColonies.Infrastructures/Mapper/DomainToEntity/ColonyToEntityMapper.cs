@@ -17,7 +17,6 @@ public class ColonyToEntityMapper(
             CreatedAt = entity.CreatedAt,
             LogoPath = entity.LogoPath,
             OwnerId = entity.OwnerId,
-            Owner = mapper.Map(repository.GetColonistByIdAsync(entity.OwnerId).Result)
         };
     
     public void MapInto(ColonistModel model, ColonistEntity entity)
