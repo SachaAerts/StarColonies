@@ -11,7 +11,7 @@ public class MissionExecutionEntity
     public required MissionEntity Mission { get; set; }
 
     public required DateTime ExecutedAt { get; set; } = DateTime.UtcNow;
-
+    
     public required bool IsSuccess { get; set; }
 
     public required int RewardedCoins { get; set; }

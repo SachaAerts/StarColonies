@@ -7,7 +7,7 @@ public class ColonySeeder
 {
     public static void Seed(StarColoniesDbContext context)
     {
-        if (context.Colonies.Any()) return;
+        if (context.Colony.Any()) return;
 
         var colonists = context.Users
             .OrderBy(u => u.UserName)
@@ -110,7 +110,7 @@ public class ColonySeeder
             LogoPath = "default_team_logo.png"
         };
 
-        context.Colonies.AddRange(colony1, colony2, colony3, colony4, colony5, colony6, colony7, colony8, colony9, colony10);
+        context.Colony.AddRange(colony1, colony2, colony3, colony4, colony5, colony6, colony7, colony8, colony9, colony10);
         context.SaveChanges(); 
 
         var members = new List<ColonyMemberEntity>
@@ -148,7 +148,7 @@ public class ColonySeeder
             new() { ColonyId = colony10.Id, Colony = colony10, ColonistId = colonists[4].Id, Colonist = colonists[4] },
         };
 
-        context.ColoniesMembers.AddRange(members);
+        context.ColonyMember.AddRange(members);
         context.SaveChanges();
     }
 }

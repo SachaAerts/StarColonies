@@ -54,7 +54,7 @@ public class MissionSeeder
                 planets[6], enemies, items)
         };
 
-        context.Missions.AddRange(missions);
+        context.Mission.AddRange(missions);
         context.SaveChanges();
     }
     
@@ -83,7 +83,7 @@ public class MissionSeeder
             ItemId = itemChoices[0].Id,
             MissionId = mission.Id,
             Mission = mission,
-            Quantity = 1,
+            Quantity = 1
         });
 
         mission.Rewards.Add(new RewardedEntity

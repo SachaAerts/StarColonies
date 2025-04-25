@@ -15,7 +15,7 @@ nav {
 .list-nav {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 1rem;
 
     justify-content: center;
     flex-direction: column-reverse;

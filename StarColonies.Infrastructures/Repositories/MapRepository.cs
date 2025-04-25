@@ -16,7 +16,7 @@ public class MapRepository(
 {
     public async Task<IList<PlanetModel>> GetPlanetsWithMissionsAsync()
     {
-        var planets = await context.Planets
+        var planets = await context.Planet
             .Include(p => p.Missions)
                 .ThenInclude(m => m.Enemies)
                     .ThenInclude(e => e.Type)

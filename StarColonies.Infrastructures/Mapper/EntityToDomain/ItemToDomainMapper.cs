@@ -1,8 +1,7 @@
 ﻿using StarColonies.Domains.Models.Items;
 using StarColonies.Infrastructures.Data.Entities.Items;
-using StarColonies.Infrastructures.Mapper.EntityToDomain;
 
-namespace StarColonies.Infrastructures.Mapper;
+namespace StarColonies.Infrastructures.Mapper.EntityToDomain;
 
 public class ItemToDomainMapper(IEntityToDomainMapper<EffectModel, EffectEntity> effectMapper) : IEntityToDomainMapper<ItemModel, ItemEntity>
 {

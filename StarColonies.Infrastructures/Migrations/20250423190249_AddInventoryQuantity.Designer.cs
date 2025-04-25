@@ -12,8 +12,8 @@ using StarColonies.Infrastructures.Data;
 namespace StarColonies.Infrastructures.Migrations
 {
     [DbContext(typeof(StarColoniesDbContext))]
-    [Migration("20250421145456_updateMissionDifficulty")]
-    partial class updateMissionDifficulty
+    [Migration("20250423190249_AddInventoryQuantity")]
+    partial class AddInventoryQuantity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -293,7 +293,7 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Colonies");
+                    b.ToTable("Colony");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonyMemberEntity", b =>
@@ -308,7 +308,7 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.HasIndex("ColonistId");
 
-                    b.ToTable("ColoniesMembers");
+                    b.ToTable("ColonyMember");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.EffectEntity", b =>
@@ -332,7 +332,7 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Effects");
+                    b.ToTable("Effect");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.InventoryEntity", b =>
@@ -342,6 +342,11 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.HasKey("ColonistId", "ItemId");
 
@@ -387,7 +392,7 @@ namespace StarColonies.Infrastructures.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Items");
+                    b.ToTable("Item");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Items.RewardedEntity", b =>
@@ -399,9 +404,7 @@ namespace StarColonies.Infrastructures.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
+                        .HasColumnType("int");
 
                     b.HasKey("MissionId", "ItemId");
 
@@ -441,7 +444,7 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Enemies");
+                    b.ToTable("Enemy");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Missions.MissionEntity", b =>
@@ -477,7 +480,7 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.HasIndex("PlanetId");
 
-                    b.ToTable("Missions");
+                    b.ToTable("Mission");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Missions.MissionExecutionEntity", b =>
@@ -511,7 +514,7 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.HasIndex("MissionId");
 
-                    b.ToTable("MissionExecutions");
+                    b.ToTable("MissionExecution");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.Missions.PlanetEntity", b =>
@@ -546,7 +549,7 @@ namespace StarColonies.Infrastructures.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Planets");
+                    b.ToTable("Planet");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.TypeEntity", b =>
@@ -564,7 +567,7 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Types");
+                    b.ToTable("Type");
                 });
 
             modelBuilder.Entity("EnemyEntityMissionEntity", b =>

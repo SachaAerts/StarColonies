@@ -10,13 +10,14 @@ namespace StarColonies.Infrastructures.Repositories;
 
 public class ColonyRepository(
     StarColoniesDbContext context, 
-    IEntityToDomainMapper<ColonyModel, ColonyEntity> mapper, 
+    IEntityToDomainMapper<ColonyModel, ColonyEntity> mapper,
+    IEntityToDomainMapper<ColonistModel, ColonistEntity> colonistMapper,
     IDomainToEntityMapper<ColonyEntity, ColonyModel> reverseMapper) : IColonyRepository
 {
         
     public async Task<IList<ColonyModel>> GetColoniesForColonistAsync(string colonistId)
     {
-        var colonies = await context.Colonies
+        var colonies = await context.Colony
             .Include(c => c.Members)
             .ThenInclude(m => m.Colonist)
             .Include(c => c.Owner)
@@ -26,12 +27,23 @@ public class ColonyRepository(
         return colonies.Select(mapper.Map).ToList();
     }
     
+    public async Task<IList<ColonistModel>> GetColonistsForColonyAsync(int colonyId)
+    {
+        var colonists = await context.ColonyMember
+            .Where(cm => cm.ColonyId == colonyId)
+            .Include(cm => cm.Colonist)
+            .Select(cm => cm.Colonist)
+            .ToListAsync();
+
+        return colonists.Select(colonistMapper.Map).ToList();
+    }
+    
     public void AddColony(ColonyModel colony) 
-        => context.Colonies.Add(reverseMapper.Map(colony));
+        => context.Colony.Add(reverseMapper.Map(colony));
     
     public async Task<IList<ColonyModel>> GetTop10ColoniesAsync()
     {
-        var colonies = await context.Colonies
+        var colonies = await context.Colony
             .Include(c => c.Members)
             .ThenInclude(m => m.Colonist)
             .Include(c => c.Owner)

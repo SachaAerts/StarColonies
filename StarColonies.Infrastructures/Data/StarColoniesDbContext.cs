@@ -9,17 +9,17 @@ namespace StarColonies.Infrastructures.Data;
 
 public class StarColoniesDbContext(DbContextOptions options) : IdentityDbContext<ColonistEntity>(options)
 {
-    public DbSet<ColonistEntity> Colonists { get; set; }
-    public DbSet<MissionEntity> Missions { get; set; }
-    public DbSet<PlanetEntity> Planets { get; set; }
-    public DbSet<ItemEntity> Items { get; set; }
-    public DbSet<EnemyEntity> Enemies { get; set; }
-    public DbSet<EffectEntity> Effects { get; set; }
+    public DbSet<ColonistEntity> Colonist { get; set; }
+    public DbSet<MissionEntity> Mission { get; set; }
+    public DbSet<PlanetEntity> Planet { get; set; }
+    public DbSet<ItemEntity> Item { get; set; }
+    public DbSet<EnemyEntity> Enemy { get; set; }
+    public DbSet<EffectEntity> Effect { get; set; }
     public DbSet<RewardedEntity> Rewarded { get; set; }
-    public DbSet<TypeEntity> Types { get; set; }
-    public DbSet<ColonyEntity> Colonies { get; set; }
-    public DbSet<ColonyMemberEntity> ColoniesMembers { get; set; }
-    public DbSet<MissionExecutionEntity> MissionExecutions { get; set; }
+    public DbSet<TypeEntity> Type { get; set; }
+    public DbSet<ColonyEntity> Colony { get; set; }
+    public DbSet<ColonyMemberEntity> ColonyMember { get; set; }
+    public DbSet<MissionExecutionEntity> MissionExecution { get; set; }
     public DbSet<InventoryEntity> Inventory { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

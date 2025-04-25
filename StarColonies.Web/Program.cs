@@ -16,6 +16,8 @@ using StarColonies.Infrastructures.Mapper;
 using StarColonies.Infrastructures.Mapper.DomainToEntity;
 using StarColonies.Infrastructures.Mapper.EntityToDomain;
 using StarColonies.Infrastructures.Repositories;
+using StarColonies.Infrastructures.Services;
+using StarColonies.Infrastructures.Services.RewardStrategy;
 using StarColonies.Web.Factories;
 using StarColonies.Web.Middlewares;
 
@@ -38,17 +40,31 @@ builder.Services.AddScoped<IEntityToDomainMapper<ColonistModel, ColonistEntity>,
 //Inject Mapper: Domain(Models) -> Entity
 builder.Services.AddScoped<IDomainToEntityMapper<ColonistEntity, ColonistModel>, ColonistToEntityMapper>();
 builder.Services.AddScoped<IDomainToEntityMapper<ColonyEntity, ColonyModel>,     ColonyToEntityMapper>();
+builder.Services.AddScoped<IDomainToEntityMapper<ItemEntity, ItemModel>,         ItemToEntityMapper>();
+builder.Services.AddScoped<IDomainToEntityMapper<EffectEntity, EffectModel>,     EffectToEntityMapper>();
 
 //Inject Repositories
-builder.Services.AddScoped<IMapRepository, MapRepository>();
-builder.Services.AddScoped<IColonyRepository, ColonyRepository>();
-builder.Services.AddScoped<IColonistRepository, ColonistRepository>();
+builder.Services.AddScoped<IMapRepository,       MapRepository>();
+builder.Services.AddScoped<IColonyRepository,    ColonyRepository>();
+builder.Services.AddScoped<IColonistRepository,  ColonistRepository>();
+builder.Services.AddScoped<IRewardRepository,    RewardRepository>();
 builder.Services.AddScoped<IInventaryRepository, InventaryRepository>();
 
 //Inject Factories
-builder.Services.AddScoped<IResultFactory<JsonResult, object>, JsonResultFactory>();
+builder.Services.AddScoped<IResultFactory<JsonResult, object>,  JsonResultFactory>();
+builder.Services.AddScoped<IJsonContentFactory,                 JsonContentMissionFactory>();
+builder.Services.AddScoped<IStrategyFactory,                    MissionRewardStrategyFactory>();
 
-//Inject Rate Limiting
+//Inject Services
+builder.Services.AddScoped<IRewardService, RewardService>();
+
+//Inject Command-Strategy Services
+builder.Services.AddScoped<IMissionRewardStrategy, FullSuccessRewardStrategy>();
+builder.Services.AddScoped<IMissionRewardStrategy, MoneyRewardStrategy>();
+builder.Services.AddScoped<IMissionRewardStrategy, ResourceRewardStrategy>();
+builder.Services.AddScoped<IMissionRewardStrategy, NoRewardStrategy>();
+
+//Inject Rate Limiting Middleware(anti-DoS)
 builder.Services.AddFixedWindowRateLimiting();
 
 //Inject Database Context

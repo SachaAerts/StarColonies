@@ -7,7 +7,7 @@ public class MapSeeder
 {
     public static void Seed(StarColoniesDbContext context)
     {
-        if (context.Planets.Any()) return;
+        if (context.Planet.Any()) return;
 
         var types = TypeSeeder.SeedTypes(context);
         var enemies = EnemySeeder.SeedEnemies(context, types);

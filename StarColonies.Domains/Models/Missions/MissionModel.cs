@@ -11,7 +11,7 @@ public class MissionModel
     public int CoinsReward { get; set; }
     
     public IList<EnemyModel> Enemies { get; set; } = new List<EnemyModel>();
-    public IList<ItemModel> Items { get; set; } = new List<ItemModel>();
+    public IList<RewardItemModel> Items { get; set; } = new List<RewardItemModel>();
 
     public int Strength => Enemies.Sum(e => e.Strength);
     public int Stamina => Enemies.Sum(e => e.Stamina);

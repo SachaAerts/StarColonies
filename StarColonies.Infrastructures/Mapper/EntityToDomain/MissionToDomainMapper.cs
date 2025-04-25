@@ -2,9 +2,8 @@
 using StarColonies.Domains.Models.Missions;
 using StarColonies.Infrastructures.Data.Entities.Items;
 using StarColonies.Infrastructures.Data.Entities.Missions;
-using StarColonies.Infrastructures.Mapper.EntityToDomain;
 
-namespace StarColonies.Infrastructures.Mapper;
+namespace StarColonies.Infrastructures.Mapper.EntityToDomain;
 
 public class MissionToDomainMapper(
     IEntityToDomainMapper<EnemyModel, EnemyEntity> enemyMapper, 
@@ -20,8 +19,10 @@ public class MissionToDomainMapper(
             CoinsReward = entity.CoinsReward,
             Enemies = entity.Enemies.Select(enemyMapper.Map).ToList(),
             Items = entity.Rewards
-                .Select(r => itemMapper.Map(r.Item))
-                .DistinctBy(i => i.Id)
-                .ToList()
+                .Select(r => new RewardItemModel
+                    {   
+                        Item = itemMapper.Map(r.Item),
+                        Quantity = r.Quantity
+                    }).ToList()
         };
 }

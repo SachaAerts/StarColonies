@@ -13,7 +13,7 @@ public class EffectSeeder
             new() { Name = "Legendary", ForceModifier = 10, StaminaModifier = 10 }
         };
 
-        context.Effects.AddRange(effects);
+        context.Effect.AddRange(effects);
         context.SaveChanges();
         return effects;
     }
