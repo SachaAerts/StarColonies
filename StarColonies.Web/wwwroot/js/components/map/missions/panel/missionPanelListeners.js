@@ -5,9 +5,14 @@ import { renderOverlay } from '../overlayRenderer.js';
 
 export function attachQuestListeners(scroll, data) {
     const questFrames = scroll.querySelectorAll('.quest-frame');
-    
+
     questFrames.forEach(el => {
         el.addEventListener('click', event => {
+            if (event.target.classList.contains('delete-mission') 
+                || event.target.closest('.delete-mission')) {
+                return;
+            }
+
             event.stopPropagation();
 
             const index = parseInt(el.dataset.index);

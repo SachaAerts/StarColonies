@@ -99,6 +99,15 @@ public class MissionRepository(
 
         await context.SaveChangesAsync();
     }
-
+    
+    public async Task DeleteMissionAsync(int missionId)
+    {
+        var mission = await context.Mission.FindAsync(missionId);
+        if (mission != null)
+        {
+            context.Mission.Remove(mission);
+            await context.SaveChangesAsync();
+        }
+    }
     
 }

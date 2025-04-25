@@ -46,7 +46,9 @@ export class PlanetItem extends HTMLElement {
         };
 
         if (this.click) {
-            closeAll();
+            if (!event.target.closest('.quest-panel')) {
+                closeAll();
+            }
             return;
         }
 
@@ -63,7 +65,10 @@ export class PlanetItem extends HTMLElement {
         this.container.appendChild(panel);
         this.click = true;
         this.setAttribute("selected", "true");
-        
+
+        panel.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
     }
 }
 

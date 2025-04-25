@@ -11,32 +11,32 @@
         <input type="hidden" asp-for="Mission.Id" />
 
         <div class="containForm">
-            <label asp-for="Title"></label>
-            <input asp-for="Title" class="form-control" id="titleInput" />
+            <label asp-for="Mission.Name"></label>
+            <input asp-for="Mission.Name" class="form-control" />
         </div>
 
         <div class="containForm">
-            <label asp-for="Description"></label>
-            <textarea asp-for="Description" class="form-control"
+            <label asp-for="Mission.Description"></label>
+            <textarea asp-for="Mission.Description" class="form-control"
                       id="descriptionInput"
                       maxlength="500"></textarea>
             <small id="charCounter">0 / 500</small>
         </div>
 
         <div class="containForm">
-            <label asp-for="CoinsReward"></label>
-            <input asp-for="CoinsReward" type="number" min="1" max="1000" value="1" class="form-control" id="coinsInput" />
+            <label asp-for="Mission.CoinsReward"></label>
+            <input asp-for="Mission.CoinsReward" type="number" class="form-control" />
         </div>
 
         <div class="containForm">
-            <label for="SelectedEnemyIds">Enemies (max. 3, [shift+click])</label>
+            <label for="SelectedEnemyIds">Enemies (max. 3)</label>
             <select asp-for="SelectedEnemyIds" asp-items="@(new MultiSelectList(Model.Enemies, "Id", "Name"))"
                     multiple="multiple" class="form-control" id="SelectedEnemyIds">
             </select>
         </div>
 
         <div class="reward-container">
-            <label for="SelectedItemIds">Objets en récompense :</label>
+            <label for="SelectedItemIds">Rewards :</label>
 
             @for (int i = 0; i < Model.Items.Count; i++)
             {
@@ -51,9 +51,29 @@
             }
         </div>
         
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
-        <a asp-page="/Map" class="btn btn-secondary">Annuler</a>
+        <button type="submit" class="btn btn-primary">Register</button>
+        <a asp-page="/Map" class="btn btn-secondary">Cancel</a>
     </form>
 </section>
 
 <script type="module" src="~/js/components/notifications/notifyMissionForm.js"></script>
+<script type="module">
+    const textInput = document.querySelector("#descriptionInput");
+    const counter = document.querySelector("#charCounter");
+
+    if (textInput && counter) {
+        const updateCount = () => {
+            let value = textInput.value;
+
+            if (value.length > 500) {
+                textInput.value = value.substring(0, 500);
+                value = textInput.value;
+            }
+
+            counter.textContent = `${value.length} / 500`;
+        };
+
+        textInput.addEventListener("input", updateCount);
+        updateCount();
+    }
+</script>
