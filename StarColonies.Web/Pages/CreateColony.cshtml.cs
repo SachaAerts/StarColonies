@@ -56,6 +56,7 @@ public class CreateColony(IColonistRepository colonistRepository, IColonyReposit
 
         if (!ModelState.IsValid)
         {
+            await GetAvailableColonists();
             NewColony.Colonists = new List<ColonistModel> { TeamOwner };
             return Page();
         }
