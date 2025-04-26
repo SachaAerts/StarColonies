@@ -10,6 +10,6 @@ public interface IColonistRepository
     Task<ColonistModel> GetColonistByNameAsync(string name);
     
     Task AddColonistAsync(ColonistModel colonist);
-    Task UpdateColonistAsync(ColonistModel colonist);
+    Task UpdateColonistAsync(ColonistModel colonistModel);
     Task DeleteColonistAsync(string id);
 }

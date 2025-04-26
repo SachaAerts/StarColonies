@@ -7,7 +7,7 @@ public class ColonyModel
     public int Id { get; set; }
     public string Name { get; set; } = "";
     
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
     public string OwnerId { get; set; } = "";
     
     public string LogoPath { get; set; } = "";

@@ -22,7 +22,7 @@ function renderColonists(container, colonists, isTeam = false) {
     colonists.forEach((colonist, index) => {
         const div = document.createElement('div');
         const isOwner = colonist.Id === window.teamOwner.Id;
-        div.className = isTeam ? 'oneMemberTeamCreateColony' : 'oneUserCreateColony';
+        div.className = isTeam ? 'oneMemberTeamCreateColony cursorPointerCreateColony' : 'oneUserCreateColony cursorPointerCreateColony';
         if (isOwner) div.classList.add("leader");
 
         if (isTeam) {

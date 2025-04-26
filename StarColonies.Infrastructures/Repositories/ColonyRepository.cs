@@ -10,7 +10,7 @@ namespace StarColonies.Infrastructures.Repositories;
 
 public class ColonyRepository(
     StarColoniesDbContext context, 
-    IEntityToDomainMapper<ColonyModel, ColonyEntity> mapper,
+    IEntityToDomainMapper<ColonyModel?, ColonyEntity> mapper,
     IEntityToDomainMapper<ColonistModel, ColonistEntity> colonistMapper,
     IDomainToEntityMapper<ColonyEntity, ColonyModel> reverseMapper) : IColonyRepository
 {
@@ -21,9 +21,9 @@ public class ColonyRepository(
             .Include(c => c.Members)
             .ThenInclude(m => m.Colonist)
             .Include(c => c.Owner)
-            .Where(c => c.Members.Any(m => m.ColonistId == colonistId))
+            .Where(c => c.OwnerId == colonistId)
             .ToListAsync();
-     
+ 
         return colonies.Select(mapper.Map).ToList();
     }
     
@@ -74,5 +74,32 @@ public class ColonyRepository(
             ColonistId = id.ToString(),
             Colony = colony             
         }).ToList());
+    }
+    
+    public async Task<ColonyModel?> GetColonyByIdAsync(int colonyId)
+    {
+        var colonyEntity = await context.Colony
+            .Include(c => c.Members)
+            .ThenInclude(m => m.Colonist)
+            .Include(c => c.Owner)
+            .FirstOrDefaultAsync(c => c.Id == colonyId);
+
+        return colonyEntity == null ? null : mapper.Map(colonyEntity);
+    }
+    
+    public async Task DeleteColonyAsync(int colonyId)
+    {
+        var colony = await context.Colony
+            .Include(c => c.Members)
+            .FirstOrDefaultAsync(c => c.Id == colonyId);
+
+        if (colony == null)
+            throw new InvalidOperationException($"Colony with ID {colonyId} does not exist.");
+
+        context.ColonyMember.RemoveRange(colony.Members);
+
+        context.Colony.Remove(colony);
+
+        await context.SaveChangesAsync();
     }
 }
