@@ -14,4 +14,6 @@ public interface IColonyRepository
     Task<ColonyModel?> GetColonyByIdAsync(int colonyId);
 
     Task DeleteColonyAsync(int colonyId);
+
+    Task UpdateColonyAsync(ColonyModel modifyColony);
 }
