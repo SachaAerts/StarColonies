@@ -85,9 +85,12 @@
     box-shadow: 0 2px 6px rgba(0, 255, 255, 0.1), 0 0 8px rgba(127, 0, 255, 0.15);
 
     transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
-    cursor: pointer;
     box-sizing: border-box;
     position: relative;
+}
+
+.cursorPointerCreateColony {
+    cursor: pointer;
 }
 
 .oneUserCreateColony:hover {

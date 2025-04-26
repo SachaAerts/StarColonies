@@ -12,42 +12,44 @@
 
 <section class="mainModifyProfile">
     <form method="post" class="containerModifyColon">
-        <a asp-page="Profile" asp-route-id="@Model.Id" class="buttonProfile backButtonProfile">
-            <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
-        </a>
+        <button class="buttonProfile backButtonProfile">
+            <a asp-page="Profile" asp-route-id="@Model.Id">
+                <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
+            </a>
+        </button>
 
         <h1>Create colony</h1>
 
         <space-input label="Name" label-position="50" required></space-input>
         <input id="name-hidden" asp-for="NewColony.Name" type="hidden"/>
         <span asp-validation-for="NewColony.Name" class="text-danger"></span>
-        
+
         <div class="columnsCreateColony">
             <div class="firstColumnCreateColony">
                 <div class="headerFirstColumnCreateColony">
                     <h2 class="titlesCreateColony">Team</h2>
                     <p id="teamCount" class="titlesCreateColony">1/5</p>
                 </div>
-                
+
                 <hr class="ledHr"/>
 
                 <div id="teamList">
                     <!-- Complete in js -->
                 </div>
             </div>
-            
+
             <div class="secondColumnCreateColony">
                 <h2 class="titlesCreateColony">Colonists</h2>
-                
+
                 <hr class="ledHr"/>
-                
+
                 <div id="colonistsList">
                     <!-- Complete in js -->
                 </div>
-                
+
                 <hr class="ledHr"/>
             </div>
-            
+
             <div>
                 <input id="character-hidden" asp-for="NewColony.PictureTeam" type="hidden"/>
                 <character-panel>
@@ -68,8 +70,8 @@
             </div>
         </div>
 
-        <input id="colonists-hidden" name="NewColony.ColonistsJson" type="hidden" />
-        <input asp-for="NewColony.Colonists" type="hidden" />
+        <input id="colonists-hidden" name="NewColony.ColonistsJson" type="hidden"/>
+        <input asp-for="NewColony.Colonists" type="hidden"/>
         <span asp-validation-for="NewColony.Colonists" class="text-danger"></span>
         <button class="formButton" type="submit">Create colony</button>
     </form>

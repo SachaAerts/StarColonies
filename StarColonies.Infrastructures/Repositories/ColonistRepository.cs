@@ -38,12 +38,24 @@ public class ColonistRepository(StarColoniesDbContext context,
         await context.SaveChangesAsync();
     }
 
-    public async Task UpdateColonistAsync(ColonistModel colonist)
+    public async Task UpdateColonistAsync(ColonistModel colonistModel)
     {
-        var entity = await context.Users.FindAsync(colonist.Id);
+        var entity = await context.Users.FindAsync(colonistModel.Id);
+
         if (entity == null) return;
 
-        colonistReverseMapper.MapInto(colonist, entity);
+        entity.UserName = colonistModel.Name;
+        entity.Email = colonistModel.Email;
+        entity.NormalizedEmail = colonistModel.Email?.ToUpperInvariant();
+        entity.NormalizedUserName = colonistModel.Name?.ToUpperInvariant();
+        entity.DateOfBirth = colonistModel.DateOfBirth;
+        entity.JobModel = colonistModel.Job;
+        entity.Level = colonistModel.Level;
+        entity.Strength = colonistModel.Strength;
+        entity.Stamina = colonistModel.Stamina;
+        entity.Musty = colonistModel.Musty;
+        entity.ProfilPicture = colonistModel.ProfilPicture;
+
         await context.SaveChangesAsync();
     }
 

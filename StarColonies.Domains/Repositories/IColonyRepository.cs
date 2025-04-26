@@ -10,4 +10,8 @@ public interface IColonyRepository
     Task AddColonyAsync(ColonyModel model);
 
     Task<IList<ColonyModel>> GetTop10ColoniesAsync();
+
+    Task<ColonyModel?> GetColonyByIdAsync(int colonyId);
+
+    Task DeleteColonyAsync(int colonyId);
 }

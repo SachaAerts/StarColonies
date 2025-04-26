@@ -6,6 +6,7 @@ using StarColonies.Domains.Models.Colony;
 using StarColonies.Domains.Models.Items;
 using StarColonies.Domains.Models.Missions;
 using StarColonies.Domains.Repositories;
+using StarColonies.Domains.Services.pictures;
 using StarColonies.Infrastructures.Data;
 using StarColonies.Infrastructures.Data.Configurations.Seeder;
 using StarColonies.Infrastructures.Data.Configurations.Seeder.Map;
@@ -17,6 +18,7 @@ using StarColonies.Infrastructures.Mapper.DomainToEntity;
 using StarColonies.Infrastructures.Mapper.EntityToDomain;
 using StarColonies.Infrastructures.Repositories;
 using StarColonies.Infrastructures.Services;
+using StarColonies.Infrastructures.Services.picture;
 using StarColonies.Infrastructures.Services.RewardStrategy;
 using StarColonies.Web.Factories;
 using StarColonies.Web.Middlewares;
@@ -63,6 +65,7 @@ builder.Services.AddScoped<IMissionRewardStrategy, FullSuccessRewardStrategy>();
 builder.Services.AddScoped<IMissionRewardStrategy, MoneyRewardStrategy>();
 builder.Services.AddScoped<IMissionRewardStrategy, ResourceRewardStrategy>();
 builder.Services.AddScoped<IMissionRewardStrategy, NoRewardStrategy>();
+builder.Services.AddScoped<IDeletePicture, DeletePicture>();
 
 //Inject Rate Limiting Middleware(anti-DoS)
 builder.Services.AddFixedWindowRateLimiting();
