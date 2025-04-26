@@ -9,7 +9,7 @@ export function renderMissionDetails(quest) {
     const html = getRender(quest, enemies, rewards);
 
     if (!deleteListenerInstalled) {
-        setupDeleteListener();
+        setupDeleteListener(quest.id);
         deleteListenerInstalled = true;
     }
     
