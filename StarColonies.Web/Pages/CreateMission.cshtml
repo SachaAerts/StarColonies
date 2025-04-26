@@ -2,19 +2,9 @@
 @model StarColonies.Web.Pages.CreateMission
 
 @{
-ViewData["Title"] = "Create Mission";
-Layout = "Shared/_Layout";
+    ViewData["Title"] = "Create Mission";
+    Layout = "Shared/_Layout";
 }
-
-<style>
-    #charCounter {
-        display: block;
-        text-align: right;
-        font-size: 0.85rem;
-        color: #666;
-        margin-top: 0.25rem;
-    }
-</style>
 
 <section class="formMissionModifyContainer">
     <form method="post" class="formMissionModify">
@@ -26,12 +16,9 @@ Layout = "Shared/_Layout";
             <input asp-for="Title" class="form-control" id="titleInput"/>
         </div>
 
-        <div class="containForm">
+        <div class="containForm textarea">
             <label asp-for="Description"></label>
-            <textarea asp-for="Description"
-                      class="form-control"
-                      id="descriptionInput"
-                      maxlength="500"></textarea>
+            <textarea asp-for="Description" class="form-control" id="textarea" maxlength="500"></textarea>
             <small id="charCounter">0 / 500</small>
         </div>
 
@@ -67,23 +54,4 @@ Layout = "Shared/_Layout";
 </section>
 
 <script type="module" src="~/js/components/notifications/notifyMissionForm.js"></script>
-<script type="module">
-    const textInput = document.querySelector("#descriptionInput");
-    const counter = document.querySelector("#charCounter");
-
-    if (textInput && counter) {
-        const updateCount = () => {
-            let value = textInput.value;
-
-            if (value.length > 500) {
-                textInput.value = value.substring(0, 500);
-                value = textInput.value;
-            }
-
-            counter.textContent = `${value.length} / 500`;
-        };
-
-        textInput.addEventListener("input", updateCount);
-        updateCount();
-    }
-</script>
+<script type="module" src="~/js/textareaCounter.js"></script>

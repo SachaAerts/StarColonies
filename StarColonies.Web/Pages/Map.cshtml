@@ -105,5 +105,9 @@ This ensures that the request actually comes from the authenticated user and not
 <script src="~/js/components/map/utils/map.js"></script>
 <script type="module" src="~/js/components/map/planets/planetItem.js"></script>
 
+<script>
+    window.isAdmin = @(User.Identity?.IsAuthenticated == true && User.IsInRole("Admin") ? "true" : "false");
+</script>
+
 </body>
 </html>

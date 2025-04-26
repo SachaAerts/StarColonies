@@ -3,7 +3,9 @@
 export function createMissionPanelContainer(x, planetId) {
     const panel = document.createElement('div');
     panel.classList.add('quest-panel');
-    createMission(panel, planetId);
+    if (window.isAdmin) {
+        createMission(panel, planetId);
+    }
     panel.style.left = x < 1600 ? '110px' : '-260px';
     panel.style.position = 'relative';
     return panel;
@@ -22,20 +24,15 @@ function createMission(panel, planetId) {
     link.href = `CreateMission/${planetId}`;
 
     const img = document.createElement('img');
-    img.src = '/img/icons/create.png';
-    img.height = 30;
+    img.src = '/img/icons/modify.png';
+    img.height = 20;
+    img.style.cursor = 'pointer';
+    img.style.position = 'absolute';
+    img.style.top = '5px';
+    img.style.right = '5px';
+    img.style.zIndex = '1000000000';
     img.alt = 'Create Icon';
 
     link.appendChild(img);
     panel.appendChild(link);
-
-    const style = document.createElement('style');
-    style.textContent = `
-        .linkCreateMission {
-            position: absolute;
-            right: 5px;
-            z-index: 100000;
-        }
-    `;
-    document.head.appendChild(style);
 }

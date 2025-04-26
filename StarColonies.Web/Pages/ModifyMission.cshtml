@@ -17,9 +17,7 @@
 
         <div class="containForm">
             <label asp-for="Mission.Description"></label>
-            <textarea asp-for="Mission.Description" class="form-control"
-                      id="descriptionInput"
-                      maxlength="500"></textarea>
+            <textarea asp-for="Mission.Description" class="form-control" id="textarea" maxlength="500"></textarea>
             <small id="charCounter">0 / 500</small>
         </div>
 
@@ -57,23 +55,4 @@
 </section>
 
 <script type="module" src="~/js/components/notifications/notifyMissionForm.js"></script>
-<script type="module">
-    const textInput = document.querySelector("#descriptionInput");
-    const counter = document.querySelector("#charCounter");
-
-    if (textInput && counter) {
-        const updateCount = () => {
-            let value = textInput.value;
-
-            if (value.length > 500) {
-                textInput.value = value.substring(0, 500);
-                value = textInput.value;
-            }
-
-            counter.textContent = `${value.length} / 500`;
-        };
-
-        textInput.addEventListener("input", updateCount);
-        updateCount();
-    }
-</script>
+<script type="module" src="~/js/textareaCounter.js"></script>

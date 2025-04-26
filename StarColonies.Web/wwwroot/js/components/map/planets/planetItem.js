@@ -24,13 +24,13 @@ export class PlanetItem extends HTMLElement {
         this.quests = quests;
         
         this.innerHTML = '';
-        
-        this.container = createPlanetContainer(this.x, this.y, this.image, () => this.handleClick());
+
+        this.container = createPlanetContainer(this.x, this.y, this.image, (e) => this.handleClick(e));
         this.shadow.innerHTML = getStyle(this.image);
         this.shadow.appendChild(this.container);
     }
 
-    handleClick() {
+    handleClick(event) {
         const closeAll = () => {
             document.querySelectorAll('planet-item').forEach(item => {
                 const shadow = item.shadowRoot;
@@ -46,9 +46,7 @@ export class PlanetItem extends HTMLElement {
         };
 
         if (this.click) {
-            if (!event.target.closest('.quest-panel')) {
-                closeAll();
-            }
+            if (!event.target.closest('.quest-panel')) closeAll();
             return;
         }
 
@@ -66,10 +64,9 @@ export class PlanetItem extends HTMLElement {
         this.click = true;
         this.setAttribute("selected", "true");
 
-        panel.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
+        panel.addEventListener('click', (e) => { e.stopPropagation(); });
     }
+
 }
 
 customElements.define('planet-item', PlanetItem);

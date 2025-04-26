@@ -1,27 +1,58 @@
-﻿export function renderMissionDetails(quest) {
-    const enemies = quest.enemies.map(e => `
+﻿import {setupDeleteListener} from '../../deleteMission.js'
+
+let deleteListenerInstalled = false;
+
+export function renderMissionDetails(quest) {
+    const enemies = getEnemiesRender(quest);
+    const rewards = getRewardsRender(quest);
+
+    const html = getRender(quest, enemies, rewards);
+
+    if (!deleteListenerInstalled) {
+        setupDeleteListener();
+        deleteListenerInstalled = true;
+    }
+    
+    return html;
+}
+
+function getEnemiesRender(quest) {
+    return quest.enemies.map(e => `
         <li style="display: flex; flex-direction: column; align-items: center; justify-content:center; gap: 10px; margin-bottom: 6px;">
             <img src="${e.image}" alt="${e.name}" height="24"/>
             <span style="max-width: 100px; word-wrap: break-word; text-align: center;">${e.name}</span>
         </li>
     `).join('');
+}
 
-    const rewards = quest.rewards.map(r => `
+function getRewardsRender(quest) {
+    return quest.rewards.map(r => `
         <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
             <img src="${r.image}" alt="${r.name}" height="40"/>
             ${r.quantity + "x " + r.name}
         </li>
     `).join('');
+}
 
+function getRender(quest, enemies, rewards) {
     return `
-        <style>
-            .notyf {
-                z-index: 99999;
-            }
-        </style>
+        ${getStyle()}
         <link rel="stylesheet" href="/css/components/button.css">
         
-        <a href="ModifyMission/${quest.id}"><img src="img/icons/modify.png" height="20" alt="Modify"></a>
+        <div style="display: flex; align-items: center; gap: 5px; position: absolute; top: 0; left: 15px; z-index: 1000000000;">
+            <a href="ModifyMission/${quest.id}"><img src="img/icons/modify.png" height="20" alt="Modify"></a>
+            <button aria-label="Delete item" class="delete-button delete-mission" data-id="${quest.id}" style="transform: scale(0.5);background: none; border: none; padding: 0; cursor: pointer;">
+                <svg class="trash-svg" viewBox="0 -10 64 74" xmlns="http://www.w3.org/2000/svg" height="20">
+                    <g id="trash-can">
+                        <rect x="16" y="24" width="32" height="30" rx="3" ry="3" fill="#e74c3c"></rect>
+                        <g transform-origin="12 18" id="lid-group">
+                            <rect x="12" y="12" width="40" height="6" rx="2" ry="2" fill="#c0392b"></rect>
+                            <rect x="26" y="8" width="12" height="4" rx="2" ry="2" fill="#c0392b"></rect>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+        </div>
         
         <h4 style="text-align: center;" id="titleQuest">${quest.title}</h4>
         <p  style="padding: 0 10px;">${quest.description}</p>
@@ -54,5 +85,50 @@
             </button>
         </div>
         <button id="closeOverlay">Fermer</button>
+    `;
+}
+
+function getStyle() {
+    return `
+    <style>
+        .notyf {z-index: 99999;}
+        .delete-button {
+          position: relative;
+          padding: 0.5em;
+          border: none;
+          background: transparent;
+          cursor: pointer;
+          font-size: 1em;
+          transition: transform 0.2s ease;
+        }
+        
+        .trash-svg {
+          width: 4em;
+          height: 4em;
+          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+          overflow: visible;
+        }
+        
+        #lid-group {
+          transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .delete-button:hover #lid-group {
+          transform: rotate(-28deg) translateY(2px);
+        }
+        
+        .delete-button:active #lid-group {
+          transform: rotate(-12deg) scale(0.98);
+        }
+        
+        .delete-button:hover .trash-svg {
+          transform: scale(1.08) rotate(3deg);
+        }
+        
+        .delete-button:active .trash-svg {
+          transform: scale(0.96) rotate(-1deg);
+        }
+    </style>
     `;
 }
