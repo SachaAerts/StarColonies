@@ -1,0 +1,58 @@
+@page
+@model StarColonies.Web.Pages.Statistics
+
+@{
+    ViewData["Title"] = "Statistics";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/fonts.css"/>
+    <link rel="stylesheet" href="~/css/pages/statistics.css"/>
+    <link rel="stylesheet" href="~/css/partialView/navBar.css"/>
+    <link rel="stylesheet" href="~/css/responsives/responsive.css"/>
+</head>
+<body>
+<header>
+    @await Html.PartialAsync("Shared/partialView/_NavBarPartial")
+</header>
+
+<main>
+    <div class="stats-container">
+        <h1 class="stats-title">Statistics</h1>
+
+        <div class="charts-row">
+            <div class="chart-wrapper">
+                <h2 class="chart-title">Top 10 team statistics</h2>
+                <div class="chart-container">
+                    <canvas id="firstChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-wrapper">
+                <h2 class="chart-title">Number of purchases per item</h2>
+                <div class="chart-container">
+                    <canvas id="secondChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-wrapper full-width">
+            <h2 class="chart-title">Missions per planets</h2>
+            <div class="chart-container">
+                <canvas id="thirdChart"></canvas>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/js/components/nav_bar.js"></script>
+<script src="~/js/pages/statistics.js"></script>
+</body>
+</html>
