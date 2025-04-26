@@ -102,4 +102,25 @@ public class ColonyRepository(
 
         await context.SaveChangesAsync();
     }
+    
+    public async Task UpdateColonyAsync(ColonyModel modifyColony)
+    {
+        var colony = await context.Colony
+            .Include(c => c.Members)
+            .FirstOrDefaultAsync(c => c.Id == modifyColony.Id);
+
+        if (colony == null)
+            throw new InvalidOperationException($"Colony with ID {modifyColony.Id} does not exist.");
+
+        colony.Name = modifyColony.Name;
+        colony.LogoPath = modifyColony.LogoPath;
+        colony.OwnerId = modifyColony.OwnerId;
+        
+        context.ColonyMember.RemoveRange(colony.Members);
+
+        var newMembers = await BuildColonyMembersAsync(modifyColony.Colonists.Select(c => Guid.Parse(c.Id)).ToList(), colony);
+        colony.Members = newMembers;
+
+        await context.SaveChangesAsync();
+    }
 }
