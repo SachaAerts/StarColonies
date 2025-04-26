@@ -8,6 +8,11 @@ export function attachQuestListeners(scroll, data) {
 
     questFrames.forEach(el => {
         el.addEventListener('click', event => {
+            if (event.target.classList.contains('delete-mission') 
+                || event.target.closest('.delete-mission')) {
+                return;
+            }
+
             event.stopPropagation();
 
             const index = parseInt(el.dataset.index);

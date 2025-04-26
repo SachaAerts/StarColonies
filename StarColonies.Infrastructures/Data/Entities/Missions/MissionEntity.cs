@@ -11,7 +11,7 @@ public class MissionEntity
     public required string Description { get; set; } = "DEFAULT DESCRIPTION";
     
     public required int PlanetId { get; set; }
-    public required PlanetEntity Planet { get; set; }
+    public PlanetEntity Planet { get; set; }
     
     public required int CoinsReward { get; set; }
     

@@ -13,18 +13,16 @@ namespace StarColonies.Infrastructures.Repositories;
 
 public class InventaryRepository(
     IEntityToDomainMapper<ItemModel, ItemEntity> itemMapper, 
-    IDomainToEntityMapper<ItemEntity, ItemModel> reverseMapper,
+    IDomainToEntityMapper<ItemEntity, ItemModel?> reverseMapper,
     StarColoniesDbContext context) : IInventaryRepository
 {
     
     public async Task<IList<RewardItemModel>> GetItemsForColonistAsync(string colonistId)
     {
-        Console.WriteLine($"GetItemsForColonistAsync: {colonistId}");
         var items = await context.Inventory
             .Include(i => i.Item).ThenInclude(itemEntity => itemEntity.Effect)
             .Where(i => i.ColonistId == colonistId)
             .ToListAsync();
-        Console.WriteLine($"GetItemsForColonistAsync: {string.Join(", ", items.Select(i => i.Item.Name + " " + i.Item.Effect.ForceModifier + " " + i.Item.Effect.StaminaModifier))}");
         return items 
             .Select(i => new RewardItemModel
             {
@@ -50,16 +48,29 @@ public class InventaryRepository(
         await context.SaveChangesAsync();
     }
     
-    public async Task UseItemFromUserAsync(string userId, int itemId)
+    public async Task UseItemFromUserAsync(string userId, IList<ItemModel> items)
     {
-        var inventory = await context.Inventory
-            .FirstOrDefaultAsync(i => i.ColonistId == userId && i.ItemId == itemId);
+        if (string.IsNullOrWhiteSpace(userId)) 
+            throw new ArgumentException("User ID cannot be null or empty.", nameof(userId));
+        
+        IList<InventoryEntity> inventory = await context.Inventory
+            .Where(i => i.ColonistId == userId && GetItemsIdsList(items).Contains(i.ItemId))
+            .ToListAsync() ?? throw new InvalidOperationException("Item not found in inventory.");
 
-        if (inventory == null) throw new InvalidOperationException("Item not found in inventory.");
-
-        if (inventory.Quantity > 1) inventory.Quantity -= 1;
-            else context.Inventory.Remove(inventory);
+        foreach (var item in items) 
+            HandleItem(inventory, item);
 
         await context.SaveChangesAsync();
+    }
+    
+    private IList<int> GetItemsIdsList(IList<ItemModel> items)
+        => items.Select(i => i.Id).ToList();
+
+    private void HandleItem(IList<InventoryEntity> inventory, ItemModel item)
+    {
+        var inventoryItem = inventory.FirstOrDefault(i => i.ItemId == item.Id) 
+                            ?? throw new InvalidOperationException($"Item '{item.Name}' (ID: {item.Id}) not found in inventory.");
+        if (inventoryItem.Quantity > 1) inventoryItem.Quantity -= 1;
+            else context.Inventory.Remove(inventoryItem);
     }
 }

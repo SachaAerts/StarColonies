@@ -46,11 +46,14 @@ builder.Services.AddScoped<IDomainToEntityMapper<ItemEntity, ItemModel>,        
 builder.Services.AddScoped<IDomainToEntityMapper<EffectEntity, EffectModel>,     EffectToEntityMapper>();
 
 //Inject Repositories
-builder.Services.AddScoped<IMapRepository,       MapRepository>();
+builder.Services.AddScoped<IPlanetRepository,    PlanetRepository>();
 builder.Services.AddScoped<IColonyRepository,    ColonyRepository>();
 builder.Services.AddScoped<IColonistRepository,  ColonistRepository>();
 builder.Services.AddScoped<IRewardRepository,    RewardRepository>();
 builder.Services.AddScoped<IInventaryRepository, InventaryRepository>();
+builder.Services.AddScoped<IMissionRepository,   MissionRepository>();
+builder.Services.AddScoped<IEnemyRepository,     EnemyRepository>();
+builder.Services.AddScoped<IItemRepository,      ItemRepository>();
 
 //Inject Factories
 builder.Services.AddScoped<IResultFactory<JsonResult, object>,  JsonResultFactory>();
@@ -80,6 +83,7 @@ builder.Services.AddDbContext<StarColoniesDbContext>(options =>
 builder.Services.AddDefaultIdentity<ColonistEntity>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StarColoniesDbContext>();
+
 
 //========================== Application settings ==========================//
 var app = builder.Build();

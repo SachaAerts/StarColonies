@@ -127,6 +127,7 @@
             }
             
             .quest-frame {
+                position: relative;
                 color: rgba(255,255,255,0.66);
                 
                 font-family: 'Judge', sans-serif;
@@ -139,6 +140,14 @@
                 padding: 10px;
                 
                 transition: all .2s ease-out;
+            }
+            
+            .quest-frame button {
+                position: absolute;
+                top: 5px; right: 5px;
+                background: none;
+                border: none;
+                cursor: pointer;
             }
             
             .quest-frame:hover {
