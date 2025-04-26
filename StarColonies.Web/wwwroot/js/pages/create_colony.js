@@ -1,9 +1,18 @@
 const availableContainer = document.getElementById('colonistsList');
 const teamContainer = document.getElementById('teamList');
 let availableColonists = window.availableColonists || [];
-let teamColonists = (window.initialTeam && window.initialTeam.length > 0)
-    ? window.initialTeam
-    : [window.teamOwner];
+let teamColonists = [];
+
+if (window.initialTeam && window.initialTeam.length > 0) {
+    teamColonists = window.initialTeam;
+
+    // Ajoute aussi le owner s'il n'est pas déjà dans l'équipe
+    if (!teamColonists.some(c => c.Id === window.teamOwner.Id)) {
+        teamColonists.unshift(window.teamOwner);
+    }
+} else {
+    teamColonists = [window.teamOwner];
+}
 
 const jobLabels = {
     0: "Engineer",
