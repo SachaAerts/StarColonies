@@ -10,25 +10,23 @@
         <a asp-page="Index" class="buttonProfile backButtonProfile">
             <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
         </a>
-        <h2 class="">Blackmarket</h2>
-        <div class="backgroundBlackmarket">
-            <div class="selectRow">
-                <div class="selectorBlackmarket - Buying active">
-                    <h3 class="selectTitle">Buy</h3>
+        <h2 class="blackmarketTitle">Blackmarket</h2>
+        <div class="blackmarketContent">
+            <div class="blackmarketNav">
+                <div class="blackmarketNavButtons">
+                    <a class="blackmarketNavButton">Purchase</a>
+                    <a class="blackmarketNavButton">Sell</a>
                 </div>
-                <div class="selectorBlackmarket - Selling inactive">
-                    <h3 class="selectTitle">Sell</h3>
+                <!-- Mustys du joueur -->
+                <div class="blackmarketUserMustys">
+                    <p class="blackmarketUserMustysValue">Mustys :</p>
+                    <p class="blackmarketUserMustysValue">100</p>
+                    <img class="blackmarketUserMustysImg" src="/img/icons/mustysCoin.png" alt="UserMustys">
                 </div>
             </div>
 
             <!-- Interieur du blackmarket (achat) -->
             <div>
-
-                <!-- Mustys du joueur -->
-                <div>
-                    <p>100</p>
-                    <img src="" alt="">
-                </div>
 
                 <!-- Objets (en display flex, 3 par ligne) -->
                 <div>
