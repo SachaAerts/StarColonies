@@ -31,6 +31,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<ReverseProxyLinksMiddleware>();
 
+//Inject Database Context
+builder.Services.AddDbContext<StarColoniesDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString
+        ("StarColoniesContext"));
+});
+
 //Inject Mapper: Entity -> Domain(Models)
 builder.Services.AddScoped<IEntityToDomainMapper<PlanetModel, PlanetEntity>,     PlanetToDomainMapper>();
 builder.Services.AddScoped<IEntityToDomainMapper<MissionModel, MissionEntity>,   MissionToDomainMapper>();
@@ -74,17 +81,9 @@ builder.Services.AddScoped<IDeletePicture, DeletePicture>();
 //Inject Rate Limiting Middleware(anti-DoS)
 builder.Services.AddFixedWindowRateLimiting();
 
-//Inject Database Context
-builder.Services.AddDbContext<StarColoniesDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString
-        ("StarColoniesContext"));
-});
-
 builder.Services.AddDefaultIdentity<ColonistEntity>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StarColoniesDbContext>();
-
 
 //========================== Application settings ==========================//
 var app = builder.Build();

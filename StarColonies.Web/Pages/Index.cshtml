@@ -71,7 +71,7 @@
                     @foreach (var colony in Model.TopColonies)
                     {
                         <div class="oneFame">
-                            <img src="img/upload/@colony.LogoPath" alt="teamLogo"/>
+                            <img src="~/img/upload/@colony.LogoPath" alt="teamLogo"/>
                             <h4>@colony.Name</h4>
                             <p>@colony.Strength</p>
                         </div>
@@ -84,7 +84,7 @@
     </section>
 
     <section class="laudrikxSection">
-        <img src="img/laudrikx_game.png" alt="laudrikx_game"/>
+        <img src="~/img/laudrikx_game.png" alt="laudrikx_game"/>
         <div class="laudrikxDescription">
             <h3>Laudrikx Games</h3>
 
@@ -116,5 +116,6 @@
 <script>
     window.isAuthenticated = @User.Identity?.IsAuthenticated.ToString().ToLower();
 </script>
+
 </body>
 </html>

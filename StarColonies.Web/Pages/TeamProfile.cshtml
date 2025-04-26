@@ -10,20 +10,20 @@
     <div class="navTeamProfile">
         <button class="buttonProfile">
             <a asp-page="Profile" asp-route-id="@Model.TeamOwner!.Id">
-                <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
+                <img class="modifyLogoProfile" src="~/img/icons/arrow.png" alt="back"/>
             </a>
         </button>
         
         <div>
             <button class="buttonModifyGreen">
                 <a asp-page="#">
-                    <img class="modifyLogoProfile" src="/img/icons/modify.png" alt="modifyTeam"/>
+                    <img class="modifyLogoProfile" src="~/img/icons/modify.png" alt="modifyTeam"/>
                 </a>
             </button>
 
             <form method="post" asp-page-handler="Delete">
                 <button type="submit" class="buttonDelete">
-                    <img class="modifyLogoProfile" src="/img/icons/bin.png" alt="deleteTeam"/>
+                    <img class="modifyLogoProfile" src="~/img/icons/bin.png" alt="deleteTeam"/>
                 </button>
             </form>
         </div>
@@ -32,7 +32,7 @@
     <div class="teamProfileContainer">
         <div class="firstColumnTeamProfile">
             <div class="mainFrameFirstPart">
-                <img src="/img/upload/@Model.Colony!.LogoPath" alt="profilePicture"/>
+                <img src="~/img/upload/@Model.Colony!.LogoPath" alt="profilePicture"/>
                 <div>
                     <h2>@Model.Colony.Name</h2>
                     <p>Owner: @Model.TeamOwner!.Name</p>
@@ -42,11 +42,11 @@
             <div class="statsProfile">
                 <p>Stats:</p>
                 <div>
-                    <img src="/img/icons/force.png" alt="strengh"/>
+                    <img src="~/img/icons/force.png" alt="strengh"/>
                     <p class="informationProfileValue valueStatProfile">@Model.Colony.Strength</p>
                 </div>
                 <div>
-                    <img src="/img/icons/stamina.png" alt="stamina"/>
+                    <img src="~/img/icons/stamina.png" alt="stamina"/>
                     <p class="informationProfileValue valueStatProfile">@Model.Colony.Stamina</p>
                 </div>
             </div>
@@ -58,18 +58,18 @@
             @foreach (var colonist in Model.Colony.Colonists)
             {
                 <div class="oneUserTeamProfile oneUserCreateColony">
-                    <img class="logoUserCreateColony" src="/img/upload/@colonist.ProfilPicture" alt="logoUser"/>
+                    <img class="logoUserCreateColony" src="~/img/upload/@colonist.ProfilPicture" alt="logoUser"/>
                     <div>
                         <h3 class="titlesCreateColony">@colonist.Name</h3>
                         <p class="textsCreateColony">Lvl: @colonist.Level</p>
                     </div>
                     <p class="textsCreateColony">@colonist.Job</p>
                     <div class="oneUserStatCreateColony">
-                        <img src="/img/icons/force.png" alt="strength"/>
+                        <img src="~/img/icons/force.png" alt="strength"/>
                         <p class="textsCreateColony">@colonist.Strength</p>
                     </div>
                     <div class="oneUserStatCreateColony">
-                        <img src="/img/icons/stamina.png" alt="stamina"/>
+                        <img src="~/img/icons/stamina.png" alt="stamina"/>
                         <p class="textsCreateColony">@colonist.Stamina</p>
                     </div>
                 </div>
