@@ -8,7 +8,6 @@ export function setupDeleteListener(id) {
         const deleteButton = event.target.closest(".delete-mission");
 
         if (deleteButton) {
-            console.log("Mission ID:", id);
             const questFrame = event.target.closest(".quest-frame");
 
             if (confirm("Would you like to delete this mission?")) {
@@ -26,18 +25,9 @@ async function onPost(missionId, questFrame) {
     });
 
     const result = await response.json();
-    console.log("Response:", result);
 
     if (result.success) {
-        console.log("Mission deleted successfully");
-
-        if (questFrame) {
-            questFrame.remove();
-        }
-        
+        if (questFrame) questFrame.remove();
         location.reload();
-    } else {
-        console.log("Error deleting mission");
-        notify.error("Erreur lors de la suppression !");
-    }
+    } else notify.error("Erreur lors de la suppression !");
 }

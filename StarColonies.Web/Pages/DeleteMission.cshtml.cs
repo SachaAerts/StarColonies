@@ -12,7 +12,6 @@ public class DeleteMission(
 {
     public async Task<IActionResult> OnPostAsync(int id)
     {
-        Console.WriteLine($"DeleteMission: {id}");
         await missionRepository.DeleteMissionAsync(id);
         return jsonResult.Create(true);
     }
