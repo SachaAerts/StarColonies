@@ -193,11 +193,17 @@ class CharacterPanel extends HTMLElement {
         // Pré-sélection si une valeur est définie
         const slot = this.shadowRoot.querySelector('slot');
         slot.addEventListener('slotchange', () => {
+            const assignedElements = slot.assignedElements();
             const defaultImage = this.defaultValue;
+
             if (defaultImage) {
-                const matchingItem = this.querySelector(`character-item[image="${defaultImage}"]`);
+                const matchingItem = assignedElements.find(item => item.getAttribute('image') === defaultImage);
                 if (matchingItem) {
                     matchingItem.shadowRoot.querySelector('.character').click();
+                } else {
+                    this.uploadedCharacter = `/img/upload/${defaultImage}`;
+                    this.selectedCharacter = null;
+                    this.renderPreview();
                 }
             }
         });
@@ -220,21 +226,35 @@ class CharacterPanel extends HTMLElement {
             this.uploadedCharacter = null;
             this.renderPreview();
         });
+
+        this.renderPreview();
     }
 
     renderPreview() {
         this.previewDiv.innerHTML = '';
+
         if (this.selectedCharacter) {
             const img = document.createElement('img');
             img.src = `/img/upload/${this.selectedCharacter}`;
-            img.alt = 'Avatar sélectionné';
+            img.alt = 'Selected Avatar';
             this.previewDiv.appendChild(img);
-        }
-        if (this.uploadedCharacter) {
+        } else if (this.uploadedCharacter) {
             const img = document.createElement('img');
             img.src = this.uploadedCharacter;
-            img.alt = 'Avatar importé';
+            img.alt = 'Uploaded Avatar';
             this.previewDiv.appendChild(img);
+        } else {
+            const emptyBox = document.createElement('div');
+            emptyBox.style.width = '80px';
+            emptyBox.style.height = '80px';
+            emptyBox.style.border = '2px dashed #3a5a90';
+            emptyBox.style.borderRadius = '4px';
+            emptyBox.style.display = 'flex';
+            emptyBox.style.alignItems = 'center';
+            emptyBox.style.justifyContent = 'center';
+            emptyBox.style.color = '#555';
+            emptyBox.textContent = 'No Image';
+            this.previewDiv.appendChild(emptyBox);
         }
     }
 
