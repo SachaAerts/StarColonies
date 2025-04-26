@@ -13,6 +13,7 @@ using StarColonies.Infrastructures.Data.Configurations.Seeder.Map;
 using StarColonies.Infrastructures.Data.Entities;
 using StarColonies.Infrastructures.Data.Entities.Items;
 using StarColonies.Infrastructures.Data.Entities.Missions;
+using StarColonies.Infrastructures.Data.Seeder;
 using StarColonies.Infrastructures.Mapper;
 using StarColonies.Infrastructures.Mapper.DomainToEntity;
 using StarColonies.Infrastructures.Mapper.EntityToDomain;
@@ -119,14 +120,6 @@ static async Task SeedDataAsync(WebApplication app)
 {
     using var scope = app.Services.CreateScope();
     var context = scope.ServiceProvider.GetRequiredService<StarColoniesDbContext>();
-    await context.Database.MigrateAsync();
     
-    Seed(context);
-}
-
-static void Seed(StarColoniesDbContext context)
-{
-    MapSeeder.Seed(context);
-    ColonySeeder.Seed(context);
-    InventarySeeder.Seed(context);
+    await SeedCommand.SeedAsync(context);
 }
