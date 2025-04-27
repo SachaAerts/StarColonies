@@ -20,8 +20,8 @@ public class EnemyRegister
             EnemyFactory.Create("Entité", 5, 11, "entite.png", types.First(t => t.Name == "Paranormal")),
             EnemyFactory.Create( "Mutant", 2, 4, "mutant.png", types.First(t => t.Name == "Humanoid")),
             EnemyFactory.Create( "Leviathan", 9, 7, "leviathan.png", types.First(t => t.Name == "Extraterrestrial")),
-            EnemyFactory.Create( "Hégémon", 20, 20, "hegemon.png", types.First(t => t.Name == "Extraterrestrial")),
-            EnemyFactory.Create( "Drone de combat", 10, 15, "drone_de_combat.png", types.First(t => t.Name == "Robot")),
+            EnemyFactory.Create( "Hégémon", 13, 10, "hegemon.png", types.First(t => t.Name == "Extraterrestrial")),
+            EnemyFactory.Create( "Drone de combat", 20, 15, "drone_de_combat.png", types.First(t => t.Name == "Robot")),
             
             EnemyFactory.Create( "Ayoub", 30, 40, "arabe.png", types.First(t => t.Name == "Humanoid")),
             EnemyFactory.Create( "Ilhan", 30, 40, "turc.png", types.First(t => t.Name == "Humanoid"))

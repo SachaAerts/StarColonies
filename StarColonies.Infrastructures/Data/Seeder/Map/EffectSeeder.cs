@@ -15,7 +15,8 @@ public class EffectSeeder
             new() { Name = "Medium Boost",          ForceModifier = 5,  StaminaModifier = 5 },
             new() { Name = "Uncommon",              ForceModifier = 2, StaminaModifier = 20 },
             new() { Name = "Epic",                  ForceModifier = 15,  StaminaModifier = 5 },
-            new() { Name = "Legendary",             ForceModifier = 50, StaminaModifier = 30 }
+            new() { Name = "Legendary",             ForceModifier = 50, StaminaModifier = 30 },
+            new() { Name = "Legendary2",            ForceModifier = 90, StaminaModifier = 0 },
         };
 
         context.Effect.AddRange(effects);
