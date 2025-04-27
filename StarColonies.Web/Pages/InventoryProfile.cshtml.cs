@@ -5,20 +5,20 @@ using StarColonies.Domains.Repositories;
 
 namespace StarColonies.Web.Pages;
 
-public class InventoryProfile(IInventaryRepository inventoryRepository)
+public class InventoryProfile(IInventaryRepository inventoryRepository, IItemRepository itemRepository)
     : PageModel
 {
     [BindProperty(SupportsGet = true)]
     public Guid Id { get; set; }
-
-    public string[] ItemPictureList { get; set; }
     
     public IList<RewardItemModel> Inventory { get; set; } = new List<RewardItemModel>();
+    
+    public IList<ItemModel> Items { get; set; } = new List<ItemModel>();
     
     public async Task<IActionResult> OnGet()
     {
         Inventory = await inventoryRepository.GetItemsForColonistAsync(Id.ToString());
-        
+        Items = await itemRepository.GetAllItemsAsync();
         return Page();
     }
 }

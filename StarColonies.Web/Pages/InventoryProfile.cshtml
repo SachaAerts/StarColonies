@@ -17,51 +17,20 @@
 
     <hr class="ledHr"/>
 
-    <div class="oneLineInventoryProfile">
-        <div class="oneItemInventoryProfile item-common">
-            <img src="~/img/items/battery.png" alt="battery"/>
-            <p>x12</p>
+    @for (int i = 0; i < Model.Items.Count; i += 2)
+    {
+        <div class="oneLineInventoryProfile">
+            @for (int j = i; j < i + 2 && j < Model.Items.Count; j++)
+            {
+                var item = Model.Items[j];
+                var inventoryItem = Model.Inventory.FirstOrDefault(inv => inv.Item?.Id == item.Id);
+                var quantity = inventoryItem?.Quantity ?? 0;
+                var cssClass = item.IsLegendary ? "oneItemInventoryProfile item-legendary" : "oneItemInventoryProfile item-common";
+                <div class="@cssClass">
+                    <img src="~/img/items/@item.ImagePath" alt="@item.Name"/>
+                    <p>x @quantity</p>
+                </div>
+            }
         </div>
-
-        <div class="oneItemInventoryProfile item-common">
-            <img src="~/img/items/brain.png" alt="brain"/>
-            <p>x12</p>
-        </div>
-    </div>
-
-    <div class="oneLineInventoryProfile">
-        <div class="oneItemInventoryProfile item-common">
-            <img src="~/img/items/force.png" alt="force"/>
-            <p>x12</p>
-        </div>
-
-        <div class="oneItemInventoryProfile item-legendary">
-            <img src="~/img/items/golden_apple.png" alt="golden_apple"/>
-            <p>x12</p>
-        </div>
-    </div>
-
-    <div class="oneLineInventoryProfile">
-        <div class="oneItemInventoryProfile item-legendary">
-            <img src="~/img/items/gun.png" alt="gun"/>
-            <p>x12</p>
-        </div>
-
-        <div class="oneItemInventoryProfile item-common">
-            <img src="~/img/items/kit.png" alt="kit"/>
-            <p>x12</p>
-        </div>
-    </div>
-
-    <div class="oneLineInventoryProfile">
-        <div class="oneItemInventoryProfile item-common">
-            <img src="~/img/items/stamina.png" alt="stamina"/>
-            <p>x12</p>
-        </div>
-
-        <div class="oneItemInventoryProfile item-legendary">
-            <img src="~/img/items/ak.png" alt="ak"/>
-            <p>x12</p>
-        </div>
-    </div>
+    }
 </section>
