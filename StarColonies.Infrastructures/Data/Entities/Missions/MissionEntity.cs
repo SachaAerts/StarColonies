@@ -1,4 +1,5 @@
-﻿using StarColonies.Infrastructures.Data.Entities.Items;
+﻿using System.ComponentModel.DataAnnotations;
+using StarColonies.Infrastructures.Data.Entities.Items;
 
 namespace StarColonies.Infrastructures.Data.Entities.Missions;
 
@@ -8,6 +9,7 @@ public class MissionEntity
     public required int Difficulty { get; set; }
     public required string Name { get; set; } = "DEFAULT MISSION";
     
+    [MaxLength(1000)]
     public required string Description { get; set; } = "DEFAULT DESCRIPTION";
     
     public required int PlanetId { get; set; }

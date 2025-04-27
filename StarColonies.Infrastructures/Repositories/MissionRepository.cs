@@ -42,6 +42,7 @@ public class MissionRepository(
         {
             ColonyId = colonyId,
             MissionId = id,
+            PlanetId = mission.PlanetId,
             LivingColony = result.LivingColony,
             OvercomingMission = result.OvercomingMission,
             IsSuccess = result.MissionSuccess,

@@ -5,7 +5,7 @@
 namespace StarColonies.Infrastructures.Migrations
 {
     /// <inheritdoc />
-    public partial class ErrorCorrection : Migration
+    public partial class Quantity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

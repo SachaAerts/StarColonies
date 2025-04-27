@@ -12,8 +12,8 @@ using StarColonies.Infrastructures.Data;
 namespace StarColonies.Infrastructures.Migrations
 {
     [DbContext(typeof(StarColoniesDbContext))]
-    [Migration("20250426215422_NewSeeder")]
-    partial class NewSeeder
+    [Migration("20250427132725_Quantity")]
+    partial class Quantity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -481,6 +481,11 @@ namespace StarColonies.Infrastructures.Migrations
                     b.Property<int>("PlanetId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Visible")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.HasKey("Id");
 
                     b.HasIndex("PlanetId");
@@ -516,6 +521,9 @@ namespace StarColonies.Infrastructures.Migrations
                     b.Property<bool>("OvercomingMission")
                         .HasColumnType("bit");
 
+                    b.Property<int>("PlanetId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RewardedCoins")
                         .HasColumnType("int");
 
@@ -524,6 +532,8 @@ namespace StarColonies.Infrastructures.Migrations
                     b.HasIndex("ColonyId");
 
                     b.HasIndex("MissionId");
+
+                    b.HasIndex("PlanetId");
 
                     b.ToTable("MissionExecution");
                 });
@@ -759,12 +769,20 @@ namespace StarColonies.Infrastructures.Migrations
                     b.HasOne("StarColonies.Infrastructures.Data.Entities.Missions.MissionEntity", "Mission")
                         .WithMany()
                         .HasForeignKey("MissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StarColonies.Infrastructures.Data.Entities.Missions.PlanetEntity", "Planet")
+                        .WithMany()
+                        .HasForeignKey("PlanetId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Colony");
 
                     b.Navigation("Mission");
+
+                    b.Navigation("Planet");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonistEntity", b =>
