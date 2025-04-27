@@ -48,7 +48,7 @@ public class InventaryRepository(
         await context.SaveChangesAsync();
     }
     
-    public async Task UseItemFromUserAsync(string userId, IList<ItemModel> items)
+    public async Task UseItemFromUserAsync(string userId, List<ItemModel?> items)
     {
         if (string.IsNullOrWhiteSpace(userId)) 
             throw new ArgumentException("User ID cannot be null or empty.", nameof(userId));

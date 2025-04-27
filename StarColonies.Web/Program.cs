@@ -24,6 +24,7 @@ using StarColonies.Infrastructures.Services.picture;
 using StarColonies.Infrastructures.Services.RewardStrategy;
 using StarColonies.Web.Factories;
 using StarColonies.Web.Middlewares;
+using StarColonies.Web.Services;
 
 //========================== Application Building ==========================//
 var builder = WebApplication.CreateBuilder(args);
@@ -74,6 +75,8 @@ builder.Services.AddScoped<ColonyMemberFactory>();
 
 //Inject Services
 builder.Services.AddScoped<IRewardService, RewardService>();
+builder.Services.AddScoped<IMapDataService, MapDataService>();
+builder.Services.AddScoped<IMissionExecutionService, MissionExecutionService>();
 
 //Inject Command-Strategy Services
 builder.Services.AddScoped<IMissionRewardStrategy, FullSuccessRewardStrategy>();

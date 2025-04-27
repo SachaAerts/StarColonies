@@ -16,7 +16,7 @@ public class MissionResolverService()
     private readonly ICalculationService<IList<ItemModel>> _itemCalculationService
         = new ItemsCalculationService();
     
-    public MissionResultModel Result(MissionModel mission, ColonyModel colony, IList<ItemModel> items)
+    public MissionResultModel Result(MissionModel mission, ColonyModel colony, List<ItemModel?> items)
     {
         double itemStrengthSum = _itemCalculationService.CalculateStrength(items),
                itemStaminaSum  = _itemCalculationService.CalculateStamina(items);

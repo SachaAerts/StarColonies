@@ -16,4 +16,5 @@ public class ColonistModel
     public required int Musty { get; set; }
     
     public JobModel Job { get; set; }
+    
 }

@@ -3,105 +3,69 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models.Items;
 using StarColonies.Domains.Models.Missions;
 using StarColonies.Domains.Repositories;
+using StarColonies.Web.Services;
 using StarColonies.Web.Validators;
 
 namespace StarColonies.Web.Pages;
 
 public class ModifyMission(
-    IMissionRepository missionRepository,
-    IEnemyRepository enemyRepository,
-    IItemRepository itemRepository
+    IModifyMissionDataService dataService,
+    IModifyMissionExecutionService executionService
     ) : PageModel
 {
     [BindProperty]
     public required MissionModel Mission { get; set; }
-    
+
     [BindProperty]
     [MaxEnemies(Max = 3)]
     public List<int> SelectedEnemyIds { get; set; } = [];
-    
+
     [BindProperty]
     public List<int> SelectedItemIds { get; set; } = [];
 
     [BindProperty]
     public List<int> ItemQuantities { get; set; } = [];
-    
+
     [BindProperty]
     [ValidRewardList]
     public List<RewardInput> RewardInputs { get; set; } = [];
 
-    public IList<ItemModel> Items { get; set; } = new List<ItemModel>();    
+    public IList<ItemModel> Items { get; set; } = new List<ItemModel>();
     public IList<EnemyModel> Enemies { get; set; } = new List<EnemyModel>();
     
     public async Task<IActionResult> OnGetAsync(int id)
     {
-        Mission = await missionRepository.GetMissionByIdAsync(id);
-        Enemies = await enemyRepository.GetAllEnemiesListAsync();
-        Items   = await itemRepository.GetAllItemsAsync();
-        
-        InitializeRewardInputs();
-        InitializeSelectedEnemyIds();
+        Mission = await dataService.GetMissionByIdAsync(id);
+        Enemies = await dataService.GetAllEnemiesAsync();
+        Items = await dataService.GetAllItemsAsync();
+
+        dataService.InitializeRewardInputs(Mission, Items, RewardInputs);
+        dataService.InitializeSelectedEnemyIds(Mission, SelectedEnemyIds);
 
         return Page();
     }
     
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!ModelState.IsValid || !AreItemQuantitiesValid() || !HasSelectedRewards())       
-            return await ReturnPageWithReloadedDataAsync();
-        
-        Mission.Items = await BuildRewardModelsAsync();
+        if (!ModelState.IsValid ||
+            !executionService.AreItemQuantitiesValid(SelectedItemIds, ItemQuantities) ||
+            !executionService.HasSelectedRewards(RewardInputs))
+        {
+            await ReloadFormDataAsync();
+            return Page();
+        }
 
-        await missionRepository.UpdateMissionAsync(Mission, SelectedEnemyIds, Mission.Items);
+        var rewardModels = await executionService.BuildRewardModelsAsync(RewardInputs);
+        await executionService.UpdateMissionAsync(Mission, SelectedEnemyIds, rewardModels);
 
         return RedirectToPage("/Map");
     }
 
-    private async Task<IActionResult> ReturnPageWithReloadedDataAsync()
-    {
-        await ReloadFormDataAsync();
-        return Page();
-    }
-
-    private bool AreItemQuantitiesValid() => SelectedItemIds.Count == ItemQuantities.Count;
-    private bool HasSelectedRewards() => RewardInputs.Any(ri => ri.Selected);
-
-    private async Task<List<RewardItemModel>> BuildRewardModelsAsync()
-    {
-        var rewardModels = new List<RewardItemModel>();
-
-        var selectedInputs = RewardInputs.Where(ri => ri.Selected).ToList();
-
-        foreach (var ri in selectedInputs)
-        {
-            var item = await itemRepository.GetItemByIdAsync(ri.ItemId);
-            if (item != null) rewardModels.Add(new RewardItemModel { Item = item, Quantity = ri.Quantity });
-        }
-
-        return rewardModels;
-    }
-    
     private async Task ReloadFormDataAsync()
     {
-        Enemies = await enemyRepository.GetAllEnemiesListAsync();
-        Items = await itemRepository.GetAllItemsAsync();
+        Enemies = await dataService.GetAllEnemiesAsync();
+        Items = await dataService.GetAllItemsAsync();
     }
-    
-    private void InitializeRewardInputs()
-    {
-        var existingRewards = Mission.Items.ToDictionary(item => item.Item.Id, item => item.Quantity);
-
-        RewardInputs = Items.Select(item => new RewardInput
-        {
-            ItemId = item.Id,
-            Selected = existingRewards.ContainsKey(item.Id),
-            Quantity = existingRewards.TryGetValue(item.Id, out var qty) ? qty : 1
-        }).ToList();
-    }
-    
-    private void InitializeSelectedEnemyIds()
-        => SelectedEnemyIds = Mission.Enemies.Select(e => e.Id).ToList();
-    
 }
 
 public class RewardInput
