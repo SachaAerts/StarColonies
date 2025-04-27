@@ -1,6 +1,6 @@
 ﻿using StarColonies.Infrastructures.Data.Entities.Items;
 
-namespace StarColonies.Infrastructures.Data.Configurations.Seeder.Map;
+namespace StarColonies.Infrastructures.Data.Seeder.Map;
 
 public class EffectSeeder
 {
@@ -8,9 +8,14 @@ public class EffectSeeder
     {
         var effects = new List<EffectEntity>
         {
-            new() { Name = "Boost Force",     ForceModifier = 2,  StaminaModifier = 0 },
-            new() { Name = "Boost Stamina",   ForceModifier = 0,  StaminaModifier = 3 },
-            new() { Name = "Legendary", ForceModifier = 10, StaminaModifier = 10 }
+            new() { Name = "Small Boost Force",     ForceModifier = 2,  StaminaModifier = 0 },
+            new() { Name = "Small Boost Stamina",   ForceModifier = 0,  StaminaModifier = 3 },
+            new() { Name = "Medium Boost Force",    ForceModifier = 5,  StaminaModifier = 0 },
+            new() { Name = "Medium Boost Stamina",  ForceModifier = 0,  StaminaModifier = 5 },
+            new() { Name = "Medium Boost",          ForceModifier = 5,  StaminaModifier = 5 },
+            new() { Name = "Uncommon",              ForceModifier = 2, StaminaModifier = 20 },
+            new() { Name = "Epic",                  ForceModifier = 15,  StaminaModifier = 5 },
+            new() { Name = "Legendary",             ForceModifier = 50, StaminaModifier = 30 }
         };
 
         context.Effect.AddRange(effects);

@@ -34,7 +34,7 @@ public class ColonyConfiguration : IEntityTypeConfiguration<ColonyEntity>
 
         builder.HasMany(c => c.MissionExecutions)
             .WithOne(e => e.Colony)
-            .HasForeignKey(e => e.ColonieId)
+            .HasForeignKey(e => e.ColonyId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

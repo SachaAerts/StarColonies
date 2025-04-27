@@ -1,7 +1,7 @@
 ﻿export function renderLaunchLoading(planetImg) {
     return `
         <div class="scene">
-            <img class="planetLoader" src="${planetImg}" height="90" alt="Planet">
+            <img class="planetLoader" src="/img/planets/${planetImg}" height="90" alt="Planet">
             <div class="spaceship-orbit">
                 <img class="spaceship" src="/img/icons/spaceship.png" height="50" alt="Vaisseau">
             </div>

@@ -10,6 +10,8 @@ public class MissionModel
     public string Description { get; set; } = "";
     public int CoinsReward { get; set; }
     
+    public bool Visible { get; set; } = true;
+    
     public IList<EnemyModel> Enemies { get; set; } = new List<EnemyModel>();
     public IList<RewardItemModel> Items { get; set; } = new List<RewardItemModel>();
 

@@ -6,7 +6,7 @@ public class EnemyEntity
     public required string Name { get; set; }
     
     public int TypeId { get; set; }
-    public required TypeEntity Type { get; set; }
+    public TypeEntity Type { get; set; }
     
     public required int Strength { get; set; }
     public required int Stamina { get; set; }

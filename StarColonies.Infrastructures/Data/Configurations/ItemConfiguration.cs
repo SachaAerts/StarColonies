@@ -16,10 +16,14 @@ public class ItemConfiguration : IEntityTypeConfiguration<ItemEntity>
         
         builder.HasIndex(m => m.Name)
                .IsUnique();
-
+        
         builder.Property(m => m.Description)
                 .IsRequired()
                 .HasMaxLength(300);
+        
+        builder.Property(m => m.NumberOfBuy)
+               .IsRequired()
+               .HasDefaultValue(0);
         
         builder.HasOne(i => i.Effect)
                .WithMany(e => e.Items)

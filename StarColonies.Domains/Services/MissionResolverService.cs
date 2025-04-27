@@ -18,9 +18,6 @@ public class MissionResolverService()
     
     public MissionResultModel Result(MissionModel mission, ColonyModel colony, IList<ItemModel> items)
     {
-        //TODO : DELETE
-        Console.WriteLine($"Items: \n{string.Join(", ", items.Select(i => i.Effect))}");
-        
         double itemStrengthSum = _itemCalculationService.CalculateStrength(items),
                itemStaminaSum  = _itemCalculationService.CalculateStamina(items);
         

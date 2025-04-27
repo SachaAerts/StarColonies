@@ -47,6 +47,10 @@ This ensures that the request actually comes from the authenticated user and not
 </header>
 
 <section id="viewport">
+    <div class="MyData">
+        <h4>Lvl : @Model.MyColonist.Level</h4>
+        <h4 style="display: flex; align-items: center;"><img src="~/img/icons/mustysCoin.png" height="20" alt=""/> : @Model.MyColonist.Musty</h4>
+    </div>
     <div id="map">
         @foreach (var planet in Model.Planets)
         {

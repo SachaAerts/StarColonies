@@ -17,6 +17,7 @@ public class MissionToDomainMapper(
             Description = entity.Description,
             Difficulty = entity.Difficulty,
             CoinsReward = entity.CoinsReward,
+            Visible = entity.Visible,
             Enemies = entity.Enemies.Select(enemyMapper.Map).ToList(),
             Items = entity.Rewards
                 .Select(r => new RewardItemModel

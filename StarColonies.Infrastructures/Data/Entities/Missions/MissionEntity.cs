@@ -13,6 +13,8 @@ public class MissionEntity
     public required int PlanetId { get; set; }
     public PlanetEntity Planet { get; set; }
     
+    public bool Visible { get; set; } = true;
+    
     public required int CoinsReward { get; set; }
     
     public ICollection<RewardedEntity> Rewards { get; set; } = new List<RewardedEntity>();

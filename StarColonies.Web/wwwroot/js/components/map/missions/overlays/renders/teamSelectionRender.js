@@ -20,7 +20,7 @@ export function renderTeamSelection(data) {
         <label> 
             ${data.items.length === 0 || !data.items ? `<p>Vous n'avez actuellement aucun item</p>` : `
                 <input type="checkbox" value="${item.id}"/>
-                <img src="${item.image}" height="40" alt="Image"> ${item.quantity}x ${item.name}
+                <img src="/img/items/${item.image}" height="40" alt="Image"> ${item.quantity}x ${item.name} (Strength: +${item.forceModifier}, Stamina: +${item.staminaModifier})
             `}
         </label>
     `).join('<br>');

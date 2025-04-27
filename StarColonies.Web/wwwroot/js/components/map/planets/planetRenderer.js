@@ -3,7 +3,7 @@
     div.classList.add('planet-container');
     div.style.top = `${y}px`;
     div.style.left = `${x}px`;
-    div.style.backgroundImage = `url("${image}")`;
+    div.style.backgroundImage = `url("/img/planets/${image}")`;
     div.addEventListener('click', onClick);
     return div;
 }

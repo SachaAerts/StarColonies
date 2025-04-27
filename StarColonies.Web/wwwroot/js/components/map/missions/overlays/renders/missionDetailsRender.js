@@ -19,7 +19,7 @@ export function renderMissionDetails(quest) {
 function getEnemiesRender(quest) {
     return quest.enemies.map(e => `
         <li style="display: flex; flex-direction: column; align-items: center; justify-content:center; gap: 10px; margin-bottom: 6px;">
-            <img src="${e.image}" alt="${e.name}" height="24"/>
+            <img src="/img/enemies/${e.image}" alt="${e.name}" height="24"/>
             <span style="max-width: 100px; word-wrap: break-word; text-align: center;">${e.name}</span>
         </li>
     `).join('');
@@ -28,7 +28,7 @@ function getEnemiesRender(quest) {
 function getRewardsRender(quest) {
     return quest.rewards.map(r => `
         <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-            <img src="${r.image}" alt="${r.name}" height="40"/>
+            <img src="/img/items/${r.image}" alt="${r.name}" height="40"/>
             ${r.quantity + "x " + r.name}
         </li>
     `).join('');
