@@ -22,46 +22,63 @@ public class Statistics(IItemRepository itemRepository, IColonyRepository colony
         IList<PlanetModel> planetsList = await planetRepository.GetPlanetsWithMissionsAsync();
         IList<MissionExecutedModel> missionExecutedList = await missionRepository.GetAllMissionExecutionsAsync();
         
-        FillStatistics(items, top10Colony, planetsList);
-        AttribuateStatForMissions attribuateStatForMissions = new AttribuateStatForMissions(planetsList, missionExecutedList);
-        Statistic.MissionsSucceed = attribuateStatForMissions.MissionSucceed;
-        Statistic.MissionsFailed = attribuateStatForMissions.MissionFailed;
+        
+        FillStatsForFirstGraph(top10Colony);
+        FillStatsForSecondGraph(items);
+        FillStatsForThirdGraph(planetsList, missionExecutedList);
         
         return Page();
     }
 
-    private void FillStatistics(IList<ItemModel> items, IList<ColonyModel> top10Colony, IList<PlanetModel> planetsList)
+    private void FillStatsForSecondGraph(IList<ItemModel> items)
     {
         IList<string> itemsLabel = new List<string>();
         IList<int> numberOfBuysPerItems = new List<int>();
+        
+        foreach (ItemModel item in items)
+        {
+            if (item.Name != "Uncommon Artifact" && item.Name != "Golden Apple" && item.Name != "AK-47")
+            {
+                itemsLabel.Add(item.Name);
+                numberOfBuysPerItems.Add(item.NumberOfBuy);    
+            }
+        }
+        
+        Statistic.ItemsLabel = itemsLabel;
+        Statistic.NumberOfBuysPerItems = numberOfBuysPerItems;
+    }
+
+    private void FillStatsForFirstGraph(IList<ColonyModel> top10Colony)
+    {
         IList<string> top10ColonyLabel = new List<string>();
         IList<int> top10ColonyStrength = new List<int>();
         IList<int> top10ColonyStamina = new List<int>();
-        IList<string> planetsLabel = new List<string>();
-
-        foreach (ItemModel item in items)
-        {
-            itemsLabel.Add(item.Name);
-            numberOfBuysPerItems.Add(item.NumberOfBuy);
-        }
-
+        
         foreach (ColonyModel colony in top10Colony)
         {
             top10ColonyLabel.Add(colony.Name);
             top10ColonyStrength.Add(colony.Strength);
             top10ColonyStamina.Add(colony.Stamina);
         }
+        
+        Statistic.Top10ColonyLabels = top10ColonyLabel;
+        Statistic.Top10ColonyStrength = top10ColonyStrength;
+        Statistic.Top10ColonyStamina = top10ColonyStamina;
+    }
 
+    private void FillStatsForThirdGraph(IList<PlanetModel> planetsList, IList<MissionExecutedModel> missionExecutedList)
+    {
+        IList<string> planetsLabel = new List<string>();
+        
         foreach (PlanetModel planet in planetsList)
         {
             planetsLabel.Add(planet.Name);
         }
         
-        Statistic.ItemsLabel = itemsLabel;
-        Statistic.NumberOfBuysPerItems = numberOfBuysPerItems;
-        Statistic.Top10ColonyLabels = top10ColonyLabel;
-        Statistic.Top10ColonyStrength = top10ColonyStrength;
-        Statistic.Top10ColonyStamina = top10ColonyStamina;
         Statistic.PlanetsLabel = planetsLabel;
+        
+        AttribuateStatForMissions attribuateStatForMissions = new AttribuateStatForMissions(planetsList, missionExecutedList);
+        Statistic.MissionsSucceed = attribuateStatForMissions.MissionSucceed;
+        Statistic.MissionsFailed = attribuateStatForMissions.MissionFailed;
     }
 }
