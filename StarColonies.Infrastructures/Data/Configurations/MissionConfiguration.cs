@@ -21,7 +21,7 @@ public class MissionConfiguration : IEntityTypeConfiguration<MissionEntity>
         
         builder.Property(m => m.Description)
                .IsRequired()
-               .HasMaxLength(500);
+               .HasMaxLength(1000);
         
         builder.Property(m => m.Visible)
                .IsRequired()

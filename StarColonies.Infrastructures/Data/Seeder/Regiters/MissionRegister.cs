@@ -12,113 +12,137 @@ public class MissionRegister
         return new List<MissionEntity>
         {
             MissionFactory.Create(
-                name: "Exploration de ruines",
+                name: "Ruins Exploration",
                 description:
-                $"Les restes d’une ancienne civilisation extraterrestre ont été découverts sur {planets[0].Name}. " +
-                "Votre mission est de fouiller ces ruines mystérieuses pour récupérer des artefacts technologiques enfouis.",
+                $"The remains of an ancient alien civilization have been discovered on {planets[0].Name}. " +
+                "Your mission is to explore these mysterious ruins and recover buried technological artifacts.",
                 coins: 10,
                 planet: planets[0],
                 enemies: SelectEnemies(enemies, [0, 1, 2]),
-                items: SelectRewards(1, items, [5, 1])
+                items: SelectRewards(items, [5, 1])
             ),
 
             MissionFactory.Create(
-                name: "Survie nocturne",
-                description: $"Une nuit éternelle s’est abattue sur {planets[1].Name}. " +
-                             "Votre équipe doit survivre 48 heures dans un environnement hostile et obscur.",
+                name: "Night Survival",
+                description: $"An eternal night has fallen over {planets[1].Name}. " +
+                             "Your team must survive 48 hours in a hostile and dark environment.",
                 coins: 3,
                 planet: planets[1],
                 enemies: SelectEnemies(enemies, [3, 4, 5]),
-                items: SelectRewards(2, items, [2, 3])
+                items: SelectRewards(items, [2, 3])
             ),
 
             MissionFactory.Create(
-                name: "Expédition florale",
-                description: $"Un biome floral inconnu a été détecté sur {planets[2].Name}. " +
-                             "Cette jungle luxuriante pourrait cacher autant de merveilles que de menaces.",
+                name: "Floral Expedition",
+                description: $"An unknown floral biome has been detected on {planets[2].Name}. " +
+                             "This lush jungle could hide as many wonders as threats.",
                 coins: 2,
                 planet: planets[2],
                 enemies: SelectEnemies(enemies, [6, 7, 8]),
-                items: SelectRewards(3, items, [4, 5])
+                items: SelectRewards(items, [4, 5])
             ),
 
             MissionFactory.Create(
-                name: "Sonde en détresse",
-                description: $"Un ancien signal d'urgence provient des étendues sauvages de {planets[3].Name}. " +
-                             "Trouvez et récupérez les données à tout prix.",
+                name: "Probe in Distress",
+                description: $"An ancient emergency signal is coming from the wild regions of {planets[3].Name}. " +
+                             "Find and recover the data at all costs.",
                 coins: 1,
                 planet: planets[3],
                 enemies: SelectEnemies(enemies, [9, 10, 11]),
-                items: SelectRewards(4, items, [2, 4])
+                items: SelectRewards(items, [2, 4])
             ),
 
             MissionFactory.Create(
-                name: "Nettoyage thermique",
-                description: $"Une nappe de gaz explosif menace les mines de {planets[4].Name}. " +
-                             "Neutralisez les risques avant une catastrophe totale.",
+                name: "Thermal Cleanup",
+                description: $"An explosive gas cloud threatens the mines of {planets[4].Name}. " +
+                             "Neutralize the risks before a total catastrophe strikes.",
                 coins: 3,
                 planet: planets[4],
                 enemies: SelectEnemies(enemies, [12, 13, 10]),
-                items: SelectRewards(5, items, [7, 6])
+                items: SelectRewards(items, [7, 6])
             ),
 
             MissionFactory.Create(
-                name: "Phénomène noir",
-                description: $"Une singularité gravitationnelle est apparue à la surface de {planets[5].Name}. " +
-                             "Collectez des données vitales sur ce phénomène extrême.",
+                name: "Black Phenomenon",
+                description: $"A gravitational singularity has appeared on the surface of {planets[5].Name}. " +
+                             "Collect vital data on this extreme phenomenon.",
                 coins: 2,
                 planet: planets[5],
                 enemies: SelectEnemies(enemies, [1, 4, 7]),
-                items: SelectRewards(6, items, [5, 3])
+                items: SelectRewards(items, [5, 3])
             ),
 
             MissionFactory.Create(
-                name: "Terraforming partiel",
-                description: $"Les opérations de terraformation sur {planets[6].Name} ont échoué. " +
-                             "Restaurez les systèmes avant l'extinction des colons sur place.",
+                name: "Partial Terraforming",
+                description: $"Terraforming operations on {planets[6].Name} have failed. " +
+                             "Restore the systems before the extinction of the settlers on site.",
                 coins: 3,
                 planet: planets[6],
                 enemies: SelectEnemies(enemies, [2, 5, 8]),
-                items: SelectRewards(7, items, [3, 5])
+                items: SelectRewards(items, [3, 5])
             ),
 
             MissionFactory.Create(
-                name: "Extraction de minerai",
-                description: $"Des ressources précieuses ont été découvertes sur {planets[7].Name}. " +
-                             "Assurez leur exploitation sous la menace constante d'ennemis.",
+                name: "Ore Extraction",
+                description: $"Precious resources have been discovered on {planets[7].Name}. " +
+                             "Ensure their extraction under the constant threat of enemies.",
                 coins: 2,
                 planet: planets[7],
-                enemies: SelectEnemies(enemies, [6, 12, 11]),
-                items: SelectRewards(8, items, [1, 4, 5])
+                enemies: SelectEnemies(enemies, [10, 12, 11]),
+                items: SelectRewards(items, [1, 4, 5])
             ),
             
             MissionFactory.Create(
-                name: "Les contrées du sud",
-                description: $"Des rumeurs d'une ancienne technologie circulent sur {planets[0].Name}. " +
-                             "Explorez les ruines et récupérez des artefacts avant que d'autres ne le fassent.",
-                coins: 2,
+                name: "The Forbidden Souk",
+                description: $"In a forgotten corner, a mysterious bazaar appeared overnight. " +
+                             $"Two legendary figures inhabit it: the cunning Emir Ayoub and the fearsome Sultan Ilhan. " +
+                             $"Half-merchants, half-warlords, they offer 'golden deals' to daring travelers... provided they survive their infernal challenges.\n" +
+                             $"Between cosmic kebabs and anti-gravity flying carpets, settlers risk (or grow) their fortunes through risky negotiations, rigged bets, " +
+                             $"and trials that defy comprehension. Only the boldest will leave with rare artifacts—and a legend to their name.",
+                coins: 230,
                 planet: planets[7],
-                enemies: SelectEnemies(enemies, [6, 12, 11]),
-                items: SelectRewards(8, items, [1, 4, 5])
+                enemies: [SelectEnemyByName(enemies, "Ayoub"), SelectEnemyByName(enemies, "Ilhan")],
+                items: [SelectRewardByName(items, "Golden Apple"), SelectRewardByName(items, "AK-47")]
             )
         };
+        
     }
 
     private static IList<EnemyEntity> SelectEnemies(IList<EnemyEntity> allEnemies, int[] ids)
-    {
-        return allEnemies.Where(e => ids.Contains(e.Id)).ToList();
-    }
+        => allEnemies.Where(e => ids.Contains(e.Id)).ToList();
 
-    private static IList<RewardedEntity> SelectRewards(int missionId, IList<ItemEntity> allItems, int[] ids)
+    private static IList<RewardedEntity> SelectRewards(IList<ItemEntity> allItems, int[] ids)
     {
         var random = new Random();
         return allItems
             .Where(i => ids.Contains(i.Id))
             .Select((item) => new RewardedEntity
             {
-                MissionId = missionId,
                 ItemId = item.Id,
                 Quantity = random.Next(1, 2)
             }).ToList();
+    }
+    
+    private static RewardedEntity SelectRewardByName(IList<ItemEntity> allItems, string name)
+    {
+        var item = allItems.FirstOrDefault(i => i.Name == name);
+        return new RewardedEntity
+        {
+            ItemId = item.Id,
+            Quantity = 1
+        };
+    }
+    
+    private static EnemyEntity SelectEnemyByName(IList<EnemyEntity> allEnemies, string name)
+    {
+        var enemy = allEnemies.FirstOrDefault(e => e.Name == name);
+        return new EnemyEntity
+        {
+            Id = enemy.Id,
+            Name = enemy.Name,
+            Strength = enemy.Strength,
+            Stamina = enemy.Stamina,
+            ImagePath = enemy.ImagePath
+        };
     }
 }

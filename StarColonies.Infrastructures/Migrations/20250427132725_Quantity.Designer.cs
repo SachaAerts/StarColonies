@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StarColonies.Infrastructures.Data;
 
@@ -11,9 +12,11 @@ using StarColonies.Infrastructures.Data;
 namespace StarColonies.Infrastructures.Migrations
 {
     [DbContext(typeof(StarColoniesDbContext))]
-    partial class StarColoniesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250427132725_Quantity")]
+    partial class Quantity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -464,8 +467,8 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("Difficulty")
                         .HasColumnType("int");

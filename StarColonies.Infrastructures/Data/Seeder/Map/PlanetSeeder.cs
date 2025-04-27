@@ -15,7 +15,7 @@ public class PlanetSeeder
             new() {Name = "Nyx Prime", ImagePath = "nyx-prime.png", X = 2080, Y = 2000 },
             new() {Name = "Lunaris",   ImagePath = "lunaris.png",   X = 980,  Y = 1500 },
             new() {Name = "Solara",    ImagePath = "solara.png",    X = 2680, Y = 900  },
-            new() {Name = "c4-T3rr0",  ImagePath = "red.png",       X = 1000, Y = 1000 },
+            new() {Name = "C4-T3rr0",  ImagePath = "red.png",       X = 1000, Y = 1000 },
         };
 
         context.Planet.AddRange(planets);

@@ -12,6 +12,7 @@ public static class ItemFactory
             Description = description,
             EffectId = effectId,
             CoinsValue = coinsValue,
-            ImagePath = image
+            ImagePath = image,
+            NumberOfBuy = Random.Shared.Next(1, 50)
         };
 }
