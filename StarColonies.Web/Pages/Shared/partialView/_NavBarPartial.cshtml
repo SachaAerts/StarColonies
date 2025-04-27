@@ -1,12 +1,12 @@
 <nav class="navBar">
     <div class="btnActive">
-        <img src="img/character/head_before.png" alt="" id="characterHead" data-state="before">
+        <img src="~/img/character/head_before.png" alt="" id="characterHead" data-state="before">
     </div>
     <div class="list-nav">
         @if (User.Identity is not { IsAuthenticated: true })
         {
-            <a class="item-nav" asp-page="Connection">
-                <img src="img/icons/navbar/connection.png" alt="">
+            <a class="item-nav" asp-page="/Connection">
+                <img src="~/img/icons/navbar/connection.png" alt="">
                 <span>Connection</span>
             </a>
         }
@@ -14,29 +14,29 @@
         {
             <form method="post" asp-page="/Logout" style="all: unset; cursor: pointer; background: none; border: none; padding: 0; margin: 0;">
                 <button class="item-nav" type="submit">
-                    <img src="img/icons/navbar/connection.png" alt="">
+                    <img src="~/img/icons/navbar/connection.png" alt="connectionLogo">
                     <span>Logout</span>
                 </button>
             </form>
-            <a class="item-nav" asp-page="Index">
-                <img src="img/icons/navbar/home.png" alt=""/>
+            <a class="item-nav" asp-page="/Index">
+                <img src="~/img/icons/navbar/home.png" alt="homeLogo"/>
                 <span>Home</span>
             </a>
-            <a class="item-nav" asp-page="Map">
-                <img src="img/icons/navbar/mission.png" alt="">
+            <a class="item-nav" asp-page="/Map">
+                <img src="~/img/icons/navbar/mission.png" alt="missionsLogo">
                 <span>Mission</span>
             </a>
             <a class="item-nav" asp-page="BlackmarketBuying">
-                <img src="img/icons/navbar/blackmarket.png" alt="">
+                <img src="~/img/icons/navbar/blackmarket.png" alt="blackmarketLogo">
                 <span>Black market</span>
             </a>
         }
 
         @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
         {
-            <a class="item-nav" asp-page="#">
-                <img src="img/icons/navbar/admin.png" alt="">
-                <span>Admin</span>
+            <a class="item-nav" asp-page="Statistics">
+                <img src="~/img/icons/navbar/stats.png" alt="statsLogo">
+                <span>Stats</span>
             </a>
         }
 

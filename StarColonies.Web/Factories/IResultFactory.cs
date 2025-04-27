@@ -2,8 +2,9 @@
 
 namespace StarColonies.Web.Factories;
 
-public interface IResultFactory<T, TO>
+public interface IResultFactory<out T, in TO>
 {
+    T Create(bool success);
     T Create(bool success, string message);
-    T Create(bool succes, TO serializerSettings);
+    T Create(bool success, TO serializerSettings);
 }

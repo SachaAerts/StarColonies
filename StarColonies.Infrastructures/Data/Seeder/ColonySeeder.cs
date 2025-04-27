@@ -1,7 +1,7 @@
 ﻿using StarColonies.Infrastructures.Data.Entities;
 using StarColonies.Infrastructures.Data.Entities.Missions;
 
-namespace StarColonies.Infrastructures.Data.Configurations.Seeder;
+namespace StarColonies.Infrastructures.Data.Seeder;
 
 public class ColonySeeder
 {
@@ -14,11 +14,7 @@ public class ColonySeeder
             .Take(5)
             .ToList();
 
-        if (colonists.Count < 5)
-        {
-            Console.WriteLine("Not enough colonists to seed colonies.");
-            return;
-        }
+        if (colonists.Count < 5) return;
 
         var colony1 = new ColonyEntity
         {

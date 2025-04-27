@@ -24,6 +24,12 @@
     cursor: grabbing;
 }
 
+.linkCreateMission {
+    position: absolute;
+    right: 5px;
+    z-index: 100000;
+}
+
 /********************************* BACKGROUND MAP *********************************/
 .planet, .star {
     position: absolute;
@@ -109,6 +115,12 @@
 
 .overlay-content button#closeOverlay:hover {
     background-color: #c43e3e;
+}
+
+/********************************* ADMINISTRATION *********************************/
+.btnAdmin {
+    position: absolute;
+    top: 20px; left: 20px;
 }
 
 /********************************* ANIMATION *********************************/

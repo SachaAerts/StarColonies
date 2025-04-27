@@ -6,13 +6,15 @@
     Layout = "Shared/_Layout";
 }
 
-<section class="mainProfile">
-    <a asp-page="Index" class="buttonProfile backButtonProfile">
-        <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
-    </a>
+<section class="mainProfile spaceMainProfile">
+    <button class="buttonProfile backButtonProfile">
+        <a asp-page="Index">
+            <img class="modifyLogoProfile" src="~/img/icons/arrow.png" alt="back"/>
+        </a>
+    </button>
     
     <div class="mainFrameFirstPart">
-        <img src="/img/upload/@Model.Colonist.ProfilPicture" alt="profilePicture"/>
+        <img src="~/img/upload/@Model.Colonist.ProfilPicture" alt="profilePicture"/>
         <div>
             <h2>@Model.Colonist.Name</h2>
             <p>Lvl: @Model.Colonist.Level</p>
@@ -23,9 +25,11 @@
         <div class="profileInformations">
             <div class="profileHeaders">
                 <h3>Informations</h3>
-                <a asp-page="ModifyColon" asp-route-id="@Model.Id" class="buttonProfile">
-                    <img class="modifyLogoProfile" src="/img/icons/modify.png" alt="modify"/>
-                </a>
+                <button class="buttonProfile">
+                    <a asp-page="ModifyColon" asp-route-id="@Model.Id">
+                        <img class="modifyLogoProfile" src="~/img/icons/modify.png" alt="modify"/>
+                    </a>
+                </button>
             </div>
             <hr/>
 
@@ -45,11 +49,11 @@
             <div class="statsProfile">
                 <p>Stats:</p>
                 <div>
-                    <img src="/img/icons/force.png" alt="strengh"/>
+                    <img src="~/img/icons/force.png" alt="strengh"/>
                     <p class="informationProfileValue valueStatProfile">@Model.Colonist.Strength</p>
                 </div>
                 <div>
-                    <img src="/img/icons/stamina.png" alt="stamina"/>
+                    <img src="~/img/icons/stamina.png" alt="stamina"/>
                     <p class="informationProfileValue valueStatProfile">@Model.Colonist.Stamina</p>
                 </div>
             </div>
@@ -58,7 +62,7 @@
                 <p>Musty:</p>
                 <div class="informationProfileValue valueWithCoin">
                     <p>@Model.Colonist.Musty</p>
-                    <img class="mustyCoinProfile" src="/img/icons/mustysCoin.png" alt="mustyCoin"/>
+                    <img class="mustyCoinProfile" src="~/img/icons/mustysCoin.png" alt="mustyCoin"/>
                 </div>
             </div>
 
@@ -71,9 +75,9 @@
             <div>
                 @foreach (var colony in Model.Colonies)
                 {
-                    <a asp-page="#">
+                    <a asp-page="TeamProfile" asp-route-teamId="@colony.Id">
                         <div class="oneTeamInProfile">
-                            <img class="logoTeamInProfile" src="/img/upload/@colony.LogoPath" alt="teamIcon"/>
+                            <img class="logoTeamInProfile" src="~/img/upload/@colony.LogoPath" alt="teamIcon"/>
                             <h4>@colony.Name</h4>
                             <p>@colony.Strength</p>
                         </div>
@@ -83,7 +87,7 @@
                 <a asp-page="CreateColony" asp-route-id="@Model.Id">
                     <div class="oneTeamInProfile">
                         <div></div>
-                        <img class="addTeamLogoProfile" src="/img/icons/add.png" alt="add"/>
+                        <img class="addTeamLogoProfile" src="~/img/icons/add.png" alt="add"/>
                         <div></div>
                     </div>
                 </a>

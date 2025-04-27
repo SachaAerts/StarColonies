@@ -16,7 +16,7 @@
     .navBar .list-nav {
         display: flex;
         flex-direction: column-reverse;
-        gap: 5px;
+        gap: 1rem;
     }
     .navBar .list-nav img {
         transform: scale(0.8);

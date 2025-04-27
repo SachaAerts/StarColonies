@@ -1,0 +1,57 @@
+﻿@page "{id:int}"
+@model StarColonies.Web.Pages.CreateMission
+
+@{
+    ViewData["Title"] = "Create Mission";
+    Layout = "Shared/_Layout";
+}
+
+<section class="formMissionModifyContainer">
+    <form method="post" class="formMissionModify">
+
+        <input type="hidden" asp-for="PlanetId" />
+
+        <div class="containForm">
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control" id="titleInput"/>
+        </div>
+
+        <div class="containForm textarea">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control" id="textarea" maxlength="500"></textarea>
+            <small id="charCounter">0 / 500</small>
+        </div>
+
+        <div class="containForm">
+            <label asp-for="CoinsReward"></label>
+            <input asp-for="CoinsReward" type="number" min="1" max="1000" value="1" class="form-control" id="coinsInput"/>
+        </div>
+
+        <div class="containForm">
+            <label for="SelectedEnemyIds">Enemies (max. 3, [shift+click])</label>
+            <select asp-for="SelectedEnemyIds" asp-items="@(new MultiSelectList(Model.Enemies, "Id", "Name"))"
+                    multiple="multiple" class="form-control" id="SelectedEnemyIds">
+            </select>
+        </div>
+
+        <div class="reward-container">
+            <label for="SelectedItemIds">Rewards :</label>
+
+            @for (int i = 0; i < Model.Items.Count; i++)
+            {
+            <div class="reward-line">
+                <input type="hidden"   name="RewardInputs[@i].ItemId" value="@Model.Items[i].Id" />
+                <input type="checkbox" name="RewardInputs[@i].Selected" value="true" id="item-@i" />
+                <label for="item-@i">@Model.Items[i].Name</label>
+                <input type="number"   name="RewardInputs[@i].Quantity" min="1" max="99" value="1" style="width: 60px;" />
+            </div>
+            }
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-page="/Map" class="btn btn-secondary">Cancel</a>
+    </form>
+</section>
+
+<script type="module" src="~/js/components/notifications/notifyMissionForm.js"></script>
+<script type="module" src="~/js/textareaCounter.js"></script>

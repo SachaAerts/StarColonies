@@ -1,4 +1,8 @@
 @page "{id:guid}"
+@using System.Text.Json
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using StarColonies.Domains.Models
+@using StarColonies.Domains.Models.Colony
 @model StarColonies.Web.Pages.CreateColony
 
 @{
@@ -8,236 +12,108 @@
 
 <section class="mainModifyProfile">
     <form method="post" class="containerModifyColon">
-        <a asp-page="Profile" asp-route-id="@Model.Id" class="buttonProfile backButtonProfile">
-            <img class="modifyLogoProfile" src="/img/icons/arrow.png" alt="back"/>
-        </a>
+        <button class="buttonProfile backButtonProfile">
+            <a asp-page="Profile" asp-route-id="@Model.Id">
+                <img class="modifyLogoProfile" src="~/img/icons/arrow.png" alt="back"/>
+            </a>
+        </button>
 
         <h1>Create colony</h1>
 
         <space-input label="Name" label-position="50" required></space-input>
-        
+        <input id="name-hidden" asp-for="NewColony.Name" type="hidden"/>
+        <span asp-validation-for="NewColony.Name" class="text-danger"></span>
+
         <div class="columnsCreateColony">
             <div class="firstColumnCreateColony">
                 <div class="headerFirstColumnCreateColony">
                     <h2 class="titlesCreateColony">Team</h2>
-                    <p class="titlesCreateColony">4/5</p>
+                    <p id="teamCount" class="titlesCreateColony">1/5</p>
                 </div>
-                
+
                 <hr class="ledHr"/>
 
-                <div>
-                    <div class="oneMemberTeamCreateColony">
-                        <div class="delete-cross"></div>
-                        <div class="delete-indicator"></div>
-                        <img src="/img/upload/1.png" alt="userLogo"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Soldier</p>
-                        </div>
-                    </div>
-
-                    <div class="oneMemberTeamCreateColony">
-                        <div class="delete-cross"></div>
-                        <div class="delete-indicator"></div>
-                        <img src="/img/upload/1.png" alt="userLogo"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Soldier</p>
-                        </div>
-                    </div>
-
-                    <div class="oneMemberTeamCreateColony">
-                        <div class="delete-cross"></div>
-                        <div class="delete-indicator"></div>
-                        <img src="/img/upload/1.png" alt="userLogo"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Soldier</p>
-                        </div>
-                    </div>
-
-                    <div class="oneMemberTeamCreateColony">
-                        <div class="delete-cross"></div>
-                        <div class="delete-indicator"></div>
-                        <img src="/img/upload/1.png" alt="userLogo"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Soldier</p>
-                        </div>
-                    </div>
+                <div id="teamList">
+                    <!-- Complete in js -->
                 </div>
             </div>
-            
+
             <div class="secondColumnCreateColony">
                 <h2 class="titlesCreateColony">Colonists</h2>
-                
+
                 <hr class="ledHr"/>
-                
-                <div>
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
 
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
-
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
-
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
-
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
-
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
-
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
-
-                    <div class="oneUserCreateColony">
-                        <img class="logoUserCreateColony" src="/img/upload/1.png" alt="logoUser"/>
-                        <div>
-                            <h3 class="titlesCreateColony">SkyDrakoZ</h3>
-                            <p class="textsCreateColony">Lvl: 100</p>
-                        </div>
-
-                        <p class="textsCreateColony">Soldier</p>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/force.png" alt="strengh"/>
-                            <p class="textsCreateColony">4</p>
-                        </div>
-
-                        <div class="oneUserStatCreateColony">
-                            <img src="/img/icons/stamina.png" alt="stamina"/>
-                            <p class="textsCreateColony">3</p>
-                        </div>
-                    </div>
+                <div id="colonistsList">
+                    <!-- Complete in js -->
                 </div>
-                
+
                 <hr class="ledHr"/>
             </div>
 
-            <input id="character-hidden" type="hidden"/>
-            <character-panel>
-                <character-item image="team1.png"></character-item>
-                <character-item image="team2.png"></character-item>
-                <character-item image="team3.png"></character-item>
-                <character-item image="team4.png"></character-item>
-                <character-item image="team5.png"></character-item>
-                <character-item image="team6.png"></character-item>
-                <character-item image="team7.png"></character-item>
-                <character-item image="team8.png"></character-item>
-                <character-item image="team9.png"></character-item>
-                <character-item image="team10.png"></character-item>
-                <character-item image="team11.png"></character-item>
-                <character-item image="team12.png"></character-item>
-            </character-panel>
+            <div>
+                <input id="character-hidden" asp-for="NewColony.PictureTeam" type="hidden"/>
+                <character-panel>
+                    <character-item image="team1.png"></character-item>
+                    <character-item image="team2.png"></character-item>
+                    <character-item image="team3.png"></character-item>
+                    <character-item image="team4.png"></character-item>
+                    <character-item image="team5.png"></character-item>
+                    <character-item image="team6.png"></character-item>
+                    <character-item image="team7.png"></character-item>
+                    <character-item image="team8.png"></character-item>
+                    <character-item image="team9.png"></character-item>
+                    <character-item image="team10.png"></character-item>
+                    <character-item image="team11.png"></character-item>
+                    <character-item image="team12.png"></character-item>
+                </character-panel>
+                <span asp-validation-for="NewColony.PictureTeam" class="text-danger"></span>
+            </div>
         </div>
 
+        <input id="colonists-hidden" name="NewColony.ColonistsJson" type="hidden"/>
+        <input asp-for="NewColony.Colonists" type="hidden"/>
+        <span asp-validation-for="NewColony.Colonists" class="text-danger"></span>
         <button class="formButton" type="submit">Create colony</button>
     </form>
 </section>
 
+<script>
+    window.availableColonists = @Html.Raw(JsonSerializer.Serialize(Model.Colonists ?? new List<ColonistModel>()));
+    window.teamOwner = @Html.Raw(JsonSerializer.Serialize(
+                           Model.TeamOwner ?? new ColonistModel {
+                               Id = "00000000-0000-0000-0000-000000000000",
+                               Name = "Default",
+                               Email = "default@example.com",
+                               DateOfBirth = DateTime.UtcNow,
+                               ProfilPicture = "default.png",
+                               Level = 0,
+                               Strength = 0,
+                               Stamina = 0,
+                               Musty = 0,
+                               Job = JobModel.Engineer
+                           }
+                       ));
+    window.initialTeam = @Html.Raw(JsonSerializer.Serialize(Model.NewColony?.Colonists ?? new List<ColonistModel>()));
+    
+    document.querySelector("form").addEventListener("submit", () => {
+        const nameComponent = document.querySelector("space-input")
+        const panel = document.querySelector('character-panel');
+        
+        const nameHidden = document.getElementById("name-hidden")
+        const characterHidden = document.getElementById("character-hidden")
+        
+        nameHidden.value = nameComponent.value
+        
+        const { selectedCharacter, uploadedCharacter } = panel.getSelectedImageDetails();
+
+        if (selectedCharacter) {
+            characterHidden.value = selectedCharacter;
+        }else if (uploadedCharacter) {
+            characterHidden.value = uploadedCharacter;
+        }
+    })
+</script>
+
 <script type="module" src="~/js/components/inputs/input.js"></script>
 <script src="~/js/components/character_panel.js"></script>
+<script type="module" src="~/js/pages/create_colony.js"></script>

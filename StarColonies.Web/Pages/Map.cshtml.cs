@@ -13,7 +13,7 @@ using StarColonies.Web.Factories;
 namespace StarColonies.Web.Pages;
 
 public class Map(
-    IMapRepository mapRepository, 
+    IPlanetRepository planetRepository, 
     IInventaryRepository inventaryRepository,
     IColonyRepository colonyRepository,
     IColonistRepository colonistRepository,
@@ -33,7 +33,7 @@ public class Map(
         var user = await userManager.GetUserAsync(User);
         if (user == null) return RedirectToPage("/Connection");
 
-        Planets   = await mapRepository.GetPlanetsWithMissionsAsync();
+        Planets   = await planetRepository.GetPlanetsWithMissionsAsync();
         Inventory = await inventaryRepository.GetItemsForColonistAsync(user.Id);
         ItemsInventory = Inventory.Select(i => i.Item).ToList();
         Colonies  = await colonyRepository.GetColoniesForColonistAsync(user.Id);
@@ -50,7 +50,7 @@ public class Map(
         
         var allColonies = await colonyRepository.GetColoniesForColonistAsync(user.Id);
         var allItems = await inventaryRepository.GetItemsForColonistAsync(user.Id);
-        var allPlanets = await mapRepository.GetPlanetsWithMissionsAsync();
+        var allPlanets = await planetRepository.GetPlanetsWithMissionsAsync();
 
         var mission = allPlanets.SelectMany(p => p.Missions).FirstOrDefault(m => m.Id == request.MissionId);
         var colony = allColonies.FirstOrDefault(c => c.Id == request.ColonyId);
@@ -65,6 +65,7 @@ public class Map(
         var colonist = await colonistRepository.GetColonistByIdAsync(user.Id);
         
         await rewardRepository.GiveRewardAsync(colonist, result, colony.Id);
+        await inventaryRepository.UseItemFromUserAsync(user.Id, selectedItems);
         return jsonResultFactory.Create(true, new {result, mission});
     }
 

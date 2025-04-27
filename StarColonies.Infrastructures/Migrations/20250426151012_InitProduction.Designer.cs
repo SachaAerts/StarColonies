@@ -12,8 +12,8 @@ using StarColonies.Infrastructures.Data;
 namespace StarColonies.Infrastructures.Migrations
 {
     [DbContext(typeof(StarColoniesDbContext))]
-    [Migration("20250423151305_UpdateRewards")]
-    partial class UpdateRewards
+    [Migration("20250426151012_InitProduction")]
+    partial class InitProduction
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -344,7 +344,9 @@ namespace StarColonies.Infrastructures.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.HasKey("ColonistId", "ItemId");
 

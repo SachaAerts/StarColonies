@@ -2,6 +2,6 @@
 
 public class RewardItemModel
 {
-    public ItemModel Item { get; set; }
+    public ItemModel? Item { get; set; }
     public int Quantity { get; set; }
 }

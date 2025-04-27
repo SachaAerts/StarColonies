@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StarColonies.Infrastructures.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateRewards : Migration
+    public partial class InitProduction : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -327,7 +327,7 @@ namespace StarColonies.Infrastructures.Migrations
                 {
                     ColonistId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ItemId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    Quantity = table.Column<int>(type: "int", nullable: false, defaultValue: 1)
                 },
                 constraints: table =>
                 {

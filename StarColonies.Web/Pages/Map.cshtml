@@ -51,6 +51,7 @@ This ensures that the request actually comes from the authenticated user and not
         @foreach (var planet in Model.Planets)
         {
             <planet-item
+                data-id="@planet.Id"
                 data-name="@planet.Name"
                 data-image="@planet.ImagePath"
                 data-x="@planet.X" data-y="@planet.Y"
@@ -103,6 +104,10 @@ This ensures that the request actually comes from the authenticated user and not
 <script src="~/js/components/nav_bar.js"></script>
 <script src="~/js/components/map/utils/map.js"></script>
 <script type="module" src="~/js/components/map/planets/planetItem.js"></script>
+
+<script>
+    window.isAdmin = @(User.Identity?.IsAuthenticated == true && User.IsInRole("Admin") ? "true" : "false");
+</script>
 
 </body>
 </html>
