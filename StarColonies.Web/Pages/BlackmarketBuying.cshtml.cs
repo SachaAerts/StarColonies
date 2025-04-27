@@ -1,0 +1,52 @@
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using StarColonies.Domains.Models.Colony;
+using StarColonies.Domains.Models.Items;
+using StarColonies.Domains.Repositories;
+using StarColonies.Infrastructures.Data.Entities;
+
+namespace StarColonies.Web.Pages;
+
+public class BlackmarketBuying(UserManager<ColonistEntity> userManager, IColonistRepository colonistRepository, IItemRepository itemRepository, IInventaryRepository inventoryRepository)
+    : PageModel
+{
+    public required ColonistModel Colonist { get; set; }
+    
+    public required IList<ItemModel> StoreItems { get; set; }
+    
+    public required IList<RewardItemModel> InventoryItems { get; set; }
+    
+    public async Task<IActionResult> OnGet()
+    {
+        var user = await userManager.GetUserAsync(User);
+        if (user == null) return RedirectToPage("/Connection");
+        if (!User.Identity?.IsAuthenticated ?? true)
+            return Forbid();
+        
+        Colonist = await colonistRepository.GetColonistByIdAsync(user.Id);
+        StoreItems = await itemRepository.GetAllItemsAsync();
+        
+        var excludedNames = new[] { "AK-47", "Golden Apple", "Uncommon Artifact" };
+        StoreItems = StoreItems.Where(item => !excludedNames.Contains(item.Name)).ToList();
+        
+        InventoryItems = await inventoryRepository.GetItemsForColonistAsync(user.Id);
+        return Page();
+    }
+
+    public async Task<IActionResult> OnPostPurchaseItem(int itemId, int itemValue)
+    {
+        var user = await userManager.GetUserAsync(User);
+
+        if (user!.Musty < itemValue) return RedirectToPage();
+        
+        var item = await itemRepository.GetItemByIdAsync(itemId);
+        if (item == null)
+            return NotFound();
+
+        await inventoryRepository.AddItemToUserFromShop(user.Id, item);
+        await colonistRepository.DebitColonistAsync(user.Id, itemValue);
+
+        return RedirectToPage();
+    }
+}

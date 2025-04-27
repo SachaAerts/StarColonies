@@ -1,0 +1,71 @@
+﻿@page
+@model StarColonies.Web.Pages.BlackmarketBuying
+@{
+    ViewData["Title"] = "Blackmarket - Buying";
+    Layout = "Shared/_Layout";
+}
+
+<div class="blackmarketMainFrame">
+    <div class="blackmarketMainContainer">
+        <button class="buttonProfile backButtonProfile">
+            <a asp-page="Index">
+                <img class="modifyLogoProfile" src="~/img/icons/arrow.png" alt="back"/>
+            </a>
+        </button>
+        <h2 class="blackmarketTitle">Welcome to the Blackmarket</h2>
+        
+        <div class="blackmarketContent">
+            <div class="blackmarketNav">
+                <div class="blackmarketNavButtons">
+                    <button class="blackmarketNavButton blackmarketNavButtonActive">
+                        <a asp-page="blackmarketBuying">Purchase</a>
+                    </button>
+                    <button class="blackmarketNavButton">
+                        <a asp-page="blackmarketSelling">Sell</a>
+                    </button>
+                </div>
+                <!-- Mustys du joueur -->
+                <div class="blackmarketUserMustys">
+                    <p class="blackmarketUserMustysValue">Musty :</p>
+                    <p class="blackmarketUserMustysValue">@Model.Colonist.Musty</p>
+                    <img class="blackmarketUserMustysImg" src="~/img/icons/mustysCoin.png" alt="UserMustys">
+                </div>
+            </div>
+            
+            <hr class="ledHr"/>
+
+            <!-- Interieur du blackmarket (achat) -->
+            <div class="blackmarketItemList">
+                @foreach (var item in Model.StoreItems)
+                {
+                    <div class="blackmarketItem">
+                        <img class="blackmarketItemImg" src="~/img/items/@item.ImagePath" alt="ItemImage">
+                        <hr class="ledHr"/>
+                        <h4 class="blackmarketItemName">@item.Name</h4>
+                        @if (item.Effect.ForceModifier != null)
+                        {
+                            <p>Strength +@item.Effect.ForceModifier</p>
+                        }
+                        @if (item.Effect.StaminaModifier != null)
+                        {
+                            <p>Stamina +@item.Effect.StaminaModifier</p>
+                        }
+                        <form method="post" asp-page-handler="PurchaseItem">
+                            <input type="hidden" name="itemId" value="@item.Id"/>
+                            <input type="hidden" name="itemValue" value="@item.CoinsValue"/>
+                            <button class="blackmarketButton">
+                                <p>Purchase : </p>
+                                <div class="blackmarketButtonValue">
+                                    <p>@item.CoinsValue</p>
+                                    <img class="blackmarketItemMustysImg" src="~/img/icons/mustysCoin.png" alt="ItemMustys">
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
