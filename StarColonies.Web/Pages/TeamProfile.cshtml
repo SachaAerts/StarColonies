@@ -6,6 +6,14 @@
     Layout = "Shared/_Layout";
 }
 
+@functions {
+    public string TruncateText(string text, int maxLength)
+    {
+        if (string.IsNullOrEmpty(text)) return string.Empty;
+        return text.Length > maxLength ? text.Substring(0, maxLength).Trim() + "..." : text;
+    }
+}
+
 <section class="mainProfile mainTeamProfile">
     <div class="navTeamProfile">
         <button class="buttonProfile">
@@ -34,7 +42,7 @@
             <div class="mainFrameFirstPart">
                 <img src="~/img/upload/@Model.Colony!.LogoPath" alt="profilePicture"/>
                 <div>
-                    <h2>@Model.Colony.Name</h2>
+                    <h2>@TruncateText(@Model.Colony.Name, 10)</h2>
                     <p>Owner: @Model.TeamOwner!.Name</p>
                 </div>
             </div>
@@ -60,7 +68,7 @@
                 <div class="oneUserTeamProfile oneUserCreateColony">
                     <img class="logoUserCreateColony" src="~/img/upload/@colonist.ProfilPicture" alt="logoUser"/>
                     <div>
-                        <h3 class="titlesCreateColony">@colonist.Name</h3>
+                        <h3 class="titlesCreateColony">@TruncateText(colonist.Name, 10)</h3>
                         <p class="textsCreateColony">Lvl: @colonist.Level</p>
                     </div>
                     <p class="textsCreateColony">@colonist.Job</p>

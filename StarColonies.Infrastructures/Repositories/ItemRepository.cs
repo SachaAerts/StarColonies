@@ -25,7 +25,8 @@ public class ItemRepository(StarColoniesDbContext context) : IItemRepository
                 Id = i.Effect.Id,
                 ForceModifier = i.Effect.ForceModifier,
                 StaminaModifier = i.Effect.StaminaModifier,
-            }
+            },
+            NumberOfBuy = i.NumberOfBuy
         }).ToList();
     }
 
