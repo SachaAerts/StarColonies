@@ -67,4 +67,26 @@ public class ColonistRepository(StarColoniesDbContext context,
         context.Users.Remove(entity);
         await context.SaveChangesAsync();
     }
+    
+    public async Task DebitColonistAsync(string id, int amount)
+    {
+        var entity = await context.Users.FindAsync(id);
+        if (entity == null) return;
+
+        entity.Musty -= amount;
+        if (entity.Musty < 0) entity.Musty = 0;
+
+        await context.SaveChangesAsync();
+    }
+    
+    public async Task AddMustyColonistAsync(string id, int amount)
+    {
+        var entity = await context.Users.FindAsync(id);
+        if (entity == null) return;
+
+        entity.Musty += amount;
+        if (entity.Musty < 0) entity.Musty = 0;
+
+        await context.SaveChangesAsync();
+    }
 }

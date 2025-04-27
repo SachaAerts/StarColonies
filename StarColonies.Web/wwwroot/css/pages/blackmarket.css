@@ -188,3 +188,10 @@
     transform: scale(1.02);
     box-shadow: 0 4px 16px rgba(0, 255, 255, 0.2), 0 0 18px rgba(127, 0, 255, 0.3);
 }
+
+.moneyIssue {
+    text-align: center;
+    font-family: 'Judge Italic', sans-serif;
+    font-size: 2rem;
+    color: white;
+}

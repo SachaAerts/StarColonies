@@ -48,6 +48,41 @@ public class InventaryRepository(
         await context.SaveChangesAsync();
     }
     
+    public async Task AddItemToUserFromShop(string userId, ItemModel item)
+    {
+        if (string.IsNullOrWhiteSpace(userId)) throw new ArgumentException("User ID cannot be null or empty.", nameof(userId));
+        if (item == null) throw new ArgumentNullException(nameof(item), "Item cannot be null.");
+
+        var itemEntity = reverseMapper.Map(item);
+
+        var inventory = await context.Inventory
+            .FirstOrDefaultAsync(i => i.ColonistId == userId && i.ItemId == itemEntity.Id);
+
+        if (inventory != null) inventory.Quantity++;
+        else context.Inventory.Add(new InventoryEntity { ColonistId = userId, ItemId = itemEntity.Id, Quantity = 1 });
+
+        await context.SaveChangesAsync();
+    }
+    
+    public async Task SubstractItemToUserFromShop(string userId, ItemModel item)
+    {
+        if (string.IsNullOrWhiteSpace(userId)) throw new ArgumentException("User ID cannot be null or empty.", nameof(userId));
+        if (item == null) throw new ArgumentNullException(nameof(item), "Item cannot be null.");
+
+        var itemEntity = reverseMapper.Map(item);
+
+        var inventory = await context.Inventory
+            .FirstOrDefaultAsync(i => i.ColonistId == userId && i.ItemId == itemEntity.Id);
+
+        if (inventory != null)
+        {
+            inventory.Quantity--;
+            if (inventory.Quantity <= 0) context.Inventory.Remove(inventory);
+        }
+
+        await context.SaveChangesAsync();
+    }
+    
     public async Task UseItemFromUserAsync(string userId, IList<ItemModel> items)
     {
         if (string.IsNullOrWhiteSpace(userId)) 

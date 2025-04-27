@@ -12,10 +12,12 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ARelationalDatabaseFacadeExtensions_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FUsers_003FUser_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F5de0066537eb408e871ec6bffa1ea70f20ae48_003Fb2_003Ff6fe11c4_003FRelationalDatabaseFacadeExtensions_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ASignInManager_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FUsers_003FUser_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FSourcesCache_003Fd7b38c7b68e42a73acef29a6dc1216d8ab2873c6617f3688a729528bff736_003FSignInManager_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AUserManager_00601_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FUsers_003FUser_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E2_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003F28ac168384234e99ae90aae3d4dab1a26d8a0_003F6f_003F1181ae43_003FUserManager_00601_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d6b62a46_002D58e0_002D4137_002D8f3a_002Df236648f2d78/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="RateLimitingTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::A5DCD0AC-408A-48E1-813B-BD9150BCC661::net8.0::StarColonies.Web.Test.Middlewares.RateLimitingTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Program Files\dotnet\sdk\8.0.408\MSBuild.dll</s:String>
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/DotNetCliExePath/@EntryValue">C:\Program Files\dotnet\dotnet.exe</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d6b62a46_002D58e0_002D4137_002D8f3a_002Df236648f2d78/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="RateLimitingTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::A5DCD0AC-408A-48E1-813B-BD9150BCC661::net8.0::StarColonies.Web.Test.Middlewares.RateLimitingTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	</wpf:ResourceDictionary>

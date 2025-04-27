@@ -27,7 +27,7 @@
                 <!-- Mustys du joueur -->
                 <div class="blackmarketUserMustys">
                     <p class="blackmarketUserMustysValue">Musty :</p>
-                    <p class="blackmarketUserMustysValue">99999</p>
+                    <p class="blackmarketUserMustysValue">@Model.Colonist.Musty</p>
                     <img class="blackmarketUserMustysImg" src="~/img/icons/mustysCoin.png" alt="UserMustys">
                 </div>
             </div>
@@ -36,65 +36,34 @@
 
             <!-- Interieur du blackmarket (achat) -->
             <div class="blackmarketItemList">
-                <div class="blackmarketItem">
-                    <img class="blackmarketItemImg" src="~/img/items/ak.png" alt="UserMustys">
-                    <hr class="ledHr"/>
-                    <h4 class="blackmarketItemName">A.K. 400</h4>
-                    <p>Strength +5</p>
-                    <p>Owned : x0</p>
-                    <button class="blackmarketButton">
-                        <p>Purchase : </p>
-                        <div class="blackmarketButtonValue">
-                            <p>999</p>
-                            <img class="blackmarketItemMustysImg" src="~/img/icons/mustysCoin.png" alt="UserMustys">
-                        </div>
-                    </button>
-                </div>
-                
-                <div class="blackmarketItem">
-                    <img class="blackmarketItemImg" src="~/img/items/brain.png" alt="UserMustys">
-                    <hr class="ledHr"/>
-                    <h4 class="blackmarketItemName">A.K. 400</h4>
-                    <p>Strength +5</p>
-                    <p>Owned : x0</p>
-                    <button class="blackmarketButton">
-                        <p>Purchase : </p>
-                        <div class="blackmarketButtonValue">
-                            <p>999</p>
-                            <img class="blackmarketItemMustysImg" src="~/img/icons/mustysCoin.png" alt="UserMustys">
-                        </div>
-                    </button>
-                </div>
-                
-                <div class="blackmarketItem">
-                    <img class="blackmarketItemImg" src="~/img/items/force.png" alt="UserMustys">
-                    <hr class="ledHr"/>
-                    <h4 class="blackmarketItemName">A.K. 400</h4>
-                    <p>Strength +5</p>
-                    <p>Owned : x0</p>
-                    <button class="blackmarketButton">
-                        <p>Purchase : </p>
-                        <div class="blackmarketButtonValue">
-                            <p>999</p>
-                            <img class="blackmarketItemMustysImg" src="~/img/icons/mustysCoin.png" alt="UserMustys">
-                        </div>
-                    </button>
-                </div>
-                
-                <div class="blackmarketItem">
-                    <img class="blackmarketItemImg" src="~/img/items/stamina.png" alt="UserMustys">
-                    <hr class="ledHr"/>
-                    <h4 class="blackmarketItemName">A.K. 400</h4>
-                    <p>Strength +5</p>
-                    <p>Owned : x0</p>
-                    <button class="blackmarketButton">
-                        <p>Purchase : </p>
-                        <div class="blackmarketButtonValue">
-                            <p>999</p>
-                            <img class="blackmarketItemMustysImg" src="~/img/icons/mustysCoin.png" alt="UserMustys">
-                        </div>
-                    </button>
-                </div>
+                @foreach (var item in Model.StoreItems)
+                {
+                    <div class="blackmarketItem">
+                        <img class="blackmarketItemImg" src="~/img/items/@item.ImagePath" alt="ItemImage">
+                        <hr class="ledHr"/>
+                        <h4 class="blackmarketItemName">@item.Name</h4>
+                        @if (item.Effect.ForceModifier != null)
+                        {
+                            <p>Strength +@item.Effect.ForceModifier</p>
+                        }
+                        @if (item.Effect.StaminaModifier != null)
+                        {
+                            <p>Stamina +@item.Effect.StaminaModifier</p>
+                        }
+                        <form method="post" asp-page-handler="PurchaseItem">
+                            <input type="hidden" name="itemId" value="@item.Id"/>
+                            <input type="hidden" name="itemValue" value="@item.CoinsValue"/>
+                            <button class="blackmarketButton">
+                                <p>Purchase : </p>
+                                <div class="blackmarketButtonValue">
+                                    <p>@item.CoinsValue</p>
+                                    <img class="blackmarketItemMustysImg" src="~/img/icons/mustysCoin.png" alt="ItemMustys">
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+                }
+
             </div>
 
         </div>
