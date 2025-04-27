@@ -21,7 +21,7 @@ public class CreateMission(
     public string Title { get; set; }
     
     [BindProperty]
-    [Text(Max = 500, Min = 5)]
+    [Text(Max = 1000, Min = 5)]
     public string Description { get; set; }
     
     [BindProperty]

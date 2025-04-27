@@ -21,6 +21,10 @@
     .navBar .list-nav img {
         transform: scale(0.8);
     }
+
+    .mainModifyProfile {
+        transform: translate(50%, 50%) scale(0.7);
+    }
     
 }
 

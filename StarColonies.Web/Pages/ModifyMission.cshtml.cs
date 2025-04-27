@@ -39,6 +39,9 @@ public class ModifyMission(
         Enemies = await enemyRepository.GetAllEnemiesListAsync();
         Items   = await itemRepository.GetAllItemsAsync();
         
+        InitializeRewardInputs();
+        InitializeSelectedEnemyIds();
+
         return Page();
     }
     
@@ -77,13 +80,27 @@ public class ModifyMission(
 
         return rewardModels;
     }
-
     
     private async Task ReloadFormDataAsync()
     {
         Enemies = await enemyRepository.GetAllEnemiesListAsync();
         Items = await itemRepository.GetAllItemsAsync();
     }
+    
+    private void InitializeRewardInputs()
+    {
+        var existingRewards = Mission.Items.ToDictionary(item => item.Item.Id, item => item.Quantity);
+
+        RewardInputs = Items.Select(item => new RewardInput
+        {
+            ItemId = item.Id,
+            Selected = existingRewards.ContainsKey(item.Id),
+            Quantity = existingRewards.TryGetValue(item.Id, out var qty) ? qty : 1
+        }).ToList();
+    }
+    
+    private void InitializeSelectedEnemyIds()
+        => SelectedEnemyIds = Mission.Enemies.Select(e => e.Id).ToList();
     
 }
 
