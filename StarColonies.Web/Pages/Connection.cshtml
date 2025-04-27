@@ -50,7 +50,7 @@
 </div>
 
 <script src="~/js/components/inputs/input.js"></script>
-
+<script type="module" src="~/js/notifyConnection.js"></script>
 <script>
     const connectForm = document.querySelector(".connectForm");
 
@@ -68,13 +68,11 @@
 
     document.addEventListener("DOMContentLoaded", () => {
         const registerBtn = document.querySelector(".selectConnectionRegister.register");
-        
+
         if (registerBtn) {
             registerBtn.addEventListener("click", () => {
                 window.location.href = "/Register";
             });
         }
     });
-
-
 </script>

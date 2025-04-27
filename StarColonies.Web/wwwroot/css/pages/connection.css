@@ -70,6 +70,10 @@
     pointer-events: none;
 }
 
+.text-danger {
+    display: none;
+}
+
 .formConnectionRegister{
     position: absolute;
     top: 45%;
