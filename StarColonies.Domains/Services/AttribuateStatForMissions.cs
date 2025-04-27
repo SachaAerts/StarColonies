@@ -22,11 +22,11 @@ public class AttribuateStatForMissions
         {
             if (missionExecuted.IsSuccess)
             {
-                MissionSucceed[missionExecuted.PlanetId]++;
+                MissionSucceed[missionExecuted.PlanetId - 1]++;
             }
             else
             {
-                MissionFailed[missionExecuted.PlanetId]++;
+                MissionFailed[missionExecuted.PlanetId - 1]++;
             }
         }
     }

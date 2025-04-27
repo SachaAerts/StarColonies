@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const statistics = window.statisticsData;
-    
+    console.log(statistics.ItemsLabel);
     const commonBarOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     font: {
                         size: 11
                     }
+                },
+                onHover: function(event, legendItem, legend) {
+                    event.native.target.style.cursor = 'pointer';
+                },
+                onLeave: function(event, legendItem, legend) {
+                    event.native.target.style.cursor = 'default';
                 }
             },
             tooltip: {
@@ -82,6 +88,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     font: {
                         size: 11
                     }
+                },
+                onHover: function(event, legendItem, legend) {
+                    event.native.target.style.cursor = 'pointer';
+                },
+                onLeave: function(event, legendItem, legend) {
+                    event.native.target.style.cursor = 'default';
                 }
             },
             tooltip: {
@@ -141,6 +153,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     font: {
                         size: 11
                     }
+                },
+                onHover: function(event, legendItem, legend) {
+                    event.native.target.style.cursor = 'pointer';
+                },
+                onLeave: function(event, legendItem, legend) {
+                    event.native.target.style.cursor = 'default';
                 }
             },
             tooltip: {
