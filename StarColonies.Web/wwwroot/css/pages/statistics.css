@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #161C2B;
+    color: white;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+header {
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    padding: 2vh 2vw;
+    overflow: visible;
+}
+
+.stats-container {
+    background-color: #1e2439;
+    border-radius: 15px;
+    padding: 3vh 3vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+}
+
+.stats-title {
+    text-align: center;
+    margin-bottom: 2vh;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    flex-shrink: 0;
+}
+
+.charts-row {
+    display: flex;
+    gap: 3vw;
+    height: 45vh;
+    margin-bottom: 3vh;
+    width: 100%;
+}
+
+.chart-wrapper {
+    background-color: #161C2B;
+    border-radius: 10px;
+    padding: 2vh 2vw;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.full-width {
+    height: 65vh;
+    width: 100%;
+    margin-bottom: 2vh;
+}
+
+.chart-title {
+    text-align: center;
+    margin-bottom: 2vh;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    flex-shrink: 0;
+    font-weight: bold;
+}
+
+.chart-container {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    height: calc(100% - 3.5rem);
+}
+
+.full-width .chart-container {
+    min-height: 400px;
+}
+
+canvas {
+    max-width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+    .charts-row {
+        height: 40vh;
+    }
+
+    .full-width {
+        height: 60vh;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .stats-container {
+        padding: 2vh 2vw;
+    }
+
+    .chart-wrapper {
+        padding: 1.5vh 1.5vw;
+    }
+
+    .charts-row {
+        gap: 2vw;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .charts-row {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .chart-wrapper {
+        height: 40vh;
+        margin-bottom: 2vh;
+    }
+
+    .full-width {
+        height: 60vh;
+    }
+}
