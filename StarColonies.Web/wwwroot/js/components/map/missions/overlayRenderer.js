@@ -4,6 +4,7 @@ import { TeamSelectionCommand } from "./overlays/teamSelectionCommand.js";
 import { MissionLaunchCommand } from "./overlays/missionLaunchCommand.js";
 import { MissionResultCommand } from "./overlays/missionResultCommand.js";
 import { DefaultCommand } from "./overlays/defaultCommand.js";
+import { setupToggleVisibilityListener } from "./deleteMission.js";
 
 const overlayCommands = {
     missionDetails: new MissionDetailsCommand(),
@@ -26,6 +27,8 @@ export function renderOverlay(type, data) {
 
     content.innerHTML = html;
     overlay.classList.remove("hidden");
+
+    setupToggleVisibilityListener();
 
     waitForElement("#closeOverlay", (btn) => {
         btn.addEventListener("click", () => overlay.classList.add("hidden"));

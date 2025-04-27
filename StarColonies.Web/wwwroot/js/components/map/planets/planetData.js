@@ -31,7 +31,8 @@ function parseQuest(q) {
         difficulty: q.getAttribute("difficulty"),
         reward: q.getAttribute("reward"),
         enemies: parseEnemies(q),
-        rewards: parseRewards(q)
+        rewards: parseRewards(q),
+        visible: q.getAttribute("visible"),
     };
 }
 

@@ -12,8 +12,8 @@ using StarColonies.Infrastructures.Data;
 namespace StarColonies.Infrastructures.Migrations
 {
     [DbContext(typeof(StarColoniesDbContext))]
-    [Migration("20250426151012_InitProduction")]
-    partial class InitProduction
+    [Migration("20250427121810_NewPropertityPlanetId")]
+    partial class NewPropertityPlanetId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -385,6 +385,11 @@ namespace StarColonies.Infrastructures.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("NumberOfBuy")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
                     b.HasKey("Id");
 
                     b.HasIndex("EffectId");
@@ -476,6 +481,11 @@ namespace StarColonies.Infrastructures.Migrations
                     b.Property<int>("PlanetId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Visible")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.HasKey("Id");
 
                     b.HasIndex("PlanetId");
@@ -491,7 +501,7 @@ namespace StarColonies.Infrastructures.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ColonieId")
+                    b.Property<int>("ColonyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ExecutedAt")
@@ -502,7 +512,16 @@ namespace StarColonies.Infrastructures.Migrations
                     b.Property<bool>("IsSuccess")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("LivingColony")
+                        .HasColumnType("bit");
+
                     b.Property<int>("MissionId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("OvercomingMission")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PlanetId")
                         .HasColumnType("int");
 
                     b.Property<int>("RewardedCoins")
@@ -510,9 +529,11 @@ namespace StarColonies.Infrastructures.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ColonieId");
+                    b.HasIndex("ColonyId");
 
                     b.HasIndex("MissionId");
+
+                    b.HasIndex("PlanetId");
 
                     b.ToTable("MissionExecution");
                 });
@@ -741,19 +762,27 @@ namespace StarColonies.Infrastructures.Migrations
                 {
                     b.HasOne("StarColonies.Infrastructures.Data.Entities.ColonyEntity", "Colony")
                         .WithMany("MissionExecutions")
-                        .HasForeignKey("ColonieId")
+                        .HasForeignKey("ColonyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StarColonies.Infrastructures.Data.Entities.Missions.MissionEntity", "Mission")
                         .WithMany()
                         .HasForeignKey("MissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StarColonies.Infrastructures.Data.Entities.Missions.PlanetEntity", "Planet")
+                        .WithMany()
+                        .HasForeignKey("PlanetId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Colony");
 
                     b.Navigation("Mission");
+
+                    b.Navigation("Planet");
                 });
 
             modelBuilder.Entity("StarColonies.Infrastructures.Data.Entities.ColonistEntity", b =>

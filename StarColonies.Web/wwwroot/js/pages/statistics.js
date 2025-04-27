@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const statistics = window.statisticsData;
+    console.log(statistics.ItemsLabel);
     const commonBarOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -14,6 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     font: {
                         size: 11
                     }
+                },
+                onHover: function(event, legendItem, legend) {
+                    event.native.target.style.cursor = 'pointer';
+                },
+                onLeave: function(event, legendItem, legend) {
+                    event.native.target.style.cursor = 'default';
                 }
             },
             tooltip: {
@@ -80,6 +88,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     font: {
                         size: 11
                     }
+                },
+                onHover: function(event, legendItem, legend) {
+                    event.native.target.style.cursor = 'pointer';
+                },
+                onLeave: function(event, legendItem, legend) {
+                    event.native.target.style.cursor = 'default';
                 }
             },
             tooltip: {
@@ -139,6 +153,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     font: {
                         size: 11
                     }
+                },
+                onHover: function(event, legendItem, legend) {
+                    event.native.target.style.cursor = 'pointer';
+                },
+                onLeave: function(event, legendItem, legend) {
+                    event.native.target.style.cursor = 'default';
                 }
             },
             tooltip: {
@@ -155,14 +175,11 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const firstChartData = {
-        labels: [
-            'Nova Prime', 'Shadow League', 'Celestial Pact', 'Galactic Alliance', 'Stellar Federation',
-            'Lunar Syndicate', 'Solar Dominion', 'Astral Union', 'Nebula Coalition', 'Andromeda Syndicate'
-        ],
+        labels: statistics.Top10ColonyLabels,
         datasets: [
             {
                 label: 'Strengh',
-                data: [80, 70, 85, 90, 65, 75, 88, 60, 78, 82],
+                data: statistics.Top10ColonyStrength,
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 pointBackgroundColor: 'rgba(54, 162, 235, 1)',
@@ -170,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             {
                 label: 'Stamina',
-                data: [70, 85, 80, 60, 75, 90, 82, 65, 88, 80],
+                data: statistics.Top10ColonyStamina,
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 pointBackgroundColor: 'rgba(255, 99, 132, 1)',
@@ -180,37 +197,47 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const secondChartData = {
-        labels: ['AK-47', 'Stamina Pack', 'Force Module'],
+        labels: statistics.ItemsLabel,
         datasets: [{
             label: "Purchase count",
-            data: [55, 25, 10],
+            data: statistics.NumberOfBuysPerItems,
             backgroundColor: [
-                'rgba(255, 159, 64, 0.6)',
-                'rgba(153, 102, 255, 0.6)',
-                'rgba(75, 192, 192, 0.6)',
+                'rgba(255, 159, 64, 0.6)',   
+                'rgba(153, 102, 255, 0.6)',  
+                'rgba(75, 192, 192, 0.6)',  
+                'rgba(255, 205, 86, 0.6)',   
+                'rgba(201, 203, 207, 0.6)',  
+                'rgba(54, 162, 235, 0.6)',   
+                'rgba(255, 99, 132, 0.6)',   
+                'rgba(100, 255, 218, 0.6)'   
             ],
             borderColor: [
-                'rgba(255, 159, 64, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(75, 192, 192, 1)',
+                'rgba(255, 159, 64, 1)',     
+                'rgba(153, 102, 255, 1)',    
+                'rgba(75, 192, 192, 1)',     
+                'rgba(255, 205, 86, 1)',     
+                'rgba(201, 203, 207, 1)',    
+                'rgba(54, 162, 235, 1)',     
+                'rgba(255, 99, 132, 1)',     
+                'rgba(100, 255, 218, 1)'     
             ],
             borderWidth: 1
         }]
     };
 
     const thirdChartData = {
-        labels: ['Abyssion', 'Gaia Nova', 'Glacius', 'Infernis', 'Nyx Prime', 'Lunaris', 'Solara'],
+        labels: statistics.PlanetsLabel,
         datasets: [
             {
                 label: 'Accomplished',
-                data: [8, 7, 8, 6, 5, 9, 4],
+                data: statistics.MissionsSucceed,
                 backgroundColor: 'rgba(54, 162, 235, 0.6)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
             },
             {
                 label: 'Failed',
-                data: [6, 8, 7, 5, 4, 7, 6],
+                data: statistics.MissionsFailed,
                 backgroundColor: 'rgba(255, 99, 132, 0.6)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1

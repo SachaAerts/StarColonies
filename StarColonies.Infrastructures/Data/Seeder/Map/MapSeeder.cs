@@ -1,15 +1,13 @@
-﻿using StarColonies.Infrastructures.Data.Entities.Items;
-using StarColonies.Infrastructures.Data.Entities.Missions;
+﻿namespace StarColonies.Infrastructures.Data.Seeder.Map;
 
-namespace StarColonies.Infrastructures.Data.Configurations.Seeder.Map;
-
-public class MapSeeder
+public class MapSeeder : IDataBaseSeeder
 {
-    public static void Seed(StarColoniesDbContext context)
+    public void Seed(StarColoniesDbContext context)
     {
         if (context.Planet.Any()) return;
 
         var types = TypeSeeder.SeedTypes(context);
+        
         var enemies = EnemySeeder.SeedEnemies(context, types);
         var effects = EffectSeeder.SeedEffects(context);
         var items = ItemSeeder.SeedItems(context, effects);

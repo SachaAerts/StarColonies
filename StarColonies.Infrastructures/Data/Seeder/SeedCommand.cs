@@ -1,17 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using StarColonies.Infrastructures.Data.Configurations.Seeder;
-using StarColonies.Infrastructures.Data.Configurations.Seeder.Map;
+using StarColonies.Infrastructures.Data.Seeder.Colonies;
+using StarColonies.Infrastructures.Data.Seeder.Colonist;
+using StarColonies.Infrastructures.Data.Seeder.Map;
 
 namespace StarColonies.Infrastructures.Data.Seeder;
 
-public static class SeedCommand
+public class SeedCommand()
 {
-    public static async Task SeedAsync(StarColoniesDbContext context)
+    private readonly IDataBaseSeeder _colonySeeder = new ColonySeeder();
+    private readonly IDataBaseSeeder _mapSeeder = new MapSeeder();
+        
+    public async Task SeedAsync(StarColoniesDbContext context, IServiceProvider services)
     {
         await context.Database.MigrateAsync();
-        MapSeeder.Seed(context);
-        ColonySeeder.Seed(context);
-        InventarySeeder.Seed(context);
+        
+        await IdentitySeeder.SeedRolesAndUsersAsync(services);
+        
+        _colonySeeder.Seed(context);
+        _mapSeeder.Seed(context);
     }
 }

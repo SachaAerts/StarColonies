@@ -1,25 +1,15 @@
-﻿import {setupDeleteListener} from '../../deleteMission.js'
-
-let deleteListenerInstalled = false;
-
+﻿
 export function renderMissionDetails(quest) {
     const enemies = getEnemiesRender(quest);
     const rewards = getRewardsRender(quest);
 
-    const html = getRender(quest, enemies, rewards);
-
-    if (!deleteListenerInstalled) {
-        setupDeleteListener(quest.id);
-        deleteListenerInstalled = true;
-    }
-    
-    return html;
+    return getRender(quest, enemies, rewards);
 }
 
 function getEnemiesRender(quest) {
     return quest.enemies.map(e => `
         <li style="display: flex; flex-direction: column; align-items: center; justify-content:center; gap: 10px; margin-bottom: 6px;">
-            <img src="${e.image}" alt="${e.name}" height="24"/>
+            <img src="/img/enemies/${e.image}" alt="${e.name}" height="24"/>
             <span style="max-width: 100px; word-wrap: break-word; text-align: center;">${e.name}</span>
         </li>
     `).join('');
@@ -28,7 +18,7 @@ function getEnemiesRender(quest) {
 function getRewardsRender(quest) {
     return quest.rewards.map(r => `
         <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-            <img src="${r.image}" alt="${r.name}" height="40"/>
+            <img src="/img/items/${r.image}" alt="${r.name}" height="40"/>
             ${r.quantity + "x " + r.name}
         </li>
     `).join('');
@@ -38,23 +28,19 @@ function getRender(quest, enemies, rewards) {
     return `
         ${getStyle()}
         <link rel="stylesheet" href="/css/components/button.css">
-        
+                
         ${window.isAdmin ? `
-            <div style="display: flex; align-items: center; gap: 5px; position: absolute; top: 0; left: 15px; z-index: 1000000000;">
+            <div style="display: flex; align-items: center; gap: 15px; position: absolute; top: 15px; left: 15px; z-index: 1000000000;">
                 <a href="ModifyMission/${quest.id}"><img src="img/icons/modify.png" height="20" alt="Modify"></a>
-                <button aria-label="Delete item" class="delete-button delete-mission" data-id="${quest.id}" style="transform: scale(0.5);background: none; border: none; padding: 0; cursor: pointer;">
-                    <svg class="trash-svg" viewBox="0 -10 64 74" xmlns="http://www.w3.org/2000/svg" height="20">
-                        <g id="trash-can">
-                            <rect x="16" y="24" width="32" height="30" rx="3" ry="3" fill="#e74c3c"></rect>
-                            <g transform-origin="12 18" id="lid-group">
-                                <rect x="12" y="12" width="40" height="6" rx="2" ry="2" fill="#c0392b"></rect>
-                                <rect x="26" y="8" width="12" height="4" rx="2" ry="2" fill="#c0392b"></rect>
-                            </g>
-                        </g>
-                    </svg>
-                </button>
+        
+                <label class="container toggle-visibility" data-id="${quest.id}" style="transform: scale(0.7); margin-left: 5px;">
+                  <input type="checkbox" ${quest.visible ? 'checked' : ''}>
+                  <img src="/img/icons/visible.png" class="visible-img" alt="Visible">
+                  <img src="/img/icons/notvisible.png" class="notvisible-img" alt="Not visible">
+                </label>
             </div>
         ` : ""}
+
         
         <h4 style="text-align: center;" id="titleQuest">${quest.title}</h4>
         <p  style="padding: 0 10px;">${quest.description}</p>
@@ -93,6 +79,50 @@ function getRender(quest, enemies, rewards) {
 function getStyle() {
     return `
     <style>
+    .container {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+    
+    .container input {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      z-index: 2;
+    }
+    
+    .container .visible-img,
+    .container .notvisible-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: opacity 0.3s ease;
+    }
+    
+    .container input:checked ~ .visible-img {
+      opacity: 1;
+    }
+    
+    .container input:checked ~ .notvisible-img {
+      opacity: 0;
+    }
+    
+    .container input:not(:checked) ~ .visible-img {
+      opacity: 0;
+    }
+    
+    .container input:not(:checked) ~ .notvisible-img {
+      opacity: 1;
+    }
+
         .notyf {z-index: 99999;}
         .delete-button {
           position: relative;

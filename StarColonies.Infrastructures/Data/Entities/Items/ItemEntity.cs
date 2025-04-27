@@ -9,11 +9,13 @@ public class ItemEntity
     public required string Description { get; set; } = "DEFAULT DESCRIPTION";
     
     public required int EffectId { get; set; }
-    public required EffectEntity Effect { get; set; }
+    public EffectEntity Effect { get; set; }
     
     public required int CoinsValue { get; set; }
     
     public required string ImagePath { get; set; } = "DEFAULT IMAGE PATH";
+    
+    public int NumberOfBuy { get; set; } = 0;
     
     public ICollection<RewardedEntity> Rewards { get; set; } = new List<RewardedEntity>();
     public ICollection<InventoryEntity> Colonists { get; set; } = new List<InventoryEntity>();

@@ -9,11 +9,12 @@ using StarColonies.Domains.Repositories;
 using StarColonies.Domains.Services.pictures;
 using StarColonies.Infrastructures.Data;
 using StarColonies.Infrastructures.Data.Configurations.Seeder;
-using StarColonies.Infrastructures.Data.Configurations.Seeder.Map;
 using StarColonies.Infrastructures.Data.Entities;
 using StarColonies.Infrastructures.Data.Entities.Items;
 using StarColonies.Infrastructures.Data.Entities.Missions;
 using StarColonies.Infrastructures.Data.Seeder;
+using StarColonies.Infrastructures.Data.Seeder.Colonist;
+using StarColonies.Infrastructures.Data.Seeder.Factories;
 using StarColonies.Infrastructures.Mapper;
 using StarColonies.Infrastructures.Mapper.DomainToEntity;
 using StarColonies.Infrastructures.Mapper.EntityToDomain;
@@ -67,6 +68,9 @@ builder.Services.AddScoped<IItemRepository,      ItemRepository>();
 builder.Services.AddScoped<IResultFactory<JsonResult, object>,  JsonResultFactory>();
 builder.Services.AddScoped<IJsonContentFactory,                 JsonContentMissionFactory>();
 builder.Services.AddScoped<IStrategyFactory,                    MissionRewardStrategyFactory>();
+builder.Services.AddScoped<ColonistFactory>();
+builder.Services.AddScoped<ColonyFactory>();
+builder.Services.AddScoped<ColonyMemberFactory>();
 
 //Inject Services
 builder.Services.AddScoped<IRewardService, RewardService>();
@@ -109,7 +113,6 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-await IdentitySeeder.SeedRolesAndUsersAsync(app.Services);
 await SeedDataAsync(app);
 
 app.Run();
@@ -117,8 +120,9 @@ return;
 
 static async Task SeedDataAsync(WebApplication app)
 {
+    
     using var scope = app.Services.CreateScope();
     var context = scope.ServiceProvider.GetRequiredService<StarColoniesDbContext>();
     
-    await SeedCommand.SeedAsync(context);
+    await new SeedCommand().SeedAsync(context, app.Services);
 }

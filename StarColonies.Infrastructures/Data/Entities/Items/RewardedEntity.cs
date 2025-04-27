@@ -5,7 +5,7 @@ namespace StarColonies.Infrastructures.Data.Entities.Items;
 
 public class RewardedEntity
 {
-    public required int MissionId { get; set; }
+    public int MissionId { get; set; }
     public MissionEntity Mission { get; set; }
 
     public required int ItemId { get; set; }

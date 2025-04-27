@@ -20,7 +20,7 @@ export function renderTeamSelection(data) {
         <label> 
             ${data.items.length === 0 || !data.items ? `<p>Vous n'avez actuellement aucun item</p>` : `
                 <input type="checkbox" value="${item.id}"/>
-                <img src="${item.image}" height="40" alt="Image"> ${item.quantity}x ${item.name}
+                <img src="/img/items/${item.image}" height="40" alt="Image"> ${item.quantity}x ${item.name} (Strength: +${item.forceModifier}, Stamina: +${item.staminaModifier})
             `}
         </label>
     `).join('<br>');
@@ -34,7 +34,9 @@ export function renderTeamSelection(data) {
 
         <div style="margin-top: 15px;">
             <h5>Objets à emporter :</h5>
-            ${itemsHTML}
+            <div class="rewardSelect-container">
+                ${itemsHTML}
+            </div>
         </div>
 
         <div class="button-container">
@@ -49,9 +51,17 @@ export function renderTeamSelection(data) {
 function getStyle() {
     return `
         <style>
+            .rewardSelect-container {
+                overflow-y: auto;
+                overflow-x: hidden;
+                max-height: 200px;
+                max-width: 400px;
+                scroll-behavior: smooth;
+                scrollbar-color: #0f081f transparent;
+            }
             .button-container {
                 position: absolute;
-                bottom: 5px; right: 5px;     
+                bottom: 5px; right: 5px;   
             }
             #confirmLaunch {
                 background-color: #0E0327;

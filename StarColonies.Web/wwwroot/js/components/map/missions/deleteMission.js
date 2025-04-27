@@ -3,22 +3,21 @@ import { NotyfStrategy } from '../../notifications/NotyStrategy.js'
 
 const notify = new NotificationContext(new NotyfStrategy());
 
-export function setupDeleteListener(id) {
-    document.addEventListener("click", async (event) => {
-        const deleteButton = event.target.closest(".delete-mission");
+export function setupToggleVisibilityListener(id) {
+    document.querySelectorAll('.toggle-visibility input').forEach(input => {
+        input.addEventListener('change', async (e) => {
+            const missionId = e.target.closest('.toggle-visibility').dataset.id;
+            const isVisible = e.target.checked;
 
-        if (deleteButton) {
-            const questFrame = event.target.closest(".quest-frame");
+            await onPost(missionId);
 
-            if (confirm("Would you like to delete this mission?")) {
-                try { await onPost(id, questFrame); } 
-                catch (error) { notify.error("Erreur de communication avec le serveur."); }
-            }
-        }
+            window.location.reload();
+        });
     });
 }
 
-async function onPost(missionId, questFrame) {
+
+async function onPost(missionId) {
     const response = await fetch(`/DeleteMission/${missionId}`, {
         method: "POST",
         headers: {"Accept": "application/json", "Content-Type": "application/json"}
@@ -27,7 +26,6 @@ async function onPost(missionId, questFrame) {
     const result = await response.json();
 
     if (result.success) {
-        if (questFrame) questFrame.remove();
         location.reload();
     } else notify.error("Erreur lors de la suppression !");
 }

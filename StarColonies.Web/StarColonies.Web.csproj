@@ -28,6 +28,7 @@
       <Compile Include="wwwroot\models\NewColony.cs" />
       <Compile Include="wwwroot\models\NewUser.cs" />
       <Compile Include="wwwroot\models\RegisterModel.cs" />
+      <Compile Include="wwwroot\models\StatisticModel.cs" />
     </ItemGroup>
 
     <ItemGroup>

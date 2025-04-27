@@ -21,8 +21,12 @@ public class MissionConfiguration : IEntityTypeConfiguration<MissionEntity>
         
         builder.Property(m => m.Description)
                .IsRequired()
-               .HasMaxLength(500);
+               .HasMaxLength(1000);
         
+        builder.Property(m => m.Visible)
+               .IsRequired()
+               .HasDefaultValue(true);
+ 
         builder.Property(m => m.CoinsReward)
                .IsRequired()
                .HasDefaultValue(0);

@@ -7,12 +7,12 @@ if (textInput && counter) {
     const updateCount = () => {
         let value = textInput.value;
 
-        if (value.length > 500) {
-            textInput.value = value.substring(0, 500);
+        if (value.length > 1000) {
+            textInput.value = value.substring(0, 1000);
             value = textInput.value;
         }
 
-        counter.textContent = `${value.length} / 500`;
+        counter.textContent = `${value.length} / 1000`;
     };
 
     textInput.addEventListener("input", updateCount);

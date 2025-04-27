@@ -30,6 +30,7 @@ function createMission(panel, planetId) {
     img.style.position = 'absolute';
     img.style.top = '5px';
     img.style.right = '5px';
+    img.style.right = '5px';
     img.style.zIndex = '1000000000';
     img.alt = 'Create Icon';
 
