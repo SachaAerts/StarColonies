@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models.Items;
 using StarColonies.Domains.Models.Missions;
@@ -7,6 +8,7 @@ using StarColonies.Web.Validators;
 
 namespace StarColonies.Web.Pages;
 
+[Authorize(Roles = "Admin")]
 public class ModifyMission(
     IMissionRepository missionRepository,
     IEnemyRepository enemyRepository,

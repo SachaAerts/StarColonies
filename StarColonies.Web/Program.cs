@@ -93,6 +93,13 @@ builder.Services.AddDefaultIdentity<ColonistEntity>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<StarColoniesDbContext>();
 
+//Redirect to connection page
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Connection"; 
+    options.AccessDeniedPath = "/";
+});
+
 //========================== Application settings ==========================//
 var app = builder.Build();
 

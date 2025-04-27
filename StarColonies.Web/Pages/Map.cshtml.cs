@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models;
@@ -13,6 +14,7 @@ using StarColonies.Web.Services;
 
 namespace StarColonies.Web.Pages;
 
+[Authorize]
 public class Map(
     IPlanetRepository planetRepository, 
     IInventaryRepository inventaryRepository,

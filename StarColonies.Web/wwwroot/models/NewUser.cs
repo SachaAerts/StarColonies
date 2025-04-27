@@ -26,6 +26,7 @@ public class NewUser
     public string Profession { get; set; } = "";
     
     [Required(ErrorMessage = "Profile picture is required")]
+    [ImageSize(320, 320, ErrorMessage = "Profile picture must not exceed 320x320 pixels.")]
     public string ProfilePicture { get; set; } = "";
     
     [StatsRegister(ErrorMessage = "Assign all available levels")]
