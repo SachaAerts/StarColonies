@@ -10,4 +10,6 @@ public interface IMissionRepository
     Task CreateMissionAsync(int planetId, MissionModel mission, IList<int> selectedEnemyIds, IList<RewardItemModel> rewardItems);
     Task UpdateMissionAsync(MissionModel updatedModel, IList<int> selectedEnemyIds, IList<RewardItemModel> rewardItems);
     Task VisibleMissionAsync(int id);
+
+    Task<IList<MissionExecutedModel>> GetAllMissionExecutionsAsync();
 }

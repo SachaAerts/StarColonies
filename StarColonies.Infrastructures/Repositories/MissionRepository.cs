@@ -134,4 +134,18 @@ public class MissionRepository(
         }
     }
     
+    public async Task<IList<MissionExecutedModel>> GetAllMissionExecutionsAsync()
+    {
+        var executions = await context.MissionExecution
+            .Include(me => me.Mission)
+            .ThenInclude(m => m.Planet)
+            .Select(me => new MissionExecutedModel
+            {
+                IsSuccess = me.IsSuccess,
+                PlanetId = me.Mission.PlanetId
+            })
+            .ToListAsync();
+
+        return executions;
+    }
 }

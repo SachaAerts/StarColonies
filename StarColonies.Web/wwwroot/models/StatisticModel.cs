@@ -11,4 +11,10 @@ public class StatisticModel
     public IList<int> Top10ColonyStrength;
 
     public IList<int> Top10ColonyStamina;
+    
+    public IList<string> PlanetsLabel;
+    
+    public IList<int> MissionsSucceed;
+    
+    public IList<int> MissionsFailed;
 }
