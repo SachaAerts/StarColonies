@@ -5,16 +5,98 @@
     Layout = "Shared/_Layout";
 }
 
-<div class="blackMarketMainFrame">
-    <h2 class="">Blackmarket</h2>
-    <div class="backgroundBlackmarket">
-        <div class="selectRow">
-            <div class="selectorBlackmarket - Buying inactive">
-                <h3 class="selectTitle">Acheter</h3>
+<div class="blackmarketMainFrame">
+    <div class="blackmarketMainContainer">
+        <button class="buttonProfile backButtonProfile">
+            <a asp-page="Index">
+                <img class="modifyLogoProfile" src="~/img/icons/arrow.png" alt="back"/>
+            </a>
+        </button>
+        <h2 class="blackmarketTitle">Welcome to the Blackmarket</h2>
+        
+        <div class="blackmarketContent">
+            <div class="blackmarketNav">
+                <div class="blackmarketNavButtons">
+                    <button class="blackmarketNavButton">
+                        <a asp-page="blackmarketBuying">Purchase</a>
+                    </button>
+                    <button class="blackmarketNavButton blackmarketNavButtonActive">
+                        <a asp-page="blackmarketSelling">Sell</a>
+                    </button>
+                </div>
+                <!-- Mustys du joueur -->
+                <div class="blackmarketUserMustys">
+                    <p class="blackmarketUserMustysValue">Musty :</p>
+                    <p class="blackmarketUserMustysValue">99999</p>
+                    <img class="blackmarketUserMustysImg" src="~/img/icons/mustysCoin.png" alt="UserMustys">
+                </div>
             </div>
-            <div class="selectBlackmarket - Selling active">
-                <h3 class="selectTitle">Vendre</h3>
+            
+            <hr class="ledHr"/>
+
+            <!-- Interieur du blackmarket (achat) -->
+            <div class="blackmarketItemList">
+                <div class="blackmarketItem">
+                    <img class="blackmarketItemImg" src="~/img/items/ak.png" alt="UserMustys">
+                    <hr class="ledHr"/>
+                    <h4 class="blackmarketItemName">A.K. 400</h4>
+                    <p>Strength +5</p>
+                    <p>Owned : x0</p>
+                    <button class="blackmarketButton">
+                        <p>Sell : </p>
+                        <div class="blackmarketButtonValue">
+                            <p>999</p>
+                            <img class="blackmarketItemMustysImg" src="~/img/icons/mustysCoin.png" alt="UserMustys">
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="blackmarketItem">
+                    <img class="blackmarketItemImg" src="~/img/items/brain.png" alt="UserMustys">
+                    <hr class="ledHr"/>
+                    <h4 class="blackmarketItemName">A.K. 400</h4>
+                    <p>Strength +5</p>
+                    <p>Owned : x0</p>
+                    <button class="blackmarketButton">
+                        <p>Sell : </p>
+                        <div class="blackmarketButtonValue">
+                            <p>999</p>
+                            <img class="blackmarketItemMustysImg" src="~/img/icons/mustysCoin.png" alt="UserMustys">
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="blackmarketItem">
+                    <img class="blackmarketItemImg" src="~/img/items/force.png" alt="UserMustys">
+                    <hr class="ledHr"/>
+                    <h4 class="blackmarketItemName">A.K. 400</h4>
+                    <p>Strength +5</p>
+                    <p>Owned : x0</p>
+                    <button class="blackmarketButton">
+                        <p>Sell : </p>
+                        <div class="blackmarketButtonValue">
+                            <p>999</p>
+                            <img class="blackmarketItemMustysImg" src="~/img/icons/mustysCoin.png" alt="UserMustys">
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="blackmarketItem">
+                    <img class="blackmarketItemImg" src="~/img/items/stamina.png" alt="UserMustys">
+                    <hr class="ledHr"/>
+                    <h4 class="blackmarketItemName">A.K. 400</h4>
+                    <p>Strength +5</p>
+                    <p>Owned : x0</p>
+                    <button class="blackmarketButton">
+                        <p>Sell : </p>
+                        <div class="blackmarketButtonValue">
+                            <p>999</p>
+                            <img class="blackmarketItemMustysImg" src="~/img/icons/mustysCoin.png" alt="UserMustys">
+                        </div>
+                    </button>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
