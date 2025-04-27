@@ -7,14 +7,12 @@ public class AnalyzeProfilePicture(string settlerName)
         if (string.IsNullOrWhiteSpace(picture))
             return "1.png";
 
-        // Cas 1 : URL ou chemin déjà défini
         if (picture.StartsWith("/") || picture.StartsWith("http"))
         {
             var fileName = Path.GetFileName(picture);
             return string.IsNullOrWhiteSpace(fileName) ? "1.png" : fileName;
         }
 
-        // Cas 2 : base64
         if (!picture.StartsWith("data:image")) return "1.png";
         {
             var base64Data = picture.Substring(picture.IndexOf(',') + 1);
