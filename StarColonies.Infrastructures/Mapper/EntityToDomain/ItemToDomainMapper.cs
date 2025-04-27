@@ -13,6 +13,8 @@ public class ItemToDomainMapper(IEntityToDomainMapper<EffectModel, EffectEntity>
             Description = entity.Description,
             CoinsValue = entity.CoinsValue,
             ImagePath = entity.ImagePath,
-            Effect = effectMapper.Map(entity.Effect)
+            Effect = effectMapper.Map(entity.Effect), 
+            NumberOfBuy = entity.NumberOfBuy,
+            IsLegendary = entity.isLegendary,
         };
 }

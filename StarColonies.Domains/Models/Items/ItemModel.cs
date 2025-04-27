@@ -11,6 +11,8 @@ public class ItemModel
     public string ImagePath { get; set; } = string.Empty;
     
     public required EffectModel Effect { get; set; } = new();
-
+    
+    public bool IsLegendary { get; set; }
+    
     public int NumberOfBuy;
 }

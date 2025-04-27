@@ -77,6 +77,9 @@
     </form>
 </section>
 
+
+<script type="module" src="~/js/notifyConnection.js"></script>
+
 <script>
     window.availableColonists = @Html.Raw(JsonSerializer.Serialize(Model.Colonists ?? new List<ColonistModel>()));
     window.teamOwner = @Html.Raw(JsonSerializer.Serialize(

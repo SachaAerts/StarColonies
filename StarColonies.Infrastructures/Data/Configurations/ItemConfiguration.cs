@@ -17,6 +17,10 @@ public class ItemConfiguration : IEntityTypeConfiguration<ItemEntity>
         builder.HasIndex(m => m.Name)
                .IsUnique();
         
+        builder.Property(m => m.isLegendary)
+               .IsRequired()
+               .HasDefaultValue(false);
+        
         builder.Property(m => m.Description)
                 .IsRequired()
                 .HasMaxLength(300);

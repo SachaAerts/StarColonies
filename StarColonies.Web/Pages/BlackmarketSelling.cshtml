@@ -1,0 +1,75 @@
+﻿@page
+@model StarColonies.Web.Pages.BlackmarketSelling
+@{
+    ViewData["Title"] = "Blackmarket - Selling";
+    Layout = "Shared/_Layout";
+}
+
+<div class="blackmarketMainFrame">
+    <div class="blackmarketMainContainer">
+        <button class="buttonProfile backButtonProfile">
+            <a asp-page="Index">
+                <img class="modifyLogoProfile" src="~/img/icons/arrow.png" alt="back"/>
+            </a>
+        </button>
+        <h2 class="blackmarketTitle">Welcome to the Blackmarket</h2>
+        
+        <div class="blackmarketContent">
+            <div class="blackmarketNav">
+                <div class="blackmarketNavButtons">
+                    <button class="blackmarketNavButton">
+                        <a asp-page="blackmarketBuying">Purchase</a>
+                    </button>
+                    <button class="blackmarketNavButton blackmarketNavButtonActive">
+                        <a asp-page="blackmarketSelling">Sell</a>
+                    </button>
+                </div>
+                <!-- Mustys du joueur -->
+                <div class="blackmarketUserMustys">
+                    <p class="blackmarketUserMustysValue">Musty :</p>
+                    <p class="blackmarketUserMustysValue">@Model.Colonist.Musty</p>
+                    <img class="blackmarketUserMustysImg" src="~/img/icons/mustysCoin.png" alt="UserMustys">
+                </div>
+            </div>
+            
+            <hr class="ledHr"/>
+
+            <!-- Interieur du blackmarket (achat) -->
+            <div class="blackmarketItemList">
+                @if (Model.InventoryItems.Count == 0)
+                {
+                    <p class="moneyIssue">You don't have any items to sell...</p>
+                }
+                @foreach (var item in Model.InventoryItems)
+                {
+                    <div class="blackmarketItem">
+                        <img class="blackmarketItemImg" src="~/img/items/@item.Item.ImagePath" alt="ItemImage">
+                        <hr class="ledHr"/>
+                        <h4 class="blackmarketItemName">@item.Item.Name</h4>
+                        @if (item.Item.Effect.ForceModifier != null)
+                        {
+                            <p>Strength +@item.Item.Effect.ForceModifier</p>
+                        }
+                        @if (item.Item.Effect.StaminaModifier != null)
+                        {
+                            <p>Stamina +@item.Item.Effect.StaminaModifier</p>
+                        }
+                        <p>Owned : x @item.Quantity</p>
+                        <form method="post" asp-page-handler="SellItem">
+                            <input type="hidden" name="itemId" value="@item.Item.Id"/>
+                            <input type="hidden" name="itemValue" value="@item.Item.CoinsValue"/>
+                            <button class="blackmarketButton">
+                                <p>Sell : </p>
+                                <div class="blackmarketButtonValue">
+                                    <p>@item.Item.CoinsValue</p>
+                                    <img class="blackmarketItemMustysImg" src="~/img/icons/mustysCoin.png" alt="ItemMustys">
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
