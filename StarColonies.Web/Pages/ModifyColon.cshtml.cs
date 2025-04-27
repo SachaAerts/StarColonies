@@ -1,4 +1,5 @@
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models;
@@ -9,6 +10,7 @@ using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages
 {
+    [Authorize]
     public class ModifyColon : PageModel
     {
         private readonly IColonistRepository _colonistRepository;
