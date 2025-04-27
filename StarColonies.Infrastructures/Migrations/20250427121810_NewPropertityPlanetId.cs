@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StarColonies.Infrastructures.Migrations
 {
     /// <inheritdoc />
-    public partial class InitProduction : Migration
+    public partial class NewPropertityPlanetId : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -239,7 +239,8 @@ namespace StarColonies.Infrastructures.Migrations
                     Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     EffectId = table.Column<int>(type: "int", nullable: false),
                     CoinsValue = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumberOfBuy = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
@@ -262,6 +263,7 @@ namespace StarColonies.Infrastructures.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     PlanetId = table.Column<int>(type: "int", nullable: false),
+                    Visible = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     CoinsReward = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
@@ -352,9 +354,12 @@ namespace StarColonies.Infrastructures.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ColonieId = table.Column<int>(type: "int", nullable: false),
+                    ColonyId = table.Column<int>(type: "int", nullable: false),
+                    PlanetId = table.Column<int>(type: "int", nullable: false),
                     MissionId = table.Column<int>(type: "int", nullable: false),
                     ExecutedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    LivingColony = table.Column<bool>(type: "bit", nullable: false),
+                    OvercomingMission = table.Column<bool>(type: "bit", nullable: false),
                     IsSuccess = table.Column<bool>(type: "bit", nullable: false),
                     RewardedCoins = table.Column<int>(type: "int", nullable: false)
                 },
@@ -362,8 +367,8 @@ namespace StarColonies.Infrastructures.Migrations
                 {
                     table.PrimaryKey("PK_MissionExecution", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MissionExecution_Colony_ColonieId",
-                        column: x => x.ColonieId,
+                        name: "FK_MissionExecution_Colony_ColonyId",
+                        column: x => x.ColonyId,
                         principalTable: "Colony",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -372,7 +377,13 @@ namespace StarColonies.Infrastructures.Migrations
                         column: x => x.MissionId,
                         principalTable: "Mission",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MissionExecution_Planet_PlanetId",
+                        column: x => x.PlanetId,
+                        principalTable: "Planet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -505,14 +516,19 @@ namespace StarColonies.Infrastructures.Migrations
                 column: "PlanetId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MissionExecution_ColonieId",
+                name: "IX_MissionExecution_ColonyId",
                 table: "MissionExecution",
-                column: "ColonieId");
+                column: "ColonyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MissionExecution_MissionId",
                 table: "MissionExecution",
                 column: "MissionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MissionExecution_PlanetId",
+                table: "MissionExecution",
+                column: "PlanetId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Planet_Name",

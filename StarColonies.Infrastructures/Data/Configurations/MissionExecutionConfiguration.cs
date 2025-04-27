@@ -10,6 +10,9 @@ public class MissionExecutionConfiguration :IEntityTypeConfiguration<MissionExec
     {
         builder.HasKey(m => m.Id);
 
+        builder.Property(m => m.PlanetId)
+               .IsRequired();
+        
         builder.Property(m => m.ExecutedAt)
                .HasDefaultValueSql("CURRENT_TIMESTAMP");
         
@@ -25,6 +28,11 @@ public class MissionExecutionConfiguration :IEntityTypeConfiguration<MissionExec
         builder.Property(m => m.RewardedCoins)
                .IsRequired();
 
+        builder.HasOne(e => e.Planet)
+               .WithMany()
+               .HasForeignKey(e => e.PlanetId)
+               .OnDelete(DeleteBehavior.Restrict);
+        
         builder.HasOne(e => e.Colony)
                .WithMany(c => c.MissionExecutions)
                .HasForeignKey(e => e.ColonyId)
@@ -33,6 +41,6 @@ public class MissionExecutionConfiguration :IEntityTypeConfiguration<MissionExec
         builder.HasOne(e => e.Mission)
                .WithMany()
                .HasForeignKey(e => e.MissionId)
-               .OnDelete(DeleteBehavior.Cascade);
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }
