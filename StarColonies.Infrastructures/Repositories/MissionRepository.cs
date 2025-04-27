@@ -123,12 +123,13 @@ public class MissionRepository(
         await context.SaveChangesAsync();
     }
     
-    public async Task DeleteMissionAsync(int missionId)
+    public async Task VisibleMissionAsync(int missionId)
     {
         var mission = await context.Mission.FindAsync(missionId);
         if (mission != null)
         {
-            context.Mission.Remove(mission);
+            mission.Visible = !mission.Visible;
+            context.Mission.Update(mission);
             await context.SaveChangesAsync();
         }
     }

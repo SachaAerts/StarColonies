@@ -40,6 +40,7 @@ This ensures that the request actually comes from the authenticated user and not
         forceModifier = i.Item.Effect.ForceModifier,
         staminaModifier = i.Item.Effect.StaminaModifier
     }));
+    bool isAdmin = User.Identity?.IsAuthenticated == true && User.IsInRole("Admin");
 }
 
 <header>
@@ -63,14 +64,15 @@ This ensures that the request actually comes from the authenticated user and not
                 data-teams='@Html.Raw(HtmlEncoder.Default.Encode(coloniesJson))'
                 data-items='@Html.Raw(HtmlEncoder.Default.Encode(itemsJson))'>
 
-                @foreach (var mission in planet.Missions)
+                @foreach (var mission in planet.Missions.Where(m => isAdmin || m.Visible))
                 {
                     <quest
                         id="@mission.Id"
                         title="@mission.Name"
                         description="@mission.Description"
                         difficulty="@mission.Difficulty"
-                        reward="@mission.CoinsReward">
+                        reward="@mission.CoinsReward"
+                        visible="@mission.Visible">
 
                         <enemies>
                             @foreach (var enemy in mission.Enemies)
