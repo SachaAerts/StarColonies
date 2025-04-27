@@ -97,8 +97,7 @@ public class MissionRegister
                 description: $"In a forgotten corner, a mysterious bazaar appeared overnight. " +
                              $"Two legendary figures inhabit it: the cunning Emir Ayoub and the fearsome Sultan Ilhan. " +
                              $"Half-merchants, half-warlords, they offer 'golden deals' to daring travelers... provided they survive their infernal challenges.\n" +
-                             $"Between cosmic kebabs and anti-gravity flying carpets, settlers risk (or grow) their fortunes through risky negotiations, rigged bets, " +
-                             $"and trials that defy comprehension. Only the boldest will leave with rare artifacts—and a legend to their name.",
+                             $"Between cosmic kebabs and anti-gravity flying carpets, settlers risk (or grow) their fortunes through risky negotiations",
                 coins: 230,
                 planet: planets[7],
                 enemies: [SelectEnemyByName(enemies, "Ayoub"), SelectEnemyByName(enemies, "Ilhan")],
@@ -134,15 +133,5 @@ public class MissionRegister
     }
     
     private static EnemyEntity SelectEnemyByName(IList<EnemyEntity> allEnemies, string name)
-    {
-        var enemy = allEnemies.FirstOrDefault(e => e.Name == name);
-        return new EnemyEntity
-        {
-            Id = enemy.Id,
-            Name = enemy.Name,
-            Strength = enemy.Strength,
-            Stamina = enemy.Stamina,
-            ImagePath = enemy.ImagePath
-        };
-    }
+        => allEnemies.First(e => e.Name == name);
 }
