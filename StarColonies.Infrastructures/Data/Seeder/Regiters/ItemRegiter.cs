@@ -18,14 +18,14 @@ public class ItemRegiter
         
         return new()
         {
-            ItemFactory.Create("Strength Module", "Boosts force slightly.", effectSmallBoostForce.Id, 5, "force.png"),
-            ItemFactory.Create("Stamina Pack", "Boosts stamina slightly.", effectSmallBoostStamina.Id, 5, "stamina.png"),
-            ItemFactory.Create("Power Amplifier", "Boosts force moderately.", effectMediumBoostForce.Id, 6, "brain.png"),
-            ItemFactory.Create("Endurance Battery", "Boosts stamina moderately.", effectMediumBoostStamina.Id, 12, "battery.png"),
-            ItemFactory.Create("Adaptative Kit", "Boosts overall capabilities moderately.", effectMediumBoost.Id, 24, "kit.png"),
-            ItemFactory.Create("Uncommon Artifact", "An artifact of uncommon origin.", effectUncommon.Id, 46, "gun.png"),
-            ItemFactory.Create("Golden Apple", "A Golden Apple rarity, very powerful.", effectEpic.Id, 52, "golden_apple.png"),
-            ItemFactory.Create("AK-47", "A core of legendary origin, grants immense power.", effectLegendary.Id, 78, "ak.png")
+            ItemFactory.Create("Strength Module", "Boosts force slightly.", effectSmallBoostForce.Id, 5, "force.png", false),
+            ItemFactory.Create("Stamina Pack", "Boosts stamina slightly.", effectSmallBoostStamina.Id, 5, "stamina.png", false),
+            ItemFactory.Create("Power Amplifier", "Boosts force moderately.", effectMediumBoostForce.Id, 6, "brain.png", false),
+            ItemFactory.Create("Endurance Battery", "Boosts stamina moderately.", effectMediumBoostStamina.Id, 12, "battery.png", false),
+            ItemFactory.Create("Adaptative Kit", "Boosts overall capabilities moderately.", effectMediumBoost.Id, 24, "kit.png", false),
+            ItemFactory.Create("Uncommon Artifact", "An artifact of uncommon origin.", effectUncommon.Id, 46, "gun.png", true),
+            ItemFactory.Create("Golden Apple", "A Golden Apple rarity, very powerful.", effectEpic.Id, 52, "golden_apple.png", true),
+            ItemFactory.Create("AK-47", "A core of legendary origin, grants immense power.", effectLegendary.Id, 78, "ak.png", true)
         };
     }
 }

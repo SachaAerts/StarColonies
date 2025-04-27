@@ -16,7 +16,9 @@ public class ItemToEntityMapper(IDomainToEntityMapper<EffectEntity, EffectModel>
             CoinsValue = entity.CoinsValue,
             ImagePath = entity.ImagePath,
             EffectId = entity.Effect.Id,
-            Effect = effectMapper.Map(entity.Effect)
+            Effect = effectMapper.Map(entity.Effect),
+            NumberOfBuy = entity.NumberOfBuy,
+            isLegendary = entity.IsLegendary,
         };
 
     public void MapInto(ColonistModel model, ColonistEntity entity)

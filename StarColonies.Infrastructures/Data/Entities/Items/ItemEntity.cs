@@ -17,6 +17,8 @@ public class ItemEntity
     
     public int NumberOfBuy { get; set; } = 0;
     
+    public required bool isLegendary { get; set; }
+    
     public ICollection<RewardedEntity> Rewards { get; set; } = new List<RewardedEntity>();
     public ICollection<InventoryEntity> Colonists { get; set; } = new List<InventoryEntity>();
 }

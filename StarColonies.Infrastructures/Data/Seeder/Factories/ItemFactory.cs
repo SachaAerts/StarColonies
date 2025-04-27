@@ -5,7 +5,7 @@ namespace StarColonies.Infrastructures.Data.Seeder.Factories;
 
 public static class ItemFactory
 {
-    public static ItemEntity Create(string name, string description, int effectId, int coinsValue, string image)
+    public static ItemEntity Create(string name, string description, int effectId, int coinsValue, string image, bool isLegendary)
         => new ()
         {
             Name = name,
@@ -13,6 +13,7 @@ public static class ItemFactory
             EffectId = effectId,
             CoinsValue = coinsValue,
             ImagePath = image,
-            NumberOfBuy = Random.Shared.Next(1, 50)
+            NumberOfBuy = Random.Shared.Next(1, 50),
+            isLegendary = isLegendary
         };
 }
