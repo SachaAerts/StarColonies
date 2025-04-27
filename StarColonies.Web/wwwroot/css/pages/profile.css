@@ -178,6 +178,12 @@ a {
     align-items: center;
 }
 
+.profileHeaders div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .buttonProfile {
     display: flex;
     align-items: center;
@@ -200,7 +206,29 @@ a {
     box-shadow: 0 4px 16px rgba(0, 255, 255, 0.2), 0 0 18px rgba(127, 0, 255, 0.3);
 }
 
-.buttonProfile a {
+.buttonInventoryProfile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(3px);
+    box-shadow: 0 2px 6px rgba(255, 223, 0, 0.1), 0 0 8px rgba(255, 215, 0, 0.15);
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+}
+
+.buttonInventoryProfile:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(255, 223, 0, 0.2), 0 0 18px rgba(255, 215, 0, 0.3);
+}
+
+.buttonProfile a, .buttonInventoryProfile a {
     width: 100%;
     height: 100%;
     display: flex;

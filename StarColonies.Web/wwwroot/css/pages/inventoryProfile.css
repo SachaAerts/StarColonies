@@ -1,0 +1,127 @@
+.mainInventoryProfile {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(145deg, #1a2235, #111827);
+    border: 2px solid #152F49;
+    border-radius: 10px;
+    padding: 40px 50px;
+    box-shadow: 0 4px 20px rgba(0, 255, 255, 0.1), 0 0 20px rgba(127, 0, 255, 0.2);
+
+    box-sizing: border-box;
+    min-width: 400px;
+}
+
+.titleInventoryProfile {
+    text-align: center;
+    color: white;
+    font-family: 'Judge Italic', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.oneLineInventoryProfile, .oneItemInventoryProfile {
+    display: flex;
+    align-items: center;
+}
+
+.oneLineInventoryProfile {
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 20px;
+}
+
+.oneItemInventoryProfile {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.oneItemInventoryProfile:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4), 0 0 20px rgba(127, 0, 255, 0.3);
+}
+
+.oneItemInventoryProfile img {
+    width: 50px;
+    height: 50px;
+}
+
+.oneItemInventoryProfile p {
+    font-family: 'Pixelify Sans', sans-serif;
+    color: white;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.item-common {
+    background: rgba(100, 100, 100, 0.1);
+    border: 1px solid rgba(200, 200, 200, 0.2);
+}
+
+.item-common::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.item-common p {
+    color: #c0c0c0;
+}
+
+.item-legendary {
+    background: rgba(255, 215, 0, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.item-legendary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 215, 0, 0) 0%, rgba(255, 215, 0, 0.1) 50%, rgba(255, 215, 0, 0) 100%);
+    animation: legendaryGlow 2s infinite alternate;
+    z-index: -1;
+}
+
+.item-legendary p {
+    color: #ffd700;
+    text-shadow: 0 0 3px rgba(255, 215, 0, 0.5);
+    font-weight: bold;
+}
+
+.item-legendary img {
+    filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.7));
+}
+
+@keyframes legendaryGlow {
+    0% {
+        opacity: 0.3;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 0.6;
+        transform: translateX(100%);
+    }
+}

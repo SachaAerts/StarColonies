@@ -7,7 +7,7 @@
 }
 
 @functions {
-    public string TruncateText(string text, int maxLength)
+    private string TruncateText(string text, int maxLength)
     {
         if (string.IsNullOrEmpty(text)) return string.Empty;
         return text.Length > maxLength ? text.Substring(0, maxLength).Trim() + "..." : text;
@@ -33,11 +33,19 @@
         <div class="profileInformations">
             <div class="profileHeaders">
                 <h3>Informations</h3>
-                <button class="buttonProfile">
-                    <a asp-page="ModifyColon" asp-route-id="@Model.Id">
-                        <img class="modifyLogoProfile" src="~/img/icons/modify.png" alt="modify"/>
-                    </a>
-                </button>
+                <div>
+                    <button class="buttonInventoryProfile">
+                        <a asp-page="InventoryProfile" asp-route-id="@Model.Id">
+                            <img class="modifyLogoProfile" src="~/img/icons/inventory.png" alt="inventory"/>
+                        </a>
+                    </button>
+                    
+                    <button class="buttonProfile">
+                        <a asp-page="ModifyColon" asp-route-id="@Model.Id">
+                            <img class="modifyLogoProfile" src="~/img/icons/modify.png" alt="modify"/>
+                        </a>
+                    </button>
+                </div>
             </div>
             <hr/>
 
