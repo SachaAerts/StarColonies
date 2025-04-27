@@ -39,4 +39,8 @@
       <_ContentIncludedByDefault Remove="wwwroot\overlays\MissionDetailsCommand.js" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="wwwroot\img\items\kebab.png" />
+    </ItemGroup>
+
 </Project>

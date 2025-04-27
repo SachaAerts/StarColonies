@@ -86,10 +86,10 @@ public class MissionRegister
                 name: "Ore Extraction",
                 description: $"Precious resources have been discovered on {planets[7].Name}. " +
                              "Ensure their extraction under the constant threat of enemies.",
-                coins: 2,
+                coins: 120,
                 planet: planets[7],
-                enemies: SelectEnemies(enemies, [10, 12, 11]),
-                items: SelectRewards(items, [1, 4, 5])
+                enemies: [SelectEnemyByName(enemies, "Leviathan"), SelectEnemyByName(enemies, "Hégémon"), SelectEnemyByName(enemies, "Drone de combat")],
+                items: [SelectRewardByName(items, "Golden Apple"), SelectRewardByName(items, "Uncommon Artifact")]
             ),
             
             MissionFactory.Create(
@@ -101,7 +101,7 @@ public class MissionRegister
                 coins: 230,
                 planet: planets[7],
                 enemies: [SelectEnemyByName(enemies, "Ayoub"), SelectEnemyByName(enemies, "Ilhan")],
-                items: [SelectRewardByName(items, "Golden Apple"), SelectRewardByName(items, "AK-47")]
+                items: [SelectRewardByName(items, "Golden Kebab"), SelectRewardByName(items, "AK-47")]
             )
         };
         
