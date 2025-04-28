@@ -264,7 +264,7 @@ class CharacterPanel extends HTMLElement {
 
     getSelectedImageDetails() {
         return {
-            selectedCharacter: this.selectedCharacter ? `${this.BASE_PATH}/img/upload/${this.selectedCharacter}` : null,
+            selectedCharacter: this.selectedCharacter ? this.selectedCharacter : null,
             uploadedCharacter: this.uploadedCharacter
         };
     }
