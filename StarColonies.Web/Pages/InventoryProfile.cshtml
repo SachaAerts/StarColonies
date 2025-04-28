@@ -12,6 +12,15 @@
             <img class="modifyLogoProfile" src="~/img/icons/arrow.png" alt="back"/>
         </a>
     </button>
+    
+    @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+    {
+        <button class="buttonProfile backButtonInventoryProfile">
+            <a asp-page="ItemsList">
+                <img class="modifyLogoProfile" src="~/img/icons/modify.png" alt="modify"/>
+            </a>
+        </button>    
+    }
 
     <h1 class="titleInventoryProfile">Inventory</h1>
 

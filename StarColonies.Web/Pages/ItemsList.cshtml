@@ -1,0 +1,73 @@
+@page
+@model StarColonies.Web.Pages.ItemsList
+
+@{
+    ViewData["Title"] = "Inventory";
+    Layout = "Shared/_Layout";
+}
+
+@functions {
+    public string TruncateText(string text, int maxLength)
+    {
+        if (string.IsNullOrEmpty(text)) return string.Empty;
+        return text.Length > maxLength ? text.Substring(0, maxLength).Trim() + "..." : text;
+    }
+}
+
+<section class="mainInventoryProfile">
+    <button class="buttonProfile backButtonProfile">
+        <a asp-page="InventoryProfile" asp-route-id="@Model.Admin!.Id">
+            <img class="modifyLogoProfile" src="~/img/icons/arrow.png" alt="back"/>
+        </a>
+    </button>
+    
+    <button class="buttonProfile backButtonInventoryProfile">
+        <a asp-page="#">
+            <img class="modifyLogoProfile" src="~/img/icons/add.png" alt="add"/>
+        </a>
+    </button>
+    
+    <h1 class="titleInventoryProfile">Item List</h1>
+    
+    <hr class="ledHr"/>
+    
+    <div class="itemListInItemListPage">
+        @foreach (var item in Model.Items)
+        {
+            var pictureRarely = item.IsLegendary ? "legendary.png" : "common.png";
+
+            <div class="oneItemInListItemPage">
+                <img class="logoItemInItemList" src="~/img/items/@item.ImagePath" alt="logoItem"/>
+                <h2>@TruncateText(item.Name, 30)</h2>
+                <div class="oneItemStatsItemList">
+                    <p>Modifier stats:</p>
+                    <div>
+                        <img src="~/img/icons/force.png" alt="strength"/>
+                        <p class="informationProfileValue valueStatProfile">+@item.Effect.ForceModifier</p>
+                    </div>
+                    <div>
+                        <img src="~/img/icons/stamina.png" alt="stamina"/>
+                        <p class="informationProfileValue valueStatProfile">+@item.Effect.StaminaModifier</p>
+                    </div>
+                </div>
+                
+                <img class="logoRarelyItemList" src="~/img/icons/@pictureRarely" alt="rarely"/>
+
+                <div class="oneItemButtonsItemList">
+                    <button class="buttonModifyGreen">
+                        <a asp-page="#">
+                            <img class="modifyLogoProfile" src="~/img/icons/modify.png" alt="modifyItem"/>
+                        </a>
+                    </button>
+
+                    <form method="post">
+                        <button type="submit" class="buttonDelete">
+                            <img class="modifyLogoProfile" src="~/img/icons/bin.png" alt="deleteItem"/>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
