@@ -12,7 +12,7 @@ public class EffectToDomainMapper : IEntityToDomainMapper<EffectModel, EffectEnt
         {
             Id = entity.Id,
             ForceModifier = entity.ForceModifier,
-            StaminaModifier = entity.StaminaModifier,
+            StaminaModifier = entity.StaminaModifier
         };
     }
 }
