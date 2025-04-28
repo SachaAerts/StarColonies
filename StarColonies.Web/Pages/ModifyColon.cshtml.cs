@@ -11,7 +11,7 @@ using StarColonies.Web.wwwroot.models;
 namespace StarColonies.Web.Pages
 {
     [Authorize]
-    public class ModifyColon : PageModel
+    public class ModifyColon(IColonistRepository colonistRepository) : PageModel
     {
         [BindProperty(SupportsGet = true)]
         public Guid Id { get; set; }
