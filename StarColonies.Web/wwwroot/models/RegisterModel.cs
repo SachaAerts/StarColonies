@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using StarColonies.Web.Validators;
 
 namespace StarColonies.Web.wwwroot.models;
 
 public class RegisterModel
 {
     [Required(ErrorMessage = "Email required")]
-    [EmailAddress(ErrorMessage = "Invalid email")]
+    [EmailFormat(ErrorMessage = "Invalid email")]
     public required string EmailRegister { get; set; }
 
     [DataType(DataType.Password)]
