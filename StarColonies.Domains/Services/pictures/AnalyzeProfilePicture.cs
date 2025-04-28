@@ -1,6 +1,6 @@
 namespace StarColonies.Domains.Services.pictures;
 
-public class AnalyzeProfilePicture(string settlerName)
+public class AnalyzeProfilePicture(string settlerName, string uploadDir)
 {
     public string GetProfilePictureFileName(string picture)
     {
@@ -20,7 +20,6 @@ public class AnalyzeProfilePicture(string settlerName)
 
             var extension = GetImageExtension(picture);
             var fileName = GenerateUniqueFileName(settlerName, extension);
-            var uploadDir = Path.Combine("wwwroot", "img", "upload");
 
             if (!Directory.Exists(uploadDir))
                 Directory.CreateDirectory(uploadDir);

@@ -10,22 +10,19 @@ using StarColonies.Web.wwwroot.models;
 namespace StarColonies.Web.Pages;
 
 [Authorize(Roles = "Admin")]
-public class CreateItem(IItemRepository itemRepository)
+public class CreateItem(IItemRepository itemRepository, IWebHostEnvironment env)
     : PageModel
 {
     [BindProperty] 
     public NewItem NewItem { get; set; }
-    
-    public void OnGet()
-    {
-    }
 
     public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
             return Page();
 
-        AnalyzeItemPicture analyzeItemPicture = new AnalyzeItemPicture(NewItem.NameItem);
+        var uploadPath = Path.Combine(env.WebRootPath, "img", "upload");
+        AnalyzeItemPicture analyzeItemPicture = new AnalyzeItemPicture(NewItem.NameItem, uploadPath);
 
         EffectModel effect = new EffectModel()
         {

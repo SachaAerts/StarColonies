@@ -8,7 +8,7 @@ using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
 
-public class ModifyItem(IItemRepository itemRepository)
+public class ModifyItem(IItemRepository itemRepository, IWebHostEnvironment env)
     : PageModel
 {
     [BindProperty(SupportsGet = true)]
@@ -38,7 +38,9 @@ public class ModifyItem(IItemRepository itemRepository)
         }
         else
         {
-            AnalyzeItemPicture analyzeItemPicture = new AnalyzeItemPicture(ModifItem.NameItem);
+            var uploadPath = Path.Combine(env.WebRootPath, "img", "upload");   
+            AnalyzeItemPicture analyzeItemPicture = new AnalyzeItemPicture(ModifItem.NameItem, uploadPath);
+            
             IDeletePicture deletePicture = new DeletePicture();
             deletePicture.DeleteImage(item.ImagePath, true);
             newPicture = analyzeItemPicture.SaveItemPicture(ModifItem.Picture);

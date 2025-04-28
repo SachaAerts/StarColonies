@@ -9,7 +9,10 @@ using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
 
-public class CreateColon(UserManager<ColonistEntity> userManager, SignInManager<ColonistEntity> signInManager)
+public class CreateColon(
+    UserManager<ColonistEntity> userManager, 
+    SignInManager<ColonistEntity> signInManager,
+    IWebHostEnvironment env)
     : PageModel
 {
     [TempData]
@@ -32,7 +35,8 @@ public class CreateColon(UserManager<ColonistEntity> userManager, SignInManager<
         if (!ModelState.IsValid)
             return Page();
         
-        AnalyzeProfilePicture analyzeProfilePicture = new AnalyzeProfilePicture(NewUser.SettlerName);
+        var uploadPath = Path.Combine(env.WebRootPath, "img", "upload");
+        var analyzeProfilePicture = new AnalyzeProfilePicture(NewUser.SettlerName, uploadPath);
 
         var colonist = new ColonistEntity()
         {

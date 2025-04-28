@@ -11,7 +11,10 @@ using StarColonies.Web.wwwroot.models;
 namespace StarColonies.Web.Pages;
 
 [Authorize]
-public class CreateColony(IColonistRepository colonistRepository, IColonyRepository colonyRepository)
+public class CreateColony(
+    IColonistRepository colonistRepository, 
+    IColonyRepository colonyRepository, 
+    IWebHostEnvironment env)
     : PageModel
 {
     [BindProperty(SupportsGet = true)]
@@ -28,10 +31,6 @@ public class CreateColony(IColonistRepository colonistRepository, IColonyReposit
     {
         TeamOwner = await colonistRepository.GetColonistByIdAsync(Id.ToString());
         await GetAvailableColonists();
-        NewColony ??= new NewColony
-        {
-            Colonists = new List<ColonistModel>()
-        };
         return Page();
     }
 
@@ -63,12 +62,13 @@ public class CreateColony(IColonistRepository colonistRepository, IColonyReposit
             return Page();
         }
         
-        AnalyzeProfilePicture analyzeProfilePicture = new AnalyzeProfilePicture(NewColony.Name);
+        var uploadPath = Path.Combine(env.WebRootPath, "img", "upload");
+        AnalyzeProfilePicture analyzeProfilePicture = new AnalyzeProfilePicture(NewColony.Name, uploadPath);
 
         ColonyModel colony = new ColonyModel()
         {
             Name = NewColony.Name,
-            OwnerId = TeamOwner.Id.ToString(),
+            OwnerId = TeamOwner.Id,
             LogoPath = analyzeProfilePicture.GetProfilePictureFileName(NewColony.PictureTeam),
             Colonists = NewColony.Colonists
         };

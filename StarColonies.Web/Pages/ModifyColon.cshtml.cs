@@ -11,7 +11,9 @@ using StarColonies.Web.wwwroot.models;
 namespace StarColonies.Web.Pages
 {
     [Authorize]
-    public class ModifyColon(IColonistRepository colonistRepository) : PageModel
+    public class ModifyColon(
+        IColonistRepository colonistRepository, 
+        IWebHostEnvironment env) : PageModel
     {
         [BindProperty(SupportsGet = true)]
         public Guid Id { get; set; }
@@ -38,7 +40,8 @@ namespace StarColonies.Web.Pages
             if (!ModelState.IsValid)
                 return Page();
 
-            var analyzer = new AnalyzeProfilePicture(ModifyUser.SettlerName);
+            var uploadPath = Path.Combine(env.WebRootPath, "img", "upload");
+            var analyzer = new AnalyzeProfilePicture(ModifyUser.SettlerName, uploadPath);
 
             var colonist = new ColonistModel
             {

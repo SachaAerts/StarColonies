@@ -9,7 +9,10 @@ using StarColonies.Web.wwwroot.models;
 namespace StarColonies.Web.Pages;
 
 [Authorize]
-public class ModifyColony(IColonistRepository colonistRepository, IColonyRepository colonyRepository)
+public class ModifyColony(
+    IColonistRepository colonistRepository, 
+    IColonyRepository colonyRepository,
+    IWebHostEnvironment env)
     : PageModel
 {
     [BindProperty(SupportsGet = true)]
@@ -72,13 +75,14 @@ public class ModifyColony(IColonistRepository colonistRepository, IColonyReposit
             return Page();
         }
         
-        AnalyzeProfilePicture analyzeProfilePicture = new AnalyzeProfilePicture(ModifColony.Name);
+        var uploadPath = Path.Combine(env.WebRootPath, "img", "upload");
+        AnalyzeProfilePicture analyzeProfilePicture = new AnalyzeProfilePicture(ModifColony.Name, uploadPath);
 
         ColonyModel colonyModel = new ColonyModel()
         {
             Id = TeamId,
             Name = ModifColony.Name,
-            OwnerId = TeamOwner.Id.ToString(),
+            OwnerId = TeamOwner.Id,
             LogoPath = analyzeProfilePicture.GetProfilePictureFileName(ModifColony.PictureTeam),
             Colonists = ModifColony.Colonists
         };
