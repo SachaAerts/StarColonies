@@ -47,7 +47,10 @@ async function sendMissionRequest(selectedTeam, selectedItems) {
 }
 
 async function post(body) {
-    const response = await fetch("/Map?handler=ResolveMission", {
+    const BASE_PATH = window.BASE_PATH || "";
+    const url = BASE_PATH + "/Map?handler=ResolveMission";
+    
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

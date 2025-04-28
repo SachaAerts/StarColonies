@@ -18,7 +18,10 @@ export function setupToggleVisibilityListener(id) {
 
 
 async function onPost(missionId) {
-    const response = await fetch(`/DeleteMission/${missionId}`, {
+    const BASE_PATH = window.BASE_PATH || "";
+    const url = BASE_PATH + `/DeleteMission/${missionId}`;
+    
+    const response = await fetch(url, {
         method: "POST",
         headers: {"Accept": "application/json", "Content-Type": "application/json"}
     });

@@ -2,7 +2,6 @@
 import { notifyMissionResult } from '../../../../notifications/notifyMissionResult.js';
 
 export function renderMissionResult(data) {
-    
     const result = data.result, 
           mission = data.mission;
     
