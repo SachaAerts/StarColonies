@@ -2,45 +2,61 @@ namespace StarColonies.Domains.Services.pictures;
 
 public class AnalyzeItemPicture(string itemName, string uploadDir)
 {
-    public string SaveItemPicture(string base64Image)
+    public string SaveItemPicture(string picture)
     {
-        if (string.IsNullOrWhiteSpace(base64Image)) throw new ArgumentException("Base64 image data is required.");
+        if (string.IsNullOrWhiteSpace(picture)) return "1.png";
 
-        var base64Data = base64Image.Substring(base64Image.IndexOf(',') + 1);
-        var bytes = Convert.FromBase64String(base64Data);
-
-        var extension = GetImageExtension(base64Image);
-        var fileName = GenerateUniqueFileName(itemName, extension);
-
-        if (!Directory.Exists(uploadDir)) Directory.CreateDirectory(uploadDir);
-
-        var fullPath = Path.Combine(uploadDir, fileName);
-
-        while (File.Exists(fullPath))
+        if (picture.StartsWith("/") || picture.StartsWith("http") || picture.StartsWith("https"))
         {
-            fileName = GenerateUniqueFileName(itemName, extension, forceGuid: true);
-            fullPath = Path.Combine(uploadDir, fileName);
+            var fileName = Path.GetFileName(picture);
+            return string.IsNullOrWhiteSpace(fileName) ? "1.png" : fileName;
         }
 
-        File.WriteAllBytes(fullPath, bytes);
+        if (picture.StartsWith("data:image"))
+        {
+            var base64Data = picture[(picture.IndexOf(',') + 1)..];
+            var bytes = Convert.FromBase64String(base64Data);
 
-        return fileName;
+            var extension = GetImageExtension(picture);
+            var fileName = GenerateUniqueFileName(itemName, extension);
+
+            EnsureDirectoryExists(uploadDir);
+
+            var fullPath = Path.Combine(uploadDir, fileName);
+            while (File.Exists(fullPath))
+            {
+                fileName = GenerateUniqueFileName(itemName, extension, forceGuid: true);
+                fullPath = Path.Combine(uploadDir, fileName);
+            }
+
+            File.WriteAllBytes(fullPath, bytes);
+            return fileName;
+        }
+
+        return picture;
     }
 
+    private void EnsureDirectoryExists(string directory)
+    {
+        if (!Directory.Exists(directory)) 
+            Directory.CreateDirectory(directory);
+    }
+    
     private string GenerateUniqueFileName(string baseName, string extension, bool forceGuid = false)
     {
         var sanitized = SanitizeFileName(baseName);
-        if (forceGuid) return $"{sanitized}_{Guid.NewGuid()}{extension}";
+        if (forceGuid)
+            return $"{sanitized}_{Guid.NewGuid()}{extension}";
 
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         return $"{sanitized}_{timestamp}{extension}";
     }
 
-    private string GetImageExtension(string base64Image)
+    private string GetImageExtension(string picture)
     {
-        if (base64Image.StartsWith("data:image/jpeg")) return ".jpg";
-        if (base64Image.StartsWith("data:image/png")) return ".png";
-        return base64Image.StartsWith("data:image/gif") ? ".gif" : ".png";
+        if (picture.StartsWith("data:image/jpeg")) return ".jpg";
+        if (picture.StartsWith("data:image/png")) return ".png";
+        return picture.StartsWith("data:image/gif") ? ".gif" : ".png";
     }
 
     private string SanitizeFileName(string input)
