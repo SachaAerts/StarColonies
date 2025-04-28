@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models;
@@ -10,6 +11,7 @@ using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
 
+[Authorize(Roles = "Admin")]
 public class Statistics(IItemRepository itemRepository, IColonyRepository colonyRepository, IPlanetRepository planetRepository, IMissionRepository missionRepository)
     : PageModel
 {

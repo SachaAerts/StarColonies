@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models.Colony;
@@ -9,6 +10,7 @@ using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
 
+[Authorize]
 public class CreateColony(IColonistRepository colonistRepository, IColonyRepository colonyRepository)
     : PageModel
 {

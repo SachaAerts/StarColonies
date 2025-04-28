@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models.Colony;
@@ -7,6 +8,7 @@ using StarColonies.Infrastructures.Services.picture;
 
 namespace StarColonies.Web.Pages;
 
+[Authorize]
 public class TeamProfile(IColonyRepository colonyRepository, IColonistRepository colonistRepository)
     : PageModel
 {

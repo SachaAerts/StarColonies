@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models.Colony;
@@ -8,6 +9,7 @@ using StarColonies.Infrastructures.Data.Entities;
 
 namespace StarColonies.Web.Pages;
 
+[Authorize]
 public class BlackmarketBuying(UserManager<ColonistEntity> userManager, IColonistRepository colonistRepository, IItemRepository itemRepository, IInventaryRepository inventoryRepository)
     : PageModel
 {

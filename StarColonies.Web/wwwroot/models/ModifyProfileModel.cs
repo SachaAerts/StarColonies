@@ -7,7 +7,7 @@ namespace StarColonies.Web.wwwroot.models;
 public class ModifyProfileModel
 {
     [Required(ErrorMessage = "Email required")]
-    [EmailAddress(ErrorMessage = "Invalid email")]
+    [EmailFormat(ErrorMessage = "Invalid email")]
     public string Email { get; set; } = "";
     
     [Required(ErrorMessage = "Settler's name is required")]
@@ -22,6 +22,7 @@ public class ModifyProfileModel
     public string Profession { get; set; } = "";
     
     [Required(ErrorMessage = "Profile picture is required")]
+    [ImageSize(320, 320, ErrorMessage = "Profile picture must not exceed 320x320 pixels.")]
     public string ProfilePicture { get; set; } = "";
     
     [StatsRegister(ErrorMessage = "Assign all available levels")]
