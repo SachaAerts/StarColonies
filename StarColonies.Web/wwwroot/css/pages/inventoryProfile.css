@@ -17,15 +17,13 @@
 
     box-sizing: border-box;
     min-width: 400px;
-
-    /* Ajout des propriétés pour la barre de défilement */
+    
     max-height: 80vh;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-color: #262c3c #171f30;
 }
 
-/* Style pour la barre de défilement (pour les navigateurs Webkit) */
 .mainInventoryProfile::-webkit-scrollbar {
     width: 8px;
 }

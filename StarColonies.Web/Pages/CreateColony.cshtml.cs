@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models.Colony;
@@ -11,7 +12,7 @@ using StarColonies.Web.wwwroot.models;
 namespace StarColonies.Web.Pages;
 
 [Authorize]
-public class CreateColony(IColonistRepository colonistRepository, IColonyRepository colonyRepository)
+public class CreateColony(UserManager<ColonistEntity> userManager, IColonistRepository colonistRepository, IColonyRepository colonyRepository)
     : PageModel
 {
     [BindProperty(SupportsGet = true)]
@@ -26,6 +27,11 @@ public class CreateColony(IColonistRepository colonistRepository, IColonyReposit
 
     public async Task<IActionResult> OnGetAsync()
     {
+        var user = await userManager.GetUserAsync(HttpContext.User);
+        if (user!.Id != Id.ToString())
+        {
+            return RedirectToPage("Index");
+        }
         TeamOwner = await colonistRepository.GetColonistByIdAsync(Id.ToString());
         await GetAvailableColonists();
         NewColony ??= new NewColony

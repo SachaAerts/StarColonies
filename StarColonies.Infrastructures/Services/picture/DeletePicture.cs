@@ -26,12 +26,22 @@ public class DeletePicture : IDeletePicture
         return DefaultImages.Contains(fileName);
     }
 
-    public void DeleteImage(string fileName)
+    public void DeleteImage(string fileName, bool isItem)
     {
         if (IsDefaultImage(fileName))
             return;
 
-        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "upload", fileName);
+        string? path = null;
+        
+        if (isItem)
+        {
+            path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "items", fileName);
+        }
+        else
+        {
+            path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "upload", fileName);
+        }
+        
 
         if (System.IO.File.Exists(path))
         {
