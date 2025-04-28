@@ -69,6 +69,7 @@ builder.Services.AddScoped<IInventaryRepository, InventaryRepository>();
 builder.Services.AddScoped<IMissionRepository,   MissionRepository>();
 builder.Services.AddScoped<IEnemyRepository,     EnemyRepository>();
 builder.Services.AddScoped<IItemRepository,      ItemRepository>();
+builder.Services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
 
 //Inject Factories
 builder.Services.AddScoped<IResultFactory<JsonResult, object>,  JsonResultFactory>();
@@ -85,10 +86,9 @@ builder.Services.AddScoped<MissionResolverService>();
 builder.Services.AddScoped<IDeletePicture, DeletePicture>();
 
 //Inject Repositories Services
-builder.Services.AddScoped<IAdding<ColonistModel>,   ColonistAdding>();
 builder.Services.AddScoped<IUpdate<ColonistModel>,   ColonistUpdate>();
 builder.Services.AddScoped<IDeleting<ColonistModel>, ColonistDeleting>();
-builder.Services.AddScoped<IGetting<ColonistModel>,  ColonistGetting>();
+builder.Services.AddScoped<IGetting<ColonistModel, string>,  ColonistGetting>();
 
 //Inject Command-Strategy Services
 builder.Services.AddScoped<IMissionRewardStrategy, FullSuccessRewardStrategy>();

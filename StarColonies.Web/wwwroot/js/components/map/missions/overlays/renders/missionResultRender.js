@@ -23,7 +23,6 @@ export function renderMissionResult(data) {
         <p style="color: ${isSuccess ? 'lightgreen' : 'crimson'};">${message}</p>
 
         ${isSuccess ? `
-            <h5>Récompenses :</h5>
             <p><strong>Musty gagnés :</strong> ${mission.coinsReward}</p>
         ` : `
             <h5>Pas de récompense : l’équipe ne gagne rien.</h5>

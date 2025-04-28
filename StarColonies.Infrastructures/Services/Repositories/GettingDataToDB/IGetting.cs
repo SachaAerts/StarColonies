@@ -2,9 +2,9 @@
 
 namespace StarColonies.Infrastructures.Services.Repositories.GettingDataToDB;
 
-public interface IGetting<T>
+public interface IGetting<T, in TId>
 {
     Task<IList<T>> GetIListDataAsync();
     
-    Task<T> GetEntityByIdAsync(string id);
+    Task<T> GetEntityByIdAsync(TId id);
 }

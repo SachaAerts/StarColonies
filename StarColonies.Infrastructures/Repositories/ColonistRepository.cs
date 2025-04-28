@@ -9,14 +9,10 @@ using StarColonies.Infrastructures.Services.Repositories.UpdateDataToDB;
 namespace StarColonies.Infrastructures.Repositories;
 
 public class ColonistRepository(
-    IGetting<ColonistModel> getting,
-    IAdding<ColonistModel> adding,
+    IGetting<ColonistModel, string> getting,
     IUpdate<ColonistModel> update,
     IDeleting<ColonistModel> deleting) : IColonistRepository 
 {
-    public async Task AddColonistAsync(ColonistModel colonist)
-        => await adding.AddAsync(colonist);
- 
     public async Task<IList<ColonistModel>> GetColonistsAsync()
         => await getting.GetIListDataAsync();
 

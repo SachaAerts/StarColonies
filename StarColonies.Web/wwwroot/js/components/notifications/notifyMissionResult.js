@@ -8,23 +8,37 @@ export const notifyMissionResult = (result, mission) => {
     const livingColony = result.livingColony;
     const overcomingMission = result.overcomingMission;
     const isSuccess = livingColony && overcomingMission;
-    let message = "Échec complet : l’équipe n’a pas survécu et les défis n’ont pas été surmontés.";
+    
+    let message = "Complete failure: the team did not survive and the challenges were not overcome.";
+    
     if (isSuccess) {
-        message = "Mission réussie !";
+        message = "Successful mission !";
         notifier.success(message);
-        notifier.success("Tous les membres de l’équipe gagnent un niveau !");
-        if (result.coinsReward > 0) {
-            notifier.success(`Vous gagnez ${mission.coinsReward} Musty !`);
-        }
-        mission.items?.forEach(r => notifier.success(`Ressource obtenue : ${r.item.name}`));
+        notifierLevelUp();
+        notifierMoney(mission.coinsReward);
+        notifierItems(mission.items);
     } else if (overcomingMission && !livingColony) {
-        message = "Les défis ont été surmontés, mais l’équipe n’a pas survécu.";
+        message = "The challenges were overcome, but the team did not survive.";
         notifier.error(message);
-        if (result.coinsReward > 0) notifier.success(`Vous gagnez ${mission.coinsReward} Musty !`);
+        notifierMoney(mission.coinsReward);
+        notifierItems(mission.items);
     } else if (!overcomingMission && livingColony) {
-        message = "L’équipe a survécu, mais n’a pas réussi à surmonter les défis.";
+        message = "The team survived, but failed to overcome the challenges.";
         notifier.error(message);
-        notifier.success("Tous les membres de l’équipe gagnent un niveau !");
-    } else notifier.error("Échec complet : l’équipe n’a pas survécu et les défis n’ont pas été surmontés.");
+        notifierLevelUp();
+    } else notifier.error("Complete failure: the team did not survive and the challenges were not overcome.");
+    
     return message;
+}
+
+function notifierMoney(coinsReward) {
+    if (coinsReward > 0) notifier.success(`You get ${coinsReward} Musty !`);
+}
+
+function notifierItems(items) {
+    items?.forEach(r => notifier.success(`Resource obtained : ${r.item.name}`));
+}
+
+function notifierLevelUp() {
+    notifier.success("All team members gain a level !");
 }

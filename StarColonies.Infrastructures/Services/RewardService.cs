@@ -26,7 +26,6 @@ public class RewardService(
 
     public async Task GiveResourcesToOwnerAsync(ColonistEntity user, MissionResultModel result)
     {
-        Console.WriteLine($"Rewarding {user.UserName} with {result.Rewards.Count} items.");
         user.Musty += result.CoinsReward;
         foreach (var reward in result.Rewards)
             await inventaryRepository.AddItemToUser(user.Id, reward);

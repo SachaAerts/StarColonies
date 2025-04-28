@@ -1,11 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using StarColonies.Domains.Models.Items;
 using StarColonies.Domains.Repositories;
 using StarColonies.Infrastructures.Data;
-using StarColonies.Infrastructures.Data.Entities;
 using StarColonies.Infrastructures.Data.Entities.Items;
-using StarColonies.Infrastructures.Mapper;
 using StarColonies.Infrastructures.Mapper.DomainToEntity;
 using StarColonies.Infrastructures.Mapper.EntityToDomain;
 
