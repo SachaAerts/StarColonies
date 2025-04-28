@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models.Colony;
@@ -29,6 +30,11 @@ public class CreateColony(
 
     public async Task<IActionResult> OnGetAsync()
     {
+        var user = await userManager.GetUserAsync(HttpContext.User);
+        if (user!.Id != Id.ToString())
+        {
+            return RedirectToPage("Index");
+        }
         TeamOwner = await colonistRepository.GetColonistByIdAsync(Id.ToString());
         await GetAvailableColonists();
         return Page();
