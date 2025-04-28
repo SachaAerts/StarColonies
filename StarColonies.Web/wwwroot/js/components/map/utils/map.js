@@ -1,5 +1,4 @@
 ﻿const map = document.getElementById("map");
-const planetContainer = map.getElementsByClassName("planet-container");
 const viewport = document.getElementById("viewport");
 
 const mapSize = 3000;
@@ -17,8 +16,8 @@ updateMapPosition();
 let isDragging = false;
 let lastMouseX, lastMouseY;
 
-const stars        = ["img/stars/large.png", "img/stars/medium.png"];
-const stars_small  = ["img/stars/small.png", "img/stars/little-less-small.png"];
+const stars = ["/img/stars/large.png", "img/stars/medium.png"];
+const stars_small = ["img/stars/small.png", "img/stars/little-less-small.png"];
 const planetImages = ["img/stars/planet.png"];
 const meteorImages = ["img/stars/meteor.png"];
 
@@ -57,7 +56,6 @@ document.addEventListener("mousemove", (e) => {
 document.addEventListener("mouseup", () => {
     isDragging = false;
 });
-
 
 function isOverlapping(x, y, size) {
     for (let obj of placedObjects) {

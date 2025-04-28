@@ -6,6 +6,7 @@ class StatPanel extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+        this.BASE_PATH = window.BASE_PATH || '';
 
         this.stats = {
             force: parseInt(this.getAttribute('force')) || 0,
@@ -56,7 +57,7 @@ class StatPanel extends HTMLElement {
                     ${this.renderStat('stamina', '/img/icons/stamina.png')}
                 </div>
                 <div class="stat-max">
-                    <img src="/img/icons/lvl.png" alt="">
+                    <img src="${this.BASE_PATH}/img/icons/lvl.png" alt="">
                     <p>${this.max - this.getTotalAllocated()}</p>
                 </div>
             </section>
@@ -72,13 +73,13 @@ class StatPanel extends HTMLElement {
         return `
             <div class="stat ${name}">
                 <div class="type">
-                    <img src="${icon}" class="stat-img" alt="">
+                    <img src="${this.BASE_PATH}${icon}" class="stat-img" alt="">
                     <p>${name.charAt(0).toUpperCase() + name.slice(1)}</p>
                 </div>
                 <div class="modifier">
-                    <img src="/img/components/modifier.png" class="minus" alt="" draggable="false">
+                    <img src="${this.BASE_PATH}/img/components/modifier.png" class="minus" alt="" draggable="false">
                     <p>${this.stats[name]}</p>
-                    <img src="/img/components/modifier.png" class="more" alt="" draggable="false">
+                    <img src="${this.BASE_PATH}/img/components/modifier.png" class="more" alt="" draggable="false">
                 </div>
             </div>
         `;

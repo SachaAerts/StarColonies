@@ -6,7 +6,8 @@ class CharacterItem extends HTMLElement {
 
     connectedCallback() {
         const fileName = this.getAttribute('image') || '';
-        const imageSrc = `/img/upload/${fileName}`;
+        const BASE_PATH = window.BASE_PATH || '';
+        const imageSrc = `${BASE_PATH}/img/upload/${fileName}`;
         const noInteraction = this.hasAttribute('no-interaction');
 
         this.shadowRoot.innerHTML = `
@@ -84,6 +85,8 @@ class CharacterItem extends HTMLElement {
 
 customElements.define('character-item', CharacterItem);
 
+
+//======================================================================================================= CHARACTER PANEL
 class CharacterPanel extends HTMLElement {
     constructor() {
         super();
@@ -98,6 +101,7 @@ class CharacterPanel extends HTMLElement {
     }
 
     connectedCallback() {
+        this.BASE_PATH = window.BASE_PATH || '';
         this.shadowRoot.innerHTML = `
             <style>
                 .panel {
@@ -201,7 +205,7 @@ class CharacterPanel extends HTMLElement {
                 if (matchingItem) {
                     matchingItem.shadowRoot.querySelector('.character').click();
                 } else {
-                    this.uploadedCharacter = `/img/upload/${defaultImage}`;
+                    this.uploadedCharacter = `${this.BASE_PATH}/img/upload/${defaultImage}`;
                     this.selectedCharacter = null;
                     this.renderPreview();
                 }
@@ -235,7 +239,7 @@ class CharacterPanel extends HTMLElement {
 
         if (this.selectedCharacter) {
             const img = document.createElement('img');
-            img.src = `/img/upload/${this.selectedCharacter}`;
+            img.src = `${this.BASE_PATH}/img/upload/${this.selectedCharacter}`;
             img.alt = 'Selected Avatar';
             this.previewDiv.appendChild(img);
         } else if (this.uploadedCharacter) {
@@ -260,7 +264,7 @@ class CharacterPanel extends HTMLElement {
 
     getSelectedImageDetails() {
         return {
-            selectedCharacter: this.selectedCharacter ? `/img/upload/${this.selectedCharacter}` : null,
+            selectedCharacter: this.selectedCharacter ? `${this.BASE_PATH}/img/upload/${this.selectedCharacter}` : null,
             uploadedCharacter: this.uploadedCharacter
         };
     }

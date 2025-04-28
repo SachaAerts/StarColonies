@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     headImg.addEventListener("click", () => {
         const currentState = headImg.dataset.state;
         const nextState = currentState === "before" ? "after" : "before";
-        const nextSrc = `img/character/head_${nextState}.png`;
+        const BASE_PATH = window.BASE_PATH || '';
+        const nextSrc = `${BASE_PATH}/img/character/head_${nextState}.png`;
 
         animateImageSwap(headImg, nextSrc, nextState);
 

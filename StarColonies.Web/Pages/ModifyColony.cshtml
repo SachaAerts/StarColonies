@@ -81,7 +81,8 @@
 <script type="module" src="~/js/notifyConnection.js"></script>
 
 <script>
-    window.availableColonists = @Html.Raw(JsonSerializer.Serialize(Model.Colonists ?? new List<ColonistModel>()));
+    window.BASE_PATH = '@ViewContext.HttpContext.Request.PathBase';
+    window.availableColonists = @Html.Raw(JsonSerializer.Serialize(Model.Colonists));
     window.teamOwner = @Html.Raw(JsonSerializer.Serialize(Model.TeamOwner));
     window.initialTeam = @Html.Raw(JsonSerializer.Serialize(Model.Colony?.Colonists ?? new List<ColonistModel>()));
 
@@ -102,6 +103,7 @@
             characterHidden.value = uploadedCharacter;
         }
     })
+
 </script>
 
 <script src="~/js/components/inputs/input.js"></script>

@@ -27,8 +27,8 @@ function getJobLabel(jobId) {
 
 function renderColonists(container, colonists, isTeam = false) {
     container.innerHTML = "";
-
-    colonists.forEach((colonist, index) => {
+    const BASE_PATH = window.BASE_PATH || "";
+    colonists.forEach((colonist) => {
         const div = document.createElement('div');
         const isOwner = colonist.Id === window.teamOwner.Id;
         div.className = isTeam ? 'oneMemberTeamCreateColony cursorPointerCreateColony' : 'oneUserCreateColony cursorPointerCreateColony';
@@ -40,7 +40,7 @@ function renderColonists(container, colonists, isTeam = false) {
                     <div class="delete-cross"></div>
                     <div class="delete-indicator"></div>
                 ` : ""}
-                <img src="/img/upload/${colonist.ProfilPicture}" alt="userLogo"/>
+                <img src="${BASE_PATH}/img/upload/${colonist.ProfilPicture}" alt="userLogo"/>
                 <div>
                     <h3 class="titlesCreateColony">${colonist.Name}</h3>
                     <p class="textsCreateColony">${getJobLabel(colonist.Job)}</p>
@@ -48,18 +48,18 @@ function renderColonists(container, colonists, isTeam = false) {
             `;
         } else {
             div.innerHTML = `
-                <img class="logoUserCreateColony" src="/img/upload/${colonist.ProfilPicture}" alt="logoUser"/>
+                <img class="logoUserCreateColony" src="${BASE_PATH}/img/upload/${colonist.ProfilPicture}" alt="logoUser"/>
                 <div>
                     <h3 class="titlesCreateColony">${colonist.Name}</h3>
                     <p class="textsCreateColony">Lvl: ${colonist.Level}</p>
                 </div>
                 <p class="textsCreateColony">${getJobLabel(colonist.Job)}</p>
                 <div class="oneUserStatCreateColony">
-                    <img src="/img/icons/force.png" alt="strength"/>
+                    <img src="${BASE_PATH}/img/icons/force.png" alt="strength"/>
                     <p class="textsCreateColony">${colonist.Strength}</p>
                 </div>
                 <div class="oneUserStatCreateColony">
-                    <img src="/img/icons/stamina.png" alt="stamina"/>
+                    <img src="${BASE_PATH}/img/icons/stamina.png" alt="stamina"/>
                     <p class="textsCreateColony">${colonist.Stamina}</p>
                 </div>
             `;

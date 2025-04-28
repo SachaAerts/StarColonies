@@ -83,6 +83,7 @@
 <script type="module" src="~/js/notifyConnection.js"></script>
 
 <script>
+    window.BASE_PATH = '@ViewContext.HttpContext.Request.PathBase';
     document.querySelector("form").addEventListener("submit", () => {
         const emailComponent = document.getElementById("email-input");
         const settlerNameComponent = document.getElementById("settler-name-input");
@@ -109,4 +110,5 @@
             characterHidden.value = uploadedCharacter;
         }
     });
+
 </script>
