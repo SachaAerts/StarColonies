@@ -1,17 +1,19 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models;
 using StarColonies.Domains.Models.Colony;
 using StarColonies.Domains.Repositories;
 using StarColonies.Domains.Services.pictures;
+using StarColonies.Infrastructures.Data.Entities;
 using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages
 {
     [Authorize]
-    public class ModifyColon(IColonistRepository colonistRepository) : PageModel
+    public class ModifyColon(UserManager<ColonistEntity> userManager, IColonistRepository colonistRepository) : PageModel
     {
         [BindProperty(SupportsGet = true)]
         public Guid Id { get; set; }
@@ -25,6 +27,12 @@ namespace StarColonies.Web.Pages
         {
             if (!User.Identity?.IsAuthenticated ?? true)
                 return Forbid();
+            
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            if (user!.Id != Id.ToString())
+            {
+                return RedirectToPage("Index");
+            }
 
             Colonist = await colonistRepository.GetColonistByIdAsync(Id.ToString());
 

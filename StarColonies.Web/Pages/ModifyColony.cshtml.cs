@@ -1,15 +1,17 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models.Colony;
 using StarColonies.Domains.Repositories;
 using StarColonies.Domains.Services.pictures;
+using StarColonies.Infrastructures.Data.Entities;
 using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
 
 [Authorize]
-public class ModifyColony(IColonistRepository colonistRepository, IColonyRepository colonyRepository)
+public class ModifyColony(UserManager<ColonistEntity> userManager, IColonistRepository colonistRepository, IColonyRepository colonyRepository)
     : PageModel
 {
     [BindProperty(SupportsGet = true)]
@@ -26,9 +28,16 @@ public class ModifyColony(IColonistRepository colonistRepository, IColonyReposit
     
     public async Task<IActionResult> OnGetAsync()
     {
-        Colonists = await colonistRepository.GetColonistsAsync();
+        var user = await userManager.GetUserAsync(HttpContext.User);
         Colony = await colonyRepository.GetColonyByIdAsync(TeamId);
         TeamOwner = await colonistRepository.GetColonistByIdAsync(Colony!.OwnerId);
+        if (user!.Id != TeamOwner.Id)
+        {
+            return RedirectToPage("Index");
+        }
+        
+        Colonists = await colonistRepository.GetColonistsAsync();
+        
         Colonists = GetAvailableColonists(Colonists, Colony.Colonists);
         return Page();
     }
