@@ -8,7 +8,6 @@ public class AnalyzeProfilePicture(string settlerName, string uploadDir)
         Console.WriteLine("[DEBUG]- Picture = " + picture);
         if (picture.StartsWith("/") || picture.StartsWith("http") || picture.StartsWith("https"))
         {
-            Console.WriteLine("[DEBUG]- Picture is URL or Path");
             var fileName = Path.GetFileName(picture);
             return string.IsNullOrWhiteSpace(fileName) ? "1.png" : fileName;
         }

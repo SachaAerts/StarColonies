@@ -32,23 +32,26 @@ git clone https://git.helmo.be/students/info/q230049/star-colonies
 
 ## Fonctionnalités implémentées
 
-**TODO :** pour chaque US décrite dans l'énoncé, indiquez son état d'avancement (non-faite, débutée, partiellement achevée, totalement achevée). Quand une US est débutée ou partiellement achevée, indiquez en quelques mots ce qui manque selon vous.
+Toutes les fonctionnalités de l'énoncé sont implémentées.
+- [x] Authentification
+- [x] Inscription
+- [x] Gestion des colonies
+- [x] Gestion des ressources
+- [x] Gestion des missions
+- [x] Gestion des utilisateurs
+- [x] Statistiques
+- [x] Boutique Vente/Achat
+- [x] Lancement de missions
 
 ## Données de connexion
-
-**TODO :** indiquez au minimum trois comptes dont un compte d'administrateur.
+- Administrateur : 
+  - Login : `admin`
+  - Mot de passe : `Password123_`
+- Utilisateur :
+  - Login : `JettRaven`
+  - Mot de passe : `Player123_`
 
 ## Éléments techniques notables
 
 ### Tests automatisés
-Des **tests d’intégration** ont été mis en place pour valider la protection anti-DoS.
-
-**Middleware testé :** 
- - `RateLimitingMiddleware` (limite chaque adresse ip à 10 requêtes toutes les 10 secondes)
-    - Librairie utilisée : 
-      - [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing)
-      - [xUnit](https://xunit.net/)
-
-```csproj
-<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
-```
+Aucun tests n'a été implémenté dans le projet.
