@@ -5,9 +5,9 @@ namespace StarColonies.Infrastructures.Mapper.EntityToDomain;
 
 public class EffectToDomainMapper : IEntityToDomainMapper<EffectModel, EffectEntity>
 {
-    public EffectModel? Map(EffectEntity? entity)
+    public EffectModel Map(EffectEntity? entity)
     {
-        if (entity == null) return null;
+        ArgumentNullException.ThrowIfNull(entity);
         return new EffectModel
         {
             Id = entity.Id,
