@@ -12,6 +12,11 @@
         if (string.IsNullOrEmpty(text)) return string.Empty;
         return text.Length > maxLength ? text.Substring(0, maxLength).Trim() + "..." : text;
     }
+    private string GetCorrectImageUrl(string imagePath)
+    {
+        if (string.IsNullOrWhiteSpace(imagePath)) return "/img/items/1.png";
+        return imagePath.StartsWith("/img/") ? imagePath : $"/img/items/{imagePath}";
+    }
 }
 
 <section class="mainInventoryProfile">
@@ -37,7 +42,7 @@
             var pictureRarely = item.IsLegendary ? "legendary.png" : "common.png";
 
             <div class="oneItemInListItemPage">
-                <img class="logoItemInItemList" src="~/img/items/@item.ImagePath" alt="logoItem"/>
+                <img class="logoItemInItemList" src="@GetCorrectImageUrl(item.ImagePath)" alt="logoItem"/>
                 <h2>@TruncateText(item.Name, 30)</h2>
                 <div class="oneItemStatsItemList">
                     <p>Modifier stats:</p>
@@ -50,7 +55,7 @@
                         <p class="informationProfileValue valueStatProfile">+@item.Effect.StaminaModifier</p>
                     </div>
                 </div>
-                
+
                 <img class="logoRarelyItemList" src="~/img/icons/@pictureRarely" alt="rarely"/>
 
                 <div class="oneItemButtonsItemList">
