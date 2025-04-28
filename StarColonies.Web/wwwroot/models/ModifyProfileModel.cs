@@ -7,7 +7,7 @@ namespace StarColonies.Web.wwwroot.models;
 public class ModifyProfileModel
 {
     [Required(ErrorMessage = "Email required")]
-    [EmailAddress(ErrorMessage = "Invalid email")]
+    [EmailFormat(ErrorMessage = "Invalid email")]
     public string Email { get; set; } = "";
     
     [Required(ErrorMessage = "Settler's name is required")]
