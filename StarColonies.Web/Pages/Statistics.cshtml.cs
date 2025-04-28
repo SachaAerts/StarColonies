@@ -15,7 +15,7 @@ public class Statistics(IItemRepository itemRepository, IColonyRepository colony
 {
     public StatisticModel Statistic { get; set; } = new();
     
-    public async Task<IActionResult> OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         IList<ItemModel> items = await itemRepository.GetAllItemsAsync();
         IList<ColonyModel> top10Colony = await colonyRepository.GetTop10ColoniesAsync();

@@ -12,7 +12,6 @@ public class DeleteMission(
 {
     public async Task<IActionResult> OnPostAsync(int id)
     {
-        Console.WriteLine($"NOT VISIBLE MISSION ID: {id}");
         await missionRepository.VisibleMissionAsync(id);
         return jsonResult.Create(true);
     }

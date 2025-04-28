@@ -17,7 +17,7 @@ public class BlackmarketBuying(UserManager<ColonistEntity> userManager, IColonis
     
     public required IList<RewardItemModel> InventoryItems { get; set; }
     
-    public async Task<IActionResult> OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         var user = await userManager.GetUserAsync(User);
         if (user == null) return RedirectToPage("/Connection");
@@ -34,7 +34,7 @@ public class BlackmarketBuying(UserManager<ColonistEntity> userManager, IColonis
         return Page();
     }
 
-    public async Task<IActionResult> OnPostPurchaseItem(int itemId, int itemValue)
+    public async Task<IActionResult> OnPostPurchaseItemAsync(int itemId, int itemValue)
     {
         var user = await userManager.GetUserAsync(User);
 

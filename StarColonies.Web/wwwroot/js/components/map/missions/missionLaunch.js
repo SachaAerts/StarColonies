@@ -51,7 +51,7 @@ async function post(body) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "RequestVerificationToken":  // Get the token
+            "RequestVerificationToken":
                 document.querySelector('input[name="__RequestVerificationToken"]').value
         },
         body: JSON.stringify(body)

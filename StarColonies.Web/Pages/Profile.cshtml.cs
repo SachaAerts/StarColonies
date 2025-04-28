@@ -15,15 +15,14 @@ public class Profile(IColonistRepository colonistRepository, IColonyRepository c
     
     public required IList<ColonyModel> Colonies { get; set; }
 
-    public async Task<IActionResult> OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         if (!User.Identity?.IsAuthenticated ?? true)
             return Forbid();
         
-        string id = Id.ToString();
         Colonist = await colonistRepository.GetColonistByIdAsync(Id.ToString());
         Colonies = await colonyRepository.GetColoniesForColonistAsync(Colonist.Id);
-        Console.WriteLine("Bonsoir: " + Colonist.Id);
+        
         return Page();
     }
 }

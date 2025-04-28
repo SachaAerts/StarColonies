@@ -19,7 +19,16 @@ La suite du document sera à compléter par vos soins.
 
 ## Construction de la solution
 
-**TODO :** expliquez les étapes nécessaires à la récupération de votre solution, à sa construction et à son exécution dans un environnement de développement (tel que l'ordinateur de votre responsable).
+### Technologies utilisées :
+- ASP.NET Core Razor Pages
+- Entity Framework Core
+- .NET 8
+
+### Etapes de récupération
+1. Cloner le dépôt
+```bash
+git clone https://git.helmo.be/students/info/q230049/star-colonies
+```
 
 ## Fonctionnalités implémentées
 

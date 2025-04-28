@@ -22,7 +22,7 @@ public class CreateColony(IColonistRepository colonistRepository, IColonyReposit
     
     public ColonistModel TeamOwner { get; set; }
 
-    public async Task<IActionResult> OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         TeamOwner = await colonistRepository.GetColonistByIdAsync(Id.ToString());
         await GetAvailableColonists();
@@ -41,7 +41,7 @@ public class CreateColony(IColonistRepository colonistRepository, IColonyReposit
             .ToList();
     }
 
-    public async Task<IActionResult> OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         TeamOwner = await colonistRepository.GetColonistByIdAsync(Id.ToString());
         Colonists = await colonistRepository.GetColonistsAsync();

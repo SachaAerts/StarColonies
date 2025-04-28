@@ -27,7 +27,7 @@ public class CreateColon(UserManager<ColonistEntity> userManager, SignInManager<
         NewUser.Password = Password;
     }
 
-    public async Task<IActionResult> OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
             return Page();

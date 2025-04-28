@@ -22,7 +22,7 @@ public class ModifyColony(IColonistRepository colonistRepository, IColonyReposit
     
     public ColonistModel TeamOwner { get; set; }
     
-    public async Task<IActionResult> OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         Colonists = await colonistRepository.GetColonistsAsync();
         Colony = await colonyRepository.GetColonyByIdAsync(TeamId);
@@ -41,7 +41,7 @@ public class ModifyColony(IColonistRepository colonistRepository, IColonyReposit
         return availableColonists;
     }
 
-    public async Task<IActionResult> OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         Colony = await colonyRepository.GetColonyByIdAsync(TeamId);
         TeamOwner = await colonistRepository.GetColonistByIdAsync(Colony!.OwnerId);

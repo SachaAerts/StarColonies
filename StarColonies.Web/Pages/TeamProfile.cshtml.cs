@@ -17,7 +17,7 @@ public class TeamProfile(IColonyRepository colonyRepository, IColonistRepository
     
     public ColonyModel? Colony { get; set; }
     
-    public async Task<IActionResult> OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         Colony = await colonyRepository.GetColonyByIdAsync(TeamId);
         TeamOwner = await colonistRepository.GetColonistByIdAsync(Colony!.OwnerId);

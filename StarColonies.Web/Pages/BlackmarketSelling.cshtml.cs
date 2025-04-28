@@ -15,12 +15,11 @@ public class BlackmarketSelling(UserManager<ColonistEntity> userManager, IItemRe
     
     public required IList<RewardItemModel> InventoryItems { get; set; }
     
-    public async Task<IActionResult> OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         var user = await userManager.GetUserAsync(User);
         if (user == null) return RedirectToPage("/Connection");
-        if (!User.Identity?.IsAuthenticated ?? true)
-            return Forbid();
+        if (!User.Identity?.IsAuthenticated ?? true) return Forbid();
         
         Colonist = await colonistRepository.GetColonistByIdAsync(user.Id);
         
@@ -28,13 +27,12 @@ public class BlackmarketSelling(UserManager<ColonistEntity> userManager, IItemRe
         return Page();
     }
     
-    public async Task<IActionResult> OnPostSellItem(int itemId, int itemValue)
+    public async Task<IActionResult> OnPostSellItemAsync(int itemId, int itemValue)
     {
         var user = await userManager.GetUserAsync(User);
         
         var item = await itemRepository.GetItemByIdAsync(itemId);
-        if (item == null)
-            return NotFound();
+        if (item == null) return NotFound();
         
         await inventoryRepository.SubstractItemToUserFromShop(user!.Id, item);
         await colonistRepository.AddMustyColonistAsync(user.Id, itemValue);

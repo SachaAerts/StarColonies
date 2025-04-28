@@ -12,11 +12,7 @@ public class Connection(SignInManager<ColonistEntity> signInManager, UserManager
     [BindProperty] 
     public ConnectionModel ConnectionUser { get; set; } = new();
     
-    public void OnGet()
-    {
-    }
-    
-    public async Task<IActionResult> OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
             return Page();
@@ -32,10 +28,7 @@ public class Connection(SignInManager<ColonistEntity> signInManager, UserManager
 
         var result = await signInManager.PasswordSignInAsync(user, ConnectionUser.PasswordConnection, isPersistent: false, lockoutOnFailure: false);
 
-        if (result.Succeeded)
-        {
-            return RedirectToPage("/Index");
-        }
+        if (result.Succeeded) return RedirectToPage("/Index");
 
         ModelState.AddModelError(string.Empty, "Wrong password");
         return Page();

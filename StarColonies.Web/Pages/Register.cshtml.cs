@@ -13,11 +13,7 @@ public class Register(UserManager<ColonistEntity> userManager)
     [BindProperty] 
     public required RegisterModel RegisterUser { get; set; }
     
-    public void OnGet()
-    {
-    }
-    
-    public async Task<IActionResult> OnPostRegister()
+    public async Task<IActionResult> OnPostRegisterAsync()
     {
         if (!ModelState.IsValid)
             return Page();

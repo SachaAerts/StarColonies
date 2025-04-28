@@ -4,15 +4,11 @@ using StarColonies.Domains.Repositories;
 
 namespace StarColonies.Web.Pages;
 
-public class IndexModel(ILogger<IndexModel> logger, IColonyRepository colonyRepository)
+public class IndexModel(IColonyRepository colonyRepository)
     : PageModel
 {
-    private readonly ILogger<IndexModel> _logger = logger;
-
     public IList<ColonyModel> TopColonies { get; set; } = [];
 
-    public async Task OnGetAsync()
-    {
-        TopColonies = await colonyRepository.GetTop10ColoniesAsync();
-    }
+    public async Task OnGetAsync() 
+        => TopColonies = await colonyRepository.GetTop10ColoniesAsync();
 }

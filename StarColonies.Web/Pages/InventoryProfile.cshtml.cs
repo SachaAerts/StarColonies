@@ -15,7 +15,7 @@ public class InventoryProfile(IInventaryRepository inventoryRepository, IItemRep
     
     public IList<ItemModel> Items { get; set; } = new List<ItemModel>();
     
-    public async Task<IActionResult> OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         Inventory = await inventoryRepository.GetItemsForColonistAsync(Id.ToString());
         Items = await itemRepository.GetAllItemsAsync();

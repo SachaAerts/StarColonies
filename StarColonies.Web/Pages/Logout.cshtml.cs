@@ -7,7 +7,7 @@ namespace StarColonies.Web.Pages;
 
 public class Logout(SignInManager<ColonistEntity> signInManager) : PageModel
 {
-    public async Task<IActionResult> OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         await signInManager.SignOutAsync();
         return RedirectToPage("/Index");

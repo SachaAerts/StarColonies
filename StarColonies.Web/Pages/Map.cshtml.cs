@@ -29,8 +29,6 @@ public class Map(
     public List<ItemModel?> ItemsInventory { get; private set; } = new();
     
     public ColonistModel? MyColonist { get; private set; }
-    
-    public MissionResolverService MissionService => new();
 
     public async Task<IActionResult> OnGetAsync()
     {
@@ -46,7 +44,6 @@ public class Map(
     public async Task<JsonResult> OnPostResolveMissionAsync([FromBody] MissionRequestModel request)
     {
         var user = await userManager.GetUserAsync(User);
-        
         try
         {
             MissionExecutionResultModel result = await missionExecutionService.ResolveAndExecuteMissionAsync(request, user!);
