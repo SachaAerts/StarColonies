@@ -6,13 +6,12 @@ using StarColonies.Domains.Models.Colony;
 using StarColonies.Domains.Repositories;
 using StarColonies.Domains.Services.pictures;
 using StarColonies.Infrastructures.Data.Entities;
-using StarColonies.Infrastructures.Data.Entities.Items;
 using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
 
 [Authorize]
-public class CreateColony(
+public class CreateColony(UserManager<ColonistEntity> userManager,
     IColonistRepository colonistRepository, 
     IColonyRepository colonyRepository, 
     IWebHostEnvironment env)
