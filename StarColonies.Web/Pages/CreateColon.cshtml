@@ -63,12 +63,12 @@
     </form>
 </div>
 
+<script>window.BASE_PATH = '@ViewContext.HttpContext.Request.PathBase';</script>
 <script type="module" src="~/js/components/inputs/import.js"></script>
 <script type="module" src="~/js/components/stat_panel.js"></script>
 <script src="~/js/components/character_panel.js"></script>
 <script type="module" src="~/js/notifyConnection.js"></script>
 <script>
-    window.BASE_PATH = '@ViewContext.HttpContext.Request.PathBase';
     document.querySelector("form").addEventListener("submit", () => {
         const settlerNameComponent = document.querySelector("space-input")
         const dateComponent = document.querySelector("space-date")
