@@ -1,0 +1,138 @@
+.titleCreateItem {
+    font-family: 'Judge Italic', sans-serif;
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
+}
+
+.hrCreateItem {
+    width: 100%;
+    height: 2px;
+    border: none;
+    background: linear-gradient(90deg, rgba(0, 255, 255, 0.4) 0%, rgba(127, 0, 255, 0.6) 50%, rgba(0, 255, 255, 0.4) 100%);
+    background-size: 200% 100%;
+    animation: animateLedLine 3s linear infinite;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4), 0 0 20px rgba(127, 0, 255, 0.5);
+    margin: 20px 0;
+}
+
+@keyframes animateLedLine {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.formCreateItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.formCreateItem div {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.formCreateItem label {
+    font-family: 'Judge', sans-serif;
+    font-size: 1.2rem;
+    color: #c0c6d4;
+    margin-bottom: 8px;
+}
+
+.formCreateItem input[type="text"],
+.formCreateItem input[type="number"],
+.formCreateItem input[type="file"],
+.formCreateItem input[type="checkbox"] {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 10px 15px;
+    color: white;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.formCreateItem input[type="text"]:focus,
+.formCreateItem input[type="number"]:focus {
+    border-color: #0077cc;
+    box-shadow: 0 0 8px rgba(0, 119, 204, 0.7);
+}
+
+.formCreateItem input[type="file"]:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+}
+
+.formCreateItem input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #ffd700;
+}
+
+.fileUploadContainer {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    align-items: center;
+}
+
+.fileUploadLabel {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, rgba(0, 119, 204, 0.6), rgba(127, 0, 255, 0.6));
+    color: white;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    text-align: center;
+}
+
+.fileUploadLabel:hover {
+    background: linear-gradient(90deg, rgba(0, 255, 255, 0.6), rgba(127, 0, 255, 0.8));
+    transform: scale(1.05);
+}
+
+.fileNameDisplay {
+    margin-top: 8px;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 0.9rem;
+    color: #c0c6d4;
+    text-align: center;
+    word-break: break-word;
+}
+
+.statsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.statsRow {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.statInputRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.statInputRow img {
+    width: 25px;
+    height: 25px;
+}

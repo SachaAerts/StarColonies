@@ -17,6 +17,31 @@
 
     box-sizing: border-box;
     min-width: 400px;
+
+    /* Ajout des propriétés pour la barre de défilement */
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: #262c3c #171f30;
+}
+
+/* Style pour la barre de défilement (pour les navigateurs Webkit) */
+.mainInventoryProfile::-webkit-scrollbar {
+    width: 8px;
+}
+
+.mainInventoryProfile::-webkit-scrollbar-track {
+    background: #171f30;
+    border-radius: 4px;
+}
+
+.mainInventoryProfile::-webkit-scrollbar-thumb {
+    background: #262c3c;
+    border-radius: 4px;
+}
+
+.mainInventoryProfile::-webkit-scrollbar-thumb:hover {
+    background: #303a50;
 }
 
 .titleInventoryProfile {
@@ -64,6 +89,11 @@
     color: white;
     font-size: 1.2rem;
     margin: 0;
+}
+
+.backButtonInventoryProfile {
+    position: absolute;
+    top: 3%; left: 85%;
 }
 
 .item-common {

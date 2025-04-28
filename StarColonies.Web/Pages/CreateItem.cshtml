@@ -1,0 +1,93 @@
+@page
+@model StarColonies.Web.Pages.CreateItem
+
+@{
+    ViewData["Title"] = "Create item";
+    Layout = "Shared/_Layout";
+}
+
+<section class="mainInventoryProfile">
+    <button class="buttonProfile backButtonProfile">
+        <a asp-page="ItemsList">
+            <img class="modifyLogoProfile" src="~/img/icons/arrow.png" alt="back"/>
+        </a>
+    </button>
+    
+    <h1 class="titleCreateItem">Create item</h1>
+    
+    <hr class="hrCreateItem"/>
+    
+    <form method="post" class="formCreateItem">
+        <div>
+            <label>Item name</label>
+            <input asp-for="NewItem.NameItem" type="text"/>
+            <span asp-validation-for="NewItem.NameItem" class="text-danger"></span>
+        </div>
+    
+        <div class="fileUploadContainer">
+            <label>Picture</label>
+            <input id="fileInput" type="file" accept="image/*"/>
+            <input asp-for="NewItem.Picture" type="hidden"/>
+            <span asp-validation-for="NewItem.Picture" class="text-danger"></span>
+        </div>
+    
+        <div class="statsContainer">
+            <label>Modifier stats</label>
+
+            <div class="statsRow">
+                <div class="statInputRow">
+                    <img src="~/img/icons/force.png" alt="force"/>
+                    <input asp-for="NewItem.ForceModifier" type="number" min="0" />
+                    <span asp-validation-for="NewItem.ForceModifier" class="text-danger"></span>
+                </div>
+
+                <div class="statInputRow">
+                    <img src="~/img/icons/stamina.png" alt="stamina"/>
+                    <input asp-for="NewItem.StaminaModifier" type="number" min="0" />
+                    <span asp-validation-for="NewItem.StaminaModifier" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    
+        <div>
+            <label>Price</label>
+            <input asp-for="NewItem.Price" type="number" min="0"/>
+            <span asp-validation-for="NewItem.Price" class="text-danger"></span>
+        </div>
+    
+        <div>
+            <label>Legendary</label>
+            <input asp-for="NewItem.IsLegendary" type="checkbox"/>
+        </div>
+
+        <button class="formButton" type="submit">Create item</button>
+    </form>
+</section>
+
+<script>
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        const file = event.target.files[0];
+        fileNameDisplay.textContent = file ? file.name : 'No file chosen';
+    });
+
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        const fileInput = event.target;
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.querySelector('input[name="NewItem.Picture"]').value = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            fileNameDisplay.textContent = file.name;
+        } else {
+            fileNameDisplay.textContent = 'No file chosen';
+            document.querySelector('input[name="NewItem.Picture"]').value = '';
+        }
+    });
+</script>
+
+<script type="module" src="~/js/notifyConnection.js"></script>

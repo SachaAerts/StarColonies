@@ -32,7 +32,7 @@ public class TeamProfile(IColonyRepository colonyRepository, IColonistRepository
         TeamOwner = await colonistRepository.GetColonistByIdAsync(Colony!.OwnerId);
 
         IDeletePicture deletePicture = new DeletePicture();
-        deletePicture.DeleteImage(Colony.LogoPath);
+        deletePicture.DeleteImage(Colony.LogoPath, false);
         
         await colonyRepository.DeleteColonyAsync(Colony.Id);
         
