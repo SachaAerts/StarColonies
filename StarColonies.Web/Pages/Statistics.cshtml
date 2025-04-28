@@ -52,10 +52,10 @@
     </div>
 </main>
 
+<script>window.BASE_PATH = '@ViewContext.HttpContext.Request.PathBase';</script>
 <script>
     window.statisticsData = @Html.Raw(JsonSerializer.Serialize(Model.Statistic));
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="~/js/components/nav_bar.js"></script>
 <script src="~/js/pages/statistics.js"></script>

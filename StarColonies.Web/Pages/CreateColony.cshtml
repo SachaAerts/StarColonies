@@ -77,25 +77,12 @@
     </form>
 </section>
 
-
+<script>window.BASE_PATH = '@ViewContext.HttpContext.Request.PathBase';</script>
 <script type="module" src="~/js/notifyConnection.js"></script>
 
 <script>
-    window.availableColonists = @Html.Raw(JsonSerializer.Serialize(Model.Colonists ?? new List<ColonistModel>()));
-    window.teamOwner = @Html.Raw(JsonSerializer.Serialize(
-                           Model.TeamOwner ?? new ColonistModel {
-                               Id = "00000000-0000-0000-0000-000000000000",
-                               Name = "Default",
-                               Email = "default@example.com",
-                               DateOfBirth = DateTime.UtcNow,
-                               ProfilPicture = "default.png",
-                               Level = 0,
-                               Strength = 0,
-                               Stamina = 0,
-                               Musty = 0,
-                               Job = JobModel.Engineer
-                           }
-                       ));
+    window.availableColonists = @Html.Raw(JsonSerializer.Serialize(Model.Colonists));
+    window.teamOwner = @Html.Raw(JsonSerializer.Serialize(Model.TeamOwner));
     window.initialTeam = @Html.Raw(JsonSerializer.Serialize(Model.NewColony?.Colonists ?? new List<ColonistModel>()));
     
     document.querySelector("form").addEventListener("submit", () => {
@@ -109,11 +96,8 @@
         
         const { selectedCharacter, uploadedCharacter } = panel.getSelectedImageDetails();
 
-        if (selectedCharacter) {
-            characterHidden.value = selectedCharacter;
-        }else if (uploadedCharacter) {
-            characterHidden.value = uploadedCharacter;
-        }
+        if (selectedCharacter) characterHidden.value = selectedCharacter;
+            else if (uploadedCharacter) characterHidden.value = uploadedCharacter;
     })
 </script>
 

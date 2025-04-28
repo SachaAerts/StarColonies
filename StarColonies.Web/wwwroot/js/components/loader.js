@@ -5,9 +5,9 @@ const loaderBar = document.getElementById('loaderBar');
 analyseBtn.addEventListener('click', async () => {
     await simulateTextAnimation();
     await simulateLoaderBar();
-
-    if (window.isAuthenticated) window.location.href = "/Map";
-        else window.location.href = "/Connection";
+    
+    if (window.isAuthenticated) window.location.href = `${window.BASE_PATH}/Map`;
+        else window.location.href = `${window.BASE_PATH}/Connection`;
 });
 
 async function simulateTextAnimation() {

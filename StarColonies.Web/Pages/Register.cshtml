@@ -54,6 +54,7 @@
     </div>
 </div>
 
+<script>window.BASE_PATH = '@ViewContext.HttpContext.Request.PathBase';</script>
 <script src="~/js/components/inputs/input.js"></script>
 <script type="module" src="~/js/notifyConnection.js"></script>
 
@@ -76,7 +77,7 @@
 
 
     document.querySelector(".selectConnectionRegister.connection").addEventListener("click", () => {
-        window.location.href = "/Connection";
+        window.location.href = `${window.BASE_PATH}/Connection`;
     });
 
 </script>
