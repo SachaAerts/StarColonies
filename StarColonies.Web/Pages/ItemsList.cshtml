@@ -15,7 +15,7 @@
     private string GetCorrectImageUrl(string imagePath)
     {
         if (string.IsNullOrWhiteSpace(imagePath)) return "/img/items/1.png";
-        return imagePath.StartsWith("/img/") ? imagePath : $"/img/items/{imagePath}";
+        return imagePath.StartsWith("/img/") ? imagePath : $"~/img/items/{imagePath}";
     }
 }
 
