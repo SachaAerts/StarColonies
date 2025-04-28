@@ -10,6 +10,11 @@
     scrollbar-color: #262c3c #171f30;
 }
 
+.backButtonItemList {
+    position: absolute;
+    top: 3%; left: 90%;
+}
+
 .oneItemInListItemPage {
     display: flex;
     justify-content: space-between;

@@ -1,8 +1,8 @@
-@page
-@model StarColonies.Web.Pages.CreateItem
+@page "{itemId:int}"
+@model StarColonies.Web.Pages.ModifyItem
 
 @{
-    ViewData["Title"] = "Create item";
+    ViewData["Title"] = "Modify item";
     Layout = "Shared/_Layout";
 }
 
@@ -13,22 +13,22 @@
         </a>
     </button>
     
-    <h1 class="titleCreateItem">Create item</h1>
+    <h1 class="titleCreateItem">Modify item</h1>
     
     <hr class="hrCreateItem"/>
     
-    <form method="post" class="formCreateItem">
+    <form method="post" enctype="multipart/form-data" class="formCreateItem">
         <div>
             <label>Item name</label>
-            <input asp-for="NewItem.NameItem" type="text"/>
-            <span asp-validation-for="NewItem.NameItem" class="text-danger"></span>
+            <input asp-for="ModifItem.NameItem" value="@Model.Item!.Name" type="text"/>
+            <span asp-validation-for="ModifItem.NameItem" class="text-danger"></span>
         </div>
     
         <div class="fileUploadContainer">
             <label>Picture</label>
             <input id="fileInput" type="file" accept="image/*"/>
-            <input asp-for="NewItem.Picture" type="hidden"/>
-            <span asp-validation-for="NewItem.Picture" class="text-danger"></span>
+            <input asp-for="ModifItem.Picture" value="@Model.Item.ImagePath" type="hidden"/>
+            <span asp-validation-for="ModifItem.Picture" class="text-danger"></span>
         </div>
     
         <div class="statsContainer">
@@ -37,30 +37,30 @@
             <div class="statsRow">
                 <div class="statInputRow">
                     <img src="~/img/icons/force.png" alt="force"/>
-                    <input asp-for="NewItem.ForceModifier" type="number" min="0" />
-                    <span asp-validation-for="NewItem.ForceModifier" class="text-danger"></span>
+                    <input asp-for="ModifItem.ForceModifier" value="@Model.Item.Effect.ForceModifier" type="number" min="0" />
+                    <span asp-validation-for="ModifItem.ForceModifier" class="text-danger"></span>
                 </div>
 
                 <div class="statInputRow">
                     <img src="~/img/icons/stamina.png" alt="stamina"/>
-                    <input asp-for="NewItem.StaminaModifier" type="number" min="0" />
-                    <span asp-validation-for="NewItem.StaminaModifier" class="text-danger"></span>
+                    <input asp-for="ModifItem.StaminaModifier" value="@Model.Item.Effect.StaminaModifier" type="number" min="0" />
+                    <span asp-validation-for="ModifItem.StaminaModifier" class="text-danger"></span>
                 </div>
             </div>
         </div>
     
         <div>
             <label>Price</label>
-            <input asp-for="NewItem.Price" type="number" min="0"/>
-            <span asp-validation-for="NewItem.Price" class="text-danger"></span>
+            <input asp-for="ModifItem.Price" value="@Model.Item.CoinsValue" type="number" min="0"/>
+            <span asp-validation-for="ModifItem.Price" class="text-danger"></span>
         </div>
     
         <div>
             <label>Legendary</label>
-            <input asp-for="NewItem.IsLegendary" type="checkbox"/>
+            <input asp-for="ModifItem.IsLegendary" type="checkbox" />
         </div>
 
-        <button class="formButton" type="submit">Create item</button>
+        <button class="formButton" type="submit">Modify item</button>
     </form>
 </section>
 
@@ -79,13 +79,13 @@
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                document.querySelector('input[name="NewItem.Picture"]').value = e.target.result;
+                document.querySelector('input[name="ModifItem.Picture"]').value = e.target.result;
             };
             reader.readAsDataURL(file);
             fileNameDisplay.textContent = file.name;
         } else {
             fileNameDisplay.textContent = 'No file chosen';
-            document.querySelector('input[name="NewItem.Picture"]').value = '';
+            document.querySelector('input[name="ModifItem.Picture"]').value = '';
         }
     });
 </script>
