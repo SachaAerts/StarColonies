@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models.Items;
@@ -8,8 +9,8 @@ using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
 
-public class ModifyItem(IItemRepository itemRepository, IWebHostEnvironment env)
-    : PageModel
+[Authorize(Roles = "Admin")]
+public class ModifyItem(IItemRepository itemRepository, IWebHostEnvironment env) : PageModel
 {
     [BindProperty(SupportsGet = true)]
     public int ItemId { get; set; }

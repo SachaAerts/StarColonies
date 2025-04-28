@@ -1,18 +1,21 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models;
 using StarColonies.Domains.Models.Colony;
 using StarColonies.Domains.Repositories;
 using StarColonies.Domains.Services.pictures;
+using StarColonies.Infrastructures.Data.Entities;
+using StarColonies.Infrastructures.Services.picture;
 using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages
 {
     [Authorize]
-    public class ModifyColon(
-        IColonistRepository colonistRepository, 
+    public class ModifyColon(UserManager<ColonistEntity> userManager, 
+        IColonistRepository colonistRepository,
         IWebHostEnvironment env) : PageModel
     {
         [BindProperty(SupportsGet = true)]
@@ -27,6 +30,12 @@ namespace StarColonies.Web.Pages
         {
             if (!User.Identity?.IsAuthenticated ?? true)
                 return Forbid();
+            
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            if (user!.Id != Id.ToString())
+            {
+                return RedirectToPage("Index");
+            }
 
             Colonist = await colonistRepository.GetColonistByIdAsync(Id.ToString());
 
@@ -40,9 +49,20 @@ namespace StarColonies.Web.Pages
             if (!ModelState.IsValid)
                 return Page();
 
-            var uploadPath = Path.Combine(env.WebRootPath, "img", "upload");
-            var analyzer = new AnalyzeProfilePicture(ModifyUser.SettlerName, uploadPath);
-
+            string newPicture;
+            if (ModifyUser.ProfilePicture == Colonist.ProfilPicture)
+            {
+                newPicture = Colonist.ProfilPicture;
+            }
+            else
+            {
+                var uploadPath = Path.Combine(env.WebRootPath, "img", "upload");
+                var analyzer = new AnalyzeProfilePicture(ModifyUser.SettlerName, uploadPath);
+                IDeletePicture deletePicture = new DeletePicture();
+                deletePicture.DeleteImage(Colonist.ProfilPicture, false);
+                newPicture = analyzer.GetProfilePictureFileName(ModifyUser.ProfilePicture);
+            }
+            
             var colonist = new ColonistModel
             {
                 Id = Colonist.Id,
@@ -54,7 +74,7 @@ namespace StarColonies.Web.Pages
                 Strength = GetStrength(ModifyUser.Statistics),
                 Stamina = GetStamina(ModifyUser.Statistics),
                 Musty = Colonist.Musty,
-                ProfilPicture = analyzer.GetProfilePictureFileName(ModifyUser.ProfilePicture)
+                ProfilPicture = newPicture
             };
 
             await colonistRepository.UpdateColonistAsync(colonist);

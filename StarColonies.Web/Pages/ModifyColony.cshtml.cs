@@ -1,17 +1,18 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarColonies.Domains.Models.Colony;
 using StarColonies.Domains.Repositories;
 using StarColonies.Domains.Services.pictures;
+using StarColonies.Infrastructures.Data.Entities;
+using StarColonies.Infrastructures.Services.picture;
 using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
 
 [Authorize]
-public class ModifyColony(
-    IColonistRepository colonistRepository, 
-    IColonyRepository colonyRepository,
+public class ModifyColony(UserManager<ColonistEntity> userManager, IColonistRepository colonistRepository, IColonyRepository colonyRepository,
     IWebHostEnvironment env)
     : PageModel
 {
@@ -29,9 +30,14 @@ public class ModifyColony(
     
     public async Task<IActionResult> OnGetAsync()
     {
-        Colonists = await colonistRepository.GetColonistsAsync();
+        var user = await userManager.GetUserAsync(HttpContext.User);
         Colony = await colonyRepository.GetColonyByIdAsync(TeamId);
         TeamOwner = await colonistRepository.GetColonistByIdAsync(Colony!.OwnerId);
+        if (user!.Id != TeamOwner.Id)
+            return RedirectToPage("Index");
+        
+        Colonists = await colonistRepository.GetColonistsAsync();
+        
         Colonists = GetAvailableColonists(Colonists, Colony.Colonists);
         return Page();
     }
@@ -74,16 +80,27 @@ public class ModifyColony(
 
             return Page();
         }
-        
-        var uploadPath = Path.Combine(env.WebRootPath, "img", "upload");
-        AnalyzeProfilePicture analyzeProfilePicture = new AnalyzeProfilePicture(ModifColony.Name, uploadPath);
 
+        string newPicture;
+        if (ModifColony.PictureTeam == Colony.LogoPath)
+        {
+            newPicture = Colony.LogoPath;
+        }
+        else
+        {
+            var uploadPath = Path.Combine(env.WebRootPath, "img", "upload");
+            AnalyzeProfilePicture analyzeProfilePicture = new AnalyzeProfilePicture(ModifColony.Name, uploadPath);
+            IDeletePicture deletePicture = new DeletePicture();
+            deletePicture.DeleteImage(Colony.LogoPath, false);
+            newPicture = analyzeProfilePicture.GetProfilePictureFileName(ModifColony.PictureTeam);
+        }
+        
         ColonyModel colonyModel = new ColonyModel()
         {
             Id = TeamId,
             Name = ModifColony.Name,
-            OwnerId = TeamOwner.Id,
-            LogoPath = analyzeProfilePicture.GetProfilePictureFileName(ModifColony.PictureTeam),
+            OwnerId = TeamOwner.Id.ToString(),
+            LogoPath = newPicture,
             Colonists = ModifColony.Colonists
         };
         
