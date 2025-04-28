@@ -7,6 +7,7 @@ class CharacterItem extends HTMLElement {
     connectedCallback() {
         const fileName = this.getAttribute('image') || '';
         const BASE_PATH = window.BASE_PATH || '';
+        console.log(`[DEBUG]- BASE_PATH: ${BASE_PATH}`);
         const imageSrc = `${BASE_PATH}/img/upload/${fileName}`;
         const noInteraction = this.hasAttribute('no-interaction');
 
