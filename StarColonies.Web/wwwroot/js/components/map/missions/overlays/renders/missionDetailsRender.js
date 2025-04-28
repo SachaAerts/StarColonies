@@ -27,9 +27,7 @@ function getRewardsRender(quest, BASE_PATH) {
 
 function getRender(quest, enemies, rewards, BASE_PATH) {
     return `
-        ${getStyle()}
-        <link rel="stylesheet" href="/css/components/button.css">
-                
+        ${getStyle()}                
         ${window.isAdmin ? `
             <div style="display: flex; align-items: center; gap: 15px; position: absolute; top: 15px; left: 15px; z-index: 1000000000;">
                 <a href="ModifyMission/${quest.id}"><img src="img/icons/modify.png" height="20" alt="Modify"></a>
