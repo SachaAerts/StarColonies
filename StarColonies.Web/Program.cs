@@ -9,7 +9,6 @@ using StarColonies.Domains.Repositories;
 using StarColonies.Domains.Services;
 using StarColonies.Domains.Services.pictures;
 using StarColonies.Infrastructures.Data;
-using StarColonies.Infrastructures.Data.Configurations.Seeder;
 using StarColonies.Infrastructures.Data.Entities;
 using StarColonies.Infrastructures.Data.Entities.Items;
 using StarColonies.Infrastructures.Data.Entities.Missions;
@@ -22,6 +21,10 @@ using StarColonies.Infrastructures.Mapper.EntityToDomain;
 using StarColonies.Infrastructures.Repositories;
 using StarColonies.Infrastructures.Services;
 using StarColonies.Infrastructures.Services.picture;
+using StarColonies.Infrastructures.Services.Repositories.AddingDataToDB;
+using StarColonies.Infrastructures.Services.Repositories.DeletingDataToDB;
+using StarColonies.Infrastructures.Services.Repositories.GettingDataToDB;
+using StarColonies.Infrastructures.Services.Repositories.UpdateDataToDB;
 using StarColonies.Infrastructures.Services.RewardStrategy;
 using StarColonies.Web.Factories;
 using StarColonies.Web.Middlewares;
@@ -60,6 +63,7 @@ builder.Services.AddScoped<IDomainToEntityMapper<EffectEntity, EffectModel>,    
 builder.Services.AddScoped<IPlanetRepository,    PlanetRepository>();
 builder.Services.AddScoped<IColonyRepository,    ColonyRepository>();
 builder.Services.AddScoped<IColonistRepository,  ColonistRepository>();
+builder.Services.AddScoped<IColonistFinanceRepository, ColonistFinanceRepository>();
 builder.Services.AddScoped<IRewardRepository,    RewardRepository>();
 builder.Services.AddScoped<IInventaryRepository, InventaryRepository>();
 builder.Services.AddScoped<IMissionRepository,   MissionRepository>();
@@ -78,13 +82,19 @@ builder.Services.AddScoped<ColonyMemberFactory>();
 builder.Services.AddScoped<IRewardService, RewardService>();
 builder.Services.AddScoped<IMissionExecutionService, MissionExecutionService>();
 builder.Services.AddScoped<MissionResolverService>();
+builder.Services.AddScoped<IDeletePicture, DeletePicture>();
+
+//Inject Repositories Services
+builder.Services.AddScoped<IAdding<ColonistModel>,   ColonistAdding>();
+builder.Services.AddScoped<IUpdate<ColonistModel>,   ColonistUpdate>();
+builder.Services.AddScoped<IDeleting<ColonistModel>, ColonistDeleting>();
+builder.Services.AddScoped<IGetting<ColonistModel>,  ColonistGetting>();
 
 //Inject Command-Strategy Services
 builder.Services.AddScoped<IMissionRewardStrategy, FullSuccessRewardStrategy>();
 builder.Services.AddScoped<IMissionRewardStrategy, MoneyRewardStrategy>();
 builder.Services.AddScoped<IMissionRewardStrategy, ResourceRewardStrategy>();
 builder.Services.AddScoped<IMissionRewardStrategy, NoRewardStrategy>();
-builder.Services.AddScoped<IDeletePicture, DeletePicture>();
 
 //Inject Rate Limiting Middleware(anti-DoS)
 builder.Services.AddFixedWindowRateLimiting();

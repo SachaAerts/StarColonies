@@ -10,7 +10,11 @@ using StarColonies.Infrastructures.Data.Entities;
 namespace StarColonies.Web.Pages;
 
 [Authorize]
-public class BlackmarketBuying(UserManager<ColonistEntity> userManager, IColonistRepository colonistRepository, IItemRepository itemRepository, IInventaryRepository inventoryRepository)
+public class BlackmarketBuying(
+    UserManager<ColonistEntity> userManager, 
+    IColonistRepository colonistRepository, 
+    IColonistFinanceRepository colonistFinanceRepository,
+    IItemRepository itemRepository, IInventaryRepository inventoryRepository)
     : PageModel
 {
     public required ColonistModel Colonist { get; set; }
@@ -47,7 +51,7 @@ public class BlackmarketBuying(UserManager<ColonistEntity> userManager, IColonis
             return NotFound();
 
         await inventoryRepository.AddItemToUserFromShop(user.Id, item);
-        await colonistRepository.DebitColonistAsync(user.Id, itemValue);
+        await colonistFinanceRepository.DebitColonistAsync(user.Id, itemValue);
 
         return RedirectToPage();
     }

@@ -5,10 +5,10 @@ namespace StarColonies.Infrastructures.Data.Seeder.Factories;
 
 public class ColonistFactory
 {
-    public static ColonistEntity Create(string userName, string email, string username, DateTime dateOfBirth, int level, int strength, int stamina, int musty, string profilePicture, JobModel jobModel, bool emailConfirmed)
+    public static ColonistEntity Create(string username, string email, DateTime dateOfBirth, int level, int strength, int stamina, int musty, string profilePicture, JobModel jobModel, bool emailConfirmed)
         => new()
         {
-            UserName = userName,
+            UserName = username,
             Email = email,
             NormalizedEmail = email.ToUpperInvariant(),
             NormalizedUserName = username.ToUpperInvariant(),

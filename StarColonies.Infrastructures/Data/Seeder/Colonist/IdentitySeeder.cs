@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using StarColonies.Infrastructures.Data.Entities;
+using StarColonies.Infrastructures.Data.Seeder.Colonist.Administration;
+using StarColonies.Infrastructures.Data.Seeder.Colonist.Players;
 
 namespace StarColonies.Infrastructures.Data.Seeder.Colonist;
 

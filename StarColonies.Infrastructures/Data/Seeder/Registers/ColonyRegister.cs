@@ -2,9 +2,9 @@
 using StarColonies.Infrastructures.Data.Seeder.Enum;
 using StarColonies.Infrastructures.Data.Seeder.Factories;
 
-namespace StarColonies.Infrastructures.Data.Seeder.Regiters;
+namespace StarColonies.Infrastructures.Data.Seeder.Registers;
 
-public class ColonyRegister
+public static class ColonyRegister
 {
     public static List<ColonyEntity> Register(List<ColonistEntity> colonists)
         =>

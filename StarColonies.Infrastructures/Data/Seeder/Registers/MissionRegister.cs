@@ -2,7 +2,7 @@
 using StarColonies.Infrastructures.Data.Entities.Missions;
 using StarColonies.Infrastructures.Data.Seeder.Factories;
 
-namespace StarColonies.Infrastructures.Data.Seeder.Regiters;
+namespace StarColonies.Infrastructures.Data.Seeder.Registers;
 
 public class MissionRegister
 {

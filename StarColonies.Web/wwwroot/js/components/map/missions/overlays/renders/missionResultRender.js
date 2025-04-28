@@ -9,7 +9,7 @@ export function renderMissionResult(data) {
     const overcomingMission = result.overcomingMission;
     const isSuccess = livingColony && overcomingMission;
     
-    notifyMissionResult(result, mission);
+    let message = notifyMissionResult(result, mission);
     
     const render = `
         <style>
@@ -20,9 +20,7 @@ export function renderMissionResult(data) {
         <h4>Résultat de la mission</h4>
         <p>${isSuccess ? "Mission réussie !" : "Échec de la mission"}</p>
 
-        <p style="color: ${isSuccess ? 'lightgreen' : 'crimson'};">
-            ${result.resultMessage}
-        </p>
+        <p style="color: ${isSuccess ? 'lightgreen' : 'crimson'};">${message}</p>
 
         ${isSuccess ? `
             <h5>Récompenses :</h5>

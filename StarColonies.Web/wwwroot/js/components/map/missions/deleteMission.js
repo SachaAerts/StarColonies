@@ -7,7 +7,6 @@ export function setupToggleVisibilityListener(id) {
     document.querySelectorAll('.toggle-visibility input').forEach(input => {
         input.addEventListener('change', async (e) => {
             const missionId = e.target.closest('.toggle-visibility').dataset.id;
-            const isVisible = e.target.checked;
 
             await onPost(missionId);
 

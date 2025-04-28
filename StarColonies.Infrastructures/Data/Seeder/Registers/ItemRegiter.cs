@@ -1,7 +1,7 @@
 ﻿using StarColonies.Infrastructures.Data.Entities.Items;
 using StarColonies.Infrastructures.Data.Seeder.Factories;
 
-namespace StarColonies.Infrastructures.Data.Seeder.Regiters;
+namespace StarColonies.Infrastructures.Data.Seeder.Registers;
 
 public class ItemRegiter
 {

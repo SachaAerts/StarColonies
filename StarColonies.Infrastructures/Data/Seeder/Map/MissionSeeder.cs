@@ -1,6 +1,6 @@
 ﻿using StarColonies.Infrastructures.Data.Entities.Items;
 using StarColonies.Infrastructures.Data.Entities.Missions;
-using StarColonies.Infrastructures.Data.Seeder.Regiters;
+using StarColonies.Infrastructures.Data.Seeder.Registers;
 
 namespace StarColonies.Infrastructures.Data.Seeder.Map;
 

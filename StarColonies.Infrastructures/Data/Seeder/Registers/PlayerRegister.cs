@@ -1,8 +1,8 @@
 ﻿using StarColonies.Domains.Models;
 
-namespace StarColonies.Infrastructures.Data.Seeder.Colonist;
+namespace StarColonies.Infrastructures.Data.Seeder.Registers;
 
-public class Players
+public class PlayerRegister
 {
    public static IEnumerable<Player> GetAll()
         => new List<Player>
