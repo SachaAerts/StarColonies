@@ -40,7 +40,7 @@ public class AnalyzeItemPicture(string itemName, string uploadDir)
 
     private void EnsureDirectoryExists(string directory)
     {
-        if (!Directory.Exists(directory)) 
+        if (!Directory.Exists(directory))
             Directory.CreateDirectory(directory);
     }
     

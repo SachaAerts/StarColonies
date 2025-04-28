@@ -24,7 +24,6 @@ public class Statistics(IItemRepository itemRepository, IColonyRepository colony
         IList<PlanetModel> planetsList = await planetRepository.GetPlanetsWithMissionsAsync();
         IList<MissionExecutedModel> missionExecutedList = await missionRepository.GetAllMissionExecutionsAsync();
         
-        
         FillStatsForFirstGraph(top10Colony);
         FillStatsForSecondGraph(items);
         FillStatsForThirdGraph(planetsList, missionExecutedList);
@@ -39,11 +38,9 @@ public class Statistics(IItemRepository itemRepository, IColonyRepository colony
         
         foreach (ItemModel item in items)
         {
-            if (item.Name != "Uncommon Artifact" && item.Name != "Golden Apple" && item.Name != "AK-47")
-            {
-                itemsLabel.Add(item.Name);
-                numberOfBuysPerItems.Add(item.NumberOfBuy);    
-            }
+            if (item.IsLegendary) continue;
+            itemsLabel.Add(item.Name);
+            numberOfBuysPerItems.Add(item.NumberOfBuy);
         }
         
         Statistic.ItemsLabel = itemsLabel;
