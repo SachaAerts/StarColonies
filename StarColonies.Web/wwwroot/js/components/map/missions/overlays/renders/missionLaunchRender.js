@@ -1,9 +1,10 @@
 ﻿export function renderLaunchLoading(planetImg) {
+    const BASE_PATH = window.BASE_PATH || "";
     return `
         <div class="scene">
-            <img class="planetLoader" src="/img/planets/${planetImg}" height="90" alt="Planet">
+            <img class="planetLoader" src="${BASE_PATH}/img/planets/${planetImg}" height="90" alt="Planet">
             <div class="spaceship-orbit">
-                <img class="spaceship" src="/img/icons/spaceship.png" height="50" alt="Vaisseau">
+                <img class="spaceship" src="${BASE_PATH}/img/icons/spaceship.png" height="50" alt="Vaisseau">
             </div>
         </div>
         ${getStyle()}

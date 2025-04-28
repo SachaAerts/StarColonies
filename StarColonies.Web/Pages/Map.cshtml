@@ -106,6 +106,7 @@ This ensures that the request actually comes from the authenticated user and not
 </section>
 
 <!-- Import js file -->
+<script>window.BASE_PATH = '@ViewContext.HttpContext.Request.PathBase';</script>
 <script src="https://cdn.jsdelivr.net/npm/notyf/notyf.min.js"></script>
 <script src="~/js/components/nav_bar.js"></script>
 <script src="~/js/components/map/utils/map.js"></script>

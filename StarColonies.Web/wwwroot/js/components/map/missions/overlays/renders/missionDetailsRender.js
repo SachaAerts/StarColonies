@@ -1,30 +1,31 @@
 ﻿
 export function renderMissionDetails(quest) {
-    const enemies = getEnemiesRender(quest);
-    const rewards = getRewardsRender(quest);
+    const BASE_PATH = window.BASE_PATH || "";
+    const enemies = getEnemiesRender(quest, BASE_PATH);
+    const rewards = getRewardsRender(quest, BASE_PATH);
 
-    return getRender(quest, enemies, rewards);
+    return getRender(quest, enemies, rewards, BASE_PATH);
 }
 
-function getEnemiesRender(quest) {
+function getEnemiesRender(quest, BASE_PATH) {
     return quest.enemies.map(e => `
         <li style="display: flex; flex-direction: column; align-items: center; justify-content:center; gap: 10px; margin-bottom: 6px;">
-            <img src="/img/enemies/${e.image}" alt="${e.name}" height="24"/>
+            <img src="${BASE_PATH}/img/enemies/${e.image}" alt="${e.name}" height="24"/>
             <span style="max-width: 100px; word-wrap: break-word; text-align: center;">${e.name}</span>
         </li>
     `).join('');
 }
 
-function getRewardsRender(quest) {
+function getRewardsRender(quest, BASE_PATH) {
     return quest.rewards.map(r => `
         <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-            <img src="/img/items/${r.image}" alt="${r.name}" height="40"/>
+            <img src="${BASE_PATH}/img/items/${r.image}" alt="${r.name}" height="40"/>
             ${r.quantity + "x " + r.name}
         </li>
     `).join('');
 }
 
-function getRender(quest, enemies, rewards) {
+function getRender(quest, enemies, rewards, BASE_PATH) {
     return `
         ${getStyle()}
         <link rel="stylesheet" href="/css/components/button.css">
@@ -35,8 +36,8 @@ function getRender(quest, enemies, rewards) {
         
                 <label class="container toggle-visibility" data-id="${quest.id}" style="transform: scale(0.7); margin-left: 5px;">
                   <input type="checkbox" ${quest.visible ? 'checked' : ''}>
-                  <img src="/img/icons/visible.png" class="visible-img" alt="Visible">
-                  <img src="/img/icons/notvisible.png" class="notvisible-img" alt="Not visible">
+                  <img src="${BASE_PATH}/img/icons/visible.png" class="visible-img" alt="Visible">
+                  <img src="${BASE_PATH}/img/icons/notvisible.png" class="notvisible-img" alt="Not visible">
                 </label>
             </div>
         ` : ""}
@@ -47,7 +48,7 @@ function getRender(quest, enemies, rewards) {
         <p  style="padding: 0 10px;"><strong>Difficulté:</strong> ${quest.difficulty}</p>
         <p  style="padding: 0 10px;display: flex;align-items: center;">
             <strong>Récompense:</strong> ${quest.reward}
-            <img height="20" src="/img/icons/mustysCoin.png" alt="Coins">
+            <img height="20" src="${BASE_PATH}/img/icons/mustysCoin.png" alt="Coins">
         </p>
         
         <div class="mobs">

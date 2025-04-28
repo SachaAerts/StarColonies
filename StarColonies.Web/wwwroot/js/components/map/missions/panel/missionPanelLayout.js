@@ -22,9 +22,10 @@ function createMission(panel, planetId) {
     const link = document.createElement('a');
     link.classList.add('linkCreateMission');
     link.href = `CreateMission/${planetId}`;
-
+    
+    const BASE_PATH = window.BASE_PATH || "";
     const img = document.createElement('img');
-    img.src = '/img/icons/modify.png';
+    img.src = BASE_PATH + '/img/icons/modify.png';
     img.height = 20;
     img.style.cursor = 'pointer';
     img.style.position = 'absolute';

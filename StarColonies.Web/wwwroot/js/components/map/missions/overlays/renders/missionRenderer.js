@@ -1,6 +1,7 @@
 ﻿import { truncateText } from '../../../utils/utils.js';
 
 export function renderMissionFrame(quest, index) {
+    const BASE_PATH = window.BASE_PATH || "";
     return `
         <div class="quest-frame" data-index="${index}">
             <h3>${quest.title}</h3> 
@@ -9,7 +10,7 @@ export function renderMissionFrame(quest, index) {
             </p>
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <p>Difficulty : ${quest.difficulty}</p>
-                <small>Rewards : ${quest.reward} <img height="20" src="/img/icons/mustysCoin.png" alt="Coins"></small>
+                <small>Rewards : ${quest.reward} <img height="20" src="${BASE_PATH}/img/icons/mustysCoin.png" alt="Coins"></small>
             </div>
         </div>
         <style>
