@@ -10,15 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         animateImageSwap(headImg, nextSrc, nextState);
 
-        if (navList.classList.contains("show")) {
+        if (navList.classList.contains("hidde")) {
+            navList.classList.remove("hidde");
+            navList.classList.add("show");
+        } else {
             navList.classList.remove("show");
             navList.classList.add("hidde");
-
-            setTimeout(() => {
-                navList.classList.remove("hidde");
-            }, 500);
-        } else {
-            navList.classList.add("show");
         }
     });
 });
@@ -29,4 +26,3 @@ function animateImageSwap(imgElement, newSrc, newState) {
         imgElement.dataset.state = newState;
     }, 10);
 }
-  

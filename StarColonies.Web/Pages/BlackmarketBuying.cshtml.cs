@@ -27,13 +27,12 @@ public class BlackmarketBuying(
     {
         var user = await userManager.GetUserAsync(User);
         if (user == null) return RedirectToPage("/Connection");
-        if (!User.Identity?.IsAuthenticated ?? true)
-            return Forbid();
+        if (!User.Identity?.IsAuthenticated ?? true) return Forbid();
         
         Colonist = await colonistRepository.GetColonistByIdAsync(user.Id);
         StoreItems = await itemRepository.GetAllItemsAsync();
         
-        var excludedNames = new[] { "AK-47", "Golden Apple", "Uncommon Artifact" };
+        var excludedNames = new[] { "AK-47", "Golden Apple", "Uncommon Artifact", "Golden Kebab" };
         StoreItems = StoreItems.Where(item => !excludedNames.Contains(item.Name)).ToList();
         
         InventoryItems = await inventoryRepository.GetItemsForColonistAsync(user.Id);

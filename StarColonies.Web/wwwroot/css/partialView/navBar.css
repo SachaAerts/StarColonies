@@ -19,13 +19,14 @@ nav {
 
     justify-content: center;
     flex-direction: column-reverse;
-    visibility: hidden;
+
+    visibility: visible;
+    padding-top: 10px;
+    padding-bottom: 5px;
 }
 
 .list-nav.show {
     visibility: visible;
-    padding-top: 10px;
-    padding-bottom: 5px;
 }
 
 .list-nav.hidde {

@@ -4,25 +4,24 @@ public class AnalyzeProfilePicture(string settlerName, string uploadDir)
 {
     public string GetProfilePictureFileName(string picture)
     {
-        if (string.IsNullOrWhiteSpace(picture))
-            return "1.png";
-
-        if (picture.StartsWith("/") || picture.StartsWith("http"))
+        if (string.IsNullOrWhiteSpace(picture)) return "1.png";
+        Console.WriteLine("[DEBUG]- Picture = " + picture);
+        if (picture.StartsWith("/") || picture.StartsWith("http") || picture.StartsWith("https"))
         {
+            Console.WriteLine("[DEBUG]- Picture is URL or Path");
             var fileName = Path.GetFileName(picture);
             return string.IsNullOrWhiteSpace(fileName) ? "1.png" : fileName;
         }
 
-        if (!picture.StartsWith("data:image")) return "1.png";
+        if (picture.StartsWith("data:image"))
         {
-            var base64Data = picture.Substring(picture.IndexOf(',') + 1);
+            var base64Data = picture[(picture.IndexOf(',') + 1)..];
             var bytes = Convert.FromBase64String(base64Data);
 
             var extension = GetImageExtension(picture);
             var fileName = GenerateUniqueFileName(settlerName, extension);
-
-            if (!Directory.Exists(uploadDir))
-                Directory.CreateDirectory(uploadDir);
+            
+            if (!Directory.Exists(uploadDir)) Directory.CreateDirectory(uploadDir);
 
             var fullPath = Path.Combine(uploadDir, fileName);
             
@@ -36,15 +35,13 @@ public class AnalyzeProfilePicture(string settlerName, string uploadDir)
             return fileName;
         }
 
+        return picture;
     }
     
     private string GenerateUniqueFileName(string baseName, string extension, bool forceGuid = false)
     {
         var sanitized = SanitizeFileName(baseName);
-        if (forceGuid)
-        {
-            return $"{sanitized}_{Guid.NewGuid()}{extension}";
-        }
+        if (forceGuid) return $"{sanitized}_{Guid.NewGuid()}{extension}";
 
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         return $"{sanitized}_{timestamp}{extension}";

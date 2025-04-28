@@ -20,6 +20,8 @@ namespace StarColonies.Web.Pages
     {
         [BindProperty(SupportsGet = true)]
         public Guid Id { get; set; }
+        
+        private readonly IWebHostEnvironment _env = env;
 
         public required ColonistModel Colonist { get; set; }
 
@@ -28,6 +30,7 @@ namespace StarColonies.Web.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
+            
             if (!User.Identity?.IsAuthenticated ?? true)
                 return Forbid();
             
@@ -46,8 +49,7 @@ namespace StarColonies.Web.Pages
         {
             Colonist = await colonistRepository.GetColonistByIdAsync(Id.ToString());
 
-            if (!ModelState.IsValid)
-                return Page();
+            if (!ModelState.IsValid) return Page();
 
             string newPicture;
             if (ModifyUser.ProfilePicture == Colonist.ProfilPicture)
@@ -56,7 +58,7 @@ namespace StarColonies.Web.Pages
             }
             else
             {
-                var uploadPath = Path.Combine(env.WebRootPath, "img", "upload");
+                var uploadPath = Path.Combine(_env.WebRootPath, "img", "upload");
                 var analyzer = new AnalyzeProfilePicture(ModifyUser.SettlerName, uploadPath);
                 IDeletePicture deletePicture = new DeletePicture();
                 deletePicture.DeleteImage(Colonist.ProfilPicture, false);

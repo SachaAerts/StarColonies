@@ -36,7 +36,7 @@
 
             <!-- Interieur du blackmarket (achat) -->
             <div class="blackmarketItemList">
-                @foreach (var item in Model.StoreItems)
+                @foreach (var item in Model.StoreItems.Where(i => !i.IsLegendary))
                 {
                     <div class="blackmarketItem">
                         <img class="blackmarketItemImg" src="~/img/items/@item.ImagePath" alt="ItemImage">
