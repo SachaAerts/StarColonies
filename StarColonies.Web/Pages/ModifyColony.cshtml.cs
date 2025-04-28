@@ -6,6 +6,7 @@ using StarColonies.Domains.Models.Colony;
 using StarColonies.Domains.Repositories;
 using StarColonies.Domains.Services.pictures;
 using StarColonies.Infrastructures.Data.Entities;
+using StarColonies.Infrastructures.Services.picture;
 using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages;
@@ -80,15 +81,26 @@ public class ModifyColony(UserManager<ColonistEntity> userManager, IColonistRepo
 
             return Page();
         }
-        
-        AnalyzeProfilePicture analyzeProfilePicture = new AnalyzeProfilePicture(ModifColony.Name);
 
+        string newPicture;
+        if (ModifColony.PictureTeam == Colony.LogoPath)
+        {
+            newPicture = Colony.LogoPath;
+        }
+        else
+        {
+            AnalyzeProfilePicture analyzeProfilePicture = new AnalyzeProfilePicture(ModifColony.Name);
+            IDeletePicture deletePicture = new DeletePicture();
+            deletePicture.DeleteImage(Colony.LogoPath, false);
+            newPicture = analyzeProfilePicture.GetProfilePictureFileName(ModifColony.PictureTeam);
+        }
+        
         ColonyModel colonyModel = new ColonyModel()
         {
             Id = TeamId,
             Name = ModifColony.Name,
             OwnerId = TeamOwner.Id.ToString(),
-            LogoPath = analyzeProfilePicture.GetProfilePictureFileName(ModifColony.PictureTeam),
+            LogoPath = newPicture,
             Colonists = ModifColony.Colonists
         };
         

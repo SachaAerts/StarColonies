@@ -8,6 +8,7 @@ using StarColonies.Domains.Models.Colony;
 using StarColonies.Domains.Repositories;
 using StarColonies.Domains.Services.pictures;
 using StarColonies.Infrastructures.Data.Entities;
+using StarColonies.Infrastructures.Services.picture;
 using StarColonies.Web.wwwroot.models;
 
 namespace StarColonies.Web.Pages
@@ -46,8 +47,19 @@ namespace StarColonies.Web.Pages
             if (!ModelState.IsValid)
                 return Page();
 
-            var analyzer = new AnalyzeProfilePicture(ModifyUser.SettlerName);
-
+            string newPicture;
+            if (ModifyUser.ProfilePicture == Colonist.ProfilPicture)
+            {
+                newPicture = Colonist.ProfilPicture;
+            }
+            else
+            {
+                var analyzer = new AnalyzeProfilePicture(ModifyUser.SettlerName);
+                IDeletePicture deletePicture = new DeletePicture();
+                deletePicture.DeleteImage(Colonist.ProfilPicture, false);
+                newPicture = analyzer.GetProfilePictureFileName(ModifyUser.ProfilePicture);
+            }
+            
             var colonist = new ColonistModel
             {
                 Id = Colonist.Id,
@@ -59,7 +71,7 @@ namespace StarColonies.Web.Pages
                 Strength = GetStrength(ModifyUser.Statistics),
                 Stamina = GetStamina(ModifyUser.Statistics),
                 Musty = Colonist.Musty,
-                ProfilPicture = analyzer.GetProfilePictureFileName(ModifyUser.ProfilePicture)
+                ProfilPicture = newPicture
             };
 
             await colonistRepository.UpdateColonistAsync(colonist);
