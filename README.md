@@ -40,11 +40,6 @@ Toutes les fonctionnalités de l'énoncé sont implémentées.
 - [x] Boutique Vente/Achat
 - [x] Lancement de missions
 
-## Éléments techniques notables
-
-### Tests automatisés
-Aucun tests n'a été implémenté dans le projet.
-
 ---
 
 ## 📄 Licence
