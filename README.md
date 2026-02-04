@@ -10,12 +10,9 @@ La suite du document sera à compléter par vos soins.
 
 ## Membres de l'équipe
 
-- Boukhanouche Ayoub(*Q230049*)
-- Ciasiolki Alexandre(*Q230119*)
-- Aerts Sacha()
-
-
-- **Version Production** : [Q230049](https://ue19.cg.helmo.be/q230049)
+- Ayoub
+- Alexandre
+- Aerts Sacha
 
 ## Construction de la solution
 
@@ -43,15 +40,12 @@ Toutes les fonctionnalités de l'énoncé sont implémentées.
 - [x] Boutique Vente/Achat
 - [x] Lancement de missions
 
-## Données de connexion
-- Administrateur : 
-  - Login : `admin`
-  - Mot de passe : `Password123_`
-- Utilisateur :
-  - Login : `JettRaven`
-  - Mot de passe : `Player123_`
-
 ## Éléments techniques notables
 
 ### Tests automatisés
 Aucun tests n'a été implémenté dans le projet.
+
+---
+
+## 📄 Licence
+Ce projet est réalisé dans le cadre d’un **travail pratique de développement web** à HELMo. 
